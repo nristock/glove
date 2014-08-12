@@ -1,0 +1,35 @@
+env = Environment()
+
+additionalLibs = ["pthread",
+                  "glut",
+                  "GL",
+                  "GLEW",
+                  "GLU",
+                  "libboost_thread",
+                  "libboost_system",
+                  "libboost_date_time",
+                  "libboost_filesystem",
+                  "libboost_log",
+                  "libboost_log_setup"]
+
+env.Append(LIBS=additionalLibs)
+
+gccFlags = ["-O0",
+            "-g3",
+            "-msse2",
+            "-std=c++11",
+            "-Wall",
+            "-MMD",
+            "-MP",
+            "-pthread",
+            "-DBOOST_LOG_DYN_LINK",
+            "-DGLM_FORCE_RADIANS"]
+#env.Append(CCFLAGS='-O0 -g3 -msse2 -std=c++11 -Wall -MMD -MP -std=c++11 -pthread -DBOOST_LOG_DYN_LINK')
+env.Append(CCFLAGS=gccFlags)
+
+sources = Glob("**/*.cpp")
+sources.extend(Glob("*.cpp"))
+
+deftar = env.Program(target='oglt', source=sources)
+
+Default(deftar)
