@@ -5,7 +5,7 @@
 #include "core/GloveCore.h"
 #include "shader/Shader.h"
 #include "rendering/Mesh.h"
-#include "shader/MeshData.h"
+#include "rendering/MeshData.h"
 #include "rendering/IndexedMesh.h"
 #include "rendering/IndexedMeshData.h"
 #include "buffers/VertexAttributeBuffer.h"
@@ -18,15 +18,11 @@
 
 int main(int argc, char** argv) {
 	using namespace glove;
-	using namespace glove::gl;
-	using namespace glove::gl::shader;
-	using namespace glove::gl::buffers;
-	using namespace glove::gl::rendering;
 
 	logging::InitLoggingSystem();
 	logging::GloveLogger lg;
 
-	auto gcore = new core::GloveCore();
+	auto gcore = new GloveCore();
 	gcore->InitializeRenderingContext(argc, argv, 800, 600);
 
 	GLfloat Vertices[] = { -0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 0.8f, 0.0f, 1.0f,
@@ -59,7 +55,6 @@ int main(int argc, char** argv) {
 
 	IndexedMesh m = IndexedMesh(mdp, shader);
 
-	using namespace oglt::scenegraph;
 	Scenegraph graph;
 
 	auto go = graph.CreateGameObject();

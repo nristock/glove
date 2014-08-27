@@ -4,15 +4,14 @@
  *  Created on: Jul 29, 2014
  *      Author: monofraps
  */
+#include "FileUtils.h"
 
-#include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "FileUtils.h"
+
 
 namespace glove {
-namespace utils {
 std::string ReadFileToString(std::string filePath)
 {
         std::ifstream file(filePath.c_str());
@@ -26,7 +25,6 @@ std::string ReadFileToString(std::string filePath)
         file.close();
 
         return fileData.str();
-}
 }
 }
 

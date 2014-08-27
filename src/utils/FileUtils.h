@@ -8,12 +8,12 @@
 #ifndef FILEUTILS_H_
 #define FILEUTILS_H_
 
+#include <string>
+
 namespace glove {
-namespace utils {
 
 std::string ReadFileToString(std::string filePath);
 
-}
 }
 
 

@@ -8,7 +8,6 @@
 #include "GloveObject.h"
 
 namespace glove {
-namespace core {
 
 GloveObject::GloveObject() {
 	// TODO Auto-generated constructor stub
@@ -19,5 +18,4 @@ GloveObject::~GloveObject() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace core */
 } /* namespace glove */

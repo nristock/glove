@@ -10,8 +10,7 @@
 
 #include <list>
 
-namespace oglt {
-namespace scenegraph {
+namespace glove {
 
 class GameObject;
 
@@ -28,7 +27,6 @@ private:
 	std::list<GameObject*> gameObjects;
 };
 
-} /* namespace scenegraph */
-} /* namespace oglt */
+} /* namespace glove */
 
 #endif /* SCENEGRAPH_H_ */

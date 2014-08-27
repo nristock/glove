@@ -5,17 +5,18 @@
  *      Author: monofraps
  */
 
+#include "IndexedMeshData.h"
+
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include "IndexedMeshData.h"
-#include "../shader/MeshData.h"
+
+#include "MeshData.h"
+#include "buffers/GPUBuffer.h"
 
 namespace glove {
-namespace gl {
-namespace rendering {
 
-IndexedMeshData::IndexedMeshData(int numVertices) : shader::MeshData(numVertices), numIndices(0) {
-	indexBuffer = buffers::GPUBufferPtr(new buffers::GPUBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW));
+IndexedMeshData::IndexedMeshData(int numVertices) : MeshData(numVertices), numIndices(0) {
+	indexBuffer = GPUBufferPtr(new GPUBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW));
 }
 
 IndexedMeshData::~IndexedMeshData() {
@@ -27,6 +28,4 @@ void IndexedMeshData::SetIndices(GLuint* indexData, int numberOfIndices) {
 	numIndices = numberOfIndices;
 }
 
-} /* namespace rendering */
-} /* namespace gl */
 } /* namespace glove */

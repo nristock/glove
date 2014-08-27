@@ -8,22 +8,23 @@
 #ifndef INDEXEDMESHDATA_H_
 #define INDEXEDMESHDATA_H_
 
-#include <memory>
-#include "../shader/MeshData.h"
-#include "../buffers/GPUBuffer.h"
+#include <GL/glew.h>
+#include <GL/gl.h>
+
+#include "core/GloveFwd.h"
+
+#include "MeshData.h"
 
 namespace glove {
-namespace gl {
-namespace rendering {
 
-class IndexedMeshData: public shader::MeshData {
+class IndexedMeshData: public MeshData {
 public:
 	IndexedMeshData(int numVertices);
 	virtual ~IndexedMeshData();
 
 	void SetIndices(GLuint* indexData, int numberOfIndices);
 
-	const buffers::GPUBufferPtr& getIndexBuffer() const {
+	const GPUBufferPtr& getIndexBuffer() const {
 		return indexBuffer;
 	}
 
@@ -32,14 +33,12 @@ public:
 	}
 
 private:
-	buffers::GPUBufferPtr indexBuffer;
+	GPUBufferPtr indexBuffer;
 	int numIndices;
 };
 
 typedef std::shared_ptr<IndexedMeshData> IndexedMeshDataPtr;
 
-} /* namespace rendering */
-} /* namespace gl */
 } /* namespace glove */
 
 #endif /* INDEXEDMESHDATA_H_ */

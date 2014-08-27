@@ -5,19 +5,18 @@
  *      Author: monofraps
  */
 
-#include <GL/glew.h>
+#include "Shader.h"
+
 #include <string>
 #include <iostream>
 #include <cstring>
-#include "../utils/FileUtils.h"
-#include "../utils/ShaderUtils.h"
-#include "Shader.h"
 
-using namespace glove::utils;
+#include <GL/glew.h>
+
+#include "utils/FileUtils.h"
+#include "utils/ShaderUtils.h"
 
 namespace glove {
-namespace gl {
-namespace shader {
 
 Shader::Shader(int numShaders) {
 	shaderProgramId = 0;
@@ -107,8 +106,5 @@ GLuint Shader::GetVertexAttributePosition(ushort attributeIdentifier) {
 	else return vertexAttributeMap.at(attributeIdentifier);
 }
 
-
-} /* namespace shader */
-} /* namespace gl */
 } /* namespace glove */
 

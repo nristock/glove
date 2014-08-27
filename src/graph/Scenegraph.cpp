@@ -8,10 +8,7 @@
 #include "Scenegraph.h"
 #include "GameObject.h"
 
-namespace oglt {
-namespace scenegraph {
-
-typedef std::list<GameObject*>::iterator GameObjectListIter;
+namespace glove {
 
 Scenegraph::Scenegraph() {
 	// TODO Auto-generated constructor stub
@@ -19,7 +16,7 @@ Scenegraph::Scenegraph() {
 }
 
 Scenegraph::~Scenegraph() {
-	for (GameObjectListIter it = this->gameObjects.begin();
+	for (auto it = this->gameObjects.begin();
 			it != this->gameObjects.end(); ++it) {
 		delete (*it);
 	}
@@ -33,11 +30,10 @@ GameObject* Scenegraph::CreateGameObject() {
 }
 
 void Scenegraph::Update() {
-	for (GameObjectListIter it = this->gameObjects.begin();
+	for (auto it = this->gameObjects.begin();
 			it != this->gameObjects.end(); ++it) {
 
 	}
 }
 
-} /* namespace scenegraph */
-} /* namespace oglt */
+} /* namespace glove */

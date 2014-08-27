@@ -9,8 +9,6 @@
 #define IRENDERABLE_H_
 
 namespace glove {
-namespace gl {
-namespace rendering {
 
 class IRenderable {
 public:
@@ -20,8 +18,6 @@ public:
 	virtual void Render() = 0;
 };
 
-} /* namespace rendering */
-} /* namespace gl */
 } /* namespace glove */
 
 #endif /* IRENDERABLE_H_ */

@@ -4,22 +4,21 @@
  *  Created on: Aug 18, 2014
  *      Author: monofraps
  */
+#include "GloveRenderer.h"
+
+#include <sstream>
 
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/freeglut.h>
-#include <sstream>
-
-#include "GloveRenderer.h"
-#include "../core/GloveException.h"
-#include "../log/log.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "core/GloveException.h"
+#include "log/log.h"
+
 namespace glove {
-namespace gl {
-namespace rendering {
 
 GloveRenderer* GloveRenderer::instance = NULL;
 
@@ -34,7 +33,7 @@ GloveRenderer::~GloveRenderer() {
 
 void GloveRenderer::Init(int windowWidth, int windowHeight, int glMajor, int glMinor, int argc, char** argv, float orthoSize) {
 	if(instance) {
-		throw new core::GloveException("GloveRenderer::Init has already been called.");
+		throw new GloveException("GloveRenderer::Init has already been called.");
 	}
 
 	instance = this;
@@ -61,7 +60,7 @@ void GloveRenderer::Init(int windowWidth, int windowHeight, int glMajor, int glM
 	glewExperimental = GL_TRUE;
 	GLenum glewInitRes = glewInit();
 	if (glewInitRes != GLEW_OK) {
-		throw core::GloveException(std::string((char*)glewGetErrorString(glewInitRes)));
+		throw GloveException(std::string((char*)glewGetErrorString(glewInitRes)));
 	}
 
 	glViewport(0, 0, windowWidth, windowHeight);
@@ -121,6 +120,4 @@ void GloveRenderer::SetViewport(int width, int height) {
 	viewMat = glm::lookAt(glm::vec3(0,0,0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 }
 
-} /* namespace rendering */
-}
 } /* namespace glove */

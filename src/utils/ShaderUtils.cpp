@@ -5,13 +5,16 @@
  *      Author: monofraps
  */
 
-#include <GL/glew.h>
-#include <iostream>
-#include "../log/log.h"
 #include "ShaderUtils.h"
 
+#include <iostream>
+
+#include <GL/glew.h>
+
+#include "log/log.h"
+
+
 namespace glove {
-namespace utils {
 
 void PrintShaderCompilerLog(GLuint shaderId) {
 	GLint logLength = 0;
@@ -43,6 +46,5 @@ void PrintShaderProgramLinkLog(GLuint programId) {
 	}
 }
 
-}
 }
 

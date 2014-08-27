@@ -10,11 +10,8 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <memory>
 
 namespace glove {
-namespace gl {
-namespace buffers {
 
 class GPUBuffer {
 public:
@@ -32,10 +29,6 @@ protected:
 	GLuint bufferId;
 };
 
-typedef std::shared_ptr<GPUBuffer> GPUBufferPtr;
-
-} /* namespace buffers */
-} /* namespace gl */
 } /* namespace glove */
 
 #endif /* GPUBUFFER_H_ */

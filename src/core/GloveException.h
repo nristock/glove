@@ -12,7 +12,6 @@
 #include <string>
 
 namespace glove {
-namespace core {
 
 class GloveException: public std::exception {
 public:
@@ -25,7 +24,6 @@ private:
 	std::string message;
 };
 
-} /* namespace core */
 } /* namespace glove */
 
 #endif /* GLOVEEXCEPTION_H_ */

@@ -3,6 +3,8 @@ project(glove)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g3 -msse2 -std=c++11 -Wall -MMD -MP -pthread -DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS")
 
+include_directories(${CMAKE_SOURCE_DIR})
+
 file(GLOB_RECURSE glove_sources 
 	"*.cpp"
 	"*.h"

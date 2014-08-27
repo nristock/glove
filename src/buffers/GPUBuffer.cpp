@@ -6,12 +6,11 @@
  */
 
 #include <GL/glew.h>
+#include <GL/gl.h>
 
 #include "GPUBuffer.h"
 
 namespace glove {
-namespace gl {
-namespace buffers {
 
 GPUBuffer::GPUBuffer(GLenum target, GLenum usage) : target(target), usage(usage) {
 	glGenBuffers(1, &bufferId);
@@ -35,6 +34,4 @@ void GPUBuffer::FillData(GLsizeiptr sizeInBytes, const GLvoid* data) {
 	glBufferData(target, sizeInBytes, data, usage);
 }
 
-} /* namespace buffers */
-} /* namespace gl */
 } /* namespace glove */

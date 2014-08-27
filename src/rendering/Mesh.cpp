@@ -4,17 +4,18 @@
  *  Created on: Aug 11, 2014
  *      Author: monofraps
  */
+#include "Mesh.h"
 
 #include <GL/glew.h>
 
-#include "../core/GloveObject.h"
-#include "Mesh.h"
+#include "core/GloveObject.h"
+#include "shader/Shader.h"
+#include "MeshData.h"
+#include "buffers/VertexAttributeBuffer.h"
 
 namespace glove {
-namespace gl {
-namespace rendering {
 
-Mesh::Mesh(shader::MeshDataPtr meshData, shader::ShaderPtr shader) {
+Mesh::Mesh(MeshDataPtr meshData, ShaderPtr shader) {
 	glGenVertexArrays(1, &vertexArrayId);
 
 	this->meshData = meshData;
@@ -31,7 +32,7 @@ Mesh::~Mesh() {
 
 		for (auto it : gpuBuffer->getVertexLayout()) {
 			auto definition = it.second;
-			auto attribIdentifier = definition->getAttributeIdentifier();
+			auto attribIdentifier = definition->attributeIdentifier;
 
 			auto attribIndex = shader->GetVertexAttributePosition(attribIdentifier);
 
@@ -42,11 +43,11 @@ Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &vertexArrayId);
 }
 
-void Mesh::SetMeshData(shader::MeshDataPtr meshData) {
+void Mesh::SetMeshData(MeshDataPtr meshData) {
 	this->meshData = meshData;
 }
 
-void Mesh::SetShader(shader::ShaderPtr shader) {
+void Mesh::SetShader(ShaderPtr shader) {
 	this->shader = shader;
 }
 
@@ -58,7 +59,7 @@ void Mesh::GenerateAttribAssociations() {
 
 		for (auto it : gpuBuffer->getVertexLayout()) {
 			auto definition = it.second;
-			auto attribIdentifier = definition->getAttributeIdentifier();
+			auto attribIdentifier = definition->attributeIdentifier;
 
 			auto attribIndex = shader->GetVertexAttributePosition(attribIdentifier);
 			if (attribIndex < 0) {
@@ -66,7 +67,7 @@ void Mesh::GenerateAttribAssociations() {
 				continue;
 			}
 
-			glVertexAttribPointer(attribIndex, definition->getSize(), definition->getType(), definition->getNormalized(), gpuBuffer->getStride(), reinterpret_cast<void*>(definition->getRelativeOffset()));
+			glVertexAttribPointer(attribIndex, definition->size, definition->type, definition->normalized, gpuBuffer->getStride(), reinterpret_cast<void*>(definition->relativeOffset));
 			glEnableVertexAttribArray(attribIndex);
 		}
 	}
@@ -79,6 +80,4 @@ void Mesh::Render() {
 	glDrawArrays(GL_TRIANGLES, 0, meshData->getNumVertices());
 }
 
-} /* namespace rendering */
-} /* namespace gl */
 } /* namespace glove */

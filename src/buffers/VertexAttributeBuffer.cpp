@@ -5,13 +5,11 @@
  *      Author: monofraps
  */
 
-#include <GL/glew.h>
-
 #include "VertexAttributeBuffer.h"
 
+#include "VertexLayoutDefinition.h"
+
 namespace glove {
-namespace gl {
-namespace buffers {
 
 VertexAttributeBuffer::VertexAttributeBuffer(
 		GLenum usage,
@@ -32,8 +30,6 @@ void VertexAttributeBuffer::DefineVertexLayout(ushort attributeIdentifier,
 	vertexLayout[attributeIdentifier] = VLDPtr(new VertexLayoutDefinition(attributeIdentifier, size, type, normalized, relativeOffset));
 }
 
-} /* namespace buffers */
-} /* namespace gl */
 } /* namespace glove */
 
 

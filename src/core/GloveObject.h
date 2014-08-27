@@ -13,7 +13,6 @@
 #define OLOG(lvl_) LOG(this->logger, lvl_)
 
 namespace glove {
-namespace core {
 
 class GloveObject {
 public:
@@ -24,7 +23,6 @@ protected:
 	logging::GloveLogger logger;
 };
 
-} /* namespace core */
 } /* namespace glove */
 
 #endif /* GLOVEOBJECT_H_ */

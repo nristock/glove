@@ -8,22 +8,20 @@
 #ifndef MESHDATA_H_
 #define MESHDATA_H_
 
-#include "../buffers/VertexAttributeBuffer.h"
 #include <vector>
-#include <memory>
+
+#include "core/GloveFwd.h"
 
 namespace glove {
-namespace gl {
-namespace shader {
 
 class MeshData {
 public:
 	MeshData(int numVertices);
 	virtual ~MeshData();
 
-	void AddGPUBuffer(buffers::VABPtr gpuBuffer);
+	void AddGPUBuffer(VABPtr gpuBuffer);
 
-	const std::vector<buffers::VABPtr>& getGpuBuffers() const {
+	const std::vector<VABPtr>& getGpuBuffers() const {
 		return gpuBuffers;
 	}
 
@@ -38,13 +36,9 @@ public:
 private:
 	int numVertices;
 
-	std::vector<buffers::VABPtr> gpuBuffers;
+	std::vector<VABPtr> gpuBuffers;
 };
 
-typedef std::shared_ptr<MeshData> MeshDataPtr;
-
-} /* namespace shader */
-} /* namespace gl */
 } /* namespace glove */
 
 #endif /* MESHDATA_H_ */

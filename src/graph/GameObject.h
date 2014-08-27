@@ -8,8 +8,7 @@
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
 
-namespace oglt {
-namespace scenegraph {
+namespace glove {
 
 class GameObject {
 public:
@@ -17,7 +16,6 @@ public:
 	virtual ~GameObject();
 };
 
-} /* namespace scenegraph */
-} /* namespace oglt */
+} /* namespace glove */
 
 #endif /* GAMEOBJECT_H_ */

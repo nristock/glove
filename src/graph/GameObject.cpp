@@ -7,8 +7,7 @@
 
 #include "GameObject.h"
 
-namespace oglt {
-namespace scenegraph {
+namespace glove {
 
 GameObject::GameObject() {
 	// TODO Auto-generated constructor stub
@@ -19,5 +18,4 @@ GameObject::~GameObject() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace scenegraph */
-} /* namespace oglt */
+} /* namespace glove */

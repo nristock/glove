@@ -10,14 +10,11 @@
 
 #include <GL/glew.h>
 #include <map>
-#include <memory>
 
 #define MVA_POSITIONS	0
 #define MVA_COLORS		1
 
 namespace glove {
-namespace gl {
-namespace shader {
 
 class Shader {
 public:
@@ -45,10 +42,6 @@ private:
 	VertexAttribMap vertexAttributeMap;
 };
 
-typedef std::shared_ptr<Shader> ShaderPtr;
-
-} /* namespace shader */
-} /* namespace gl */
 } /* namespace glove */
 
 #endif /* SHADER_H_ */

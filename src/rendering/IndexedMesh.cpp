@@ -7,11 +7,13 @@
 
 #include "IndexedMesh.h"
 
-namespace glove {
-namespace gl {
-namespace rendering {
+#include "IndexedMeshData.h"
+#include "shader/Shader.h"
+#include "buffers/GPUBuffer.h"
 
-IndexedMesh::IndexedMesh(IndexedMeshDataPtr indexedMeshData, shader::ShaderPtr shader) : Mesh(indexedMeshData, shader) {
+namespace glove {
+
+IndexedMesh::IndexedMesh(IndexedMeshDataPtr indexedMeshData, ShaderPtr shader) : Mesh(indexedMeshData, shader) {
 	this->indexedMeshData = indexedMeshData;
 }
 
@@ -26,6 +28,4 @@ void IndexedMesh::Render() {
 	glDrawElements(GL_TRIANGLES, indexedMeshData->getNumIndices(), GL_UNSIGNED_INT, 0);
 }
 
-} /* namespace rendering */
-} /* namespace gl */
 } /* namespace glove */

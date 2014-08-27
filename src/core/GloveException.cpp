@@ -8,7 +8,6 @@
 #include "GloveException.h"
 
 namespace glove {
-namespace core {
 
 GloveException::GloveException(std::string message) : message(message) {
 
@@ -21,5 +20,4 @@ const char* GloveException::what() const throw () {
 	return message.c_str();
 }
 
-} /* namespace core */
 } /* namespace glove */

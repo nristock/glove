@@ -10,23 +10,20 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <memory>
-#include "../core/GloveObject.h"
-#include "../shader/MeshData.h"
-#include "../shader/Shader.h"
+
+#include "core/GloveFwd.h"
+#include "core/GloveObject.h"
 #include "IRenderable.h"
 
 namespace glove {
-namespace gl {
-namespace rendering {
 
-class Mesh : public core::GloveObject, IRenderable {
+class Mesh : public GloveObject, IRenderable {
 public:
-	Mesh(shader::MeshDataPtr meshData, shader::ShaderPtr shader);
+	Mesh(MeshDataPtr meshData, ShaderPtr shader);
 	virtual ~Mesh();
 
-	void SetMeshData(shader::MeshDataPtr meshData);
-	void SetShader(shader::ShaderPtr shader);
+	void SetMeshData(MeshDataPtr meshData);
+	void SetShader(ShaderPtr shader);
 
 	void GenerateAttribAssociations();
 
@@ -35,14 +32,10 @@ public:
 protected:
 	GLuint vertexArrayId;
 
-	shader::MeshDataPtr meshData;
-	shader::ShaderPtr shader;
+	MeshDataPtr meshData;
+	ShaderPtr shader;
 };
 
-typedef std::shared_ptr<Mesh> MeshRendererPtr;
-
-} /* namespace rendering */
-} /* namespace gl */
 } /* namespace glove */
 
 #endif /* MESHRENDERER_H_ */

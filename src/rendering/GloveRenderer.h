@@ -9,14 +9,14 @@
 #define GLOVERENDERER_H_
 
 #include <memory>
+
 #include <glm/glm.hpp>
-#include "../core/GloveObject.h"
+
+#include "core/GloveObject.h"
 
 namespace glove {
-namespace gl {
-namespace rendering {
 
-class GloveRenderer : public core::GloveObject {
+class GloveRenderer : public GloveObject {
 public:
 	GloveRenderer();
 	virtual ~GloveRenderer();
@@ -39,10 +39,6 @@ private:
 	static void GlutWindowResized(int width, int height);
 };
 
-typedef std::shared_ptr<GloveRenderer> GloveRendererPtr;
-
-} /* namespace rendering */
-}
 } /* namespace glove */
 
 #endif /* GLOVERENDERER_H_ */

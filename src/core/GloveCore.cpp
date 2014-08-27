@@ -5,18 +5,17 @@
  *      Author: monofraps
  */
 
-#include "GloveException.h"
 #include "GloveCore.h"
 
-namespace glove {
-namespace core {
+#include "GloveException.h"
+#include "rendering/GloveRenderer.h"
 
-using namespace gl;
+namespace glove {
 
 GloveCore::GloveCore() {
 	OLOG(info) << "GloveCore created";
 
-	renderer = rendering::GloveRendererPtr(new rendering::GloveRenderer());
+	renderer = GloveRendererPtr(new GloveRenderer());
 }
 
 GloveCore::~GloveCore() {
@@ -31,5 +30,4 @@ void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidt
 
 }
 
-} /* namespace core */
 } /* namespace glove */
