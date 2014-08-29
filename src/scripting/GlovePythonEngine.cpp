@@ -15,13 +15,13 @@ GlovePythonEngine::~GlovePythonEngine() {
 void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
 	std::wstring  pythonHome(executableBasePath);
 	pythonHome.append(L"/data/python");
-
+	
 	wchar_t* cstrPythonHome = reinterpret_cast<wchar_t*>(malloc(sizeof(wchar_t) * pythonHome.length()));
 	wcscpy(cstrPythonHome, pythonHome.c_str());
 	
-	Py_SetPythonHome(cstrPythonHome);
+	Py_SetPath(cstrPythonHome);
 
-	OLOG(info, "Using Python in " << std::wstring(Py_GetPythonHome()));
+	OLOG(info, "Using Python in " << std::wstring(Py_GetPath()));
 	Py_Initialize();
 
 	OLOG(info, "Scripting engine initialized.");

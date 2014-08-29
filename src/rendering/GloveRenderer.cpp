@@ -17,7 +17,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "core/GloveException.h"
-#include "log/log.h"
+#include "log/Log.h"
 
 #ifdef WIN32
 #define snprintf _snprintf

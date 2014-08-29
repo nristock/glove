@@ -7,10 +7,11 @@
 
 #include "GloveCore.h"
 
-#ifdef WIN32
+#if defined(_WIN32) || defined(WIN32)
 #include <Windows.h>
-#elif UNIX
-//TODO
+#elif defined(__unix__) || defined(__unix)
+#include <unistd.h>
+#include <cstdlib>
 #endif
 
 #include "GloveException.h"
@@ -21,25 +22,44 @@ namespace glove {
 
 GloveCore::GloveCore() : renderer(new GloveRenderer()), pythonEngine(new GlovePythonEngine()) {
 
-#ifdef WIN32
+#if defined(_WIN32) || defined(WIN32)
 	int bufferSize = 4096;
-	wchar_t* moduleName = reinterpret_cast<wchar_t*>(malloc(sizeof(wchar_t) * bufferSize));
+	wchar_t* moduleName = reinterpret_cast<wchar_t*>(GloveMemAllocN(sizeof(wchar_t) * bufferSize, "GloveCore/ModuleName"));
 	GetModuleFileNameW(NULL, moduleName, bufferSize);
 
 	while (GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
-		free(moduleName);
+		GloveMemFree(moduleName);
 		bufferSize += 64;
-		moduleName = reinterpret_cast<wchar_t*>(malloc(sizeof(wchar_t) * bufferSize));
+		moduleName = reinterpret_cast<wchar_t*>(GloveMemAllocN(sizeof(wchar_t) * bufferSize, "GloveCore/ModuleName"));
 
 		GetModuleFileNameW(NULL, moduleName, bufferSize);
 	}
 
 	executableName = moduleName;
-	free(moduleName);
-	executablePath = executableName.substr(0, executableName.find_last_of(L"\\/"));
-#elif UNIX
-	//TODO
+	GloveMemFree(moduleName);
+#elif defined(__unix__) || defined(__unix)
+	int bufferSize = 1024;
+	char* linkName = reinterpret_cast<char*>(GloveMemAllocN(bufferSize, "GloveCore/SelfLinkName"));
+	ssize_t charsWritten = readlink("/proc/self/exe", linkName, bufferSize);
+
+	while(charsWritten == bufferSize) {
+		GloveMemFree(linkName);
+		bufferSize += 64;
+		linkName = reinterpret_cast<char*>(GloveMemAllocN(bufferSize, "GloveCore/SlefLinkName"));
+		charsWritten = readlink("/proc/self/exe", linkName, bufferSize);
+	}
+
+	OLOG(info, charsWritten);
+	linkName[charsWritten] = '\0';
+
+	wchar_t* linkNameWC = reinterpret_cast<wchar_t*>(GloveMemAllocN(sizeof(wchar_t)*(charsWritten + 1), "GloveCore/SelfLinkNameWC"));
+	mbstowcs(linkNameWC, linkName, charsWritten + 1);
+
+	GloveMemFree(linkName);
+	executableName = linkNameWC;
+	GloveMemFree(linkNameWC);
 #endif
+	executablePath = executableName.substr(0, executableName.find_last_of(L"\\/"));
 
 	OLOG(info, "Running from " << executablePath);
 	OLOG(info, "GloveCore created");

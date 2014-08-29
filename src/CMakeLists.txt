@@ -21,6 +21,9 @@ if(WIN32)
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++11 -pthread")
 	set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -MMD -MP")
+
+	find_package(PythonLibs 3.0 REQUIRED)
+	include_directories(${PYTHON_INCLUDE_DIR})
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR})
@@ -56,6 +59,7 @@ set(glove_libs
 	boost_filesystem
 	boost_log
 	boost_log_setup
+	${PYTHON_LIBRARY}
 	glove
 )	
 endif()
@@ -67,12 +71,12 @@ if(WIN32)
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${deps_path}/shared"
         $<TARGET_FILE_DIR:cellulose>)
+endif()
 
 	add_custom_command(TARGET cellulose POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_SOURCE_DIR}/../data"
         $<TARGET_FILE_DIR:cellulose>/data)
-endif()
 
 
 # Fix source tree representation in Visual Studio

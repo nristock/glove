@@ -11,7 +11,7 @@
 
 #include <GL/glew.h>
 
-#include "log/log.h"
+#include "log/Log.h"
 #include "memory/GloveMemory.h"
 
 

@@ -69,8 +69,8 @@ GloveMemoryBlock* memoryHead = NULL;
 GloveMemoryBlock* memoryTail = NULL;
 
 // Memory statistics
-std::atomic_size_t memoryUsed = 0;
-std::atomic_size_t memoryPeak = 0;
+std::atomic<size_t> memoryUsed(0);
+std::atomic<size_t> memoryPeak(0);
 
 void InsertIntoMemoryList(GloveMemoryBlock* memBlock) {
 	memBlock->next = NULL;

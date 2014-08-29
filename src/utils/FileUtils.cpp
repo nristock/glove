@@ -10,7 +10,7 @@
 #include <sstream>
 #include <iostream>
 
-#include "log/log.h"
+#include "log/Log.h"
 
 namespace glove {
 // TODO: wchar_t support

@@ -16,7 +16,7 @@
 #include "rendering/IndexedMeshData.h"
 #include "buffers/VertexAttributeBuffer.h"
 
-#include "log/log.h"
+#include "log/Log.h"
 #include "memory/GloveMemory.h"
 
 int main(int argc, char** argv) {

@@ -1,9 +1,11 @@
-#include "log.h"
+#include "Log.h"
 
 #include <fstream>
 #include <iomanip>
 
 // TODO: remove unused headers
+#include <boost/version.hpp>
+
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 
@@ -14,7 +16,13 @@
 #include <boost/log/expressions/formatters/named_scope.hpp>
 #include <boost/log/utility/setup/console.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
+
+#if BOOST_VERSION >= 105600
 #include <boost/core/null_deleter.hpp>
+#else
+#include <boost/log/utility/empty_deleter.hpp>
+#endif
+
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/sinks/sync_frontend.hpp>
 #include <boost/log/sinks/text_ostream_backend.hpp>
@@ -39,8 +47,11 @@ void InitLoggingSystem() {
 	sink->locked_backend()->add_stream(
 		boost::make_shared<std::ofstream>("glove.log"));
 
-	boost::shared_ptr<std::ostream> clogStream(&std::clog,
-		boost::null_deleter());
+#if BOOST_VERSION >= 105600
+	boost::shared_ptr<std::ostream> clogStream(&std::clog, boost::null_deleter());
+#else
+	boost::shared_ptr<std::ostream> clogStream(&std::clog, boost::log::empty_deleter());
+#endif
 	sink->locked_backend()->add_stream(clogStream);
 
 	sink->set_formatter(

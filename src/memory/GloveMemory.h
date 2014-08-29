@@ -62,8 +62,8 @@ extern GloveMemoryBlock* memoryHead;
 extern GloveMemoryBlock* memoryTail;
 
 // Memort statistics
-extern std::atomic_size_t memoryUsed;
-extern std::atomic_size_t memoryPeak;
+extern std::atomic<size_t> memoryUsed;
+extern std::atomic<size_t> memoryPeak;
 
 // Appends a new block to the end of the internal memory block list
 void InsertIntoMemoryList(GloveMemoryBlock* memBlock);

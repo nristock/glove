@@ -8,6 +8,7 @@
 #include "Shader.h"
 
 #include <string>
+#include <cstring>
 
 #include <GL/glew.h>
 
