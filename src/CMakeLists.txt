@@ -78,6 +78,10 @@ endif()
         "${CMAKE_SOURCE_DIR}/../data"
         $<TARGET_FILE_DIR:cellulose>/data)
 
+	add_custom_command(TARGET cellulose POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/../python"
+        $<TARGET_FILE_DIR:cellulose>/data/python)
 
 # Fix source tree representation in Visual Studio
 if(MSVC)
