@@ -20,23 +20,6 @@
 *.out
 *.app
 
-.build
-debug
-release
-.sconsign.*
-*.pydevproject
-.metadata
-.gradle
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-
 # External tool builders
 .externalToolBuilders/
 
@@ -58,11 +41,35 @@ local.properties
 *.log
 .project
 
+# Build System Files
 Makefile
-
 CMakeCache.txt
 CMakeFiles
-Makefile
 cmake_install.cmake
 install_manifest.txt
-build/
+build
+.build
+debug
+release
+.sconsign.*
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# IDE Files
+local.properties
+.settings/
+.loadpath
+
+# Python
+__pycache__
+*.pyc
+
+# Dependencies
+deps

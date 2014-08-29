@@ -14,10 +14,12 @@
 
 #include "core/GloveFwd.h"
 #include "GPUBuffer.h"
+#include "core/GloveObject.h"
 
 namespace glove {
 
 class VertexAttributeBuffer: public GPUBuffer {
+	GLOVE_MEM_ALLOC_FUNCS("VertexAttributeBuffer");
 public:
 	VertexAttributeBuffer(GLenum usage, GLintptr offset, GLsizei stride);
 	virtual ~VertexAttributeBuffer();

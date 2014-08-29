@@ -11,9 +11,12 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
+#include "core/GloveObject.h"
+
 namespace glove {
 
-class GPUBuffer {
+class GPUBuffer : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("GPUBuffer")
 public:
 	GPUBuffer(GLenum target, GLenum usage);
 	virtual ~GPUBuffer();

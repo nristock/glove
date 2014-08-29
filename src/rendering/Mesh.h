@@ -18,6 +18,7 @@
 namespace glove {
 
 class Mesh : public GloveObject, IRenderable {
+	GLOVE_MEM_ALLOC_FUNCS("Mesh")
 public:
 	Mesh(MeshDataPtr meshData, ShaderPtr shader);
 	virtual ~Mesh();

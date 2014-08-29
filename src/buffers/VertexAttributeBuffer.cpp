@@ -25,7 +25,7 @@ VertexAttributeBuffer::~VertexAttributeBuffer() {
 
 }
 
-void VertexAttributeBuffer::DefineVertexLayout(ushort attributeIdentifier,
+void VertexAttributeBuffer::DefineVertexLayout(unsigned short attributeIdentifier,
 		GLint size, GLenum type, GLboolean normalized, GLuint relativeOffset) {
 	vertexLayout[attributeIdentifier] = VLDPtr(new VertexLayoutDefinition(attributeIdentifier, size, type, normalized, relativeOffset));
 }

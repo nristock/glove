@@ -14,7 +14,7 @@ namespace glove {
 
 std::string ReadFileToString(std::string filePath);
 
-}
+} // namespace glove
 
 
 

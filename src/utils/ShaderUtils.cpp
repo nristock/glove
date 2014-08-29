@@ -12,6 +12,7 @@
 #include <GL/glew.h>
 
 #include "log/log.h"
+#include "memory/GloveMemory.h"
 
 
 namespace glove {
@@ -23,11 +24,11 @@ void PrintShaderCompilerLog(GLuint shaderId) {
 	glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &logLength);
 
 	if (logLength > 0) {
-		GLchar *infoLog = new GLchar[logLength];
+		GLchar *infoLog = GLOVE_NEW_ARRAY("ShaderCompilerLog/infoLog", GLchar, logLength);
 		glGetShaderInfoLog(shaderId, logLength, &charsWritten, infoLog);
 
-		LOG(logging::globalLogger, error) << "Shader Compile Log: " << std::endl << infoLog;
-		delete[] infoLog;
+		LOG(logging::globalLogger, error, "Shader Compile Log: " << std::endl << infoLog);
+		GLOVE_DELETE(infoLog);
 	}
 }
 
@@ -38,13 +39,13 @@ void PrintShaderProgramLinkLog(GLuint programId) {
 	glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &logLength);
 
 	if (logLength > 0) {
-		GLchar *linkLog = new GLchar[logLength];
+		GLchar *linkLog = GLOVE_NEW("ShaderProgramLinkLog/linkLog", GLchar, logLength);
 		glGetProgramInfoLog(programId, logLength, &logLength, linkLog);
 
-		LOG(logging::globalLogger, error) << "Shader Link Log: " << std::endl << linkLog;
-		delete[] linkLog;
+		LOG(logging::globalLogger, error, "Shader Link Log: " << std::endl << linkLog);
+		GLOVE_DELETE(linkLog);
 	}
 }
 
-}
+} // namespcae glove
 

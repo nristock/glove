@@ -18,6 +18,7 @@
 namespace glove {
 
 class IndexedMeshData: public MeshData {
+	GLOVE_MEM_ALLOC_FUNCS("IndexedMeshData");
 public:
 	IndexedMeshData(int numVertices);
 	virtual ~IndexedMeshData();

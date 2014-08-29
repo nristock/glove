@@ -10,14 +10,17 @@
 #include <sstream>
 #include <iostream>
 
+#include "log/log.h"
 
 namespace glove {
+// TODO: wchar_t support
 std::string ReadFileToString(std::string filePath)
 {
         std::ifstream file(filePath.c_str());
         if(!file.is_open())
         {
-                std::cout << "Unable to open file " << filePath << std::endl;
+                LOG(logging::globalLogger, error, "Unable to open file " << filePath);
+				return "";
         }
 
         std::stringstream fileData;
@@ -25,7 +28,7 @@ std::string ReadFileToString(std::string filePath)
         file.close();
 
         return fileData.str();
-}
+} // namespace glove
 }
 
 

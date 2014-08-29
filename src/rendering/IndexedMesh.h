@@ -15,6 +15,7 @@
 namespace glove {
 
 class IndexedMesh: public Mesh {
+	GLOVE_MEM_ALLOC_FUNCS("IndexedMesh")
 public:
 	IndexedMesh(IndexedMeshDataPtr indexedMeshData, ShaderPtr shader);
 	virtual ~IndexedMesh();

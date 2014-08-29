@@ -16,14 +16,23 @@
 namespace glove {
 
 class GloveCore : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("GloveCore")
 public:
 	GloveCore();
 	virtual ~GloveCore();
 
+	void Init(int argc, char** argv);
 	void InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight);
+	void InitializeScripting();
+
+	void Exit();
 
 private:
 	GloveRendererPtr renderer;
+	GlovePythonEnginePtr pythonEngine;
+
+	std::wstring executableName;
+	std::wstring executablePath;
 };
 
 } /* namespace glove */

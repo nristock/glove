@@ -22,6 +22,7 @@ IndexedMesh::~IndexedMesh() {
 
 void IndexedMesh::Render() {
 	shader->Enable();
+	
 	glBindVertexArray(vertexArrayId);
 	indexedMeshData->getIndexBuffer()->Bind();
 

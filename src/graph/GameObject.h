@@ -8,9 +8,12 @@
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
 
+#include "core/GloveObject.h"
+
 namespace glove {
 
-class GameObject {
+class GameObject : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("GameObject")
 public:
 	GameObject();
 	virtual ~GameObject();

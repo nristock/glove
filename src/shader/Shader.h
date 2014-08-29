@@ -11,12 +11,15 @@
 #include <GL/glew.h>
 #include <map>
 
+#include "core/GloveObject.h"
+
 #define MVA_POSITIONS	0
 #define MVA_COLORS		1
 
 namespace glove {
 
-class Shader {
+class Shader : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("Shader")
 public:
 	Shader(int numShaders);
 	virtual ~Shader();
@@ -24,15 +27,15 @@ public:
 	void AttachShader(int shaderId, GLenum shaderType, std::string fileName);
 	void CreateProgram();
 
-	void MapVertexAttribute(ushort attributeIdentifier, GLuint attribIndex);
+	void MapVertexAttribute(unsigned short attributeIdentifier, GLuint attribIndex);
 
 	void Enable();
 	void Disable();
 
-	GLuint GetVertexAttributePosition(ushort attributeIdentifier);
+	GLuint GetVertexAttributePosition(unsigned short attributeIdentifier);
 
 private:
-	typedef std::map<ushort, GLuint> VertexAttribMap;
+	typedef std::map<unsigned short, GLuint> VertexAttribMap;
 
 	int numShaders;
 

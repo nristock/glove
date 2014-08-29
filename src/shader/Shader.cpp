@@ -8,11 +8,10 @@
 #include "Shader.h"
 
 #include <string>
-#include <iostream>
-#include <cstring>
 
 #include <GL/glew.h>
 
+#include "log/Log.h"
 #include "utils/FileUtils.h"
 #include "utils/ShaderUtils.h"
 
@@ -29,7 +28,7 @@ Shader::Shader(int numShaders) {
 Shader::~Shader() {
 	for (int i = 0; i < numShaders; ++i) {
 		if (shaderIds[i] == 0) {
-			std::cout << "Shader not initialized" << std::endl;
+			LOG(logging::globalLogger, warning, "Shader not initialized");
 			continue;
 		}
 
@@ -48,7 +47,7 @@ void Shader::AttachShader(int shaderId, GLenum shaderType,
 	int codeLen = code.length();
 
 	if (code.empty()) {
-		std::cout << "No shader source" << std::endl;
+		LOG(logging::globalLogger, error, "No shader source");
 	}
 
 	shaderIds[shaderId] = glCreateShader(shaderType);
@@ -60,7 +59,7 @@ void Shader::AttachShader(int shaderId, GLenum shaderType,
 	glGetShaderiv(shaderIds[shaderId], GL_COMPILE_STATUS, &compileStatus);
 
 	if (compileStatus == false) {
-		std::cout << "Failed to compile shader" << std::endl;
+		LOG(logging::globalLogger, error, "Failed to compile shader");
 		PrintShaderCompilerLog(shaderIds[shaderId]);
 
 		glDeleteShader(shaderIds[shaderId]);
@@ -72,7 +71,7 @@ void Shader::CreateProgram() {
 	shaderProgramId = glCreateProgram();
 	for (int i = 0; i < numShaders; ++i) {
 		if (shaderIds[i] == 0) {
-			std::cout << "Shader not initialized" << std::endl;
+			LOG(logging::globalLogger, warning, "Shader not initialized");
 			continue;
 		}
 		glAttachShader(shaderProgramId, shaderIds[i]);
@@ -84,7 +83,7 @@ void Shader::CreateProgram() {
 	glGetProgramiv(shaderProgramId, GL_LINK_STATUS, &linkStatus);
 
 	if (linkStatus == false) {
-		std::cout << "Failed to link shader program" << std::endl;
+		LOG(logging::globalLogger, error, "Failed to link shader program");
 		PrintShaderProgramLinkLog(shaderProgramId);
 	}
 }
@@ -93,7 +92,7 @@ void Shader::Enable() {
 	glUseProgram(shaderProgramId);
 }
 
-void Shader::MapVertexAttribute(ushort attributeIdentifier, GLuint attribIndex) {
+void Shader::MapVertexAttribute(unsigned short attributeIdentifier, GLuint attribIndex) {
 	vertexAttributeMap[attributeIdentifier] = attribIndex;
 }
 
@@ -101,7 +100,7 @@ void Shader::Disable() {
 	glUseProgram(0);
 }
 
-GLuint Shader::GetVertexAttributePosition(ushort attributeIdentifier) {
+GLuint Shader::GetVertexAttributePosition(unsigned short attributeIdentifier) {
 	if(vertexAttributeMap.find(attributeIdentifier) == vertexAttributeMap.end()) return -1;
 	else return vertexAttributeMap.at(attributeIdentifier);
 }

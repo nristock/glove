@@ -41,6 +41,7 @@ Mesh::~Mesh() {
 	}
 
 	glDeleteVertexArrays(1, &vertexArrayId);
+	vertexArrayId = 0;
 }
 
 void Mesh::SetMeshData(MeshDataPtr meshData) {
@@ -53,7 +54,7 @@ void Mesh::SetShader(ShaderPtr shader) {
 
 void Mesh::GenerateAttribAssociations() {
 	glBindVertexArray(vertexArrayId);
-
+	
 	for(auto gpuBuffer : meshData->getGpuBuffers()) {
 		gpuBuffer->Bind();
 
@@ -63,7 +64,7 @@ void Mesh::GenerateAttribAssociations() {
 
 			auto attribIndex = shader->GetVertexAttributePosition(attribIdentifier);
 			if (attribIndex < 0) {
-				OLOG(warning) << "Vertex Attribute in buffer not mapped to shader attribute index.";
+				OLOG(warning, "Vertex Attribute in buffer not mapped to shader attribute index.");
 				continue;
 			}
 

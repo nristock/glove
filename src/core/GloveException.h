@@ -11,9 +11,12 @@
 #include <exception>
 #include <string>
 
+#include "memory/GloveMemory.h"
+
 namespace glove {
 
-class GloveException: public std::exception {
+class GloveException : public std::exception {
+	GLOVE_MEM_ALLOC_FUNCS("GloveException");
 public:
 	GloveException(std::string message);
 	virtual ~GloveException();

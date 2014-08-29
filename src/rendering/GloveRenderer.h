@@ -17,6 +17,7 @@
 namespace glove {
 
 class GloveRenderer : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("GloveRenderer")
 public:
 	GloveRenderer();
 	virtual ~GloveRenderer();

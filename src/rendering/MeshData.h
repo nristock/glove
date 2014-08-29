@@ -11,10 +11,12 @@
 #include <vector>
 
 #include "core/GloveFwd.h"
+#include "core/GloveObject.h"
 
 namespace glove {
 
-class MeshData {
+class MeshData : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("MeshData")
 public:
 	MeshData(int numVertices);
 	virtual ~MeshData();

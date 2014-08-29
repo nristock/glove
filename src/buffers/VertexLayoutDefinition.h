@@ -11,9 +11,12 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
+#include "core/GloveObject.h"
+
 namespace glove {
 
-struct VertexLayoutDefinition {
+struct VertexLayoutDefinition : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("VertexLayoutDefinition");
 public:
 	VertexLayoutDefinition(unsigned short attributeIdentifier, GLint size, GLenum type, GLboolean normalized, GLuint relativeOffset);
 	virtual ~VertexLayoutDefinition();

@@ -7,6 +7,7 @@
 #include "GloveRenderer.h"
 
 #include <sstream>
+#include <stdio.h>
 
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -17,6 +18,10 @@
 
 #include "core/GloveException.h"
 #include "log/log.h"
+
+#ifdef WIN32
+#define snprintf _snprintf
+#endif
 
 namespace glove {
 
@@ -67,14 +72,14 @@ void GloveRenderer::Init(int windowWidth, int windowHeight, int glMajor, int glM
 	viewportWidth = windowWidth;
 	viewportHeight = windowHeight;
 
-	OLOG(info) << "Glove renderer initialized";
-	OLOG(info) << "OpenGL Version: " << glGetString(GL_VERSION);
+	OLOG(info, "Glove renderer initialized");
+	OLOG(info, "OpenGL Version: " << glGetString(GL_VERSION));
 }
 
 void GloveRenderer::GlutErrorSink(const char *fmt, va_list vp) {
 	int bufferSize = 100;
 	char* buffer = new char[bufferSize];
-
+	
 	int totalSize = snprintf(buffer, bufferSize, fmt, vp);
 	if(totalSize > 0 && totalSize > bufferSize) {
 		delete[] buffer;
@@ -83,7 +88,7 @@ void GloveRenderer::GlutErrorSink(const char *fmt, va_list vp) {
 		snprintf(buffer, totalSize, fmt, vp);
 	}
 
-	LOG(logging::globalLogger, error) << "GLUT Error: " << buffer;
+	LOG(logging::globalLogger, error, "GLUT Error: " << buffer);
 	delete[] buffer;
 }
 
@@ -99,13 +104,13 @@ void GloveRenderer::GlutWarningSink(const char *fmt, va_list vp) {
 		snprintf(buffer, totalSize, fmt, vp);
 	}
 
-	LOG(logging::globalLogger, warning) << "GLUT Error: " << buffer;
+	//LOG(logging::globalLogger, warning) << "GLUT Error: " << buffer;
 	delete[] buffer;
 }
 
 void GloveRenderer::GlutWindowResized(int width, int height) {
 	if(instance) instance->SetViewport(width, height);
-	else LOG(logging::globalLogger, error) << "GlutWindowReshape callback called but no renderer instance was set.";
+	else LOG(logging::globalLogger, error, "GlutWindowReshape callback called but no renderer instance was set.");
 }
 
 void GloveRenderer::SetViewport(int width, int height) {

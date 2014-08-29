@@ -32,7 +32,7 @@ class GPUBuffer;
 typedef std::shared_ptr<GPUBuffer> GPUBufferPointer;
 typedef GPUBufferPointer GPUBufferPtr;
 
-class VertexLayoutDefinition;
+struct VertexLayoutDefinition;
 typedef std::shared_ptr<VertexLayoutDefinition> VertexLayoutDefinitionPointer;
 typedef VertexLayoutDefinitionPointer VertexLayoutDefinitionPtr;
 typedef VertexLayoutDefinitionPointer VLDPtr;
@@ -41,6 +41,10 @@ class VertexAttributeBuffer;
 typedef std::shared_ptr<VertexAttributeBuffer> VertexAttributeBufferPointer;
 typedef VertexAttributeBufferPointer VertexAttributeBufferPtr;
 typedef VertexAttributeBufferPointer VABPtr;
+
+class GlovePythonEngine;
+typedef std::shared_ptr<GlovePythonEngine> GlovePythonEnginePointer;
+typedef GlovePythonEnginePointer GlovePythonEnginePtr;
 }
 
 

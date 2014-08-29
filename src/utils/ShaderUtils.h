@@ -14,7 +14,7 @@
 namespace glove {
 void PrintShaderCompilerLog(GLuint shaderId);
 void PrintShaderProgramLinkLog(GLuint programId);
-}
+} // namespace glove
 
 
 

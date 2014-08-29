@@ -8,13 +8,16 @@
 #ifndef GLOVEOBJECT_H_
 #define GLOVEOBJECT_H_
 
-#include "../log/log.h"
+#include "log/log.h"
+#include "memory/GloveMemory.h"
 
-#define OLOG(lvl_) LOG(this->logger, lvl_)
+#define OLOG(lvl_, lgs_) LOG(this->logger, lvl_, lgs_)
 
 namespace glove {
 
 class GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("GloveObject")
+
 public:
 	GloveObject();
 	virtual ~GloveObject();

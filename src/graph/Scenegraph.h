@@ -10,11 +10,14 @@
 
 #include <list>
 
+#include "core/GloveObject.h"
+
 namespace glove {
 
 class GameObject;
 
-class Scenegraph {
+class Scenegraph : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("Scenegraph");
 public:
 	Scenegraph();
 	virtual ~Scenegraph();
