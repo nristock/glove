@@ -10,14 +10,14 @@
 #include <stdio.h>
 
 #include <GL/glew.h>
-#include <GL/gl.h>
-#include <GL/freeglut.h>
+#include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "core/GloveException.h"
 #include "log/Log.h"
+#include "GloveWindow.h"
 
 #ifdef WIN32
 #define snprintf _snprintf
@@ -25,9 +25,7 @@
 
 namespace glove {
 
-GloveRenderer* GloveRenderer::instance = NULL;
-
-GloveRenderer::GloveRenderer() : viewportWidth(0), viewportHeight(0), aspectRatio(0), orthoSize(10) {
+GloveRenderer::GloveRenderer() {
 	// TODO Auto-generated constructor stub
 
 }
@@ -36,31 +34,20 @@ GloveRenderer::~GloveRenderer() {
 	// TODO Auto-generated destructor stub
 }
 
-void GloveRenderer::Init(int windowWidth, int windowHeight, int glMajor, int glMinor, int argc, char** argv, float orthoSize) {
-	if(instance) {
-		throw new GloveException("GloveRenderer::Init has already been called.");
+GloveWindowPointer GloveRenderer::Init(int windowWidth, int windowHeight, int glMajor, int glMinor, int argc, char** argv) {
+	glfwSetErrorCallback(&GloveRenderer::GlfwErrorSink);
+	
+	if (!glfwInit()) {
+		throw GloveException("GLFW Initialization failed.");
 	}
 
-	instance = this;
-	this->orthoSize = orthoSize;
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glMajor);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glMinor);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	glutInitErrorFunc(&GloveRenderer::GlutErrorSink);
-	glutInitWarningFunc(&GloveRenderer::GlutWarningSink);
-
-	glutInit(&argc, argv);
-	glutInitContextVersion(glMajor, glMinor);
-
-	glutInitContextFlags (GLUT_FORWARD_COMPATIBLE);
-	glutInitContextProfile (GLUT_CORE_PROFILE);
-
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-
-	glutInitWindowSize(windowWidth, windowHeight);
-
-	glutInitWindowPosition(0, 0);
-
-	glutReshapeFunc(&GloveRenderer::GlutWindowResized);
-	glutCreateWindow("Glove");
+	GloveWindowPointer window(new GloveWindow());
+	window->Init(windowWidth, windowHeight);
+	window->MakeCurrent();	
 
 	glewExperimental = GL_TRUE;
 	GLenum glewInitRes = glewInit();
@@ -68,61 +55,22 @@ void GloveRenderer::Init(int windowWidth, int windowHeight, int glMajor, int glM
 		throw GloveException(std::string((char*)glewGetErrorString(glewInitRes)));
 	}
 
-	glViewport(0, 0, windowWidth, windowHeight);
-	viewportWidth = windowWidth;
-	viewportHeight = windowHeight;
-
 	OLOG(info, "Glove renderer initialized");
 	OLOG(info, "OpenGL Version: " << glGetString(GL_VERSION));
+
+	return window;
 }
 
-void GloveRenderer::GlutErrorSink(const char *fmt, va_list vp) {
-	int bufferSize = 100;
-	char* buffer = new char[bufferSize];
-	
-	int totalSize = snprintf(buffer, bufferSize, fmt, vp);
-	if(totalSize > 0 && totalSize > bufferSize) {
-		delete[] buffer;
-		buffer = new char[totalSize];
-
-		snprintf(buffer, totalSize, fmt, vp);
-	}
-
-	LOG(logging::globalLogger, error, "GLUT Error: " << buffer);
-	delete[] buffer;
+void GloveRenderer::Exit() {
+	glfwTerminate();
 }
 
-void GloveRenderer::GlutWarningSink(const char *fmt, va_list vp) {
-	int bufferSize = 100;
-	char* buffer = new char[bufferSize];
-
-	int totalSize = snprintf(buffer, bufferSize, fmt, vp);
-	if(totalSize > 0 && totalSize > bufferSize) {
-		delete[] buffer;
-		buffer = new char[totalSize];
-
-		snprintf(buffer, totalSize, fmt, vp);
-	}
-
-	//LOG(logging::globalLogger, warning) << "GLUT Error: " << buffer;
-	delete[] buffer;
+void GloveRenderer::GlfwErrorSink(int error, const char* description) {
+	LOG(logging::globalLogger, error, "GLFW Error (" << error << "): " << description);
 }
 
-void GloveRenderer::GlutWindowResized(int width, int height) {
-	if(instance) instance->SetViewport(width, height);
-	else LOG(logging::globalLogger, error, "GlutWindowReshape callback called but no renderer instance was set.");
-}
-
-void GloveRenderer::SetViewport(int width, int height) {
-	glViewport(0, 0, width, height);
-
-	viewportWidth = width;
-	viewportHeight = height;
-
-	aspectRatio = width / height;
-	projectionMat = glm::ortho(-orthoSize, orthoSize, -orthoSize / aspectRatio, orthoSize / aspectRatio);
-
-	viewMat = glm::lookAt(glm::vec3(0,0,0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+void GloveRenderer::RenderScene(GloveWindowPointer window) {
+	window->SwapBuffers();
 }
 
 } /* namespace glove */

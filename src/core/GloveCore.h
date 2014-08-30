@@ -21,11 +21,20 @@ public:
 	GloveCore();
 	virtual ~GloveCore();
 
+	/*!
+	 * Initializes the Glove engine and all subsystems. Must be called from main thread.
+	 */
 	void Init(int argc, char** argv);
-	void InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight);
-	void InitializeScripting();
-
+		
 	void Exit();
+
+	/*!
+	 * Starts the main application loop. Must be called from main thread.
+	 */
+	void EnterMainLoop();
+
+	void Update();
+	void Render();
 
 private:
 	GloveRendererPtr renderer;
@@ -33,6 +42,13 @@ private:
 
 	std::wstring executableName;
 	std::wstring executablePath;
+
+	GloveWindowPointer mainWindow;
+
+	unsigned long frameCounter;
+	
+	void InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight);
+	void InitializeScripting();
 };
 
 } /* namespace glove */

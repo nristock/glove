@@ -2,7 +2,7 @@
 #include <chrono>
 
 #include <GL/glew.h>
-#include <GL/freeglut.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <boost/log/attributes/named_scope.hpp>
 
@@ -72,12 +72,12 @@ int main(int argc, char** argv) {
 			LOG(logging::globalLogger, info, memory_internal::DumpList());
 		}
 
-		glutMainLoopEvent();
+		glfwPollEvents();
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		m.Render();
 
-		glutSwapBuffers();
+		gcore->Render();
 	}
 
 	gcore->Exit();

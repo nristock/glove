@@ -15,12 +15,13 @@
 #endif
 
 #include "GloveException.h"
+#include "rendering/GloveWindow.h"
 #include "rendering/GloveRenderer.h"
 #include "scripting/GlovePythonEngine.h"
 
 namespace glove {
 
-GloveCore::GloveCore() : renderer(new GloveRenderer()), pythonEngine(new GlovePythonEngine()) {
+GloveCore::GloveCore() : renderer(new GloveRenderer()), pythonEngine(new GlovePythonEngine()), frameCounter(0) {
 
 #if defined(_WIN32) || defined(WIN32)
 	int bufferSize = 4096;
@@ -63,7 +64,6 @@ GloveCore::GloveCore() : renderer(new GloveRenderer()), pythonEngine(new GlovePy
 
 	OLOG(info, "Running from " << executablePath);
 	OLOG(info, "GloveCore created");
-
 }
 
 GloveCore::~GloveCore() {
@@ -76,7 +76,7 @@ void GloveCore::Init(int argc, char** argv) {
 
 void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight) {
 	try {
-		renderer->Init(windowWidth, windowHeight, 3, 3, argc, argv);
+		mainWindow = renderer->Init(windowWidth, windowHeight, 3, 3, argc, argv);
 	}
 	catch (GloveException& e) {
 		OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
@@ -90,6 +90,21 @@ void GloveCore::InitializeScripting() {
 
 void GloveCore::Exit() {
 	pythonEngine->Exit();
+}
+
+void GloveCore::EnterMainLoop() {
+	while (!mainWindow->CloseRequested()) {
+		Update();
+		Render();
+	}
+}
+
+void GloveCore::Update() {
+
+}
+
+void GloveCore::Render() {
+	renderer->RenderScene(mainWindow);
 }
 
 } /* namespace glove */

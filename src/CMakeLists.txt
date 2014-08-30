@@ -10,13 +10,13 @@ if(WIN32)
 
 	include_directories("${deps_path}/include/boost")
 	include_directories("${deps_path}/include/glew")
-	include_directories("${deps_path}/include/freeglut")
+	include_directories("${deps_path}/include/glfw")
 	include_directories("${deps_path}/include/glm")
 	include_directories("${deps_path}/include/python")
 
 	link_directories("${deps_path}/libs/boost")
 	link_directories("${deps_path}/libs/glew")
-	link_directories("${deps_path}/libs/freeglut")
+	link_directories("${deps_path}/libs/glfw")
 	link_directories("${deps_path}/libs/python")
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++11 -pthread")
@@ -40,16 +40,17 @@ add_executable(cellulose ${cellulose_source})
 
 if(WIN32)
 set(glove_libs
-	freeglut
+	glfw3
 	OpenGL32
 	GLEW
+	python34
 	# MSVC supports #pargma based auto linking, so no boost libs required here
 	glove
 )
 else()
 set(glove_libs
 	pthread
-	glut
+	glfw3
 	GL	
 	GLEW
 	GLU
