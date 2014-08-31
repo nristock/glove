@@ -59,6 +59,8 @@ void GloveMemFree(void* ptr) {
 	memBlock->memTag1 = GLOVE_MEM_TAG_FREE;
 	memBlock->memTag3 = GLOVE_MEM_TAG_FREE;
 
+	memory_internal::memoryUsed.fetch_sub(memBlock->blockSize);
+
 	free(memBlock);
 }
 
