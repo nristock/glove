@@ -1,0 +1,21 @@
+// GENERATED CODE - DO NOT MODIFY
+#include "GloveModule.h"
+
+{{#class_names}}
+#include "Py{{.}}.h"
+{{/class_names}}
+
+namespace glove {
+namespace python {
+BOOST_PYTHON_MODULE(GloveModule) {
+	{{#class_names}}
+	Export{{.}}();
+	{{/class_names}}
+}
+
+PyObject* CreateGloveModule() {
+	return PyInit_GloveModule();
+}
+} // namespace python
+} // namespace glove
+

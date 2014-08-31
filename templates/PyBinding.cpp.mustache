@@ -1,0 +1,13 @@
+#include "Py{{class_name}}.h"
+
+#include <boost/python.hpp>
+
+namespace glove {
+namespace python {
+
+void Export{{class_name}}() {
+	boost::python::class_<glove::{{class_name}}{{#has_bases}}, boost::python::bases<{{/has_bases}}{{#base_classes}}{{.}}{{/base_classes}}{{#has_bases}}>{{/has_bases}}>("{{class_name}}");
+}
+
+} // namespace python
+} // namespace glove

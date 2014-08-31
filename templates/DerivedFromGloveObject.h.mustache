@@ -1,0 +1,18 @@
+#ifndef {{protection_define}}
+#define {{protection_define}}
+
+#include "core/GloveObject.h"
+
+namespace glove {
+
+class {{class_name}} : public GloveObjcet {
+	GLOVE_MEM_ALLOC_FUNCS("{{class_name}}")
+public:
+	{{class_name}}();
+	virtual ~{{class_name}}();
+};
+
+
+} // namespace glove
+
+#endif

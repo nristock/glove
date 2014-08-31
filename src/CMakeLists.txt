@@ -1,8 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 project(glove)
 
-add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DPy_TRACE_REFS)
+add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB)
 
+message(STATUS ${CMAKE_BUILD_TYPE})
+
+if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
+	add_definitions(-DPy_TRACE_REFS)
+endif()
 
 if(WIN32)
 	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/windows")
@@ -39,30 +44,47 @@ set(cellulose_source main.cpp)
 add_executable(cellulose ${cellulose_source})
 
 if(WIN32)
-set(glove_libs
-	glfw3
-	OpenGL32
-	GLEW
-	python34
-	# MSVC supports #pargma based auto linking, so no boost libs required here
-	glove
-)
+	set(glove_libs
+		general glfw3
+		general OpenGL32
+		general GLEW
+
+		optimized boost_thread
+		optimized boost_system
+		optimized boost_date_time
+		optimized boost_filesystem
+		optimized boost_log
+		optimized boost_log_setup
+		optimized boost_python3
+		optimized python34
+		
+		debug boost_thread-d
+		debug boost_system-d
+		debug boost_date_time-d
+		debug boost_filesystem-d
+		debug boost_log-d
+		debug boost_log_setup-d
+		debug boost_python3-d
+		debug python34_d
+
+		general glove
+	)	
 else()
-set(glove_libs
-	pthread
-	glfw3
-	GL	
-	GLEW
-	GLU
-	boost_thread
-	boost_system
-	boost_date_time
-	boost_filesystem
-	boost_log
-	boost_log_setup
-	${PYTHON_LIBRARY}
-	glove
-)	
+	set(glove_libs
+		pthread
+		glfw3
+		GL	
+		GLEW
+		GLU
+		boost_thread
+		boost_system
+		boost_date_time
+		boost_filesystem
+		boost_log
+		boost_log_setup
+		${PYTHON_LIBRARY}
+		glove
+	)	
 endif()
 
 target_link_libraries(cellulose ${glove_libs})

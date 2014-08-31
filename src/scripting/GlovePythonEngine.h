@@ -15,6 +15,8 @@ public:
 
 	void Init(const std::wstring& executableBasePath);
 	void Exit();
+
+	void HandleError();
 };
 
 } // namespace glove
