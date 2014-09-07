@@ -51,6 +51,10 @@ GLOVE_MAKE_SHARED(GlovePythonEngine) GlovePythonEnginePtr;
 class GloveWindow;
 GLOVE_MAKE_SHARED(GloveWindow) GloveWindowPointer;
 GLOVE_MAKE_SHARED(GloveWindow) GloveWindowPtr;
+
+class GlovePythonEngine;
+GLOVE_MAKE_SHARED(GlovePythonEngine) GlovePythonEnginePointer;
+GLOVE_MAKE_SHARED(GlovePythonEngine) GlovePythonEnginePtr;
 }
 
 

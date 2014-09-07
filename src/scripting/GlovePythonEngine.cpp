@@ -1,8 +1,17 @@
 #include "GlovePythonEngine.h"
 
+#include <locale>
+#include <codecvt>
+#include <stdio.h>
+
 #include <boost/python.hpp>
+#include <boost/filesystem.hpp>
 
 #include "modules/glove/GloveModule.h"
+#include "modules/pyshed/PyShedModule.h"
+
+namespace bpy = boost::python;
+namespace bfs = boost::filesystem;
 
 namespace glove {
 
@@ -15,8 +24,12 @@ GlovePythonEngine::~GlovePythonEngine() {
 }
 
 void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
+	basePath = executableBasePath;
+
 	std::wstring  pythonHome(executableBasePath);
-	pythonHome.append(L"/data/python");
+	pythonHome.append(L"/data/python;");
+	pythonHome.append(executableBasePath);
+	pythonHome.append(L"/data/game/modules");
 	
 	wchar_t* cstrPythonHome = reinterpret_cast<wchar_t*>(malloc(sizeof(wchar_t) * pythonHome.length()));
 	wcscpy(cstrPythonHome, pythonHome.c_str());
@@ -25,15 +38,34 @@ void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
 	OLOG(info, "Using Python in " << std::wstring(Py_GetPath()));
 	
 	PyImport_AppendInittab("glove", &python::CreateGloveModule);
+	PyImport_AppendInittab("pysehd", &python::CreatePyshedModule);
 	Py_Initialize();
 
 	try {
 		using namespace boost::python;
+		LoadPyEnvironmentModule();
+
+		/*{
+			object main_module = import("__main__");
+
+
+			//PyImport_AddModule("testmodule2");
+			object test_module = import("testmodule.stuff");
+			object ns = main_module.attr("__dict__");
+			ns["k"] = test_module;
+		}
+		
 		object main_module = import("__main__");
-		object ns = main_module.attr("__dict__");
-		object o = exec("5**5", ns);
-		std::string ot = extract<std::string>(str(o));
-		OLOG(info, ot);
+		object ns = main_module.attr("__dict__");*/
+		dict ns = dict();
+		exec("res=5", ns);
+		object o2 = ns["res"];
+
+		//ns["k"] = test_module;
+		//object o2 = exec("k.test()", ns);
+		//object str = str(o);
+		std::string ot = extract<const char*>(str(o2));
+		OLOG(info, ot);		
 	}
 	catch (boost::python::error_already_set const &) {
 		HandleError();
@@ -41,6 +73,27 @@ void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
 	}
 
 	OLOG(info, "Scripting engine initialized.");
+}
+
+void GlovePythonEngine::LoadPyEnvironmentModule() {
+	bpy::object mainNS = GetMainNamespace();
+
+	std::wstring gloveCorePythonEnvironmentDirBase = basePath;
+	gloveCorePythonEnvironmentDirBase.append(L"/data/game/gcpyenv");
+
+	bfs::path gloveCorePythonEnvDir(gloveCorePythonEnvironmentDirBase);
+	for (bfs::directory_entry t : bfs::directory_iterator(gloveCorePythonEnvDir)) {
+		if (bfs::is_regular_file(t)) {
+			OLOG(info, "Loading python environment file: " << t.path().filename().string());
+
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
+			std::string s = converter.to_bytes(t.path().wstring());
+			
+			bpy::exec_file(s.c_str(), mainNS);
+		}
+	}
+
+	OLOG(info, "PyEnv files loaded");
 }
 
 void GlovePythonEngine::HandleError() {
@@ -94,6 +147,14 @@ void GlovePythonEngine::HandleError() {
 
 void GlovePythonEngine::Exit() {
 	Py_Finalize();
+}
+
+bpy::object GlovePythonEngine::GetMainModule() {
+	return bpy::import("__main__");
+}
+
+bpy::object GlovePythonEngine::GetMainNamespace() {
+	return GetMainModule().attr("__dict__");
 }
 
 } //namespace glove

@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include <boost/python/object.hpp>
+
 #include "core/GloveObject.h"
 
 namespace glove{
@@ -15,8 +17,16 @@ public:
 
 	void Init(const std::wstring& executableBasePath);
 	void Exit();
-
+	
 	void HandleError();
+
+	boost::python::object GetMainModule();
+	boost::python::object GetMainNamespace();
+
+private:
+	void LoadPyEnvironmentModule();
+
+	std::wstring basePath;
 };
 
 } // namespace glove
