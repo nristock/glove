@@ -8,7 +8,7 @@
 #include "IndexedMesh.h"
 
 #include "IndexedMeshData.h"
-#include "shader/Shader.h"
+#include "shader/ShaderProgram.h"
 #include "buffers/GPUBuffer.h"
 
 namespace glove {

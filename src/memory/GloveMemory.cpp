@@ -34,6 +34,23 @@ void* GloveMemAllocN(size_t size, const char* name) {
 	return ++memBlock;
 }
 
+void* GloveMemAllocZ(size_t size, const char* name) {
+	GloveMemoryBlock* memBlock = reinterpret_cast<GloveMemoryBlock*>(malloc(sizeof(GloveMemoryBlock) + size));
+	memBlock->blockSize = size;
+	memBlock->name = name;
+
+	memBlock->memTag1 = GLOVE_MEM_TAG_1;
+	memBlock->memTag2 = GLOVE_MEM_TAG_2;
+	memBlock->memTag3 = GLOVE_MEM_TAG_3;
+
+	memory_internal::InsertIntoMemoryList(memBlock);
+
+	void* dataBlock = memBlock + 1;
+	memset(dataBlock, 0, size);
+
+	return ++memBlock;
+}
+
 void GloveMemFree(void* ptr) {
 	if (ptr == NULL || ptr == nullptr) {
 		// TODO: error

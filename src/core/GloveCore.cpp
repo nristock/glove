@@ -14,6 +14,9 @@
 #include <cstdlib>
 #endif
 
+#include <locale>
+#include <codecvt>
+
 #include "GloveException.h"
 #include "rendering/GloveWindow.h"
 #include "rendering/GloveRenderer.h"
@@ -105,6 +108,15 @@ void GloveCore::Update() {
 
 void GloveCore::Render() {
 	renderer->RenderScene(mainWindow);
+}
+
+std::string GloveCore::MakeDataPath(std::string& relPath) {
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
+	std::string s = converter.to_bytes(executablePath);
+	s.append("/");
+	s.append(relPath);
+
+	return s;
 }
 
 } /* namespace glove */

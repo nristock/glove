@@ -21,7 +21,7 @@ void operator delete[](void* ptr) {							\
 }
 
 // NEW/DELETE macros; primarily for array allocation
-// We cannot globally overwrite new/delete operators because it wouldn't replace allocators in DLL on Windows systems. 
+// We cannot globally overwrite new/delete operators because it wouldn't replace allocators in DLLs on Windows systems. 
 #define GLOVE_NEW_A(name, type) new(name) type
 #define GLOVE_NEW(name, type, args) GLOVE_NEW_A(name, type)(args);
 #define GLOVE_NEW_ARRAY(name, type, size) new(name) type[size];
@@ -51,6 +51,8 @@ struct GloveMemoryBlock {
 void* GloveMemAlloc(size_t size);
 // Allocates a named heap block
 void* GloveMemAllocN(size_t size, const char* name);
+// Allocates a named heap block and sets everything to zero
+void* GloveMemAllocZ(size_t size, const char* name);
 
 // Frees a heap block
 void GloveMemFree(void* ptr);

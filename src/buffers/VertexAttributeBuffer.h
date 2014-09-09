@@ -8,13 +8,14 @@
 #ifndef VERTEXATTRIBUTEBUFFER_H_
 #define VERTEXATTRIBUTEBUFFER_H_
 
-#include "VertexLayoutDefinition.h"
+#include "VertexLayoutAttribute.h"
 
 #include <map>
 
 #include "core/GloveFwd.h"
 #include "GPUBuffer.h"
 #include "core/GloveObject.h"
+#include "shader/MappedVertexAttribute.h"
 
 namespace glove {
 
@@ -24,9 +25,9 @@ public:
 	VertexAttributeBuffer(GLenum usage, GLintptr offset, GLsizei stride);
 	virtual ~VertexAttributeBuffer();
 
-	void DefineVertexLayout(unsigned short attributeIdentifier, GLint size, GLenum type, GLboolean normalized, GLuint relativeOffset);
+	void DefineVertexAttribute(MappedVertexAttribute, GLint size, GLenum type, GLboolean normalized, GLuint relativeOffset);
 
-	const std::map<unsigned short, VLDPtr>& getVertexLayout() const {
+	const std::map<MappedVertexAttribute, VLDPtr>& getVertexLayout() const {
 		return vertexLayout;
 	}
 
@@ -38,7 +39,7 @@ private:
 	GLintptr offset;
 	GLsizei stride;
 
-	std::map<unsigned short, VLDPtr> vertexLayout;
+	std::map<MappedVertexAttribute, VLDPtr> vertexLayout;
 };
 
 } /* namespace glove */

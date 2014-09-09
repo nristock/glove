@@ -36,6 +36,10 @@ public:
 	void Update();
 	void Render();
 
+	GlovePythonEnginePtr GetPythonEngine() const { return pythonEngine; }
+
+	std::string MakeDataPath(std::string& relPath);
+
 private:
 	GloveRendererPtr renderer;
 	GlovePythonEnginePtr pythonEngine;

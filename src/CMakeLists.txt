@@ -6,7 +6,7 @@ add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB)
 message(STATUS ${CMAKE_BUILD_TYPE})
 
 if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
-	add_definitions(-DPy_TRACE_REFS)
+	#add_definitions(-DPy_TRACE_REFS -DPy_DEBUG)
 endif()
 
 if(WIN32)
@@ -48,6 +48,8 @@ if(WIN32)
 		general glfw3
 		general OpenGL32
 		general GLEW
+		general boost_python3
+		general python34
 
 		optimized boost_thread
 		optimized boost_system
@@ -55,17 +57,13 @@ if(WIN32)
 		optimized boost_filesystem
 		optimized boost_log
 		optimized boost_log_setup
-		optimized boost_python3
-		optimized python34
-		
+
 		debug boost_thread-d
 		debug boost_system-d
 		debug boost_date_time-d
 		debug boost_filesystem-d
 		debug boost_log-d
 		debug boost_log_setup-d
-		debug boost_python3-d
-		debug python34_d
 
 		general glove
 	)	

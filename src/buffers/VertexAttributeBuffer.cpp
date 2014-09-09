@@ -7,8 +7,6 @@
 
 #include "VertexAttributeBuffer.h"
 
-#include "VertexLayoutDefinition.h"
-
 namespace glove {
 
 VertexAttributeBuffer::VertexAttributeBuffer(
@@ -25,9 +23,9 @@ VertexAttributeBuffer::~VertexAttributeBuffer() {
 
 }
 
-void VertexAttributeBuffer::DefineVertexLayout(unsigned short attributeIdentifier,
+void VertexAttributeBuffer::DefineVertexAttribute(MappedVertexAttribute attributeIdentifier,
 		GLint size, GLenum type, GLboolean normalized, GLuint relativeOffset) {
-	vertexLayout[attributeIdentifier] = VLDPtr(new VertexLayoutDefinition(attributeIdentifier, size, type, normalized, relativeOffset));
+	vertexLayout[attributeIdentifier] = VLDPtr(new VertexLayoutAttribute(attributeIdentifier, size, type, normalized, relativeOffset));
 }
 
 } /* namespace glove */

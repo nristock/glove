@@ -38,7 +38,7 @@ void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
 	OLOG(info, "Using Python in " << std::wstring(Py_GetPath()));
 	
 	PyImport_AppendInittab("glove", &python::CreateGloveModule);
-	PyImport_AppendInittab("pysehd", &python::CreatePyshedModule);
+	PyImport_AppendInittab("pyshed", &python::CreatePyshedModule);
 	Py_Initialize();
 
 	try {
@@ -139,7 +139,7 @@ void GlovePythonEngine::HandleError() {
 	else if (PyErr_GivenExceptionMatches(pyType, PyExc_SyntaxError)) {
 		std::wstring text = extract<std::wstring>(exValue.attr("text"));
 		int offset = extract<int>(exValue.attr("offset"));
-		tracebackString << text << std::wstring(offset - 2, ' ') << "^";
+		tracebackString << text << std::wstring((offset - 2 > 0) ? offset - 2: offset, ' ') << "^";
 	}
 
 	OLOG(info, "Python Error" << std::endl << errorType << ": " << errorMessage << std::endl << tracebackString.str());

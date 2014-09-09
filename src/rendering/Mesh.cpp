@@ -9,7 +9,7 @@
 #include <GL/glew.h>
 
 #include "core/GloveObject.h"
-#include "shader/Shader.h"
+#include "shader/ShaderProgram.h"
 #include "MeshData.h"
 #include "buffers/VertexAttributeBuffer.h"
 

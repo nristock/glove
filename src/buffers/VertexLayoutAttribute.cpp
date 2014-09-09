@@ -1,20 +1,13 @@
-/*
- * VertexLayoutDefinition.cpp
- *
- *  Created on: Aug 18, 2014
- *      Author: monofraps
- */
-
-#include "VertexLayoutDefinition.h"
+#include "VertexLayoutAttribute.h"
 
 namespace glove {
 
-VertexLayoutDefinition::VertexLayoutDefinition(unsigned short attributeIdentifier,
+VertexLayoutAttribute::VertexLayoutAttribute(MappedVertexAttribute attributeIdentifier,
 		GLint size, GLenum type, GLboolean normalized, GLuint relativeOffset)
 		: attributeIdentifier(attributeIdentifier), size(size), type(type), normalized(normalized), relativeOffset(relativeOffset) {
 }
 
-VertexLayoutDefinition::~VertexLayoutDefinition() {
+VertexLayoutAttribute::~VertexLayoutAttribute() {
 	// TODO Auto-generated destructor stub
 }
 

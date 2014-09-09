@@ -14,9 +14,9 @@
 
 namespace glove {
 
-class Shader;
-GLOVE_MAKE_SHARED(Shader) ShaderPointer;
-GLOVE_MAKE_SHARED(Shader) ShaderPtr;
+class ShaderProgram;
+GLOVE_MAKE_SHARED(ShaderProgram) ShaderPointer;
+GLOVE_MAKE_SHARED(ShaderProgram) ShaderPtr;
 
 class IndexedMeshData;
 GLOVE_MAKE_SHARED(IndexedMeshData) IndexedMeshDataPointer;
@@ -34,10 +34,10 @@ class GPUBuffer;
 GLOVE_MAKE_SHARED(GPUBuffer) GPUBufferPointer;
 GLOVE_MAKE_SHARED(GPUBuffer) GPUBufferPtr;
 
-struct VertexLayoutDefinition;
-GLOVE_MAKE_SHARED(VertexLayoutDefinition) VertexLayoutDefinitionPointer;
-GLOVE_MAKE_SHARED(VertexLayoutDefinition) VertexLayoutDefinitionPtr;
-GLOVE_MAKE_SHARED(VertexLayoutDefinition) VLDPtr;
+struct VertexLayoutAttribute;
+GLOVE_MAKE_SHARED(VertexLayoutAttribute) VertexLayoutDefinitionPointer;
+GLOVE_MAKE_SHARED(VertexLayoutAttribute) VertexLayoutDefinitionPtr;
+GLOVE_MAKE_SHARED(VertexLayoutAttribute) VLDPtr;
 
 class VertexAttributeBuffer;
 GLOVE_MAKE_SHARED(VertexAttributeBuffer) VertexAttributeBufferPointer;
