@@ -1,6 +1,7 @@
 shader.LoadVertexShader("data/DefaultShader.vertex")
 shader.LoadFragmentShader("data/DefaultShader.fragment")
-shader.CreateProgram();
+shader.CreateProgram()
 
 shader.MapVertexAttribute(MVA.COLORS, "in_Color")
 shader.MapVertexAttribute(MVA.POSITIONS, "in_Position")
+shader.MapMaterialAttribute(MMA.MAT_MVP, "mvpmat")

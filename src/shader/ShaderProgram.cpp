@@ -127,6 +127,11 @@ void ShaderProgram::Enable() {
 }
 
 void ShaderProgram::MapVertexAttribute(MappedVertexAttribute attributeIdentifier, std::string attribName) {
+	// Implicitly create shader program if it hasn't been created yet
+	if (shaderProgramId == 0) {
+		CreateProgram();
+	}
+
 	GLint attribIndex = glGetAttribLocation(shaderProgramId, attribName.c_str());
 	if (attribIndex < 0) {
 		OLOG(error, "Unknown shader attribute name " << attribName);
@@ -136,13 +141,33 @@ void ShaderProgram::MapVertexAttribute(MappedVertexAttribute attributeIdentifier
 	vertexAttributeMap[attributeIdentifier] = attribIndex;
 }
 
+void ShaderProgram::MapMaterialAttribute(MappedMaterialAttribute attributeIdentifier, std::string attribName) {
+	// Implicitly create shader program if it hasn't been created yet
+	if (shaderProgramId == 0) {
+		CreateProgram();
+	}
+
+	GLint attribIndex = glGetUniformLocation(shaderProgramId, attribName.c_str());
+	if (attribIndex < 0) {
+		OLOG(error, "Unknown material attribute name " << attribName);
+		return;
+	}
+
+	materialAttributeMap[attributeIdentifier] = attribIndex;
+}
+
 void ShaderProgram::Disable() {
 	glUseProgram(0);
 }
 
 GLuint ShaderProgram::GetVertexAttributePosition(MappedVertexAttribute attributeIdentifier) {
-	if(vertexAttributeMap.find(attributeIdentifier) == vertexAttributeMap.end()) return -1;
+	if(vertexAttributeMap.find(attributeIdentifier) == vertexAttributeMap.end()) throw new GloveException("VertexAttribute has not been mapped");
 	else return vertexAttributeMap.at(attributeIdentifier);
+}
+
+GLuint ShaderProgram::GetMaterialAttributePosition(MappedMaterialAttribute attributeIdentifier) {
+	if (materialAttributeMap.find(attributeIdentifier) == materialAttributeMap.end()) throw new GloveException("MaterialAttribute has not been mapped");
+	else return materialAttributeMap.at(attributeIdentifier);
 }
 
 } /* namespace glove */

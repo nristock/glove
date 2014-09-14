@@ -13,6 +13,7 @@
 
 #include "core/GloveObject.h"
 #include "shader/MappedVertexAttribute.h"
+#include "shader/MappedMaterialAttribute.h"
 
 namespace glove {
 
@@ -30,6 +31,7 @@ public:
 	void CreateProgram();
 
 	void MapVertexAttribute(MappedVertexAttribute attributeIdentifier, std::string attribName);
+	void MapMaterialAttribute(MappedMaterialAttribute attributeIdentifier, std::string attribname);
 
 	void Enable();
 	void Disable();
@@ -37,9 +39,11 @@ public:
 	void SetShader(int programSlot, GLuint ProgramId);
 
 	GLuint GetVertexAttributePosition(MappedVertexAttribute attributeIdentifier);
+	GLuint GetMaterialAttributePosition(MappedMaterialAttribute attributeIdentifier);
 
 private:
 	typedef std::map<MappedVertexAttribute, GLuint> VertexAttribMap;
+	typedef std::map<MappedMaterialAttribute, GLuint> MaterialAttributeMap;
 
 	int numShaders;
 
@@ -47,6 +51,7 @@ private:
 	GLuint* shaderIds;
 
 	VertexAttribMap vertexAttributeMap;
+	MaterialAttributeMap materialAttributeMap;
 };
 
 } /* namespace glove */

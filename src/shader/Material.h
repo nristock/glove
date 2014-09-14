@@ -1,0 +1,42 @@
+#ifndef SHADER_MATERIAL_H_
+#define SHADER_MATERIAL_H_
+
+#include <string>
+
+#include <glm/glm.hpp>
+
+#include "core/GloveFwd.h"
+#include "core/GloveObject.h"
+#include "MappedMaterialAttribute.h"
+
+namespace glove {
+
+class Material : public GloveObject {
+	GLOVE_MEM_ALLOC_FUNCS("Material")
+public:
+	Material(ShaderPointer shader);
+	virtual ~Material();
+
+	void Enable() const;
+	void Disable() const;
+
+	void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, float& value);
+	void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::vec3& value);
+	void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::vec4& value);
+	void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::mat4& value);
+
+	void PySetMaterialAttributeF(MappedMaterialAttribute mappedAttribute, float& value);
+	void PySetMaterialAttributeV3(MappedMaterialAttribute mappedAttribute, glm::vec3& value);
+	void PySetMaterialAttributeV4(MappedMaterialAttribute mappedAttribute, glm::vec4& value);
+	void PySetMaterialAttributeMat4(MappedMaterialAttribute mappedAttribute, glm::mat4& value);
+
+	ShaderPointer GetShader() const { return shader; }
+
+private:
+	ShaderPointer shader;
+};
+
+
+} // namespace glove
+
+#endif
