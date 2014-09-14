@@ -3,15 +3,22 @@ project(glove)
 
 add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB)
 
-message(STATUS ${CMAKE_BUILD_TYPE})
-
 if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
 	#add_definitions(-DPy_TRACE_REFS -DPy_DEBUG)
 endif()
 
 if(WIN32)
 	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/windows")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:SSE2")	
+
+	if(MSVC)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:SSE2")
+        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Od" CACHE INTERNAL "" FORCE)
+    endif()
+
+    if(MINGW)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++11")
+       	set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -MMD -MP")
+    endif()
 
 	include_directories("${deps_path}/include/boost")
 	include_directories("${deps_path}/include/glew")
