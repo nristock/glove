@@ -11,50 +11,54 @@
 #include <memory>
 
 #define GLOVE_MAKE_SHARED(type_) typedef std::shared_ptr<type_>
+#define GLOVE_FWD_DECL(type_)					\
+	class type_;								\
+	GLOVE_MAKE_SHARED(type_) type_##Pointer;	\
+	GLOVE_MAKE_SHARED(type_) type_##Ptr;
+#define GLOVE_FWD_DECL_STRUCT(type_)					\
+	struct type_;								\
+	GLOVE_MAKE_SHARED(type_) type_##Pointer;	\
+	GLOVE_MAKE_SHARED(type_) type_##Ptr;
 
 namespace glove {
 
-class ShaderProgram;
-GLOVE_MAKE_SHARED(ShaderProgram) ShaderPointer;
-GLOVE_MAKE_SHARED(ShaderProgram) ShaderPtr;
+GLOVE_FWD_DECL(ShaderProgram);
 
-class IndexedMeshData;
-GLOVE_MAKE_SHARED(IndexedMeshData) IndexedMeshDataPointer;
-GLOVE_MAKE_SHARED(IndexedMeshData) IndexedMeshDataPtr;
+GLOVE_FWD_DECL(IndexedMeshData);
 
-class GloveRenderer;
-GLOVE_MAKE_SHARED(GloveRenderer) GloveRendererPointer;
-GLOVE_MAKE_SHARED(GloveRenderer) GloveRendererPtr;
+GLOVE_FWD_DECL(GloveRenderer);
 
-class MeshData;
-GLOVE_MAKE_SHARED(MeshData) MeshDataPointer;
-GLOVE_MAKE_SHARED(MeshData) MeshDataPtr;
+GLOVE_FWD_DECL(MeshData);
 
-class GPUBuffer;
-GLOVE_MAKE_SHARED(GPUBuffer) GPUBufferPointer;
-GLOVE_MAKE_SHARED(GPUBuffer) GPUBufferPtr;
+GLOVE_FWD_DECL(GPUBuffer);
 
-struct VertexLayoutAttribute;
-GLOVE_MAKE_SHARED(VertexLayoutAttribute) VertexLayoutDefinitionPointer;
-GLOVE_MAKE_SHARED(VertexLayoutAttribute) VertexLayoutDefinitionPtr;
+GLOVE_FWD_DECL_STRUCT(VertexLayoutAttribute);
 GLOVE_MAKE_SHARED(VertexLayoutAttribute) VLDPtr;
 
-class VertexAttributeBuffer;
-GLOVE_MAKE_SHARED(VertexAttributeBuffer) VertexAttributeBufferPointer;
-GLOVE_MAKE_SHARED(VertexAttributeBuffer) VertexAttributeBufferPtr;
+GLOVE_FWD_DECL(VertexAttributeBuffer);
 GLOVE_MAKE_SHARED(VertexAttributeBuffer) VABPtr;
 
-class GlovePythonEngine;
-GLOVE_MAKE_SHARED(GlovePythonEngine) GlovePythonEnginePointer;
-GLOVE_MAKE_SHARED(GlovePythonEngine) GlovePythonEnginePtr;
+GLOVE_FWD_DECL(GlovePythonEngine);
 
-class GloveWindow;
-GLOVE_MAKE_SHARED(GloveWindow) GloveWindowPointer;
-GLOVE_MAKE_SHARED(GloveWindow) GloveWindowPtr;
+GLOVE_FWD_DECL(GloveWindow);
 
-class GlovePythonEngine;
-GLOVE_MAKE_SHARED(GlovePythonEngine) GlovePythonEnginePointer;
-GLOVE_MAKE_SHARED(GlovePythonEngine) GlovePythonEnginePtr;
+GLOVE_FWD_DECL(GlovePythonEngine);
+
+GLOVE_FWD_DECL(PyShedLoader);
+
+GLOVE_FWD_DECL(Material);
+
+GLOVE_FWD_DECL(GameObject);
+
+GLOVE_FWD_DECL(Camera);
+
+GLOVE_FWD_DECL(Scenegraph);
+
+GLOVE_FWD_DECL(GloveCore);
+
+GLOVE_FWD_DECL(IRenderable);
+
+GLOVE_FWD_DECL(GameComponent);
 }
 
 

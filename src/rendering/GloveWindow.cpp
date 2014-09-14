@@ -37,8 +37,6 @@ void GloveWindow::SetFramebuffer(int width, int height) {
 	
 	aspectRatio = width / height;
 	projectionMat = glm::ortho(-orthoSize, orthoSize, -orthoSize / aspectRatio, orthoSize / aspectRatio);
-
-	viewMat = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 }
 
 void GloveWindow::SwapBuffers() {

@@ -10,12 +10,14 @@
 
 namespace glove {
 
+struct FrameData;
+
 class IRenderable {
 public:
 	IRenderable();
 	virtual ~IRenderable();
 
-	virtual void Render() = 0;
+	virtual void Render(FrameData& frameData) = 0;
 };
 
 } /* namespace glove */

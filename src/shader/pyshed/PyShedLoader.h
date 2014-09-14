@@ -16,7 +16,7 @@ public:
 	PyShedLoader(GlovePythonEnginePointer pythonEngine);
 	virtual ~PyShedLoader();
 
-	ShaderPointer LoadPysehdShader(std::string fileName);
+	ShaderProgramPointer LoadPysehdShader(std::string fileName);
 
 private:
 	boost::python::object CreatePyshedScope();

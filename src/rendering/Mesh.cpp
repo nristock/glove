@@ -10,23 +10,23 @@
 
 #include "core/GloveObject.h"
 #include "shader/ShaderProgram.h"
+#include "shader/Material.h"
 #include "MeshData.h"
 #include "buffers/VertexAttributeBuffer.h"
+#include "rendering/FrameData.h"
 
 namespace glove {
 
-Mesh::Mesh(MeshDataPtr meshData, ShaderPtr shader) {
+Mesh::Mesh(MeshDataPtr meshData, MaterialPtr material) : meshData(meshData), material(material) {
 	glGenVertexArrays(1, &vertexArrayId);
-
-	this->meshData = meshData;
-	this->shader = shader;
-
+	shader = material->GetShader();
+	
 	GenerateAttribAssociations();
 }
 
 Mesh::~Mesh() {
 	glBindVertexArray(vertexArrayId);
-
+	
 	for (auto gpuBuffer : meshData->getGpuBuffers()) {
 		gpuBuffer->Bind();
 
@@ -44,17 +44,9 @@ Mesh::~Mesh() {
 	vertexArrayId = 0;
 }
 
-void Mesh::SetMeshData(MeshDataPtr meshData) {
-	this->meshData = meshData;
-}
-
-void Mesh::SetShader(ShaderPtr shader) {
-	this->shader = shader;
-}
-
 void Mesh::GenerateAttribAssociations() {
 	glBindVertexArray(vertexArrayId);
-	
+		
 	for(auto gpuBuffer : meshData->getGpuBuffers()) {
 		gpuBuffer->Bind();
 
@@ -74,11 +66,22 @@ void Mesh::GenerateAttribAssociations() {
 	}
 }
 
-void Mesh::Render() {
-	shader->Enable();
+void Mesh::SetupRender(FrameData& frameData) {
+	material->Enable();
 	glBindVertexArray(vertexArrayId);
 
+	material->SetMaterialAttribute(MMA_MAT_MVP, frameData.viewProjectionMatrix);
+}
+
+void Mesh::OnRender(FrameData& frameData) {
 	glDrawArrays(GL_TRIANGLES, 0, meshData->getNumVertices());
+}
+
+void Mesh::Render(FrameData& frameData) {
+	SetupRender(frameData);
+	PreRender(frameData);
+	OnRender(frameData);
+	PostRender(frameData);
 }
 
 } /* namespace glove */

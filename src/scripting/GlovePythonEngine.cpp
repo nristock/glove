@@ -1,7 +1,5 @@
 #include "GlovePythonEngine.h"
 
-#include <locale>
-#include <codecvt>
 #include <stdio.h>
 
 #include <boost/python.hpp>
@@ -23,15 +21,21 @@ GlovePythonEngine::~GlovePythonEngine() {
 
 }
 
-void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
-	basePath = executableBasePath;
+void GlovePythonEngine::Init(const std::string& executableBasePath) {
+	basePath = std::string(executableBasePath);
 
-	std::wstring  pythonHome(executableBasePath);
+    std::wstringstream wstringConverter = std::wstringstream();
+    wstringConverter << executableBasePath.c_str();	
+	std::wstring wideBasePath = wstringConverter.str();
+
+	std::wstring pythonHome(wideBasePath);
 	pythonHome.append(L"/data/python;");
-	pythonHome.append(executableBasePath);
-	pythonHome.append(L"/data/game/modules");
+	pythonHome.append(wideBasePath);
+	pythonHome.append(L"/data/game/modules;");
+	pythonHome.append(wideBasePath);
+	pythonHome.append(L"/data/game/plugins");
 	
-	wchar_t* cstrPythonHome = reinterpret_cast<wchar_t*>(malloc(sizeof(wchar_t) * pythonHome.length()));
+	wchar_t* cstrPythonHome = GLOVE_NEW_ARRAY("GlovePythonEngine/cstrPythonHome", wchar_t, pythonHome.length());
 	wcscpy(cstrPythonHome, pythonHome.c_str());
 	
 	Py_SetPath(cstrPythonHome);
@@ -43,6 +47,10 @@ void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
 
 	try {
 		using namespace boost::python;
+	
+		object mainNs = GetMainNamespace();
+		exec("import glove", mainNs);
+		
 		LoadPyEnvironmentModule();
 
 		/*{
@@ -67,7 +75,7 @@ void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
 		std::string ot = extract<const char*>(str(o2));
 		OLOG(info, ot);		
 	}
-	catch (boost::python::error_already_set const &) {
+	catch (const boost::python::error_already_set &) {
 		HandleError();
 
 	}
@@ -78,22 +86,55 @@ void GlovePythonEngine::Init(const std::wstring& executableBasePath) {
 void GlovePythonEngine::LoadPyEnvironmentModule() {
 	bpy::object mainNS = GetMainNamespace();
 
-	std::wstring gloveCorePythonEnvironmentDirBase = basePath;
-	gloveCorePythonEnvironmentDirBase.append(L"/data/game/gcpyenv");
+	std::string gloveCorePythonEnvironmentDirBase = basePath;
+	gloveCorePythonEnvironmentDirBase.append("/data/game/gcpyenv");
 
 	bfs::path gloveCorePythonEnvDir(gloveCorePythonEnvironmentDirBase);
-	for (bfs::directory_entry t : bfs::directory_iterator(gloveCorePythonEnvDir)) {
-		if (bfs::is_regular_file(t)) {
-			OLOG(info, "Loading python environment file: " << t.path().filename().string());
+	for (bfs::directory_entry dir : bfs::directory_iterator(gloveCorePythonEnvDir)) {
+		if (bfs::is_regular_file(dir)) {
+			OLOG(info, "Loading python environment file: " << dir.path().filename().string());
 
-			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
-			std::string s = converter.to_bytes(t.path().wstring());
-			
-			bpy::exec_file(s.c_str(), mainNS);
+			std::string path = dir.path().string();			
+			bpy::exec_file(path.c_str(), mainNS);
 		}
 	}
 
 	OLOG(info, "PyEnv files loaded");
+}
+
+void GlovePythonEngine::LoadPlugins() {
+	bpy::object mainNS = GetMainNamespace();
+
+	std::string pythonPluginPath = basePath;
+	pythonPluginPath.append("/data/game/plugins");
+
+	bfs::path gloveCorePythonEnvDir(pythonPluginPath);
+	for (bfs::directory_entry dir : bfs::directory_iterator(gloveCorePythonEnvDir)) {
+		if (bfs::is_directory(dir)) {
+			std::string pluginName = dir.path().filename().string();
+
+			OLOG(info, "Loading plugin: " << pluginName);
+
+			try {
+				bpy::object plugin = bpy::import(pluginName.c_str());
+				bpy::dict pluginScope = bpy::extract<bpy::dict>(plugin.attr("__dict__"));
+				bpy::exec("from __main__ import *", pluginScope);
+
+				if (pluginScope.contains("LoadPlugin")) {
+					std::string pluginLoadExpression;
+					pluginLoadExpression += pluginName;
+					pluginLoadExpression += ".LoadPlugin()";
+
+					mainNS[pluginName.c_str()] = plugin;
+
+					bpy::exec(pluginLoadExpression.c_str(), mainNS);
+				}
+			}
+			catch (const boost::python::error_already_set &) {
+				HandleError();
+			}
+		}
+	}
 }
 
 void GlovePythonEngine::HandleError() {

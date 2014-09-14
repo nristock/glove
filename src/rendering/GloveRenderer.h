@@ -10,6 +10,7 @@
 
 #include "core/GloveFwd.h"
 #include "core/GloveObject.h"
+#include "rendering/FrameData.h"
 
 struct GLFWwindow;
 
@@ -22,12 +23,16 @@ public:
 	GloveRenderer();
 	virtual ~GloveRenderer();
 
-	GloveWindowPointer Init(int windowWidth, int windowHeight, int glMajor, int glMinor, int argc, char** argv);
+	void Init(int windowWidth, int windowHeight, int glMajor, int glMinor, int argc, char** argv);
 	void Exit();
 
-	void RenderScene(GloveWindowPointer window /* Scenegraph */);
-
+	void RenderScene(ScenegraphPointer scenegraph, FrameData& framData);
+	
+	GloveWindowPtr GetWindow() const { return associatedWindow; }
+	
 private:
+	GloveWindowPtr associatedWindow;
+	
 	void SetViewport(int width, int height);
 
 	static void GlfwErrorSink(int error, const char* description);	

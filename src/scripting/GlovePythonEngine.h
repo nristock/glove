@@ -15,8 +15,10 @@ public:
 	GlovePythonEngine();
 	virtual ~GlovePythonEngine();
 
-	void Init(const std::wstring& executableBasePath);
+	void Init(const std::string& executableBasePath);
 	void Exit();
+
+	void LoadPlugins();
 	
 	void HandleError();
 
@@ -26,7 +28,7 @@ public:
 private:
 	void LoadPyEnvironmentModule();
 
-	std::wstring basePath;
+	std::string basePath;
 };
 
 } // namespace glove

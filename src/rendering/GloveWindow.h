@@ -23,13 +23,14 @@ public:
 	void SwapBuffers();
 	bool CloseRequested();
 
+	glm::mat4 GetProjMatrix() const { return projectionMat; }
+
 private:
 	GLFWwindow* glfwWindow;
 
 	int viewportWidth, viewportHeight;
 	float aspectRatio;
 	float orthoSize;
-	glm::mat4 viewMat;
 	glm::mat4 projectionMat;
 
 	static void GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height);

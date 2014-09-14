@@ -14,7 +14,7 @@ namespace glove {
 class Material : public GloveObject {
 	GLOVE_MEM_ALLOC_FUNCS("Material")
 public:
-	Material(ShaderPointer shader);
+	Material(ShaderProgramPointer shader);
 	virtual ~Material();
 
 	void Enable() const;
@@ -30,10 +30,10 @@ public:
 	void PySetMaterialAttributeV4(MappedMaterialAttribute mappedAttribute, glm::vec4& value);
 	void PySetMaterialAttributeMat4(MappedMaterialAttribute mappedAttribute, glm::mat4& value);
 
-	ShaderPointer GetShader() const { return shader; }
+	ShaderProgramPointer GetShader() const { return shader; }
 
 private:
-	ShaderPointer shader;
+	ShaderProgramPointer shader;
 };
 
 

@@ -74,3 +74,6 @@ __pycache__
 # Dependencies
 deps
 python
+
+# CLion
+.idea

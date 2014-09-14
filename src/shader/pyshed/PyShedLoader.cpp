@@ -17,12 +17,12 @@ PyShedLoader::~PyShedLoader() {
 	
 }
 
-ShaderPointer PyShedLoader::LoadPysehdShader(std::string fileName) {
+ShaderProgramPointer PyShedLoader::LoadPysehdShader(std::string fileName) {
 	bpy::object scope = CreatePyshedScope();
 
 	try {
 		bpy::exec_file(fileName.c_str(), scope);
-		return bpy::extract<ShaderPointer>(scope["shader"]);
+		return bpy::extract<ShaderProgramPointer>(scope["shader"]);
 	}
 	catch (boost::python::error_already_set const &) {
 		pythonEngine->HandleError();

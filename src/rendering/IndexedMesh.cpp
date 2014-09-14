@@ -13,17 +13,14 @@
 
 namespace glove {
 
-IndexedMesh::IndexedMesh(IndexedMeshDataPtr indexedMeshData, ShaderPtr shader) : Mesh(indexedMeshData, shader) {
+IndexedMesh::IndexedMesh(IndexedMeshDataPtr indexedMeshData, MaterialPtr material) : Mesh(indexedMeshData, material) {
 	this->indexedMeshData = indexedMeshData;
 }
 
 IndexedMesh::~IndexedMesh() {
 }
 
-void IndexedMesh::Render() {
-	shader->Enable();
-	
-	glBindVertexArray(vertexArrayId);
+void IndexedMesh::OnRender(FrameData& frameData) {
 	indexedMeshData->getIndexBuffer()->Bind();
 
 	glDrawElements(GL_TRIANGLES, indexedMeshData->getNumIndices(), GL_UNSIGNED_INT, 0);

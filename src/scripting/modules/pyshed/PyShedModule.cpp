@@ -6,15 +6,11 @@
 #include "shader/MappedMaterialAttribute.h"
 #include "PyMaterial.h"
 
-#include "scripting/modules/glove/PyGloveObject.h"
-
 namespace bpy = boost::python;
 
 namespace glove {
 namespace python {
 BOOST_PYTHON_MODULE(PyshedModule) {
-	ExportGloveObject();
-
 	bpy::enum_<MappedVertexAttribute>("MVA")
 		.value("COLORS", MVA_COLORS)
 		.value("POSITIONS", MVA_POSITIONS);
@@ -23,6 +19,7 @@ BOOST_PYTHON_MODULE(PyshedModule) {
 		.value("MAT_MVP", MMA_MAT_MVP);
 
 	ExportShader();
+	ExportMaterial();
 }
 
 PyObject* CreatePyshedModule() {

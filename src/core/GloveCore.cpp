@@ -7,6 +7,8 @@
 
 #include "GloveCore.h"
 
+#include <chrono>
+
 #if defined(_WIN32) || defined(WIN32)
 #include <Windows.h>
 #elif defined(__unix__) || defined(__unix)
@@ -14,29 +16,35 @@
 #include <cstdlib>
 #endif
 
-#include <locale>
-#include <codecvt>
-
 #include "GloveException.h"
+#include "graph/Scenegraph.h"
 #include "rendering/GloveWindow.h"
 #include "rendering/GloveRenderer.h"
 #include "scripting/GlovePythonEngine.h"
+#include "shader/pyshed/PyShedLoader.h"
+
+namespace sc = std::chrono;
 
 namespace glove {
 
-GloveCore::GloveCore() : renderer(new GloveRenderer()), pythonEngine(new GlovePythonEngine()), frameCounter(0) {
+GloveCorePointer GloveCore::instance;
+
+GloveCore::GloveCore() : renderer(new GloveRenderer()), pythonEngine(new GlovePythonEngine()), pyshedLoader(new PyShedLoader(pythonEngine)), frameCounter(0) {
+	frameData.frameId = 0;
+	frameData.viewProjectionMatrix = glm::mat4();
+	frameData.deltaTime = 0;
 
 #if defined(_WIN32) || defined(WIN32)
 	int bufferSize = 4096;
-	wchar_t* moduleName = reinterpret_cast<wchar_t*>(GloveMemAllocN(sizeof(wchar_t) * bufferSize, "GloveCore/ModuleName"));
-	GetModuleFileNameW(NULL, moduleName, bufferSize);
+	char* moduleName = reinterpret_cast<char*>(GloveMemAllocN(sizeof(char) * bufferSize, "GloveCore/ModuleName"));
+	GetModuleFileName(NULL, moduleName, bufferSize);
 
 	while (GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
 		GloveMemFree(moduleName);
 		bufferSize += 64;
-		moduleName = reinterpret_cast<wchar_t*>(GloveMemAllocN(sizeof(wchar_t) * bufferSize, "GloveCore/ModuleName"));
+		moduleName = reinterpret_cast<char*>(GloveMemAllocN(sizeof(wchar_t) * bufferSize, "GloveCore/ModuleName"));
 
-		GetModuleFileNameW(NULL, moduleName, bufferSize);
+		GetModuleFileName(NULL, moduleName, bufferSize);
 	}
 
 	executableName = moduleName;
@@ -56,14 +64,10 @@ GloveCore::GloveCore() : renderer(new GloveRenderer()), pythonEngine(new GlovePy
 	OLOG(info, charsWritten);
 	linkName[charsWritten] = '\0';
 
-	wchar_t* linkNameWC = reinterpret_cast<wchar_t*>(GloveMemAllocN(sizeof(wchar_t)*(charsWritten + 1), "GloveCore/SelfLinkNameWC"));
-	mbstowcs(linkNameWC, linkName, charsWritten + 1);
-
+	executableName = linkName;
 	GloveMemFree(linkName);
-	executableName = linkNameWC;
-	GloveMemFree(linkNameWC);
 #endif
-	executablePath = executableName.substr(0, executableName.find_last_of(L"\\/"));
+	executablePath = executableName.substr(0, executableName.find_last_of("\\/"));
 
 	OLOG(info, "Running from " << executablePath);
 	OLOG(info, "GloveCore created");
@@ -73,15 +77,26 @@ GloveCore::~GloveCore() {
 }
 
 void GloveCore::Init(int argc, char** argv) {
+	initializationTime = sc::steady_clock::now();
+
+	instance = GloveCorePointer(this);
+	primaryScenegraph = ScenegraphPtr(new Scenegraph());
+
 	InitializeRenderingContext(argc, argv, 800, 600);
 	InitializeScripting();
+	InitializeResourceLoaders();
+	
+	TimePoint initializationDone = sc::steady_clock::now();
+	auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
+	OLOG(info, "Engine initialization took " << timeSpan.count() << "ms");
+
 }
 
 void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight) {
 	try {
-		mainWindow = renderer->Init(windowWidth, windowHeight, 3, 3, argc, argv);
+		renderer->Init(windowWidth, windowHeight, 3, 3, argc, argv);
 	}
-	catch (GloveException& e) {
+	catch (const GloveException& e) {
 		OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
 	}
 
@@ -89,6 +104,22 @@ void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidt
 
 void GloveCore::InitializeScripting() {
 	pythonEngine->Init(executablePath);
+
+	try {
+		namespace bpy = boost::python;
+		bpy::object mainNs = pythonEngine->GetMainNamespace();
+
+		mainNs["ExposeScenegraph"](primaryScenegraph);
+	}
+	catch (boost::python::error_already_set const &) {
+		pythonEngine->HandleError();
+	}
+}
+
+void GloveCore::InitializeResourceLoaders() {
+	//TODO: NoOp
+
+	pythonEngine->LoadPlugins();
 }
 
 void GloveCore::Exit() {
@@ -96,9 +127,21 @@ void GloveCore::Exit() {
 }
 
 void GloveCore::EnterMainLoop() {
-	while (!mainWindow->CloseRequested()) {
+	TimePoint start = std::chrono::steady_clock::now();
+	TimePoint end = std::chrono::steady_clock::now();
+
+	std::chrono::duration<double> frameTime;
+
+	while (!renderer->GetWindow()->CloseRequested()) {
+		TimePoint end = std::chrono::steady_clock::now();
+		frameTime = sc::duration_cast<std::chrono::duration<double>>(end - start);
+		TimePoint start = std::chrono::steady_clock::now();
+
+		frameData.frameId++;
+		frameData.deltaTime = frameTime.count();
+
 		Update();
-		Render();
+		Render(primaryScenegraph);
 	}
 }
 
@@ -106,17 +149,16 @@ void GloveCore::Update() {
 
 }
 
-void GloveCore::Render() {
-	renderer->RenderScene(mainWindow);
+void GloveCore::Render(ScenegraphPointer scenegraph) {
+	renderer->RenderScene(scenegraph, frameData);
 }
 
-std::string GloveCore::MakeDataPath(std::string& relPath) {
-	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
-	std::string s = converter.to_bytes(executablePath);
-	s.append("/");
-	s.append(relPath);
+std::string GloveCore::MakeDataPath(const std::string& relPath) {
+	std::string path(executablePath);
+	path.append("/");
+	path.append(relPath);
 
-	return s;
+	return path;
 }
 
 } /* namespace glove */

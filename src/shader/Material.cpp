@@ -7,7 +7,7 @@
 
 namespace glove {
 	
-Material::Material(ShaderPointer shader) : shader(shader) {
+Material::Material(ShaderProgramPointer shader) : shader(shader) {
 
 }
 

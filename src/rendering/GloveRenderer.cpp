@@ -16,6 +16,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "core/GloveException.h"
+#include "graph/Scenegraph.h"
+#include "rendering/Camera.h"
+#include "rendering/IRenderable.h"
+#include "rendering/FrameData.h"
 #include "log/Log.h"
 #include "GloveWindow.h"
 
@@ -25,16 +29,14 @@
 
 namespace glove {
 
-GloveRenderer::GloveRenderer() {
-	// TODO Auto-generated constructor stub
-
+GloveRenderer::GloveRenderer() {	
 }
 
 GloveRenderer::~GloveRenderer() {
 	// TODO Auto-generated destructor stub
 }
 
-GloveWindowPointer GloveRenderer::Init(int windowWidth, int windowHeight, int glMajor, int glMinor, int argc, char** argv) {
+void GloveRenderer::Init(int windowWidth, int windowHeight, int glMajor, int glMinor, int argc, char** argv) {
 	glfwSetErrorCallback(&GloveRenderer::GlfwErrorSink);
 	
 	if (!glfwInit()) {
@@ -45,9 +47,9 @@ GloveWindowPointer GloveRenderer::Init(int windowWidth, int windowHeight, int gl
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glMinor);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	GloveWindowPointer window(new GloveWindow());
-	window->Init(windowWidth, windowHeight);
-	window->MakeCurrent();	
+	associatedWindow = GloveWindowPtr(new GloveWindow());
+	associatedWindow->Init(windowWidth, windowHeight);
+	associatedWindow->MakeCurrent();
 
 	glewExperimental = GL_TRUE;
 	GLenum glewInitRes = glewInit();
@@ -57,8 +59,6 @@ GloveWindowPointer GloveRenderer::Init(int windowWidth, int windowHeight, int gl
 
 	OLOG(info, "Glove renderer initialized");
 	OLOG(info, "OpenGL Version: " << glGetString(GL_VERSION));
-
-	return window;
 }
 
 void GloveRenderer::Exit() {
@@ -69,8 +69,16 @@ void GloveRenderer::GlfwErrorSink(int error, const char* description) {
 	LOG(logging::globalLogger, error, "GLFW Error (" << error << "): " << description);
 }
 
-void GloveRenderer::RenderScene(GloveWindowPointer window) {
-	window->SwapBuffers();
+void GloveRenderer::RenderScene(ScenegraphPointer scenegraph, FrameData& frameData) {
+	frameData.viewProjectionMatrix = associatedWindow->GetProjMatrix() * scenegraph->GetMainCamera()->GetViewMatrix();
+
+	scenegraph->IterateGameObjects([&](GameObjectPtr gameObject){
+		gameObject->IterateRenderableComponents([&](IRenderablePtr renderable) {
+			renderable->Render(frameData);
+		});			
+	});
+
+	associatedWindow->SwapBuffers();
 }
 
 } /* namespace glove */

@@ -1,10 +1,3 @@
-/*
- * IndexedMesh.h
- *
- *  Created on: Aug 18, 2014
- *      Author: monofraps
- */
-
 #ifndef INDEXEDMESH_H_
 #define INDEXEDMESH_H_
 
@@ -14,13 +7,13 @@
 
 namespace glove {
 
-class IndexedMesh: public Mesh {
+class IndexedMesh : public Mesh {
 	GLOVE_MEM_ALLOC_FUNCS("IndexedMesh")
 public:
-	IndexedMesh(IndexedMeshDataPtr indexedMeshData, ShaderPtr shader);
+	IndexedMesh(IndexedMeshDataPtr indexedMeshData, MaterialPtr material);
 	virtual ~IndexedMesh();
 
-	virtual void Render();
+	virtual void OnRender(FrameData& frameData);
 
 private:
 	IndexedMeshDataPtr indexedMeshData;
