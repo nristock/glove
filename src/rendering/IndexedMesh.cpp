@@ -1,10 +1,3 @@
-/*
- * IndexedMesh.cpp
- *
- *  Created on: Aug 18, 2014
- *      Author: monofraps
- */
-
 #include "IndexedMesh.h"
 
 #include "IndexedMeshData.h"
@@ -13,7 +6,7 @@
 
 namespace glove {
 
-IndexedMesh::IndexedMesh(IndexedMeshDataPtr indexedMeshData, MaterialPtr material) : Mesh(indexedMeshData, material) {
+IndexedMesh::IndexedMesh(IndexedMeshDataPtr indexedMeshData, MaterialPtr material, GameObjectPtr parent) : Mesh(indexedMeshData, material, parent) {
 	this->indexedMeshData = indexedMeshData;
 }
 

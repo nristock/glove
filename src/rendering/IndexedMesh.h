@@ -10,7 +10,7 @@ namespace glove {
 class IndexedMesh : public Mesh {
 	GLOVE_MEM_ALLOC_FUNCS("IndexedMesh")
 public:
-	IndexedMesh(IndexedMeshDataPtr indexedMeshData, MaterialPtr material);
+	IndexedMesh(IndexedMeshDataPtr indexedMeshData, MaterialPtr material, GameObjectPtr parent);
 	virtual ~IndexedMesh();
 
 	virtual void OnRender(FrameData& frameData);

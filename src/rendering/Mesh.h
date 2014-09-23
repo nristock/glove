@@ -21,7 +21,7 @@ namespace glove {
 class Mesh : public GameComponent, public IRenderable {
 	GLOVE_MEM_ALLOC_FUNCS("Mesh")
 public:
-	Mesh(MeshDataPtr meshData, MaterialPtr material);
+	Mesh(MeshDataPtr meshData, MaterialPtr material, GameObjectPtr parent);
 	virtual ~Mesh();
 	
 	void GenerateAttribAssociations();

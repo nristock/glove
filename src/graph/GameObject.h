@@ -17,10 +17,11 @@
 #include "core/GloveObject.h"
 
 #include "graph/Transform.h"
+#include "graph/IGraphNode.h"
 
 namespace glove {
 
-class GameObject : public GloveObject {
+class GameObject : public GloveObject, public IGraphNode, public std::enable_shared_from_this<GameObject> {
 	GLOVE_MEM_ALLOC_FUNCS("GameObject")
 public:
 	GameObject();
@@ -30,12 +31,17 @@ public:
 	virtual void Destroy() {};
 
 	virtual void Update() {};
+
+	virtual void AttachChild(IGraphNodePtr child);
+	virtual void RemoveChild(IGraphNodePtr child);
 	
 	/*!
 	 * Adds a component to the game object. 
 	 * The game object takes complete ownership of the component. The component must not be deleted manually.
 	 */
 	virtual void AddComponent(GameComponent* component);
+
+	virtual std::weak_ptr<GameComponent> CreateComponent(const IGameComponentFactory& factory);
 
 	/*!
 	 * Returns a pointer to the first component found. The game object stays the exclusive owner of the component.
@@ -53,8 +59,8 @@ public:
 protected:
 	std::list<GameComponentPointer> components;
 	std::list <std::weak_ptr<IRenderable>> renderableComponents;
-
-	Transform transform;
+	
+	virtual void OnParented(IGraphNodePtr parent);
 };
 
 } /* namespace glove */

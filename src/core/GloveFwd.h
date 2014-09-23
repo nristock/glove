@@ -59,6 +59,11 @@ GLOVE_FWD_DECL(GloveCore);
 GLOVE_FWD_DECL(IRenderable);
 
 GLOVE_FWD_DECL(GameComponent);
+
+GLOVE_FWD_DECL(IGraphNode);
+
+GLOVE_FWD_DECL(IGameComponentFactory);
+
 }
 
 

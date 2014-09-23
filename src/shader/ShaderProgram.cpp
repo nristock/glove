@@ -147,7 +147,7 @@ void ShaderProgram::MapMaterialAttribute(MappedMaterialAttribute attributeIdenti
 		CreateProgram();
 	}
 
-	GLint attribIndex = glGetUniformLocation(shaderProgramId, attribName.c_str());
+	GLint attribIndex = glGetUniformLocation(shaderProgramId, attribName.c_str());	
 	if (attribIndex < 0) {
 		OLOG(error, "Unknown material attribute name " << attribName);
 		return;

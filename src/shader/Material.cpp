@@ -50,7 +50,8 @@ void Material::SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm
 
 }
 
-void Material::SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::mat4x4& value) {
+void Material::SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::mat4& value) {
+	static float counter = 0;
 	try {
 		GLuint attributeIndex = shader->GetMaterialAttributePosition(mappedAttribute);
 		shader->Enable();
@@ -71,7 +72,7 @@ void Material::PySetMaterialAttributeV3(MappedMaterialAttribute mappedAttribute,
 void Material::PySetMaterialAttributeV4(MappedMaterialAttribute mappedAttribute, glm::vec4& value) {
 	SetMaterialAttribute(mappedAttribute, value);
 }
-void Material::PySetMaterialAttributeMat4(MappedMaterialAttribute mappedAttribute, glm::mat4x4& value) {
+void Material::PySetMaterialAttributeMat4(MappedMaterialAttribute mappedAttribute, glm::mat4& value) {
 	SetMaterialAttribute(mappedAttribute, value);
 }
 

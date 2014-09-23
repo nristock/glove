@@ -1,8 +1,10 @@
 #include "GameComponent.h"
 
+#include "core/GloveFwd.h"
+
 namespace glove {
 	
-GameComponent::GameComponent() {
+GameComponent::GameComponent(GameObjectPtr parent) : parent(parent) {
 
 }
 

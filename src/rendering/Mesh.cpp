@@ -14,10 +14,11 @@
 #include "MeshData.h"
 #include "buffers/VertexAttributeBuffer.h"
 #include "rendering/FrameData.h"
+#include "graph/GameObject.h"
 
 namespace glove {
 
-Mesh::Mesh(MeshDataPtr meshData, MaterialPtr material) : meshData(meshData), material(material) {
+Mesh::Mesh(MeshDataPtr meshData, MaterialPtr material, GameObjectPtr parent) : GameComponent(parent), meshData(meshData), material(material) {
 	glGenVertexArrays(1, &vertexArrayId);
 	shader = material->GetShader();
 	
@@ -70,7 +71,7 @@ void Mesh::SetupRender(FrameData& frameData) {
 	material->Enable();
 	glBindVertexArray(vertexArrayId);
 
-	material->SetMaterialAttribute(MMA_MAT_MVP, frameData.viewProjectionMatrix);
+	material->SetMaterialAttribute(MMA_MAT_MVP, parent->GetTransform().GetGlobalTransform() * frameData.viewProjectionMatrix);
 }
 
 void Mesh::OnRender(FrameData& frameData) {
