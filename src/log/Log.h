@@ -1,5 +1,5 @@
-#ifndef _LOG_H_INCLUDED
-#define _LOG_H_INCLUDED
+#ifndef LOG_LOG_H
+#define LOG_LOG_H
 
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/log/sources/severity_logger.hpp>

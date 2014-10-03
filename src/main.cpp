@@ -1,23 +1,26 @@
 #include <iostream>
 #include <chrono>
+#include <vector>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include <boost/log/attributes/named_scope.hpp>
 
 #include "core/GloveCore.h"
+#include "core/GloveFwd.h"
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
 #include "shader/ShaderProgram.h"
 #include "shader/Material.h"
 #include "shader/pyshed/PyShedLoader.h"
-#include "rendering/Mesh.h"
-#include "rendering/MeshData.h"
-#include "rendering/IndexedMesh.h"
-#include "rendering/IndexedMeshData.h"
-#include "buffers/VertexAttributeBuffer.h"
+#include "rendering/mesh/Mesh.h"
+#include "rendering/mesh/opengl/GLManagedMesh.h"
 #include "rendering/GloveWindow.h"
+#include "buffers/GPUBuffer.h"
+#include "core/GpuBufferManager.h"
+
+#define VF_MANAGED_DATA
+#include "rendering/vertex/VertexFundamentals.h"
 
 #include "log/Log.h"
 #include "memory/GloveMemory.h"
@@ -32,36 +35,56 @@ int main(int argc, char** argv) {
 	auto gcore = new GloveCore();
 	gcore->Init(argc, argv);
 	
-	GLfloat Vertices[] = { 
-		-0.8f, -0.8f, 0, 
-		0.8f, -0.8f, 0,
-		0.8f, 0.8f, 0,
-		-0.8f, 0.8f, 0
-	};
+	std::vector<vertexlayouts::PositionColor> vertices;
+	vertexlayouts::PositionColor v1 = {glm::vec3(-.8f, -.8f, 0), glm::vec4(1, 0, 0, 1)};
+	vertexlayouts::PositionColor v2 = { glm::vec3(.8f, -.8f, 0), glm::vec4(0, 1, 0, 1) };
+	vertexlayouts::PositionColor v3 = { glm::vec3(.8f, .8f, 0), glm::vec4(0, 0, 1, 1) };
+	vertexlayouts::PositionColor v4 = { glm::vec3(-.8f, .8f, 0), glm::vec4(1, 0, 0, 1) };
+	vertices.push_back(v1);
+	vertices.push_back(v2);
+	vertices.push_back(v3);
+	vertices.push_back(v4);
 
-	GLfloat Colors[] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 1.0f };
-
-	IndexedMeshDataPtr mdp(new IndexedMeshData(4));
-	VABPtr verts(new VertexAttributeBuffer(GL_STATIC_DRAW, 0, 0));
-	verts->FillData(sizeof(Vertices), Vertices);
-	verts->DefineVertexAttribute(MVA_POSITIONS, 3, GL_FLOAT, GL_FALSE, 0);
-	VABPtr cols(new VertexAttributeBuffer(GL_STATIC_DRAW, 0, 0));
-	cols->FillData(sizeof(Colors), Colors);
-	cols->DefineVertexAttribute(MVA_COLORS, 4, GL_FLOAT, GL_FALSE, 0);
+	//meshData->SetVertices(vertices);
+	//meshData->UploadData();
 	
-	mdp->AddGPUBuffer(verts);
-	mdp->AddGPUBuffer(cols);
-	GLuint indices[] = { 0, 1, 2, 2, 3, 0 };
-	mdp->SetIndices(indices, 6);
+	//GLuint indices[] = { 0, 1, 2, 2, 3, 0 };
+	std::vector<unsigned int> indices;
+	indices.push_back(0);
+	indices.push_back(1);
+	indices.push_back(2);
+	indices.push_back(2);
+	indices.push_back(3);
+	indices.push_back(0);
 
 	ShaderProgramPointer shader = gcore->GetPyshedLoader()->LoadPysehdShader(gcore->MakeDataPath(std::string("data/DefaultShader.pyshed")));
 	MaterialPtr material = MaterialPtr(new Material(shader));
 	
 	ScenegraphPtr graph = gcore->GetScenegraph();
 	auto go = graph->CreateGameObject();
-	IndexedMesh m(mdp, material, go);
-	go->AddComponent(&m);
+	//IndexedMesh m(meshData, material, go);
+	auto m = new GLManagedMesh<vertexlayouts::PositionColor>(material, go);
+
+	go->AddComponent(m);
+
+	//m->GetVertexData()->GetVertexLayout()->AddElement(0, 0, VAT_FLOAT3, VAS_POSITION);
+	//m->GetVertexData()->GetVertexLayout()->AddElement(0, VertexAttribute::GetSize(VAT_FLOAT3), VAT_FLOAT4, VAS_COLOR);
+	//m->GetVertexData()->SetVertexCount(4);
+
+	//GPUBufferPtr vbuf = gcore->GetGpuBufferManager()->CreateVertexBuffer(BU_STATIC);
+	//vbuf->WriteData(sizeof(Vertices), Vertices);
+	//m->GetVertexData()->SetBufferBinding(0, vbuf);
+	m->GetManagedVertexData()->SetVertices(vertices);
+	m->GetManagedVertexData()->FlushBuffer();
+
+	m->CreateIndexData();
+	//GPUBufferPtr ibuf = m->GetIndexData()->GetBuffer();
+	//ibuf->WriteData(6 * sizeof(GLuint), indices);
+	//m->GetIndexData()->SetIndexCount(6);
+	//m->Refresh();
+	m->GetManagedIndexData()->SetIndices(indices);
+	m->GetManagedIndexData()->FlushBuffer();
+	m->Refresh();
 
 	auto parent = graph->CreateGameObject();
 	parent->AttachChild(go);
@@ -88,8 +111,6 @@ int main(int argc, char** argv) {
 		move += .001f;
 		parent->GetTransform().SetPosition(glm::vec3(sin(move), 0, 0));
 		go->GetTransform().SetPosition(glm::vec3(0, sin(move), 0));
-
-		//parent->RefreshTransformTree();
 
 		glfwPollEvents();
 

@@ -20,6 +20,7 @@
 #include "graph/Scenegraph.h"
 #include "rendering/GloveWindow.h"
 #include "rendering/GloveRenderer.h"
+#include "core/GpuBufferManager.h"
 #include "scripting/GlovePythonEngine.h"
 #include "shader/pyshed/PyShedLoader.h"
 
@@ -83,6 +84,7 @@ void GloveCore::Init(int argc, char** argv) {
 	primaryScenegraph = ScenegraphPtr(new Scenegraph());
 
 	InitializeRenderingContext(argc, argv, 800, 600);
+	InitializeGpuBufferManager();
 	InitializeScripting();
 	InitializeResourceLoaders();
 	
@@ -102,6 +104,10 @@ void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidt
 
 }
 
+void GloveCore::InitializeGpuBufferManager() {
+	gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());
+}
+
 void GloveCore::InitializeScripting() {
 	pythonEngine->Init(executablePath);
 
@@ -117,8 +123,6 @@ void GloveCore::InitializeScripting() {
 }
 
 void GloveCore::InitializeResourceLoaders() {
-	//TODO: NoOp
-
 	pythonEngine->LoadPlugins();
 }
 

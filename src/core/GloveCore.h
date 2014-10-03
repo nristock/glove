@@ -40,10 +40,11 @@ public:
 	void Update();
 	void Render(ScenegraphPointer scenegraph);
 
-	GlovePythonEnginePtr GetPythonEngine() const { return pythonEngine; }
-	PyShedLoaderPtr GetPyshedLoader() const { return pyshedLoader; }
-	GloveRendererPointer GetRenderer() const { return renderer; }
-	ScenegraphPtr GetScenegraph() const { return primaryScenegraph; }
+	const GlovePythonEnginePtr& GetPythonEngine() const { return pythonEngine; }
+	const PyShedLoaderPtr& GetPyshedLoader() const { return pyshedLoader; }
+	const GloveRendererPointer& GetRenderer() const { return renderer; }
+	const ScenegraphPtr& GetScenegraph() const { return primaryScenegraph; }
+	const GpuBufferManagerPtr& GetGpuBufferManager() const { return gpuBufferManager; }\
 
 	std::string MakeDataPath(const std::string& relPath);
 
@@ -62,6 +63,7 @@ private:
 	GloveRendererPtr renderer;
 	GlovePythonEnginePtr pythonEngine;
 	PyShedLoaderPtr pyshedLoader;
+	GpuBufferManagerPtr gpuBufferManager;
 	ScenegraphPtr primaryScenegraph;
 
 	TimePoint initializationTime;
@@ -76,6 +78,7 @@ private:
 	unsigned long frameCounter;
 	
 	void InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight);
+	void InitializeGpuBufferManager();
 	void InitializeScripting();
 	void InitializeResourceLoaders();
 };

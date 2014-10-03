@@ -120,13 +120,18 @@ void ShaderProgram::CreateProgram() {
 		OLOG(error, "Failed to link shader program");
 		PrintShaderProgramLinkLog(shaderProgramId);
 	}
+
+	// Map some defaults
+	MapVertexAttribute(VAS_POSITION, "vertex");
+	MapVertexAttribute(VAS_COLOR, "color");
+	MapVertexAttribute(VAS_NORMAL, "normal");
 }
 
 void ShaderProgram::Enable() {
 	glUseProgram(shaderProgramId);
 }
 
-void ShaderProgram::MapVertexAttribute(MappedVertexAttribute attributeIdentifier, std::string attribName) {
+void ShaderProgram::MapVertexAttribute(VertexAttributeSemantic attributeSemantic, std::string attribName) {
 	// Implicitly create shader program if it hasn't been created yet
 	if (shaderProgramId == 0) {
 		CreateProgram();
@@ -138,7 +143,7 @@ void ShaderProgram::MapVertexAttribute(MappedVertexAttribute attributeIdentifier
 		return;
 	}
 
-	vertexAttributeMap[attributeIdentifier] = attribIndex;
+	vertexAttributeMap[attributeSemantic] = attribIndex;
 }
 
 void ShaderProgram::MapMaterialAttribute(MappedMaterialAttribute attributeIdentifier, std::string attribName) {
@@ -160,9 +165,9 @@ void ShaderProgram::Disable() {
 	glUseProgram(0);
 }
 
-GLuint ShaderProgram::GetVertexAttributePosition(MappedVertexAttribute attributeIdentifier) {
-	if(vertexAttributeMap.find(attributeIdentifier) == vertexAttributeMap.end()) throw new GloveException("VertexAttribute has not been mapped");
-	else return vertexAttributeMap.at(attributeIdentifier);
+GLuint ShaderProgram::GetVertexAttributePosition(VertexAttributeSemantic attributeSemantic) {
+	if (vertexAttributeMap.find(attributeSemantic) == vertexAttributeMap.end()) throw new GloveException("VertexAttribute has not been mapped");
+	else return vertexAttributeMap.at(attributeSemantic);
 }
 
 GLuint ShaderProgram::GetMaterialAttributePosition(MappedMaterialAttribute attributeIdentifier) {

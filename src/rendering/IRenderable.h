@@ -1,23 +1,19 @@
-/*
- * IRenderable.h
- *
- *  Created on: Aug 18, 2014
- *      Author: monofraps
- */
-
-#ifndef IRENDERABLE_H_
-#define IRENDERABLE_H_
+#ifndef RENDERING_IRENDERABLE_H_
+#define RENDERING_IRENDERABLE_H_
 
 namespace glove {
 
 struct FrameData;
+struct RenderOperation;
 
 class IRenderable {
 public:
-	IRenderable();
-	virtual ~IRenderable();
+	virtual ~IRenderable() {};
 
-	virtual void Render(FrameData& frameData) = 0;
+	/** Invoked by the rendering system to set up the rendering operation. */
+	virtual void SetupRender(RenderOperation& renderOp, const FrameData& frameData) = 0;
+	/** Invoked by the rendering system just after the object has been rendered. */
+	virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData) = 0;
 };
 
 } /* namespace glove */

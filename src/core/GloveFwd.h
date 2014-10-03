@@ -32,12 +32,6 @@ GLOVE_FWD_DECL(MeshData);
 
 GLOVE_FWD_DECL(GPUBuffer);
 
-GLOVE_FWD_DECL_STRUCT(VertexLayoutAttribute);
-GLOVE_MAKE_SHARED(VertexLayoutAttribute) VLDPtr;
-
-GLOVE_FWD_DECL(VertexAttributeBuffer);
-GLOVE_MAKE_SHARED(VertexAttributeBuffer) VABPtr;
-
 GLOVE_FWD_DECL(GlovePythonEngine);
 
 GLOVE_FWD_DECL(GloveWindow);
@@ -63,6 +57,24 @@ GLOVE_FWD_DECL(GameComponent);
 GLOVE_FWD_DECL(IGraphNode);
 
 GLOVE_FWD_DECL(IGameComponentFactory);
+
+GLOVE_FWD_DECL(VertexLayout);
+
+GLOVE_FWD_DECL(VertexData);
+
+GLOVE_FWD_DECL(IndexData);
+
+GLOVE_FWD_DECL(ManagedIndexData);
+
+GLOVE_FWD_DECL(GpuBufferManager);
+
+GLOVE_FWD_DECL(Renderer);
+
+GLOVE_FWD_DECL(Mesh);
+
+GLOVE_FWD_DECL(IMesh);
+
+GLOVE_FWD_DECL_STRUCT(RenderOperation);
 
 }
 

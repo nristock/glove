@@ -1,37 +1,33 @@
-/*
- * GPUBuffer.h
- *
- *  Created on: Aug 11, 2014
- *      Author: monofraps
- */
-
-#ifndef GPUBUFFER_H_
-#define GPUBUFFER_H_
-
-#include <GL/glew.h>
-#include <GL/gl.h>
+#ifndef BUFFERS_GPUBUFFER_H_
+#define BUFFERS_GPUBUFFER_H_
 
 #include "core/GloveObject.h"
 
+#include "buffers/BufferUsage.h"
+
 namespace glove {
 
+/** A class abstracting hardware/GPU buffers */
 class GPUBuffer : public GloveObject {
 	GLOVE_MEM_ALLOC_FUNCS("GPUBuffer")
 public:
-	GPUBuffer(GLenum target, GLenum usage);
+	GPUBuffer(BufferUsage usage);
 	virtual ~GPUBuffer();
 
-	virtual void Bind();
-	virtual void Unbind();
+	/** Binds the buffer for use. Can be called mutiple times per frame. */
+	virtual void Bind() = 0;
 
-	void FillData(GLsizeiptr sizeInBytes, const GLvoid* data);
+	/** Unbinds the buffer. Can be called mutiple times per frame. */
+	virtual void Unbind() = 0;
+
+	/** Writes data to the buffer and uploads it to the GPU */
+	virtual void WriteData(size_t sizeInBytes, const void* data) = 0;
 
 protected:
-	GLenum target;
-	GLenum usage;
-	GLuint bufferId;
+	/** The buffer's intended usage */
+	BufferUsage usage;
 };
 
 } /* namespace glove */
 
-#endif /* GPUBUFFER_H_ */
+#endif /* BUFFERS_GPUBUFFER_H_ */
