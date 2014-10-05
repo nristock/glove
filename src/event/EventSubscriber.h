@@ -4,6 +4,8 @@
 #include "memory/GloveMemory.h"
 
 #include "event/type/KeyEvent.h"
+#include "event/type/MouseButtonEvent.h"
+#include "event/type/MouseMoveEvent.h"
 
 namespace glove {
 
@@ -14,6 +16,8 @@ public:
 	virtual ~EventSubscriber();
 
 	virtual void OnKeyEvent(const KeyEvent& evnt) {};
+	virtual void OnMouseButtonEvent(const MouseButtonEvent& evnt) {};
+	virtual void OnMouseMoveEvent(const MouseMoveEvent& evnt) {};
 };
 
 

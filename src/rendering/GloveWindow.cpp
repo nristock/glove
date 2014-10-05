@@ -8,6 +8,8 @@
 
 #include "event/EventBus.h"
 #include "event/type/KeyEvent.h"
+#include "event/type/MouseButtonEvent.h"
+#include "event/type/MouseMoveEvent.h"
 
 namespace glove {
 
@@ -19,6 +21,8 @@ void GloveWindow::Init(int width, int height) {
 	glfwSetWindowUserPointer(glfwWindow, this);
 	glfwSetFramebufferSizeCallback(glfwWindow, &GloveWindow::GlfwFramebufferSizeChanged);
 	glfwSetKeyCallback(glfwWindow, &GloveWindow::GlfwKeyEvent);
+	glfwSetCursorPosCallback(glfwWindow, &GloveWindow::GlfwCursorPositionChanged);
+	glfwSetMouseButtonCallback(glfwWindow, &GloveWindow::GlfwMouseButtonEvent);
 
 	glfwGetFramebufferSize(glfwWindow, &width, &height);
 	SetFramebuffer(width, height);
@@ -56,6 +60,17 @@ void GloveWindow::OnKeyEvent(int key, int scancode, int action, int mods) {
 	gloveCore->GetEventBusRef()->Publish(keyEvent);
 }
 
+void GloveWindow::OnMouseMove(double x, double y) {
+	MouseMoveEvent moveEvent(x, y);
+	gloveCore->GetEventBusRef()->Publish(moveEvent);
+}
+
+void GloveWindow::OnMouseButton(int button, int action, int mods) {
+	ButtonAction buttonAction = (action == GLFW_PRESS) ? BA_PRESS : BA_RELEASE;
+	MouseButtonEvent buttonEvent((MouseButton)button, buttonAction, mods & GLFW_MOD_ALT, mods & GLFW_MOD_CONTROL, mods & GLFW_MOD_SHIFT, mods & GLFW_MOD_SUPER);
+	gloveCore->GetEventBusRef()->Publish(buttonEvent);
+}
+
 void GloveWindow::GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height) {
 	GloveWindow* gloveWindow = reinterpret_cast<GloveWindow*>(glfwGetWindowUserPointer(window));
 	gloveWindow->SetFramebuffer(width, height);
@@ -64,6 +79,16 @@ void GloveWindow::GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int 
 void GloveWindow::GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	GloveWindow* gloveWindow = reinterpret_cast<GloveWindow*>(glfwGetWindowUserPointer(window));
 	gloveWindow->OnKeyEvent(key, scancode, action, mods);
+}
+
+void GloveWindow::GlfwCursorPositionChanged(GLFWwindow* window, double x, double y) {
+	GloveWindow* gloveWindow = reinterpret_cast<GloveWindow*>(glfwGetWindowUserPointer(window));
+	gloveWindow->OnMouseMove(x, y);
+}
+
+void GloveWindow::GlfwMouseButtonEvent(GLFWwindow* window, int button, int action, int mods) {
+	GloveWindow* gloveWindow = reinterpret_cast<GloveWindow*>(glfwGetWindowUserPointer(window));
+	gloveWindow->OnMouseButton(button, action, mods);
 }
 
 } // namespace glove

@@ -34,9 +34,13 @@ private:
 	glm::mat4 projectionMat;
 
 	void OnKeyEvent(int key, int scancode, int action, int mods);
+	void OnMouseMove(double x, double y);
+	void OnMouseButton(int button, int action, int mods);
 
 	static void GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height);
 	static void GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void GlfwCursorPositionChanged(GLFWwindow* window, double x, double y);
+	static void GlfwMouseButtonEvent(GLFWwindow* window, int button, int action, int mods);
 };
 
 } // namespace glove
