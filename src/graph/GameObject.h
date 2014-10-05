@@ -39,7 +39,10 @@ public:
 	 * Adds a component to the game object. 
 	 * The game object takes complete ownership of the component. The component must not be deleted manually.
 	 */
-	virtual void AddComponent(GameComponent* component);
+	virtual void AddComponent(GameComponentPtr component);
+	
+	// Using auto_ptr here because boost::python doesn't support unique_ptr yet
+	virtual void AddUniqueComponent(std::auto_ptr<GameComponent> component);
 
 	virtual std::weak_ptr<GameComponent> CreateComponent(const IGameComponentFactory& factory);
 

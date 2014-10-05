@@ -5,6 +5,7 @@
 #include <boost/python.hpp>
 #include <boost/filesystem.hpp>
 
+#include "scripting/PythonPlugin.h"
 #include "modules/glove/GloveModule.h"
 #include "modules/pyshed/PyShedModule.h"
 
@@ -48,10 +49,18 @@ void GlovePythonEngine::Init(const std::string& executableBasePath) {
 	try {
 		using namespace boost::python;
 	
-		object mainNs = GetMainNamespace();
-		exec("import glove", mainNs);
+		dict builtinDict = GetBuiltins();
+		rootNamespace["__builtins__"] = builtinDict;
+		rootNamespace["__plugins__"] = pluginScopes;
+		rootNamespace["sys"] = import("sys");
+
+		// Add glove module types to builtins
+		dict gloveModuleDict = extract<dict>(import("glove").attr("__dict__"));
+		builtinDict.update(gloveModuleDict);
 		
 		LoadPyEnvironmentModule();
+
+		//builtinDict.update(environmentNamespace);
 
 		/*{
 			object main_module = import("__main__");
@@ -84,8 +93,6 @@ void GlovePythonEngine::Init(const std::string& executableBasePath) {
 }
 
 void GlovePythonEngine::LoadPyEnvironmentModule() {
-	bpy::object mainNS = GetMainNamespace();
-
 	std::string gloveCorePythonEnvironmentDirBase = basePath;
 	gloveCorePythonEnvironmentDirBase.append("/data/game/gcpyenv");
 
@@ -95,7 +102,7 @@ void GlovePythonEngine::LoadPyEnvironmentModule() {
 			OLOG(info, "Loading python environment file: " << dir.path().filename().string());
 
 			std::string path = dir.path().string();			
-			bpy::exec_file(path.c_str(), mainNS);
+			bpy::exec_file(path.c_str(), rootNamespace);
 		}
 	}
 
@@ -103,37 +110,34 @@ void GlovePythonEngine::LoadPyEnvironmentModule() {
 }
 
 void GlovePythonEngine::LoadPlugins() {
-	bpy::object mainNS = GetMainNamespace();
-
 	std::string pythonPluginPath = basePath;
 	pythonPluginPath.append("/data/game/plugins");
 
+	// Load all plugin module scopes first
 	bfs::path gloveCorePythonEnvDir(pythonPluginPath);
 	for (bfs::directory_entry dir : bfs::directory_iterator(gloveCorePythonEnvDir)) {
 		if (bfs::is_directory(dir)) {
 			std::string pluginName = dir.path().filename().string();
 
-			OLOG(info, "Loading plugin: " << pluginName);
-
 			try {
-				bpy::object plugin = bpy::import(pluginName.c_str());
-				bpy::dict pluginScope = bpy::extract<bpy::dict>(plugin.attr("__dict__"));
-				bpy::exec("from __main__ import *", pluginScope);
+				// Create and import the plugin
+				PythonPluginPtr pythonPlugin = PythonPluginPtr(new PythonPlugin(pluginName));
+				pythonPlugin->ImportPluginModule();
 
-				if (pluginScope.contains("LoadPlugin")) {
-					std::string pluginLoadExpression;
-					pluginLoadExpression += pluginName;
-					pluginLoadExpression += ".LoadPlugin()";
+				plugins.push_back(pythonPlugin);
 
-					mainNS[pluginName.c_str()] = plugin;
-
-					bpy::exec(pluginLoadExpression.c_str(), mainNS);
-				}
+				// Store the plugin module's scope
+				pluginScopes[pluginName.c_str()] = pythonPlugin->GetScope();				
 			}
 			catch (const boost::python::error_already_set &) {
 				HandleError();
 			}
 		}
+	}
+
+	// Execute all LoadPlugin functions after all plugin modules have been imported
+	for (PythonPluginPtr plugin : plugins) {
+		plugin->LoadPlugin();
 	}
 }
 
@@ -187,6 +191,13 @@ void GlovePythonEngine::HandleError() {
 }
 
 void GlovePythonEngine::Exit() {
+	// Unload all plugins
+	for (PythonPluginPtr plugin : plugins) {
+		if (plugin->IsLoaded()) {
+			plugin->UnloadPlugin();
+		}
+	}
+
 	Py_Finalize();
 }
 
@@ -194,8 +205,12 @@ bpy::object GlovePythonEngine::GetMainModule() {
 	return bpy::import("__main__");
 }
 
-bpy::object GlovePythonEngine::GetMainNamespace() {
-	return GetMainModule().attr("__dict__");
+bpy::dict GlovePythonEngine::GetRootNamespace() {
+	return rootNamespace;
+}
+
+bpy::dict GlovePythonEngine::GetBuiltins() {
+	return bpy::extract<bpy::dict>(GetMainModule().attr("__dict__")["__builtins__"].attr("__dict__"));
 }
 
 } //namespace glove

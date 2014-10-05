@@ -18,6 +18,8 @@
 
 #include "GloveException.h"
 #include "graph/Scenegraph.h"
+#include "graph/GameObject.h"
+#include "graph/GameComponent.h"
 #include "rendering/GloveWindow.h"
 #include "rendering/GloveRenderer.h"
 #include "core/GpuBufferManager.h"
@@ -30,7 +32,10 @@ namespace glove {
 
 GloveCorePointer GloveCore::instance;
 
-GloveCore::GloveCore() : renderer(new GloveRenderer()), pythonEngine(new GlovePythonEngine()), pyshedLoader(new PyShedLoader(pythonEngine)), frameCounter(0) {
+GloveCore::GloveCore() 
+	:	GloveObject(false), 
+		frameCounter(0) 
+{
 	frameData.frameId = 0;
 	frameData.viewProjectionMatrix = glm::mat4();
 	frameData.deltaTime = 0;
@@ -81,7 +86,6 @@ void GloveCore::Init(int argc, char** argv) {
 	initializationTime = sc::steady_clock::now();
 
 	instance = GloveCorePointer(this);
-	primaryScenegraph = ScenegraphPtr(new Scenegraph());
 
 	InitializeRenderingContext(argc, argv, 800, 600);
 	InitializeGpuBufferManager();
@@ -95,6 +99,8 @@ void GloveCore::Init(int argc, char** argv) {
 }
 
 void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight) {
+	renderer = GloveRendererPtr(new GloveRenderer());
+
 	try {
 		renderer->Init(windowWidth, windowHeight, 3, 3, argc, argv);
 	}
@@ -102,6 +108,8 @@ void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidt
 		OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
 	}
 
+	//TODO: move this
+	primaryScenegraph = ScenegraphPtr(new Scenegraph());
 }
 
 void GloveCore::InitializeGpuBufferManager() {
@@ -109,13 +117,15 @@ void GloveCore::InitializeGpuBufferManager() {
 }
 
 void GloveCore::InitializeScripting() {
+	pythonEngine = GlovePythonEnginePtr(new GlovePythonEngine());
 	pythonEngine->Init(executablePath);
 
 	try {
 		namespace bpy = boost::python;
-		bpy::object mainNs = pythonEngine->GetMainNamespace();
+		bpy::object mainNs = pythonEngine->GetBuiltins();
 
-		mainNs["ExposeScenegraph"](primaryScenegraph);
+		mainNs["g_Core"] = bpy::object(shared_from_this());
+		mainNs["g_Scenegraph"] = bpy::object(primaryScenegraph);
 	}
 	catch (boost::python::error_already_set const &) {
 		pythonEngine->HandleError();
@@ -123,6 +133,7 @@ void GloveCore::InitializeScripting() {
 }
 
 void GloveCore::InitializeResourceLoaders() {
+	pyshedLoader = PyShedLoaderPtr(new PyShedLoader(pythonEngine));
 	pythonEngine->LoadPlugins();
 }
 
@@ -136,10 +147,10 @@ void GloveCore::EnterMainLoop() {
 
 	std::chrono::duration<double> frameTime;
 
-	while (!renderer->GetWindow()->CloseRequested()) {
-		TimePoint end = std::chrono::steady_clock::now();
+	while (!IsExitRequested()) {
+		end = std::chrono::steady_clock::now();
 		frameTime = sc::duration_cast<std::chrono::duration<double>>(end - start);
-		TimePoint start = std::chrono::steady_clock::now();
+		start = std::chrono::steady_clock::now();
 
 		frameData.frameId++;
 		frameData.deltaTime = frameTime.count();
@@ -150,14 +161,18 @@ void GloveCore::EnterMainLoop() {
 }
 
 void GloveCore::Update() {
-
+	primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject){
+		gameObject->IterateComponents([&](GameComponentPtr gameComponent){
+			gameComponent->SyncUpdate();
+		});
+	});
 }
 
 void GloveCore::Render(ScenegraphPointer scenegraph) {
 	renderer->RenderScene(scenegraph, frameData);
 }
 
-std::string GloveCore::MakeDataPath(const std::string& relPath) {
+std::string GloveCore::MakeDataPath(const std::string& relPath) const {
 	std::string path(executablePath);
 	path.append("/");
 	path.append(relPath);

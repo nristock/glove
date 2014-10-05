@@ -4,12 +4,13 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
+#include "core/GloveObject.h"
 #include "buffers/GPUBuffer.h"
 
 namespace glove {
 
 /** This class implements an GL hardware/GPU buffer */
-class GLGpuBuffer : public GPUBuffer {
+class GLGpuBuffer : public GloveObject, public GPUBuffer {
 	GLOVE_MEM_ALLOC_FUNCS("GLGpuBuffer")
 public:
 	GLGpuBuffer(BufferUsage usage, GLenum target);
@@ -26,6 +27,9 @@ protected:
 
 	/** The buffer binding target */
 	GLenum target;
+
+	/** The buffer's intended usage */
+	BufferUsage usage;
 };
 
 

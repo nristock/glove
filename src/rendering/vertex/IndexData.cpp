@@ -6,7 +6,7 @@
 namespace glove {
 	
 IndexData::IndexData() {
-	indexBuffer = GloveCore::Instance()->GetGpuBufferManager()->CreateIndexBuffer();
+	indexBuffer = gloveCore->GetGpuBufferManager()->CreateIndexBuffer();
 }
 
 IndexData::~IndexData() {

@@ -5,7 +5,7 @@
 
 namespace glove {
 	
-GLGpuBuffer::GLGpuBuffer(BufferUsage usage, GLenum target) : GPUBuffer(usage), target(target) {
+GLGpuBuffer::GLGpuBuffer(BufferUsage usage, GLenum target) : GPUBuffer(), target(target), usage(usage) {
 	glGenBuffers(1, &bufferId);
 }
 

@@ -31,7 +31,7 @@ ShaderProgramPointer PyShedLoader::LoadPysehdShader(std::string fileName) {
 
 bpy::object PyShedLoader::CreatePyshedScope() {
 	try {
-		bpy::dict scope(pythonEngine->GetMainNamespace());
+		bpy::dict scope(pythonEngine->GetRootNamespace());
 		bpy::exec("from pyshed import *", scope);
 		bpy::exec("shader = ShaderProgram(2)", scope);
 

@@ -16,7 +16,7 @@ public:
 	virtual void Refresh() = 0;
 
 	/** Returns the associated material */
-	virtual MaterialPtr GetMaterial() const = 0;
+	virtual const MaterialPtr& GetMaterial() const = 0;
 
 	/** Returns the associated vertex data */
 	virtual const VertexDataPtr& GetVertexData() const = 0;

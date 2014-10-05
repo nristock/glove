@@ -22,14 +22,19 @@ GameObject::~GameObject() {
 	components.clear();
 }
 
-void GameObject::AddComponent(GameComponent* component) {
-	GameComponentPointer componentPointer = GameComponentPtr(component);
-	components.push_back(componentPointer);
+void GameObject::AddComponent(GameComponentPtr component) {
+	component->OnAttach(shared_from_this());
+	components.push_back(component);
 	
-	auto renderablePointer = std::dynamic_pointer_cast<IRenderable>(componentPointer);
+	auto renderablePointer = std::dynamic_pointer_cast<IRenderable>(component);
 	if (renderablePointer) {		
 		renderableComponents.push_back(std::weak_ptr<IRenderable>(renderablePointer));
 	}
+}
+
+void GameObject::AddUniqueComponent(std::auto_ptr<GameComponent> uniqueComponent) {
+	AddComponent(GameComponentPtr(uniqueComponent.get()));
+	uniqueComponent.release();
 }
 
 std::weak_ptr<GameComponent> GameObject::CreateComponent(const IGameComponentFactory& factory) {

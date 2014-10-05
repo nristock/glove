@@ -12,7 +12,7 @@ namespace glove {
 template<class VertexLayoutType> class GLManagedMesh : public ManagedMesh<VertexLayoutType>, public GLBaseMesh {
 	GLOVE_MEM_ALLOC_FUNCS("GLManagedMesh")
 public:
-	GLManagedMesh(MaterialPtr material, GameObjectPtr parent) : ManagedMesh(material, parent) {
+	GLManagedMesh(MaterialPtr material) : ManagedMesh(material) {
 		glGenVertexArrays(1, &vertexArrayId);
 	}
 

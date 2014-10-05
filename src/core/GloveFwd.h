@@ -74,6 +74,8 @@ GLOVE_FWD_DECL(Mesh);
 
 GLOVE_FWD_DECL(IMesh);
 
+GLOVE_FWD_DECL(PythonPlugin);
+
 GLOVE_FWD_DECL_STRUCT(RenderOperation);
 
 }

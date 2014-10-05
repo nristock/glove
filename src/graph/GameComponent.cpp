@@ -4,12 +4,20 @@
 
 namespace glove {
 	
-GameComponent::GameComponent(GameObjectPtr parent) : parent(parent) {
+GameComponent::GameComponent() {
 
 }
 
 GameComponent::~GameComponent() {
 	
+}
+
+void GameComponent::OnAttach(GameObjectPtr owner) {
+	this->owner = owner;
+}
+
+void GameComponent::OnDetach() {
+	owner.reset();
 }
 
 } // namespace glove

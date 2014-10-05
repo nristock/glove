@@ -2,7 +2,7 @@
 
 namespace glove {
 
-GPUBuffer::GPUBuffer(BufferUsage usage) : usage(usage) {
+GPUBuffer::GPUBuffer() {
 	
 
 }
