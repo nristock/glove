@@ -10,7 +10,7 @@ namespace glove {
 class GLMesh : public GLBaseMesh, public Mesh {
 	GLOVE_MEM_ALLOC_FUNCS("GLMesh")
 public:
-	GLMesh(MaterialPtr material, GameObjectPtr parent);
+	GLMesh(MaterialPtr material);
 	virtual ~GLMesh();
 	
 	virtual void SetupRender(RenderOperation& renderOp, const FrameData& frameData);

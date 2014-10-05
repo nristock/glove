@@ -12,7 +12,7 @@
 
 namespace glove {
 	
-GLMesh::GLMesh(MaterialPtr material, GameObjectPtr parent) : Mesh(material, parent) {	
+GLMesh::GLMesh(MaterialPtr material) : Mesh(material) {	
 	glGenVertexArrays(1, &vertexArrayId);
 }
 

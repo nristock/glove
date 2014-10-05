@@ -19,34 +19,39 @@
 
 namespace glove {
 
-class GloveCore : public GloveObject {
+class GloveCore : public GloveObject, public std::enable_shared_from_this<GloveCore> {
 	GLOVE_MEM_ALLOC_FUNCS("GloveCore")
 public:
 	GloveCore();
 	virtual ~GloveCore();
 
-	/*!
-	 * Initializes the Glove engine and all subsystems. Must be called from main thread.
-	 */
+	/** Initializes the Glove engine and all subsystems. Must be called from main thread. */
 	void Init(int argc, char** argv);
 		
-	void Exit();
-
-	/*!
-	 * Starts the main application loop. Must be called from main thread.
-	 */
+	/** Starts the main application loop. Must be called from main thread. */
 	void EnterMainLoop();
 
 	void Update();
 	void Render(ScenegraphPointer scenegraph);
 
-	const GlovePythonEnginePtr& GetPythonEngine() const { return pythonEngine; }
-	const PyShedLoaderPtr& GetPyshedLoader() const { return pyshedLoader; }
-	const GloveRendererPointer& GetRenderer() const { return renderer; }
-	const ScenegraphPtr& GetScenegraph() const { return primaryScenegraph; }
-	const GpuBufferManagerPtr& GetGpuBufferManager() const { return gpuBufferManager; }\
+	GlovePythonEnginePtr GetPythonEngine() const { return pythonEngine; }
+	PyShedLoaderPtr GetPyshedLoader() const { return pyshedLoader; }
+	GloveRendererPointer GetRenderer() const { return renderer; }
+	ScenegraphPtr GetScenegraph() const { return primaryScenegraph; }
+	GpuBufferManagerPtr GetGpuBufferManager() const { return gpuBufferManager; }
+	PluginLoaderPtr GetPluginLoader() const { return pluginLoader; }
 
-	std::string MakeDataPath(const std::string& relPath);
+	const GlovePythonEnginePtr& GetPythonEngineRef() const { return pythonEngine; }
+	const PyShedLoaderPtr& GetPyshedLoaderRef() const { return pyshedLoader; }
+	const GloveRendererPointer& GetRendererRef() const { return renderer; }
+	const ScenegraphPtr& GetScenegraphRef() const { return primaryScenegraph; }
+	const GpuBufferManagerPtr& GetGpuBufferManagerRef() const { return gpuBufferManager; }
+	const PluginLoaderPtr& GetPluginLoaderRef() const { return pluginLoader; }
+
+	std::string MakeDataPath(const std::string& relPath) const;
+
+	bool IsExitRequested() const { return exitRequested; }
+	void SetExitRequested(bool requestExit) { exitRequested = requestExit; }
 
 	static inline GloveCorePointer Instance() {
 		if (GloveCore::instance) {
@@ -65,6 +70,7 @@ private:
 	PyShedLoaderPtr pyshedLoader;
 	GpuBufferManagerPtr gpuBufferManager;
 	ScenegraphPtr primaryScenegraph;
+	PluginLoaderPtr pluginLoader;
 
 	TimePoint initializationTime;
 
@@ -76,9 +82,9 @@ private:
 	static GloveCorePointer instance;
 
 	unsigned long frameCounter;
+	bool exitRequested;
 	
-	void InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight);
-	void InitializeGpuBufferManager();
+	void InitializeRenderingSystem(int argc, char** argv, int windowWidth, int windowHeight);
 	void InitializeScripting();
 	void InitializeResourceLoaders();
 };

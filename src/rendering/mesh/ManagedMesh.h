@@ -14,15 +14,16 @@
 namespace glove {
 
 /** Represents a mesh using managed data (ManagedVertexData and ManagedIndexData) */
-template<class VertexLayoutType> class ManagedMesh : public GameComponent, public IRenderable, public IMesh, public std::enable_shared_from_this<Mesh> {
+template<class VertexLayoutType> class ManagedMesh : public GameComponent, public IRenderable, public IMesh, public std::enable_shared_from_this<ManagedMesh<VertexLayoutType>> {
 	GLOVE_MEM_ALLOC_FUNCS("ManagedMesh")
 public:
 	typedef std::shared_ptr<ManagedVertexData<VertexLayoutType>> ManagedVertexDataPtr;
 
-	ManagedMesh(MaterialPtr material, GameObjectPtr parent) : GameComponent(parent), material(material) {
+	ManagedMesh(MaterialPtr material) : GameComponent(), material(material) {
 		shader = material->GetShader();
 
-		vertexData = ManagedVertexDataPtr(new ManagedVertexData<VertexLayoutType>());
+		managedVertexData = ManagedVertexDataPtr(new ManagedVertexData<VertexLayoutType>());
+		vertexData = std::dynamic_pointer_cast<VertexData>(managedVertexData);
 	}
 
 	virtual ~ManagedMesh() {	}
@@ -31,29 +32,33 @@ public:
 		GloveCore::Instance()->GetRenderer()->CreateVertexAttributeMappings(this);
 	}
 
-	virtual MaterialPtr GetMaterial() const { return material; }
+	virtual const MaterialPtr& GetMaterial() const { return material; }
 
-	virtual const VertexDataPtr& GetVertexData() const { return std::dynamic_pointer_cast<VertexData>(vertexData); }
-	virtual const IndexDataPtr& GetIndexData() const { return std::dynamic_pointer_cast<IndexData>(indexData); }
+	virtual const VertexDataPtr& GetVertexData() const { return vertexData; }
+	virtual const IndexDataPtr& GetIndexData() const { return indexData; }
 	virtual const ShaderProgramPointer& GetShader() const { return shader; }
 
-	virtual const ManagedVertexDataPtr& GetManagedVertexData() const { return vertexData; }
-	virtual const ManagedIndexDataPtr& GetManagedIndexData() const { return indexData; }
+	virtual const ManagedVertexDataPtr& GetManagedVertexData() const { return managedVertexData; }
+	virtual const ManagedIndexDataPtr& GetManagedIndexData() const { return managedIndexData; }
 
 	virtual void SetupRender(RenderOperation& renderOp, const FrameData& frameData) {
-		renderOp.vertexData = (VertexData*)vertexData.get();
-		renderOp.indexData = (IndexData*)indexData.get();
+		renderOp.vertexData = vertexData.get();
+		renderOp.indexData = indexData.get();
 		renderOp.material = material.get();
 	}
 	
 	virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData) = 0;
 
 	virtual void CreateIndexData() {
-		indexData = ManagedIndexDataPtr(new ManagedIndexData());
+		managedIndexData = ManagedIndexDataPtr(new ManagedIndexData());
+		indexData = std::dynamic_pointer_cast<IndexData>(managedIndexData);
 	}
 protected:
-	ManagedVertexDataPtr vertexData;
-	ManagedIndexDataPtr indexData;
+	ManagedVertexDataPtr managedVertexData;
+	ManagedIndexDataPtr managedIndexData;
+	VertexDataPtr vertexData;
+	IndexDataPtr indexData;
+
 	MaterialPtr material;
 	ShaderProgramPointer shader;
 };

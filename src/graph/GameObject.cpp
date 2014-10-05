@@ -22,11 +22,11 @@ GameObject::~GameObject() {
 	components.clear();
 }
 
-void GameObject::AddComponent(GameComponent* component) {
-	GameComponentPointer componentPointer = GameComponentPtr(component);
-	components.push_back(componentPointer);
+void GameObject::AddComponent(GameComponentPtr component) {
+	component->OnAttach(shared_from_this());
+	components.push_back(component);
 	
-	auto renderablePointer = std::dynamic_pointer_cast<IRenderable>(componentPointer);
+	auto renderablePointer = std::dynamic_pointer_cast<IRenderable>(component);
 	if (renderablePointer) {		
 		renderableComponents.push_back(std::weak_ptr<IRenderable>(renderablePointer));
 	}
@@ -52,13 +52,13 @@ template<class T> std::weak_ptr<T> GameObject::GetComponent() {
 	}
 }
 
-void GameObject::IterateComponents(std::function<void(GameComponentPointer)> callback) {
+void GameObject::IterateComponents(std::function<void(const GameComponentPointer&)> callback) {
 	for (auto component : components) {
 		callback(component);
 	}
 }
 
-void GameObject::IterateRenderableComponents(std::function<void(IRenderablePointer)> callback) {
+void GameObject::IterateRenderableComponents(std::function<void(const IRenderablePointer&)> callback) {
 	for (auto component : renderableComponents) {
 		callback(component.lock());
 	}

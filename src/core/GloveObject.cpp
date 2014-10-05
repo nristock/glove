@@ -7,15 +7,20 @@
 
 #include "GloveObject.h"
 
+#include "core/GloveCore.h"
+
 namespace glove {
 
-GloveObject::GloveObject() {
-	// TODO Auto-generated constructor stub
+GloveObject::GloveObject() : GloveObject(true) {
+}
 
+GloveObject::GloveObject(bool queryGloveCore) {
+	if (queryGloveCore) {
+		gloveCore = GloveCore::Instance();
+	}
 }
 
 GloveObject::~GloveObject() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace glove */

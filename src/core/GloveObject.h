@@ -8,6 +8,7 @@
 #ifndef GLOVEOBJECT_H_
 #define GLOVEOBJECT_H_
 
+#include "core/GloveFwd.h"
 #include "log/Log.h"
 #include "memory/GloveMemory.h"
 
@@ -20,10 +21,13 @@ class GloveObject {
 
 public:
 	GloveObject();
+	GloveObject(bool queryGloveCore);
 	virtual ~GloveObject();
 
 protected:
 	logging::GloveLogger logger;
+
+	GloveCorePtr gloveCore;
 };
 
 } /* namespace glove */

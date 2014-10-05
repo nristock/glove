@@ -14,12 +14,12 @@ namespace glove {
 class Mesh : public GameComponent, public IRenderable, public IMesh, public std::enable_shared_from_this<Mesh> {
 	GLOVE_MEM_ALLOC_FUNCS("Mesh")
 public:
-	Mesh(MaterialPtr material, GameObjectPtr parent);
+	Mesh(MaterialPtr material);
 	virtual ~Mesh();
 	
 	virtual void Refresh();
 	
-	virtual MaterialPtr GetMaterial() const { return material; }
+	virtual const MaterialPtr& GetMaterial() const { return material; }
 
 	virtual const VertexDataPtr& GetVertexData() const { return vertexData; }
 	virtual const IndexDataPtr& GetIndexData() const { return indexData; }

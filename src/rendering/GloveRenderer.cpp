@@ -29,7 +29,8 @@
 
 namespace glove {
 
-GloveRenderer::GloveRenderer() {	
+GloveRenderer::GloveRenderer() {
+	currentRenderOperation.Reset();
 }
 
 GloveRenderer::~GloveRenderer() {
@@ -71,13 +72,12 @@ void GloveRenderer::GlfwErrorSink(int error, const char* description) {
 
 void GloveRenderer::RenderScene(ScenegraphPointer scenegraph, FrameData& frameData) {
 	frameData.viewProjectionMatrix = associatedWindow->GetProjMatrix() * scenegraph->GetMainCamera()->GetViewMatrix();
-	RenderOperation renderOp = RenderOperation();
-
+	
 	scenegraph->IterateGameObjects([&](GameObjectPtr gameObject){
-		gameObject->IterateRenderableComponents([&](IRenderablePtr renderable) {
-			renderable->SetupRender(renderOp, frameData);
-			RenderObject(renderOp, frameData, gameObject);
-			renderable->PostRender(renderOp, frameData);
+		gameObject->IterateRenderableComponents([&](const IRenderablePtr& renderable) {
+			renderable->SetupRender(currentRenderOperation, frameData);
+			RenderObject(currentRenderOperation, frameData, gameObject);
+			renderable->PostRender(currentRenderOperation, frameData);
 		});			
 	});
 

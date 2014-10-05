@@ -39,7 +39,7 @@ public:
 	 * Adds a component to the game object. 
 	 * The game object takes complete ownership of the component. The component must not be deleted manually.
 	 */
-	virtual void AddComponent(GameComponent* component);
+	virtual void AddComponent(GameComponentPtr component);
 
 	virtual std::weak_ptr<GameComponent> CreateComponent(const IGameComponentFactory& factory);
 
@@ -52,9 +52,9 @@ public:
 	/*!
 	 * Iterates all attached components and calls the specified callback.
 	 */
-	virtual void IterateComponents(std::function<void(GameComponentPointer)> callback);
+	virtual void IterateComponents(std::function<void(const GameComponentPointer&)> callback);
 
-	virtual void IterateRenderableComponents(std::function<void(IRenderablePointer)> callback);
+	virtual void IterateRenderableComponents(std::function<void(const IRenderablePointer&)> callback);
 
 protected:
 	std::list<GameComponentPointer> components;

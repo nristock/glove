@@ -7,6 +7,12 @@
 #include "PyGloveCore.h"
 #include "PyGloveObject.h"
 #include "PyScenegraph.h"
+#include "PyGlovePythonEngine.h"
+#include "PyGloveRenderer.h"
+#include "PyGpuBufferManager.h"
+#include "PyPyShedLoader.h"
+#include "PyGPUBuffer.h"
+#include "PyGameComponent.h"
 
 namespace glove {
 namespace python {
@@ -15,8 +21,14 @@ BOOST_PYTHON_MODULE(GloveModule) {
 	ExportCoreComponents();
 	ExportGameObject();
 	ExportCamera();
+	ExportGlovePythonEngine();
+	ExportGloveRenderer();
+	ExportGPUBuffer();
+	ExportGpuBufferManager();
+	ExportPyShedLoader();
 	ExportGloveCore();
 	ExportScenegraph();
+	ExportGameComponent();
 }
 
 PyObject* CreateGloveModule() {

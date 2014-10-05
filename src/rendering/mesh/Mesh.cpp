@@ -18,7 +18,7 @@
 
 namespace glove {
 
-Mesh::Mesh(MaterialPtr material, GameObjectPtr parent) : GameComponent(parent), material(material) {
+Mesh::Mesh(MaterialPtr material) : GameComponent(), material(material) {
 	shader = material->GetShader();
 
 	vertexData = VertexDataPtr(new VertexData());

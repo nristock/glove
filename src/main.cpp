@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include "core/PluginLoader.h"
+#include "core/GlovePlugin.h"
 #include "core/GloveCore.h"
 #include "core/GloveFwd.h"
 #include "graph/Scenegraph.h"
@@ -63,9 +65,10 @@ int main(int argc, char** argv) {
 	ScenegraphPtr graph = gcore->GetScenegraph();
 	auto go = graph->CreateGameObject();
 	//IndexedMesh m(meshData, material, go);
-	auto m = new GLManagedMesh<vertexlayouts::PositionColor>(material, go);
+	std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>> m = std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>>(new GLManagedMesh<vertexlayouts::PositionColor>(material));
+	GameComponentPtr gp = std::dynamic_pointer_cast<GameComponent>(m);
 
-	go->AddComponent(m);
+	go->AddComponent(gp);
 
 	//m->GetVertexData()->GetVertexLayout()->AddElement(0, 0, VAT_FLOAT3, VAS_POSITION);
 	//m->GetVertexData()->GetVertexLayout()->AddElement(0, VertexAttribute::GetSize(VAT_FLOAT3), VAT_FLOAT4, VAS_COLOR);
@@ -99,12 +102,11 @@ int main(int argc, char** argv) {
 		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 		if (time_span.count() > 20) {
 			t1 = std::chrono::steady_clock::now();
-			LOG(logging::globalLogger, info, memory_internal::DumpList());
+			//LOG(logging::globalLogger, info, memory_internal::DumpList());
 
 			std::chrono::milliseconds time_span2 = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - p1);
-			LOG(logging::globalLogger, info, "FrameTime: " << time_span2.count());
+			//LOG(logging::globalLogger, info, "FrameTime: " << time_span2.count());
 		}
-
 
 		p1 = std::chrono::steady_clock::now();
 
@@ -116,8 +118,7 @@ int main(int argc, char** argv) {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		
+		gcore->Update();
 		gcore->Render(graph);
 	}
-
-	gcore->Exit();
 }
