@@ -17,19 +17,16 @@ class GlovePythonEngine : public GloveObject {
 public:
 	typedef std::list<PythonPluginPtr> PythonPluginList;
 
-	GlovePythonEngine();
+	GlovePythonEngine(const std::string& executableBasePath);
 	virtual ~GlovePythonEngine();
-
-	void Init(const std::string& executableBasePath);
-	void Exit();
-
-	void LoadPlugins();
-	
+			
 	void HandleError();
 
 	boost::python::object GetMainModule();
 	boost::python::dict GetRootNamespace();
 	boost::python::dict GetBuiltins();
+
+	virtual void AnnouncePlugin(const PythonPluginPtr& pythonPlugin);
 
 private:
 	void LoadPyEnvironmentModule();

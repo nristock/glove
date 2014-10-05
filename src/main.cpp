@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include "core/PluginLoader.h"
+#include "core/GlovePlugin.h"
 #include "core/GloveCore.h"
 #include "core/GloveFwd.h"
 #include "graph/Scenegraph.h"
@@ -106,7 +108,6 @@ int main(int argc, char** argv) {
 			//LOG(logging::globalLogger, info, "FrameTime: " << time_span2.count());
 		}
 
-
 		p1 = std::chrono::steady_clock::now();
 
 		move += .001f;
@@ -120,6 +121,4 @@ int main(int argc, char** argv) {
 		gcore->Update();
 		gcore->Render(graph);
 	}
-
-	gcore->Exit();
 }

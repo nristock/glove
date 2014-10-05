@@ -9,7 +9,7 @@ namespace python {
 
 void ExportGameObject() {
 	boost::python::class_<glove::GameObject, boost::python::bases<GloveObject>, std::shared_ptr<GameObject>>("GameObject")
-		.def("AddComponent", &GameObject::AddUniqueComponent);
+		.def("AddComponent", &GameObject::AddComponent);
 }
 
 } // namespace python

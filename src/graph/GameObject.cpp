@@ -32,11 +32,6 @@ void GameObject::AddComponent(GameComponentPtr component) {
 	}
 }
 
-void GameObject::AddUniqueComponent(std::auto_ptr<GameComponent> uniqueComponent) {
-	AddComponent(GameComponentPtr(uniqueComponent.get()));
-	uniqueComponent.release();
-}
-
 std::weak_ptr<GameComponent> GameObject::CreateComponent(const IGameComponentFactory& factory) {
 	GameComponentPtr component = factory.Build(shared_from_this());
 
@@ -57,13 +52,13 @@ template<class T> std::weak_ptr<T> GameObject::GetComponent() {
 	}
 }
 
-void GameObject::IterateComponents(std::function<void(GameComponentPointer)> callback) {
+void GameObject::IterateComponents(std::function<void(const GameComponentPointer&)> callback) {
 	for (auto component : components) {
 		callback(component);
 	}
 }
 
-void GameObject::IterateRenderableComponents(std::function<void(IRenderablePointer)> callback) {
+void GameObject::IterateRenderableComponents(std::function<void(const IRenderablePointer&)> callback) {
 	for (auto component : renderableComponents) {
 		callback(component.lock());
 	}

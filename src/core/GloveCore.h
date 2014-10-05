@@ -28,8 +28,6 @@ public:
 	/** Initializes the Glove engine and all subsystems. Must be called from main thread. */
 	void Init(int argc, char** argv);
 		
-	void Exit();
-
 	/** Starts the main application loop. Must be called from main thread. */
 	void EnterMainLoop();
 
@@ -41,12 +39,14 @@ public:
 	GloveRendererPointer GetRenderer() const { return renderer; }
 	ScenegraphPtr GetScenegraph() const { return primaryScenegraph; }
 	GpuBufferManagerPtr GetGpuBufferManager() const { return gpuBufferManager; }
+	PluginLoaderPtr GetPluginLoader() const { return pluginLoader; }
 
 	const GlovePythonEnginePtr& GetPythonEngineRef() const { return pythonEngine; }
 	const PyShedLoaderPtr& GetPyshedLoaderRef() const { return pyshedLoader; }
 	const GloveRendererPointer& GetRendererRef() const { return renderer; }
 	const ScenegraphPtr& GetScenegraphRef() const { return primaryScenegraph; }
 	const GpuBufferManagerPtr& GetGpuBufferManagerRef() const { return gpuBufferManager; }
+	const PluginLoaderPtr& GetPluginLoaderRef() const { return pluginLoader; }
 
 	std::string MakeDataPath(const std::string& relPath) const;
 
@@ -70,6 +70,7 @@ private:
 	PyShedLoaderPtr pyshedLoader;
 	GpuBufferManagerPtr gpuBufferManager;
 	ScenegraphPtr primaryScenegraph;
+	PluginLoaderPtr pluginLoader;
 
 	TimePoint initializationTime;
 
@@ -83,8 +84,7 @@ private:
 	unsigned long frameCounter;
 	bool exitRequested;
 	
-	void InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight);
-	void InitializeGpuBufferManager();
+	void InitializeRenderingSystem(int argc, char** argv, int windowWidth, int windowHeight);
 	void InitializeScripting();
 	void InitializeResourceLoaders();
 };

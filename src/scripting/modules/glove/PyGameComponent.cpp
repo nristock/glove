@@ -2,6 +2,8 @@
 
 #include <boost/python.hpp>
 
+#include "core/GloveCore.h"
+#include "scripting/GlovePythonEngine.h"
 #include "graph/GameComponent.h"
 
 namespace glove {
@@ -38,7 +40,7 @@ private:
 };
 
 void ExportGameComponent() {
-	boost::python::class_<GameComponent, std::auto_ptr<GameComponentWrapper>, boost::python::bases<GloveObject>, boost::noncopyable>("GameComponent")
+	boost::python::class_<GameComponent, std::shared_ptr<GameComponentWrapper>, boost::python::bases<GloveObject>>("GameComponent")
 		.def("SyncEarlyUpdate", &GameComponent::SyncEarlyUpdate, &GameComponentWrapper::SyncEarlyUpdate_)
 		.def("SyncUpdate", &GameComponent::SyncUpdate, &GameComponentWrapper::SyncUpdate_)
 		.def("AsyncUpdate", &GameComponent::AsyncUpdate, &GameComponentWrapper::AsyncUpdate_)
@@ -48,7 +50,7 @@ void ExportGameComponent() {
 		.def("AsyncPostPhysicsUpdate", &GameComponent::AsyncPostPhysicsUpdate, &GameComponentWrapper::AsyncPostPhysicsUpdate_)
 		.add_property("owner", &GameComponent::GetOwner);
 		
-	boost::python::implicitly_convertible<std::auto_ptr<GameComponentWrapper>, std::auto_ptr<GameComponent>>();
+	boost::python::implicitly_convertible<std::shared_ptr<GameComponentWrapper>, std::shared_ptr<GameComponent>>();
 }
 
 } // namespace python

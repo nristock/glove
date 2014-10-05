@@ -11,25 +11,24 @@ namespace bpy = boost::python;
 
 namespace glove {
 
-PythonPlugin::PythonPlugin(std::string pluginName) : GloveObject(), pluginName(pluginName), loaded(false) {
+PythonPlugin::PythonPlugin(std::string pluginPath, std::string pluginName) : GloveObject(), pluginPath(pluginPath), pluginName(pluginName), loaded(false) {
 	pythonEngine = gloveCore->GetPythonEngine();
-}
 
-PythonPlugin::~PythonPlugin() {
-
-}
-
-void PythonPlugin::ImportPluginModule() {
 	// Import the plugin module
 	pluginModule = bpy::import(pluginName.c_str());
 
 	InitPluginScope();
 }
 
+PythonPlugin::~PythonPlugin() {
+
+}
+
 void PythonPlugin::InitPluginScope() {
 	// Get the module's scope and append a copy of the root namespace
 	pluginScope = bpy::extract<bpy::dict>(pluginModule.attr("__dict__"));
 	pluginScope["__name__"] = bpy::str(pluginName);
+	pluginScope["__moduledir__"] = bpy::str(pluginPath);
 	pluginScope.update(pythonEngine->GetRootNamespace().copy());
 }
 
@@ -38,7 +37,7 @@ void PythonPlugin::LoadPlugin() {
 		OLOG(warning, (boost::format("Loading active plugin %1%") % pluginName).str());
 	}
 
-	OLOG(info, "Loading plugin: " << pluginName);
+	OLOG(info, "Loading python plugin: " << pluginName);
 
 	try {
 		if (pluginScope.contains("LoadPlugin")) {
@@ -58,7 +57,7 @@ void PythonPlugin::UnloadPlugin() {
 		return;
 	}
 
-	OLOG(info, "Unloading plugin: " << pluginName);
+	OLOG(info, "Unloading python plugin: " << pluginName);
 
 	try {
 		loaded = false;

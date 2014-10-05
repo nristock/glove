@@ -35,6 +35,7 @@ public:
 	
 private:
 	GloveWindowPtr associatedWindow;
+	RenderOperation currentRenderOperation;
 	
 	void SetViewport(int width, int height);
 

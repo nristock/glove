@@ -12,11 +12,9 @@ namespace glove {
 class PythonPlugin : public GloveObject {
 	GLOVE_MEM_ALLOC_FUNCS("PythonPlugin")
 public:
-	PythonPlugin(std::string pluginName);
+	PythonPlugin(std::string pluginPath, std::string pluginName);
 	virtual ~PythonPlugin();
 
-	/** Imports the python module */
-	virtual void ImportPluginModule();
 	/** Loads the plugin by calling its LoadPlugin method and creating the plugin scope */
 	virtual void LoadPlugin();
 	/** Unloads the plugin by calling its UnloadPlugin method */
@@ -36,6 +34,7 @@ protected:
 	/** Reference to the python engine initialized in constructor */
 	GlovePythonEnginePtr pythonEngine;
 
+	std::string pluginPath;
 	std::string pluginName;
 	boost::python::object pluginModule;
 	boost::python::dict pluginScope;

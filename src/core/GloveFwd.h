@@ -76,6 +76,12 @@ GLOVE_FWD_DECL(IMesh);
 
 GLOVE_FWD_DECL(PythonPlugin);
 
+GLOVE_FWD_DECL(PythonScript);
+
+GLOVE_FWD_DECL(GlovePlugin);
+
+GLOVE_FWD_DECL(PluginLoader);
+
 GLOVE_FWD_DECL_STRUCT(RenderOperation);
 
 }

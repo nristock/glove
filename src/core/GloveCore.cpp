@@ -16,6 +16,8 @@
 #include <cstdlib>
 #endif
 
+#include <boost/format.hpp>
+
 #include "GloveException.h"
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
@@ -23,6 +25,7 @@
 #include "rendering/GloveWindow.h"
 #include "rendering/GloveRenderer.h"
 #include "core/GpuBufferManager.h"
+#include "core/PluginLoader.h"
 #include "scripting/GlovePythonEngine.h"
 #include "shader/pyshed/PyShedLoader.h"
 
@@ -83,22 +86,28 @@ GloveCore::~GloveCore() {
 }
 
 void GloveCore::Init(int argc, char** argv) {
-	initializationTime = sc::steady_clock::now();
+	try {
+		initializationTime = sc::steady_clock::now();
 
-	instance = GloveCorePointer(this);
+		instance = GloveCorePointer(this);
 
-	InitializeRenderingContext(argc, argv, 800, 600);
-	InitializeGpuBufferManager();
-	InitializeScripting();
-	InitializeResourceLoaders();
-	
-	TimePoint initializationDone = sc::steady_clock::now();
-	auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
-	OLOG(info, "Engine initialization took " << timeSpan.count() << "ms");
+		InitializeRenderingSystem(argc, argv, 800, 600);
+		primaryScenegraph = ScenegraphPtr(new Scenegraph());
+
+		InitializeScripting();
+		InitializeResourceLoaders();
+
+		TimePoint initializationDone = sc::steady_clock::now();
+		auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
+		OLOG(info, "Engine initialization took " << timeSpan.count() << "ms");
+	}
+	catch (const GloveException& ex) {
+		OLOG(error, (boost::format("Engine initialization failed: %1%") % ex.what()).str());
+	}
 
 }
 
-void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidth, int windowHeight) {
+void GloveCore::InitializeRenderingSystem(int argc, char** argv, int windowWidth, int windowHeight) {
 	renderer = GloveRendererPtr(new GloveRenderer());
 
 	try {
@@ -108,17 +117,11 @@ void GloveCore::InitializeRenderingContext(int argc, char** argv, int windowWidt
 		OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
 	}
 
-	//TODO: move this
-	primaryScenegraph = ScenegraphPtr(new Scenegraph());
-}
-
-void GloveCore::InitializeGpuBufferManager() {
-	gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());
+	gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());	
 }
 
 void GloveCore::InitializeScripting() {
-	pythonEngine = GlovePythonEnginePtr(new GlovePythonEngine());
-	pythonEngine->Init(executablePath);
+	pythonEngine = std::make_shared<GlovePythonEngine>(executablePath);
 
 	try {
 		namespace bpy = boost::python;
@@ -129,16 +132,17 @@ void GloveCore::InitializeScripting() {
 	}
 	catch (boost::python::error_already_set const &) {
 		pythonEngine->HandleError();
+
+		throw GLOVE_EXCEPTION("Failed to expose global scripting objects");
 	}
 }
 
 void GloveCore::InitializeResourceLoaders() {
-	pyshedLoader = PyShedLoaderPtr(new PyShedLoader(pythonEngine));
-	pythonEngine->LoadPlugins();
-}
+	pyshedLoader = std::make_shared<PyShedLoader>(pythonEngine);
+	pluginLoader = std::make_shared<PluginLoader>();
 
-void GloveCore::Exit() {
-	pythonEngine->Exit();
+	pluginLoader->DiscoverPlugins();
+	pluginLoader->LoadPlugins();
 }
 
 void GloveCore::EnterMainLoop() {
@@ -162,8 +166,20 @@ void GloveCore::EnterMainLoop() {
 
 void GloveCore::Update() {
 	primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject){
-		gameObject->IterateComponents([&](GameComponentPtr gameComponent){
+		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
+			gameComponent->SyncEarlyUpdate();
+		});
+
+		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
 			gameComponent->SyncUpdate();
+		});
+
+		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
+			gameComponent->AsyncUpdate();
+		});
+
+		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
+			gameComponent->SyncLateUpdate();
 		});
 	});
 }
@@ -173,11 +189,7 @@ void GloveCore::Render(ScenegraphPointer scenegraph) {
 }
 
 std::string GloveCore::MakeDataPath(const std::string& relPath) const {
-	std::string path(executablePath);
-	path.append("/");
-	path.append(relPath);
-
-	return path;
+	return (boost::format("%1%/%2%") % executablePath % relPath).str();
 }
 
 } /* namespace glove */
