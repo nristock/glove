@@ -1,14 +1,10 @@
-/*
- * FileUtils.cpp
- *
- *  Created on: Jul 29, 2014
- *      Author: monofraps
- */
 #include "FileUtils.h"
 
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
+#include <boost/format.hpp>
 
 #include "log/Log.h"
 
@@ -19,7 +15,7 @@ std::string ReadFileToString(std::string filePath)
         std::ifstream file(filePath.c_str());
         if(!file.is_open())
         {
-                LOG(logging::globalLogger, error, "Unable to open file " << filePath);
+                LOG(logging::globalLogger, error, (boost::format("Unable to open file %1%") % filePath).str());
 				return "";
         }
 

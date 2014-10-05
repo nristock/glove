@@ -15,13 +15,13 @@ public:
 	GloveWindow();
 	virtual ~GloveWindow();
 
-	void Init(int width, int height);
+	virtual void Init(int width, int height);
 
-	void MakeCurrent();
-	void SetFramebuffer(int newWidth, int newHeight);
+	virtual void MakeCurrent();
+	virtual void SetFramebuffer(int newWidth, int newHeight);
 
-	void SwapBuffers();
-	bool CloseRequested();
+	virtual void SwapBuffers();
+	virtual bool CloseRequested();
 
 	glm::mat4 GetProjMatrix() const { return projectionMat; }
 

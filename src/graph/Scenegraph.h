@@ -20,23 +20,23 @@ public:
 	Scenegraph();
 	virtual ~Scenegraph();
 
-	GameObjectPointer CreateGameObject();
+	virtual GameObjectPointer CreateGameObject();
 	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator);
 	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit);
 	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit, std::function<void(std::shared_ptr<T>)> postInit);
 
-	void InjectGameObject(GameObjectPointer gameObject);
+	virtual void InjectGameObject(GameObjectPointer gameObject);
 
-	CameraPointer CreateCamera();
+	virtual CameraPointer CreateCamera();
 
 	void Update();
 
-	void IterateGameObjects(std::function<void(GameObjectPointer)> callback);
-	void SetActiveCamera(CameraPointer camera);
+	virtual void IterateGameObjects(std::function<void(GameObjectPointer)> callback);
+	virtual void SetActiveCamera(CameraPointer camera);
 
-	CameraPointer GetMainCamera() const { return mainCamera; }
+	virtual CameraPointer GetMainCamera() const { return mainCamera; }
 
-private:
+protected:
 	std::list<GameObjectPointer> gameObjects;
 	
 	CameraPointer mainCamera;
