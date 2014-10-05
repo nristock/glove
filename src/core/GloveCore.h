@@ -40,15 +40,21 @@ public:
 	ScenegraphPtr GetScenegraph() const { return primaryScenegraph; }
 	GpuBufferManagerPtr GetGpuBufferManager() const { return gpuBufferManager; }
 	PluginLoaderPtr GetPluginLoader() const { return pluginLoader; }
+	EventBusPtr GetEventBus() const { return eventBus; }
+	InputManagerPtr GetInputManager() const { return inputManager; }
 
 	const GlovePythonEnginePtr& GetPythonEngineRef() const { return pythonEngine; }
 	const PyShedLoaderPtr& GetPyshedLoaderRef() const { return pyshedLoader; }
 	const GloveRendererPointer& GetRendererRef() const { return renderer; }
 	const ScenegraphPtr& GetScenegraphRef() const { return primaryScenegraph; }
 	const GpuBufferManagerPtr& GetGpuBufferManagerRef() const { return gpuBufferManager; }
-	const PluginLoaderPtr& GetPluginLoaderRef() const { return pluginLoader; }
-
+    const PluginLoaderPtr& GetPluginLoaderRef() const { return pluginLoader; }
+    const EventBusPtr& GetEventBusRef() const { return eventBus; }
+	const InputManagerPtr& GetInputManagerRef() const{ return inputManager; }
+	
 	std::string MakeDataPath(const std::string& relPath) const;
+	
+	void OnKeyEvent(const KeyEvent& evnt);
 
 	bool IsExitRequested() const { return exitRequested; }
 	void SetExitRequested(bool requestExit) { exitRequested = requestExit; }
@@ -65,14 +71,18 @@ public:
 private:
 	typedef std::chrono::steady_clock::time_point TimePoint;
 
+	EventBusPtr eventBus;
 	GloveRendererPtr renderer;
 	GlovePythonEnginePtr pythonEngine;
 	PyShedLoaderPtr pyshedLoader;
 	GpuBufferManagerPtr gpuBufferManager;
 	ScenegraphPtr primaryScenegraph;
 	PluginLoaderPtr pluginLoader;
+	InputManagerPtr inputManager;
 
 	TimePoint initializationTime;
+
+	std::chrono::duration<double> lastFrameTime;
 
 	FrameData frameData;
 

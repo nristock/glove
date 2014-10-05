@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "core/GloveCore.h"
 #include "core/GloveException.h"
 #include "graph/Scenegraph.h"
 #include "rendering/Camera.h"
@@ -71,6 +72,12 @@ void GloveRenderer::GlfwErrorSink(int error, const char* description) {
 }
 
 void GloveRenderer::RenderScene(ScenegraphPointer scenegraph, FrameData& frameData) {
+	if (associatedWindow->CloseRequested()) {
+		gloveCore->SetExitRequested(true);
+	}
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	
 	frameData.viewProjectionMatrix = associatedWindow->GetProjMatrix() * scenegraph->GetMainCamera()->GetViewMatrix();
 	
 	scenegraph->IterateGameObjects([&](GameObjectPtr gameObject){

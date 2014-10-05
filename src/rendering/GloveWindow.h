@@ -33,7 +33,10 @@ private:
 	float orthoSize;
 	glm::mat4 projectionMat;
 
+	void OnKeyEvent(int key, int scancode, int action, int mods);
+
 	static void GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height);
+	static void GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods);
 };
 
 } // namespace glove

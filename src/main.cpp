@@ -97,19 +97,8 @@ int main(int argc, char** argv) {
 	timep p1 = std::chrono::steady_clock::now();
 
 	float move = 0;
-	while (true) {
-		timep t2 = std::chrono::steady_clock::now();
-		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
-		if (time_span.count() > 20) {
-			t1 = std::chrono::steady_clock::now();
-			//LOG(logging::globalLogger, info, memory_internal::DumpList());
-
-			std::chrono::milliseconds time_span2 = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - p1);
-			//LOG(logging::globalLogger, info, "FrameTime: " << time_span2.count());
-		}
-
-		p1 = std::chrono::steady_clock::now();
-
+	gcore->EnterMainLoop();
+	/*while (true) {
 		move += .001f;
 		parent->GetTransform().SetPosition(glm::vec3(sin(move), 0, 0));
 		go->GetTransform().SetPosition(glm::vec3(0, sin(move), 0));
@@ -120,5 +109,5 @@ int main(int argc, char** argv) {
 		
 		gcore->Update();
 		gcore->Render(graph);
-	}
+	}*/
 }

@@ -17,6 +17,7 @@
 #endif
 
 #include <boost/format.hpp>
+#include <GLFW/glfw3.h>
 
 #include "GloveException.h"
 #include "graph/Scenegraph.h"
@@ -28,6 +29,8 @@
 #include "core/PluginLoader.h"
 #include "scripting/GlovePythonEngine.h"
 #include "shader/pyshed/PyShedLoader.h"
+#include "event/EventBus.h"
+#include "input/InputManager.h"
 
 namespace sc = std::chrono;
 
@@ -37,12 +40,13 @@ GloveCorePointer GloveCore::instance;
 
 GloveCore::GloveCore() 
 	:	GloveObject(false), 
-		frameCounter(0) 
+		frameCounter(0),
+		exitRequested(false)
 {
 	frameData.frameId = 0;
 	frameData.viewProjectionMatrix = glm::mat4();
 	frameData.deltaTime = 0;
-
+	
 #if defined(_WIN32) || defined(WIN32)
 	int bufferSize = 4096;
 	char* moduleName = reinterpret_cast<char*>(GloveMemAllocN(sizeof(char) * bufferSize, "GloveCore/ModuleName"));
@@ -91,8 +95,13 @@ void GloveCore::Init(int argc, char** argv) {
 
 		instance = GloveCorePointer(this);
 
+		eventBus = EventBusPtr(new EventBus());
+
 		InitializeRenderingSystem(argc, argv, 800, 600);
 		primaryScenegraph = ScenegraphPtr(new Scenegraph());
+
+		inputManager = InputManagerPtr(new InputManager());
+		eventBus->Subscribe(inputManager);
 
 		InitializeScripting();
 		InitializeResourceLoaders();
@@ -121,7 +130,7 @@ void GloveCore::InitializeRenderingSystem(int argc, char** argv, int windowWidth
 }
 
 void GloveCore::InitializeScripting() {
-	pythonEngine = std::make_shared<GlovePythonEngine>(executablePath);
+	pythonEngine = GlovePythonEnginePtr(new GlovePythonEngine(executablePath));
 
 	try {
 		namespace bpy = boost::python;
@@ -138,8 +147,8 @@ void GloveCore::InitializeScripting() {
 }
 
 void GloveCore::InitializeResourceLoaders() {
-	pyshedLoader = std::make_shared<PyShedLoader>(pythonEngine);
-	pluginLoader = std::make_shared<PluginLoader>();
+	pyshedLoader = PyShedLoaderPtr(new PyShedLoader(pythonEngine));
+	pluginLoader = PluginLoaderPtr(new PluginLoader());
 
 	pluginLoader->DiscoverPlugins();
 	pluginLoader->LoadPlugins();
@@ -148,16 +157,14 @@ void GloveCore::InitializeResourceLoaders() {
 void GloveCore::EnterMainLoop() {
 	TimePoint start = std::chrono::steady_clock::now();
 	TimePoint end = std::chrono::steady_clock::now();
-
-	std::chrono::duration<double> frameTime;
-
+	
 	while (!IsExitRequested()) {
 		end = std::chrono::steady_clock::now();
-		frameTime = sc::duration_cast<std::chrono::duration<double>>(end - start);
+		lastFrameTime = sc::duration_cast<std::chrono::duration<double>>(end - start);
 		start = std::chrono::steady_clock::now();
 
 		frameData.frameId++;
-		frameData.deltaTime = frameTime.count();
+		frameData.deltaTime = lastFrameTime.count();
 
 		Update();
 		Render(primaryScenegraph);
@@ -165,6 +172,16 @@ void GloveCore::EnterMainLoop() {
 }
 
 void GloveCore::Update() {
+	glfwPollEvents();
+	
+	if (inputManager->IsKeyPressed(KC_F5)) {
+		OLOG(info, memory_internal::DumpList());
+	}
+
+	if (inputManager->IsKeyPressed(KC_F6)) {
+		OLOG(info, (boost::format("Last Update Time: %1%ms") % std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());
+	}
+
 	primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject){
 		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
 			gameComponent->SyncEarlyUpdate();
@@ -182,6 +199,8 @@ void GloveCore::Update() {
 			gameComponent->SyncLateUpdate();
 		});
 	});
+	
+	inputManager->SyncUpdate();	
 }
 
 void GloveCore::Render(ScenegraphPointer scenegraph) {
