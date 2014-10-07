@@ -41,14 +41,52 @@ endif()
 include_directories(${CMAKE_SOURCE_DIR})
 
 file(GLOB_RECURSE glove_sources 
-	"*.cpp"
-	"*.h"
+	"buffers/*.cpp"
+	"buffers/*.h"
+	
+	"core/*.cpp"
+	"core/*.h"
+	
+	"event/*.cpp"
+	"event/*.h"
+	
+	"graph/*.cpp"
+	"graph/*.h"
+	
+	"input/*.cpp"
+	"input/*.h"
+	
+	"log/*.cpp"
+	"log/*.h"
+	
+	"memory/*.cpp"
+	"memory/*.h"
+	
+	"rendering/*.cpp"
+	"rendering/*.h"
+	
+	"resources/*.cpp"
+	"resources/*.h"
+	
+	"scripting/*.cpp"
+	"scripting/*.h"
+	
+	"shader/*.cpp"
+	"shader/*.h"
+	
+	"utils/*.cpp"
+	"utils/*.h"
 )
-list(REMOVE_ITEM glove_sources main.cpp)
 add_library(glove ${glove_sources})
 
 set(cellulose_source main.cpp)
 add_executable(cellulose ${cellulose_source})
+
+file(GLOB_RECURSE tests_sources
+	"tests/*.cpp"
+	"tests/*.h"
+)
+add_executable(glove_tests ${tests_sources})
 
 if(WIN32)
 	set(glove_libs
@@ -93,6 +131,7 @@ else()
 endif()
 
 target_link_libraries(cellulose ${glove_libs})
+target_link_libraries(glove_tests ${glove_libs})
 
 if(WIN32)
 	add_custom_command(TARGET cellulose POST_BUILD
