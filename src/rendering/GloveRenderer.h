@@ -3,8 +3,8 @@
 #ifndef GLOVERENDERER_H_
 #define GLOVERENDERER_H_
 
-#include <gl/glew.h>
-#include <gl/GL.h>
+#include <GL/glew.h>
+#include <GL/gl.h>
 
 #include "core/GloveFwd.h"
 #include "core/GloveObject.h"

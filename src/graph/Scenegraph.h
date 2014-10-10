@@ -20,7 +20,7 @@ public:
 	Scenegraph();
 	virtual ~Scenegraph();
 
-	virtual GameObjectPointer CreateGameObject();
+	virtual GameObjectPointer CreateSimpleGameObject();
 	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator);
 	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit);
 	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit, std::function<void(std::shared_ptr<T>)> postInit);

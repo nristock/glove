@@ -25,7 +25,7 @@ public:
 
 #define VIRT_FUNC(fname_) \
 	void fname_() { boost::python::call_method<void>(self, #fname_); } \
-	void fname_##_() { GameComponent::##fname_(); }
+	void fname_##_() { GameComponent:: fname_(); }
 
 	VIRT_FUNC(SyncEarlyUpdate)
 	VIRT_FUNC(SyncUpdate)

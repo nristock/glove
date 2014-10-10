@@ -92,7 +92,8 @@ void GloveRenderer::RenderScene(ScenegraphPointer scenegraph, FrameData& frameDa
 }
 
 void GloveRenderer::RenderObject(RenderOperation& renderOp, const FrameData& frameData, const GameObjectPtr& gameObject) {
-	renderOp.material->SetMaterialAttribute(MMA_MAT_MVP, gameObject->GetTransform().GetGlobalTransform() * frameData.viewProjectionMatrix);
+    glm::mat4 mvpMatrix = gameObject->GetTransform().GetGlobalTransform() * frameData.viewProjectionMatrix;
+	renderOp.material->SetMaterialAttribute(MMA_MAT_MVP, mvpMatrix);
 
 	if (renderOp.indexData == nullptr) {
 		glDrawArrays(GL_TRIANGLES, 0, renderOp.vertexData->GetVertexCount());
@@ -141,6 +142,8 @@ GLenum GloveRenderer::TranslateVertexAttributeType(VertexAttributeType attribTyp
 	case VAT_FLOAT4:
 		return GL_FLOAT;
 	}
+    
+    throw GLOVE_EXCEPTION("Invalid VertexAttributeType");
 }
 
 } /* namespace glove */

@@ -23,9 +23,11 @@ PluginLoader::~PluginLoader() {
 void PluginLoader::DiscoverPlugins() {
 	// Discover plugins and import the corresponding python modules
 	bfs::path gloveCorePythonEnvDir(pluginBasePath);
-	for (bfs::directory_entry dir : bfs::directory_iterator(gloveCorePythonEnvDir)) {
-		if (bfs::is_directory(dir)) {
-			std::string pluginName = dir.path().filename().string();
+
+    bfs::directory_iterator endIter;
+	for (bfs::directory_iterator dir = bfs::directory_iterator(gloveCorePythonEnvDir); dir != endIter; dir++) {
+		if (bfs::is_directory(*dir)) {
+			std::string pluginName = dir->path().filename().string();
 			try {
 				DiscoverPlugin(pluginName);
 			}

@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
 	MaterialPtr material = MaterialPtr(new Material(shader));
 	
 	ScenegraphPtr graph = gcore->GetScenegraph();
-	auto go = graph->CreateGameObject();
+	auto go = graph->CreateSimpleGameObject();
 	//IndexedMesh m(meshData, material, go);
 	std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>> m = std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>>(new GLManagedMesh<vertexlayouts::PositionColor>(material));
 	GameComponentPtr gp = std::dynamic_pointer_cast<GameComponent>(m);
@@ -89,14 +89,14 @@ int main(int argc, char** argv) {
 	m->GetManagedIndexData()->FlushBuffer();
 	m->Refresh();
 
-	auto parent = graph->CreateGameObject();
+	auto parent = graph->CreateSimpleGameObject();
 	parent->AttachChild(go);
 		
-	typedef std::chrono::steady_clock::time_point timep;
-	timep t1 = std::chrono::steady_clock::now();
-	timep p1 = std::chrono::steady_clock::now();
+//	typedef std::chrono::steady_clock::time_point timep;
+//	timep t1 = std::chrono::steady_clock::now();
+//	timep p1 = std::chrono::steady_clock::now();
 
-	float move = 0;
+//	float move = 0;
 	gcore->EnterMainLoop();
 	/*while (true) {
 		move += .001f;

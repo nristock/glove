@@ -1,7 +1,7 @@
 #include "GLMesh.h"
 
-#include <gl/glew.h>
-#include <gl/GL.h>
+#include <GL/glew.h>
+#include <GL/gl.h>
 
 #include "buffers/GPUBuffer.h"
 

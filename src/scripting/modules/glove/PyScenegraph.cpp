@@ -8,8 +8,8 @@ namespace glove {
 namespace python {
 
 void ExportScenegraph() {
-	boost::python::class_<glove::Scenegraph, boost::python::bases<GloveObject>, std::shared_ptr<Scenegraph>>("Scenegraph")
-		.def("CreateGameObject", &Scenegraph::CreateGameObject)
+    boost::python::class_<glove::Scenegraph, boost::python::bases<GloveObject>, std::shared_ptr<Scenegraph>>("Scenegraph")
+            .def("CreateGameObject", &Scenegraph::CreateSimpleGameObject)
 		.def("CreateCamera", &Scenegraph::CreateCamera)
 		.def("SetActiveCamera", &Scenegraph::SetActiveCamera);
 }

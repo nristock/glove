@@ -1,7 +1,7 @@
 #ifndef RENDERING_MESH_OPENGL_GLBASEMESH_H_
 #define RENDERING_MESH_OPENGL_GLBASEMESH_H_
 
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 #include "memory/GloveMemory.h"
 
