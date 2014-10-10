@@ -26,6 +26,9 @@ public:
 
 	Transform(glm::quat rotation);
 
+	friend bool operator== (const Transform& transform1, const Transform& transform2);
+	friend bool operator!= (const Transform& transform1, const Transform& transform2);
+
 	/*!
 	 * Identity transform - No translation, no rotation, scale of 1.
 	 */
@@ -95,6 +98,10 @@ public:
 	 * @param [in] updateMatrix Specifies wether the local matrix should be updated immediately (true) or if the isDirty flag should be set (false).
 	 */
 	void SetScale(const glm::vec3& scale, bool updateMatrix);
+
+	const glm::vec3& GetPosition() const { return position; }
+	const glm::quat& GetRotation() const { return rotation; }
+	const glm::vec3& GetScale() const { return scale; }
 
 	/*!
 	 * Sets an onModify callback.

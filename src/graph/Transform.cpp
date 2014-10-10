@@ -23,8 +23,8 @@ Transform::Transform(glm::vec3 position, glm::vec3 scale) : Transform(position, 
 }
 
 Transform::Transform(glm::vec3 position, glm::quat rotation, glm::vec3 scale) : position(position), rotation(rotation), scale(scale) {
-	globalTransform = glm::mat4(1);
 	RecalculateMatrix();
+    globalTransform = localTransform;
 }
 
 Transform::Transform(glm::quat rotation) : Transform(glm::vec3(0), rotation, glm::vec3(1)) {
@@ -83,6 +83,14 @@ void Transform::SetScale(const glm::vec3& scale) {
 
 void Transform::SetModifyCallback(std::function<void()> callback) {
 	onModify = callback;
+}
+
+bool operator== (const Transform& transform1, const Transform& transform2) {
+	return (transform1.position == transform2.position) && (transform1.rotation == transform2.rotation) && (transform1.scale == transform2.scale);
+}
+
+bool operator!= (const Transform& transform1, const Transform& transform2) {
+	return !(transform1 == transform2);
 }
 
 } // namespace glove
