@@ -77,7 +77,7 @@ if(WIN32)
 else()
 	set(glove_libs
 		pthread
-		glfw3
+		glfw
 		GL	
 		GLEW
 		GLU
@@ -87,6 +87,7 @@ else()
 		boost_filesystem
 		boost_log
 		boost_log_setup
+		boost_python3
 		${PYTHON_LIBRARY}
 		glove
 	)	

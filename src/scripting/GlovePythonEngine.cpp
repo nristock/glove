@@ -17,11 +17,17 @@ namespace bfs = boost::filesystem;
 namespace glove {
 
 GlovePythonEngine::GlovePythonEngine(const std::string& executableBasePath) : GloveObject(), basePath(executableBasePath) {
-	std::wstringstream wstringConverter = std::wstringstream();
+    #if defined(WIN32)
+    const wchar_t pathSeparator = L';';
+    #else
+    const wchar_t pathSeparator = L':';
+    #endif
+
+	std::wstringstream wstringConverter;
 	wstringConverter << executableBasePath.c_str();
 	std::wstring wideBasePath = wstringConverter.str();
 
-	std::wstring pythonHome = (boost::wformat(L"%1%/data/python;%1%/data/game/modules;%1%/data/game/plugins") % wideBasePath).str();
+	std::wstring pythonHome = (boost::wformat(L"%1%/data/python%2%%1%/data/game/modules%2%%1%/data/game/plugins") % wideBasePath % pathSeparator).str();
 	wchar_t* cstrPythonHome = GLOVE_NEW_ARRAY("GlovePythonEngine/cstrPythonHome", wchar_t, pythonHome.length());
 	wcscpy(cstrPythonHome, pythonHome.c_str());
 
@@ -72,11 +78,13 @@ void GlovePythonEngine::LoadPyEnvironmentModule() {
 	gloveCorePythonEnvironmentDirBase.append("/data/game/gcpyenv");
 
 	bfs::path gloveCorePythonEnvDir(gloveCorePythonEnvironmentDirBase);
-	for (bfs::directory_entry dir : bfs::directory_iterator(gloveCorePythonEnvDir)) {
-		if (bfs::is_regular_file(dir)) {
-			OLOG(info, "Loading python environment file: " << dir.path().filename().string());
 
-			std::string path = dir.path().string();
+    bfs::directory_iterator endIter;
+	for (bfs::directory_iterator dir = bfs::directory_iterator(gloveCorePythonEnvDir); dir != endIter; dir++) {
+		if (bfs::is_regular_file(*dir)) {
+			OLOG(info, "Loading python environment file: " << dir->path().filename().string());
+
+			std::string path = dir->path().string();
 			bpy::exec_file(path.c_str(), rootNamespace);
 		}
 	}

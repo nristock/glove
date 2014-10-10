@@ -4,17 +4,17 @@
 
 namespace glove {
 	
-ManagedVertexData<vertexlayouts::Position>::ManagedVertexData() : VertexData() {
+template<> ManagedVertexData<vertexlayouts::Position>::ManagedVertexData() : VertexData() {
 	vertexLayout = vertexlayouts::Position::GetLayout();
 	CreateBuffers();
 }
 
-ManagedVertexData<vertexlayouts::PositionColor>::ManagedVertexData() : VertexData() {
+template<> ManagedVertexData<vertexlayouts::PositionColor>::ManagedVertexData() : VertexData() {
 	vertexLayout = vertexlayouts::PositionColor::GetLayout();
 	CreateBuffers();
 }
 
-ManagedVertexData<vertexlayouts::PositionNormal>::ManagedVertexData() : VertexData() {
+template<> ManagedVertexData<vertexlayouts::PositionNormal>::ManagedVertexData() : VertexData() {
 	vertexLayout = vertexlayouts::PositionNormal::GetLayout();
 	CreateBuffers();
 }

@@ -15,7 +15,7 @@ Scenegraph::~Scenegraph() {
 	}
 }
 
-GameObjectPointer Scenegraph::CreateGameObject() {
+GameObjectPointer Scenegraph::CreateSimpleGameObject() {
 	return CreateGameObject<GameObject>([]() {return new GameObject(); });
 }
 

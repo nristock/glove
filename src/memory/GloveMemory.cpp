@@ -1,6 +1,7 @@
 #include "GloveMemory.h"
 
 #include <sstream>
+#include <string.h>
 
 #define GLOVE_MEM_TAG_1 75
 #define GLOVE_MEM_TAG_2 127
@@ -46,7 +47,7 @@ void* GloveMemAllocZ(size_t size, const char* name) {
 	memory_internal::InsertIntoMemoryList(memBlock);
 
 	void* dataBlock = memBlock + 1;
-	memset(dataBlock, 0, size);
+    memset(dataBlock, 0, size);
 
 	return ++memBlock;
 }
