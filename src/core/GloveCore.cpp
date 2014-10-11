@@ -17,6 +17,7 @@
 #endif
 
 #include <boost/format.hpp>
+#include <boost/program_options.hpp>
 #include <GLFW/glfw3.h>
 
 #include "GloveException.h"
@@ -90,21 +91,41 @@ GloveCore::~GloveCore() {
 }
 
 void GloveCore::Init(int argc, char** argv) {
+    namespace bpo = boost::program_options;
 	try {
+        bool initRenderingSystem = true;
+        bool initScripting = true;
+
+        bpo::options_description coreOptions("Core Options");
+        coreOptions.add_options()
+                ("init-rendering,ir", bpo::value<bool>(&initRenderingSystem)->default_value(true), "initialize rendering system")
+                ("init-scripting,is", bpo::value<bool>(&initRenderingSystem)->default_value(true), "initialize scripting system");
+
+        bpo::options_description commandLineOptions;
+        commandLineOptions.add(coreOptions);
+
+        bpo::variables_map vm;
+        bpo::store(bpo::parse_command_line(argc, argv, commandLineOptions), vm);
+        bpo::notify(vm);
+
 		initializationTime = sc::steady_clock::now();
 
 		instance = GloveCorePointer(this);
 
 		eventBus = EventBusPtr(new EventBus());
 
-		InitializeRenderingSystem(argc, argv, 800, 600);
-		primaryScenegraph = ScenegraphPtr(new Scenegraph());
+        if(initRenderingSystem) {
+            InitializeRenderingSystem(argc, argv, 800, 600);
+            primaryScenegraph = ScenegraphPtr(new Scenegraph());
 
-		inputManager = InputManagerPtr(new InputManager());
-		eventBus->Subscribe(inputManager);
+            inputManager = InputManagerPtr(new InputManager());
+            eventBus->Subscribe(inputManager);
+        }
 
-		InitializeScripting();
-		InitializeResourceLoaders();
+        if(initScripting) {
+            InitializeScripting();
+            InitializeResourceLoaders();
+        }
 
 		TimePoint initializationDone = sc::steady_clock::now();
 		auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);

@@ -64,6 +64,7 @@ if(WIN32)
 		optimized boost_filesystem
 		optimized boost_log
 		optimized boost_log_setup
+		optimized boost_program_options
 
 		debug boost_thread-d
 		debug boost_system-d
@@ -71,6 +72,7 @@ if(WIN32)
 		debug boost_filesystem-d
 		debug boost_log-d
 		debug boost_log_setup-d
+        debug boost_program_options-d
 
 		general glove
 	)	
@@ -88,6 +90,7 @@ else()
 		boost_log
 		boost_log_setup
 		boost_python3
+		boost_program_options
 		${PYTHON_LIBRARY}
 		glove
 	)	
