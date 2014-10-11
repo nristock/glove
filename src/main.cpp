@@ -2,24 +2,16 @@
 #include <chrono>
 #include <vector>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 #include "core/PluginLoader.h"
-#include "core/GlovePlugin.h"
 #include "core/GloveCore.h"
-#include "core/GloveFwd.h"
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
-#include "shader/ShaderProgram.h"
 #include "shader/Material.h"
 #include "shader/pyshed/PyShedLoader.h"
 #include "rendering/mesh/Mesh.h"
 #include "rendering/mesh/opengl/GLManagedMesh.h"
-#include "rendering/GloveWindow.h"
-#include "buffers/GPUBuffer.h"
-#include "core/GpuBufferManager.h"
 
 #define VF_MANAGED_DATA
 #include "rendering/vertex/VertexFundamentals.h"
@@ -69,7 +61,6 @@ int main(int argc, char** argv) {
     auto mm = std::dynamic_pointer_cast<GLManagedMesh<vertexlayouts::PositionColor>>(m);
 
     mm->AddVAO(0, gcore->GetRenderer());
-    mm->AddVAO(1, gcore->GetRenderer());
     GameComponentPtr gp = std::dynamic_pointer_cast<GameComponent>(m);
 
 	go->AddComponent(gp);

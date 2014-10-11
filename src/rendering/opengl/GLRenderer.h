@@ -15,7 +15,7 @@
 
 #include "rendering/FrameData.h"
 #include "rendering/vertex/VertexAttributeType.h"
-#include "rendering/GloveWindow.h"
+#include "GLWindow.h"
 
 struct GLFWwindow;
 
@@ -24,7 +24,7 @@ namespace glove {
 class GLRenderer : public GloveObject, public IRenderer {
 	GLOVE_MEM_ALLOC_FUNCS("GLRenderer")
 public:
-    typedef std::pair<GloveWindowPtr, GLEWContext*> WindowGlewContextPair;
+    typedef std::pair<WindowPtr, GLEWContext*> WindowGlewContextPair;
     typedef std::vector<WindowGlewContextPair> WindowList;
 
 	GLRenderer();
@@ -33,13 +33,13 @@ public:
 	virtual void Init();
     virtual void Exit();
 
-    virtual GloveWindowPtr CreateWindow(int windowWidth, int windowHeight);
+    virtual WindowPtr CreateWindow(int windowWidth, int windowHeight);
 
     virtual void ClearBuffers();
 	virtual void RenderScene(ScenegraphPointer scenegraph, FrameData& frameData);
     virtual void SwapBuffers();
 	
-	virtual GloveWindowPtr GetActiveWindow() const { return activeWindow; }
+	virtual WindowPtr GetActiveWindow() const { return activeWindow; }
     virtual void SetActiveWindow(unsigned short id) {
         if(id >= windows.size())
             throw GLOVE_EXCEPTION("Window index is out of range.");
@@ -65,7 +65,7 @@ public:
 private:
     WindowList windows;
 
-	GloveWindowPtr activeWindow;
+    WindowPtr activeWindow;
     GLEWContext* activeGlewContext;
     size_t currentContextId;
 

@@ -22,7 +22,6 @@
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
 #include "graph/GameComponent.h"
-#include "rendering/GloveWindow.h"
 #include "rendering/opengl/GLRenderer.h"
 #include "core/GpuBufferManager.h"
 #include "core/PluginLoader.h"
@@ -120,7 +119,6 @@ void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
 
 	try {
 		renderer->Init();
-        renderer->CreateWindow(windowWidth, windowHeight);
         renderer->CreateWindow(windowWidth, windowHeight);
 	}
 	catch (const GloveException& e) {

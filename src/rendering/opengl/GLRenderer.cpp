@@ -17,7 +17,7 @@
 #include "rendering/IRenderable.h"
 #include "rendering/FrameData.h"
 #include "log/Log.h"
-#include "rendering/GloveWindow.h"
+#include "GLWindow.h"
 
 #include "buffers/GPUBuffer.h"
 #include "rendering/vertex/IndexData.h"
@@ -142,16 +142,14 @@ void GLRenderer::SwapBuffers() {
     activeWindow->SwapBuffers();
 }
 
-GloveWindowPtr GLRenderer::CreateWindow(int windowWidth, int windowHeight) {
+WindowPtr GLRenderer::CreateWindow(int windowWidth, int windowHeight) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    GloveWindowPtr window;
+    WindowPtr window;
 
-    window = GloveWindowPtr(activeWindow ? new GloveWindow(activeWindow) : new GloveWindow());
-
-    window->Init(windowWidth, windowHeight);
+    window = WindowPtr(activeWindow ? new GLWindow(windowWidth, windowHeight, activeWindow) : new GLWindow(windowWidth, windowHeight));
 
     windows.push_back(WindowGlewContextPair(window, new GLEWContext()));
 
@@ -159,7 +157,7 @@ GloveWindowPtr GLRenderer::CreateWindow(int windowWidth, int windowHeight) {
         activeWindow = window;
     }
 
-    GloveWindowPtr currentlyActiveWindow = activeWindow;
+    WindowPtr currentlyActiveWindow = activeWindow;
     SetActiveWindow(GetWindowCount() - 1);
 
     glewExperimental = GL_TRUE;

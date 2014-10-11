@@ -10,13 +10,13 @@ public:
     virtual void Init() = 0;
     virtual void Exit() = 0;
 
-    virtual GloveWindowPtr CreateWindow(int windowWidth, int windowHeight) = 0;
+    virtual WindowPtr CreateWindow(int windowWidth, int windowHeight) = 0;
 
     virtual void ClearBuffers() = 0;
     virtual void RenderScene(ScenegraphPointer scenegraph, FrameData& frameData) = 0;
     virtual void SwapBuffers() = 0;
 
-    virtual GloveWindowPtr GetActiveWindow() const = 0;
+    virtual WindowPtr GetActiveWindow() const = 0;
     virtual void SetActiveWindow(unsigned short id) = 0;
     virtual size_t GetWindowCount() const = 0;
 

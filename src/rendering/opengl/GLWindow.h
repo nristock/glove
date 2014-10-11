@@ -3,29 +3,28 @@
 #include <glm/glm.hpp>
 
 #include "core/GloveObject.h"
+#include "core/IWindow.h"
 
 struct GLFWwindow;
 
 namespace glove{
 
-class GloveWindow : public GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("GloveWindow")
+class GLWindow : public GloveObject, public IWindow {
+	GLOVE_MEM_ALLOC_FUNCS("GLWindow")
 public:
-	GloveWindow();
-    GloveWindow(GloveWindowPtr parent);
-	virtual ~GloveWindow();
-
-	virtual void Init(int width, int height);
+	GLWindow(int width, int height);
+    GLWindow(int width, int height, WindowPtr parent);
+	virtual ~GLWindow();
 
 	virtual void MakeCurrent();
 	virtual void SetFramebuffer(int newWidth, int newHeight);
 
 	virtual void SwapBuffers();
-	virtual bool CloseRequested();
+	virtual bool CloseRequested() const;
 
-    virtual std::string GetContextVersion();
+    virtual std::string GetContextVersion() const;
 
-	glm::mat4 GetProjMatrix() const { return projectionMat; }
+	virtual glm::mat4 GetProjMatrix() const { return projectionMat; }
 
 private:
 	GLFWwindow* glfwWindow;
