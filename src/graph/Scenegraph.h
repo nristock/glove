@@ -36,6 +36,8 @@ public:
 
 	virtual CameraPointer GetMainCamera() const { return mainCamera; }
 
+    size_t GetGameObjectCount() const { return gameObjects.size(); }
+
 protected:
 	std::list<GameObjectPointer> gameObjects;
 	
