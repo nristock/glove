@@ -7,6 +7,8 @@ namespace glove {
 
 class IRenderer {
 public:
+    virtual ~IRenderer() {}
+
     virtual void Init() = 0;
     virtual void Exit() = 0;
 

@@ -10,6 +10,8 @@ namespace glove {
 
 class IWindow {
 public:
+    virtual ~IWindow() {}
+
     virtual void MakeCurrent() = 0;
     virtual void SetFramebuffer(int newWidth, int newHeight) = 0;
 
