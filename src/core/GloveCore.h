@@ -53,8 +53,6 @@ public:
 	const InputManagerPtr& GetInputManagerRef() const{ return inputManager; }
 	
 	std::string MakeDataPath(const std::string& relPath) const;
-	
-	void OnKeyEvent(const KeyEvent& evnt);
 
 	bool IsExitRequested() const { return exitRequested; }
 	void SetExitRequested(bool requestExit) { exitRequested = requestExit; }
