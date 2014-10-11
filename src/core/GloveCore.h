@@ -1,18 +1,9 @@
-/*
- * GloveCore.h
- *
- *  Created on: Aug 18, 2014
- *      Author: monofraps
- */
-
-#ifndef GLOVECORE_H_
-#define GLOVECORE_H_
+#pragma once
 
 #include <chrono>
 
 #include "GloveFwd.h"
 
-#include "rendering/GloveRenderer.h"
 #include "GloveObject.h"
 #include "GloveException.h"
 #include "rendering/FrameData.h"
@@ -36,7 +27,7 @@ public:
 
 	GlovePythonEnginePtr GetPythonEngine() const { return pythonEngine; }
 	PyShedLoaderPtr GetPyshedLoader() const { return pyshedLoader; }
-	GloveRendererPointer GetRenderer() const { return renderer; }
+	RendererPtr GetRenderer() const { return renderer; }
 	ScenegraphPtr GetScenegraph() const { return primaryScenegraph; }
 	GpuBufferManagerPtr GetGpuBufferManager() const { return gpuBufferManager; }
 	PluginLoaderPtr GetPluginLoader() const { return pluginLoader; }
@@ -45,7 +36,7 @@ public:
 
 	const GlovePythonEnginePtr& GetPythonEngineRef() const { return pythonEngine; }
 	const PyShedLoaderPtr& GetPyshedLoaderRef() const { return pyshedLoader; }
-	const GloveRendererPointer& GetRendererRef() const { return renderer; }
+	const RendererPtr& GetRendererRef() const { return renderer; }
 	const ScenegraphPtr& GetScenegraphRef() const { return primaryScenegraph; }
 	const GpuBufferManagerPtr& GetGpuBufferManagerRef() const { return gpuBufferManager; }
     const PluginLoaderPtr& GetPluginLoaderRef() const { return pluginLoader; }
@@ -72,7 +63,7 @@ private:
 	typedef std::chrono::steady_clock::time_point TimePoint;
 
 	EventBusPtr eventBus;
-	GloveRendererPtr renderer;
+	RendererPtr renderer;
 	GlovePythonEnginePtr pythonEngine;
 	PyShedLoaderPtr pyshedLoader;
 	GpuBufferManagerPtr gpuBufferManager;
@@ -94,11 +85,9 @@ private:
 	unsigned long frameCounter;
 	bool exitRequested;
 	
-	void InitializeRenderingSystem(int argc, char** argv, int windowWidth, int windowHeight);
+	void InitializeRenderingSystem(int windowWidth, int windowHeight);
 	void InitializeScripting();
 	void InitializeResourceLoaders();
 };
 
 } /* namespace glove */
-
-#endif /* GLOVECORE_H_ */

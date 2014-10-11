@@ -26,7 +26,7 @@ GLOVE_FWD_DECL(ShaderProgram);
 
 GLOVE_FWD_DECL(IndexedMeshData);
 
-GLOVE_FWD_DECL(GloveRenderer);
+GLOVE_FWD_DECL(IRenderer);
 
 GLOVE_FWD_DECL(MeshData);
 
@@ -68,7 +68,8 @@ GLOVE_FWD_DECL(ManagedIndexData);
 
 GLOVE_FWD_DECL(GpuBufferManager);
 
-GLOVE_FWD_DECL(Renderer);
+GLOVE_FWD_DECL(IRenderer);
+typedef IRendererPtr RendererPtr;
 
 GLOVE_FWD_DECL(Mesh);
 

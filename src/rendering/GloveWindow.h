@@ -1,5 +1,4 @@
-#ifndef GLOVEWINDOW_H_
-#define GLOVEWINDOW_H_
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -13,6 +12,7 @@ class GloveWindow : public GloveObject {
 	GLOVE_MEM_ALLOC_FUNCS("GloveWindow")
 public:
 	GloveWindow();
+    GloveWindow(GloveWindowPtr parent);
 	virtual ~GloveWindow();
 
 	virtual void Init(int width, int height);
@@ -23,10 +23,13 @@ public:
 	virtual void SwapBuffers();
 	virtual bool CloseRequested();
 
+    virtual std::string GetContextVersion();
+
 	glm::mat4 GetProjMatrix() const { return projectionMat; }
 
 private:
 	GLFWwindow* glfwWindow;
+    GLFWwindow* parent;
 
 	int viewportWidth, viewportHeight;
 	float aspectRatio;
@@ -35,10 +38,11 @@ private:
 
 	void OnKeyEvent(int key, int scancode, int action, int mods);
 
+    GLFWwindow* GetGlfwWindow() const { return glfwWindow; }
+
 	static void GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height);
 	static void GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods);
+    static void GlfwCloseEvent(GLFWwindow* window);
 };
 
 } // namespace glove
-
-#endif

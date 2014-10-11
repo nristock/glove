@@ -3,6 +3,7 @@
 
 #include "rendering/mesh/Mesh.h"
 #include "rendering/mesh/opengl/GLBaseMesh.h"
+#include "rendering/opengl/GLRenderer.h"
 
 namespace glove {
 
@@ -15,6 +16,9 @@ public:
 	
 	virtual void SetupRender(RenderOperation& renderOp, const FrameData& frameData);
 	virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData);
+
+private:
+    std::shared_ptr<GLRenderer> glRenderer;
 };
 
 

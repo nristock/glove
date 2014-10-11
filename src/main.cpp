@@ -66,7 +66,11 @@ int main(int argc, char** argv) {
 	auto go = graph->CreateSimpleGameObject();
 	//IndexedMesh m(meshData, material, go);
 	std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>> m = std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>>(new GLManagedMesh<vertexlayouts::PositionColor>(material));
-	GameComponentPtr gp = std::dynamic_pointer_cast<GameComponent>(m);
+    auto mm = std::dynamic_pointer_cast<GLManagedMesh<vertexlayouts::PositionColor>>(m);
+
+    mm->AddVAO(0, gcore->GetRenderer());
+    mm->AddVAO(1, gcore->GetRenderer());
+    GameComponentPtr gp = std::dynamic_pointer_cast<GameComponent>(m);
 
 	go->AddComponent(gp);
 

@@ -17,14 +17,13 @@
 #endif
 
 #include <boost/format.hpp>
-#include <GLFW/glfw3.h>
 
 #include "GloveException.h"
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
 #include "graph/GameComponent.h"
 #include "rendering/GloveWindow.h"
-#include "rendering/GloveRenderer.h"
+#include "rendering/opengl/GLRenderer.h"
 #include "core/GpuBufferManager.h"
 #include "core/PluginLoader.h"
 #include "scripting/GlovePythonEngine.h"
@@ -97,7 +96,7 @@ void GloveCore::Init(int argc, char** argv) {
 
 		eventBus = EventBusPtr(new EventBus());
 
-		InitializeRenderingSystem(argc, argv, 800, 600);
+		InitializeRenderingSystem(800, 600);
 		primaryScenegraph = ScenegraphPtr(new Scenegraph());
 
 		inputManager = InputManagerPtr(new InputManager());
@@ -116,11 +115,13 @@ void GloveCore::Init(int argc, char** argv) {
 
 }
 
-void GloveCore::InitializeRenderingSystem(int argc, char** argv, int windowWidth, int windowHeight) {
-	renderer = GloveRendererPtr(new GloveRenderer());
+void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
+	renderer = RendererPtr(new GLRenderer());
 
 	try {
-		renderer->Init(windowWidth, windowHeight, 3, 3, argc, argv);
+		renderer->Init();
+        renderer->CreateWindow(windowWidth, windowHeight);
+        renderer->CreateWindow(windowWidth, windowHeight);
 	}
 	catch (const GloveException& e) {
 		OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
@@ -172,7 +173,7 @@ void GloveCore::EnterMainLoop() {
 }
 
 void GloveCore::Update() {
-	glfwPollEvents();
+	renderer->PollSystemEvents();
 	
 	if (inputManager->IsKeyPressed(KC_F5)) {
 		OLOG(info, memory_internal::DumpList());
@@ -204,7 +205,9 @@ void GloveCore::Update() {
 }
 
 void GloveCore::Render(ScenegraphPointer scenegraph) {
-	renderer->RenderScene(scenegraph, frameData);
+    renderer->ClearBuffers();
+    renderer->RenderScene(scenegraph, frameData);
+    renderer->SwapBuffers();
 }
 
 std::string GloveCore::MakeDataPath(const std::string& relPath) const {

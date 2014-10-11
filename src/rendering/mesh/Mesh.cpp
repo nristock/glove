@@ -8,6 +8,7 @@
 
 #include "core/GloveCore.h"
 #include "core/RenderOperation.h"
+#include "core/IRenderer.h"
 
 #include "shader/ShaderProgram.h"
 #include "shader/Material.h"
