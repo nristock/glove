@@ -9,6 +9,7 @@
 
 #include "core/GloveFwd.h"
 #include "core/GloveObject.h"
+#include "graph/GameObject.h"
 
 namespace glove {
 
@@ -21,9 +22,25 @@ public:
 	virtual ~Scenegraph();
 
 	virtual GameObjectPointer CreateSimpleGameObject();
-	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator);
-	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit);
-	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit, std::function<void(std::shared_ptr<T>)> postInit);
+	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator) {
+        return CreateGameObject<T>(allocator, [](std::shared_ptr<T> object){}, [](std::shared_ptr<T> object){});
+    }
+	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit) {
+        return CreateGameObject<T>(allocator, preInit, [](std::shared_ptr<T> object){});
+    }
+	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit, std::function<void(std::shared_ptr<T>)> postInit) {
+        typedef std::shared_ptr<T> SharedPtrType;
+
+        SharedPtrType go = SharedPtrType(allocator());
+
+        preInit(go);
+        go->Init();
+        postInit(go);
+
+        gameObjects.push_back(go);
+
+        return go;
+    }
 
 	virtual void InjectGameObject(GameObjectPointer gameObject);
 

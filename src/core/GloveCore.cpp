@@ -98,8 +98,8 @@ void GloveCore::Init(int argc, char** argv) {
 
         bpo::options_description coreOptions("Core Options");
         coreOptions.add_options()
-                ("init-rendering,ir", bpo::value<bool>(&initRenderingSystem)->default_value(true), "initialize rendering system")
-                ("init-scripting,is", bpo::value<bool>(&initRenderingSystem)->default_value(true), "initialize scripting system");
+                ("init-rendering", bpo::value<bool>(&initRenderingSystem)->default_value(true), "initialize rendering system")
+                ("init-scripting", bpo::value<bool>(&initScripting)->default_value(true), "initialize scripting system");
 
         bpo::options_description commandLineOptions;
         commandLineOptions.add(coreOptions);

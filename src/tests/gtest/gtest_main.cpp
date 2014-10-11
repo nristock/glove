@@ -29,10 +29,17 @@
 
 #include <stdio.h>
 
+#include "core/GloveCore.h"
 #include "tests/gmock/gmock.h"
 
-GTEST_API_ int main(int argc, char **argv) {
-  printf("Running main() from gtest_main.cc\n");
-  testing::InitGoogleMock(&argc, argv);
-  return RUN_ALL_TESTS();
+GTEST_API_ int main(int argc, char** argv) {
+    printf("Running main() from gtest_main.cc\n");
+
+    char* gloveInitArgs[] = {"", "--init-rendering=false", "--init-scripting=false"};
+
+    glove::GloveCore core;
+    core.Init(3, gloveInitArgs);
+
+    testing::InitGoogleMock(&argc, argv);
+    return RUN_ALL_TESTS();
 }

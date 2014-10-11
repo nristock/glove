@@ -16,12 +16,12 @@ TEST_F(ScenegraphTest, InitialScenegraphIsEmpty) {
 }
 
 TEST_F(ScenegraphTest, InitializesCreatedGameObject) {
-    GameObjectMock goMock;
-    EXPECT_CALL(goMock, Init()).Times(1);
+    GameObjectMock* goMock = new GameObjectMock;
+    EXPECT_CALL(*goMock, Init()).Times(1);
 
     auto gameObject = scenegraph.CreateGameObject<GameObjectMock>(
             [&]() {
-                return &goMock;
+                return goMock;
             }
     );
 }
