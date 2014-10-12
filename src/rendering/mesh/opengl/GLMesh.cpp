@@ -3,42 +3,33 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
+#include "core/GloveCore.h"
+#include "core/IRenderer.h"
+
 #include "buffers/GPUBuffer.h"
 
 #include "rendering/vertex/VertexData.h"
 #include "rendering/vertex/VertexLayout.h"
+#include "rendering/FrameData.h"
 
 #include "shader/ShaderProgram.h"
 
 namespace glove {
 	
-GLMesh::GLMesh(MaterialPtr material) : Mesh(material) {	
-	glGenVertexArrays(1, &vertexArrayId);
+GLMesh::GLMesh(MaterialPtr material) : Mesh(material) {
+    glRenderer = std::dynamic_pointer_cast<GLRenderer>(gloveCore->GetRenderer());
 }
 
-GLMesh::~GLMesh() {	
-	glBindVertexArray(vertexArrayId);
-
-	for (auto vertexAttribute : GetVertexData()->GetVertexLayout()->GetAttributes()) {
-		GPUBufferPtr gpuBuffer = GetVertexData()->GetBuffer(vertexAttribute.GetBindingSlot());
-		gpuBuffer->Bind();
-
-		GLuint attribIndex = GetShader()->GetVertexAttributePosition(vertexAttribute.GetSemantic());
-		if (attribIndex < 0) {
-			continue;
-		}
-
-		glDisableVertexAttribArray(attribIndex);
-	}
-
-	glDeleteVertexArrays(1, &vertexArrayId);
-	vertexArrayId = 0;
+GLMesh::~GLMesh() {
+    for(auto vertexArrayIdEntry : vertexArrayIds) {
+        glRenderer->DestroyVertexArray(vertexArrayIdEntry.first, vertexArrayIdEntry.second);
+    }
 }
 
 void GLMesh::SetupRender(RenderOperation& renderOp, const FrameData& frameData) {
 	Mesh::SetupRender(renderOp, frameData);
 	
-	glBindVertexArray(GetVertexArrayId());
+	glBindVertexArray(GetVertexArrayId(frameData.currentContext));
 }
 
 void GLMesh::PostRender(RenderOperation& renderOp, const FrameData& frameData) {

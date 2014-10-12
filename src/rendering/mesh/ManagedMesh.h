@@ -3,6 +3,7 @@
 
 #include "core/GloveFwd.h"
 #include "core/RenderOperation.h"
+#include "core/IRenderer.h"
 
 #include "graph/GameComponent.h"
 

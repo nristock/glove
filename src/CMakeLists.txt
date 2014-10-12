@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(glove)
 
-add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB)
+add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB -DGLEW_MX)
 
 if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
 	#add_definitions(-DPy_TRACE_REFS -DPy_DEBUG)
@@ -119,7 +119,7 @@ else()
 		pthread
 		glfw
 		GL	
-		GLEW
+		GLEWmx
 		GLU
 		boost_thread
 		boost_system

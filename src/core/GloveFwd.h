@@ -1,12 +1,4 @@
-/*
- * GloveFwd.h
- *
- *  Created on: Aug 27, 2014
- *      Author: monofraps
- */
-
-#ifndef GLOVEFWD_H_
-#define GLOVEFWD_H_
+#pragma once
 
 #include <memory>
 
@@ -26,15 +18,14 @@ GLOVE_FWD_DECL(ShaderProgram);
 
 GLOVE_FWD_DECL(IndexedMeshData);
 
-GLOVE_FWD_DECL(GloveRenderer);
-
 GLOVE_FWD_DECL(MeshData);
 
 GLOVE_FWD_DECL(GPUBuffer);
 
 GLOVE_FWD_DECL(GlovePythonEngine);
 
-GLOVE_FWD_DECL(GloveWindow);
+GLOVE_FWD_DECL(IWindow);
+typedef IWindowPtr WindowPtr;
 
 GLOVE_FWD_DECL(GlovePythonEngine);
 
@@ -68,7 +59,8 @@ GLOVE_FWD_DECL(ManagedIndexData);
 
 GLOVE_FWD_DECL(GpuBufferManager);
 
-GLOVE_FWD_DECL(Renderer);
+GLOVE_FWD_DECL(IRenderer);
+typedef IRendererPtr RendererPtr;
 
 GLOVE_FWD_DECL(Mesh);
 
@@ -90,7 +82,3 @@ GLOVE_FWD_DECL(EventBus);
 GLOVE_FWD_DECL(InputManager);
 
 }
-
-
-
-#endif /* GLOVEFWD_H_ */

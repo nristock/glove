@@ -13,35 +13,32 @@ template<class VertexLayoutType> class GLManagedMesh : public ManagedMesh<Vertex
 	GLOVE_MEM_ALLOC_FUNCS("GLManagedMesh")
 public:
 	GLManagedMesh(MaterialPtr material) : ManagedMesh<VertexLayoutType>(material) {
-		glGenVertexArrays(1, &vertexArrayId);
+        glRenderer = std::dynamic_pointer_cast<GLRenderer>(this->gloveCore->GetRenderer());
 	}
 
 	virtual ~GLManagedMesh() {
-		glBindVertexArray(vertexArrayId);
-
-		for (auto vertexAttribute : this->GetVertexData()->GetVertexLayout()->GetAttributes()) {
-			GPUBufferPtr gpuBuffer = this->GetVertexData()->GetBuffer(vertexAttribute.GetBindingSlot());
-			gpuBuffer->Bind();
-
-			GLuint attribIndex = this->GetShader()->GetVertexAttributePosition(vertexAttribute.GetSemantic());
-			if (attribIndex < 0) {
-				continue;
-			}
-
-			glDisableVertexAttribArray(attribIndex);
-		}
-
-		glDeleteVertexArrays(1, &vertexArrayId);
-		vertexArrayId = 0;
+        for(auto vertexArrayIdEntry : vertexArrayIds) {
+            glRenderer->DestroyVertexArray(vertexArrayIdEntry.first, vertexArrayIdEntry.second);
+        }
 	}
 
 	virtual void SetupRender(RenderOperation& renderOp, const FrameData& frameData) {
+        glGetError();
+
 		ManagedMesh<VertexLayoutType>::SetupRender(renderOp, frameData);
 
-		glBindVertexArray(GetVertexArrayId());
+		glBindVertexArray(GetVertexArrayId(frameData.currentContext));
+
+        GLenum error = glGetError();
+        if(error != GL_NO_ERROR) {
+            OLOG(error, error);
+        }
 	}
 
 	virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData) {}
+
+private:
+    std::shared_ptr<GLRenderer> glRenderer;
 };
 
 

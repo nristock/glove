@@ -1,5 +1,4 @@
-#ifndef RENDERING_FRAMEDATA_H_
-#define RENDERING_FRAMEDATA_H_
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -17,9 +16,9 @@ public:
 	glm::mat4 viewProjectionMatrix;
 	/** The time since the last frame update */
 	double deltaTime;
+    /** The current context ID */
+    size_t currentContext;
 };
 
 
 } // namespace glove
-
-#endif
