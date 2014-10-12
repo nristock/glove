@@ -10,6 +10,8 @@
 
 #include <chrono>
 
+#include <boost/program_options.hpp>
+
 #include "GloveFwd.h"
 
 #include "rendering/GloveRenderer.h"
@@ -86,6 +88,8 @@ private:
 
 	std::string executableName;
 	std::string executablePath;
+
+    boost::program_options::variables_map parsedArguments;
 
 	static GloveCorePointer instance;
 
