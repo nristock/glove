@@ -149,7 +149,7 @@ enum KeyCode {
 
 	KC_MENU = 348,
 
-	KC_LAST = 350
+	KC_LAST = KC_MENU
 };
 
 enum KeyAction {

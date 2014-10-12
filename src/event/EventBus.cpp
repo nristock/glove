@@ -2,6 +2,8 @@
 
 #include "event/EventSubscriber.h"
 #include "event/type/KeyEvent.h"
+#include "event/type/MouseButtonEvent.h"
+#include "event/type/MouseMoveEvent.h"
 
 
 namespace glove {
@@ -23,6 +25,18 @@ void EventBus::Subscribe(EventSubscriberPtr subscriber) {
 template<> void EventBus::Publish<KeyEvent>(const KeyEvent& evnt) {
 	for (auto subscriber : subscribers) {
 		subscriber->OnKeyEvent(evnt);
+	}
+}
+
+template<> void EventBus::Publish<MouseButtonEvent>(const MouseButtonEvent& evnt) {
+	for (auto subscriber : subscribers) {
+		subscriber->OnMouseButtonEvent(evnt);
+	}
+}
+
+template<> void EventBus::Publish<MouseMoveEvent>(const MouseMoveEvent& evnt) {
+	for (auto subscriber : subscribers) {
+		subscriber->OnMouseMoveEvent(evnt);
 	}
 }
 

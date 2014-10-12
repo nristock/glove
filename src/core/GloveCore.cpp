@@ -205,6 +205,10 @@ void GloveCore::Update() {
 		OLOG(info, (boost::format("Last Update Time: %1%ms") % std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());
 	}
 
+	if (inputManager->IsKeyPressed(KC_F7)) {
+		OLOG(info, (boost::format("Shift: %1%\nAlt: %2%\nControl: %3%\nX: %4%\nY: %5%") % inputManager->IsKeyDown(KC_LEFT_SHIFT) % inputManager->IsKeyDown(KC_LEFT_ALT) % inputManager->IsKeyDown(KC_LEFT_CONTROL) % inputManager->GetMousePositionRef().x % inputManager->GetMousePositionRef().y).str());
+	}
+
 	primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject){
 		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
 			gameComponent->SyncEarlyUpdate();
