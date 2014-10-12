@@ -112,132 +112,126 @@ void GloveCore::Init(int argc, char** argv) {
         bpo::store(bpo::parse_config_file(settingsFile, commandLineOptions), parsedArguments);
         bpo::notify(parsedArguments);
 
-        if(parsedArguments.count("help")) {
-            OLOG(info, (boost::format("%1%") % commandLineOptions).str());
-        }
+		instance = GloveCorePointer(this);
 
-        initializationTime = sc::steady_clock::now();
+		eventBus = EventBusPtr(new EventBus());
 
-        instance = GloveCorePointer(this);
-
-        eventBus = EventBusPtr(new EventBus());
-
-        if (initRenderingSystem) {
-            InitializeRenderingSystem(argc, argv, windowWidth, windowHeight);
+        if(initRenderingSystem) {
+            InitializeRenderingSystem(argc, argv, 800, 600);
             primaryScenegraph = ScenegraphPtr(new Scenegraph());
 
             inputManager = InputManagerPtr(new InputManager());
             eventBus->Subscribe(inputManager);
         }
 
-        if (initScripting) {
+        if(initScripting) {
             InitializeScripting();
             InitializeResourceLoaders();
         }
 
-        TimePoint initializationDone = sc::steady_clock::now();
-        auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
-        OLOG(info, "Engine initialization took " << timeSpan.count() << "ms");
-    }
-    catch (const GloveException& ex) {
-        OLOG(error, (boost::format("Engine initialization failed: %1%") % ex.what()).str());
-    }
+		TimePoint initializationDone = sc::steady_clock::now();
+		auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
+		OLOG(info, "Engine initialization took " << timeSpan.count() << "ms");
+	}
+	catch (const GloveException& ex) {
+		OLOG(error, (boost::format("Engine initialization failed: %1%") % ex.what()).str());
+	}
 
 }
 
 void GloveCore::InitializeRenderingSystem(int argc, char** argv, int windowWidth, int windowHeight) {
-    renderer = GloveRendererPtr(new GloveRenderer());
+	renderer = GloveRendererPtr(new GloveRenderer());
 
-    try {
-        renderer->Init(windowWidth, windowHeight, parsedArguments["opengl-version-major"].as<int>(), parsedArguments["opengl-version-minor"].as<int>(), argc, argv);
-    }
-    catch (const GloveException& e) {
-        OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
-    }
+	try {
+		renderer->Init(windowWidth, windowHeight, 3, 3, argc, argv);
+	}
+	catch (const GloveException& e) {
+		OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
+	}
 
-    gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());
+	gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());	
 }
 
 void GloveCore::InitializeScripting() {
-    pythonEngine = GlovePythonEnginePtr(new GlovePythonEngine(executablePath));
+	pythonEngine = GlovePythonEnginePtr(new GlovePythonEngine(executablePath));
 
-    try {
-        namespace bpy = boost::python;
-        bpy::object mainNs = pythonEngine->GetBuiltins();
+	try {
+		namespace bpy = boost::python;
+		bpy::object mainNs = pythonEngine->GetBuiltins();
 
-        mainNs["g_Core"] = bpy::object(shared_from_this());
-        mainNs["g_Scenegraph"] = bpy::object(primaryScenegraph);
-    }
-    catch (boost::python::error_already_set const&) {
-        pythonEngine->HandleError();
+		mainNs["g_Core"] = bpy::object(shared_from_this());
+		mainNs["g_Scenegraph"] = bpy::object(primaryScenegraph);
+	}
+	catch (boost::python::error_already_set const &) {
+		pythonEngine->HandleError();
 
-        throw GLOVE_EXCEPTION("Failed to expose global scripting objects");
-    }
+		throw GLOVE_EXCEPTION("Failed to expose global scripting objects");
+	}
 }
 
 void GloveCore::InitializeResourceLoaders() {
-    pyshedLoader = PyShedLoaderPtr(new PyShedLoader(pythonEngine));
-    pluginLoader = PluginLoaderPtr(new PluginLoader());
+	pyshedLoader = PyShedLoaderPtr(new PyShedLoader(pythonEngine));
+	pluginLoader = PluginLoaderPtr(new PluginLoader());
 
-    pluginLoader->DiscoverPlugins();
-    pluginLoader->LoadPlugins();
+	pluginLoader->DiscoverPlugins();
+	pluginLoader->LoadPlugins();
 }
 
 void GloveCore::EnterMainLoop() {
-    TimePoint start = std::chrono::steady_clock::now();
-    TimePoint end = std::chrono::steady_clock::now();
+	TimePoint start = std::chrono::steady_clock::now();
+	TimePoint end = std::chrono::steady_clock::now();
+	
+	while (!IsExitRequested()) {
+		end = std::chrono::steady_clock::now();
+		lastFrameTime = sc::duration_cast<std::chrono::duration<double>>(end - start);
+		start = std::chrono::steady_clock::now();
 
-    while (!IsExitRequested()) {
-        end = std::chrono::steady_clock::now();
-        lastFrameTime = sc::duration_cast<std::chrono::duration<double>>(end - start);
-        start = std::chrono::steady_clock::now();
+		frameData.frameId++;
+		frameData.deltaTime = lastFrameTime.count();
 
-        frameData.frameId++;
-        frameData.deltaTime = lastFrameTime.count();
-
-        Update();
-        Render(primaryScenegraph);
-    }
+		Update();
+		Render(primaryScenegraph);
+	}
 }
 
 void GloveCore::Update() {
-    glfwPollEvents();
+	glfwPollEvents();
+	
+	if (inputManager->IsKeyPressed(KC_F5)) {
+		OLOG(info, memory_internal::DumpList());
+	}
 
-    if (inputManager->IsKeyPressed(KC_F5)) {
-        OLOG(info, memory_internal::DumpList());
-    }
+	if (inputManager->IsKeyPressed(KC_F6)) {
+		OLOG(info, (boost::format("Last Update Time: %1%ms") % std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());
+	}
 
-    if (inputManager->IsKeyPressed(KC_F6)) {
-        OLOG(info, (boost::format("Last Update Time: %1%ms") % std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());
-    }
+	primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject){
+		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
+			gameComponent->SyncEarlyUpdate();
+		});
 
-    primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject) {
-        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-            gameComponent->SyncEarlyUpdate();
-        });
+		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
+			gameComponent->SyncUpdate();
+		});
 
-        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-            gameComponent->SyncUpdate();
-        });
+		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
+			gameComponent->AsyncUpdate();
+		});
 
-        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-            gameComponent->AsyncUpdate();
-        });
-
-        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-            gameComponent->SyncLateUpdate();
-        });
-    });
-
-    inputManager->SyncUpdate();
+		gameObject->IterateComponents([&](const GameComponentPtr& gameComponent){
+			gameComponent->SyncLateUpdate();
+		});
+	});
+	
+	inputManager->SyncUpdate();	
 }
 
 void GloveCore::Render(ScenegraphPointer scenegraph) {
-    renderer->RenderScene(scenegraph, frameData);
+	renderer->RenderScene(scenegraph, frameData);
 }
 
 std::string GloveCore::MakeDataPath(const std::string& relPath) const {
-    return (boost::format("%1%/%2%") % executablePath % relPath).str();
+	return (boost::format("%1%/%2%") % executablePath % relPath).str();
 }
 
 } /* namespace glove */
