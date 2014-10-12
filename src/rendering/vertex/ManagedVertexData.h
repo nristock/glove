@@ -1,5 +1,4 @@
-#ifndef RENDERING_VERTEX_MANAGEDVERTEXDATA_H_
-#define RENDERING_VERTEX_MANAGEDVERTEXDATA_H_
+#pragma once
 
 #include <vector>
 
@@ -57,5 +56,3 @@ private:
 
 
 } // namespace glove
-
-#endif

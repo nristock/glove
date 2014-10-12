@@ -1,5 +1,4 @@
-#ifndef EVENT_EVENTSUBSCRIBER_H_
-#define EVENT_EVENTSUBSCRIBER_H_
+#pragma once
 
 #include "memory/GloveMemory.h"
 
@@ -22,5 +21,3 @@ public:
 
 
 } // namespace glove
-
-#endif

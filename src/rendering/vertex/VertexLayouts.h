@@ -1,5 +1,4 @@
-#ifndef RENDERING_VERTEX_VERTEXLAYOUTS_H_
-#define RENDERING_VERTEX_VERTEXLAYOUTS_H_
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -76,5 +75,3 @@ struct PositionColor {
 
 }
 } /* namespace glove */
-
-#endif /* RENDERING_VERTEXLAYOUTS_H_ */

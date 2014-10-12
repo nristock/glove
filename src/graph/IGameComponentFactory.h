@@ -1,5 +1,4 @@
-#ifndef GRAPH_GAMECOMPONENTFACTORY_H_
-#define GRAPH_GAMECOMPONENTFACTORY_H_
+#pragma once
 
 #include <list>
 #include <memory>
@@ -21,5 +20,3 @@ public:
 };
 
 } /* namespace glove */
-
-#endif /* GRAPH_GAMECOMPONENTFACTORY_H_ */

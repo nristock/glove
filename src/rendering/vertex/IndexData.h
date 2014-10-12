@@ -1,5 +1,4 @@
-#ifndef RENDERING_VERTEX_INDEXDATA_H_
-#define RENDERING_VERTEX_INDEXDATA_H_
+#pragma once
 
 #include "core/GloveFwd.h"
 #include "core/GloveObject.h"
@@ -32,5 +31,3 @@ protected:
 
 
 } // namespace glove
-
-#endif

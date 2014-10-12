@@ -1,12 +1,4 @@
-/*
- * Shader.h
- *
- *  Created on: Jul 29, 2014
- *      Author: monofraps
- */
-
-#ifndef SHADER_H_
-#define SHADER_H_
+#pragma once
 
 #include <GL/glew.h>
 #include <map>
@@ -55,5 +47,3 @@ private:
 };
 
 } /* namespace glove */
-
-#endif /* SHADER_H_ */

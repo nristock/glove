@@ -1,5 +1,4 @@
-#ifndef CORE_GLOVEPLUGIN_H_
-#define CORE_GLOVEPLUGIN_H_
+#pragma once
 
 #include "core/GloveFwd.h"
 #include "core/GloveObject.h"
@@ -37,5 +36,3 @@ protected:
 
 
 } // namespace glove
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef GRAPH_GAMECOMPONENT_H_
-#define GRAPH_GAMECOMPONENT_H_
+#pragma once
 
 #include "core/GloveObject.h"
 #include "core/GloveFwd.h"
@@ -36,5 +35,3 @@ protected:
 
 
 } // namespace glove
-
-#endif

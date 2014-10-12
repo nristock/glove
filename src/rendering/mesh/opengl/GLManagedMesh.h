@@ -1,5 +1,4 @@
-#ifndef RENDERING_MESH_OPENGL_GLMANAGEDMESH_H_
-#define RENDERING_MESH_OPENGL_GLMANAGEDMESH_H_
+#pragma once
 
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -43,5 +42,3 @@ private:
 
 
 } // namespace glove
-
-#endif

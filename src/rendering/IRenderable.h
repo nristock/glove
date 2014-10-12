@@ -1,5 +1,4 @@
-#ifndef RENDERING_IRENDERABLE_H_
-#define RENDERING_IRENDERABLE_H_
+#pragma once
 
 namespace glove {
 
@@ -17,5 +16,3 @@ public:
 };
 
 } /* namespace glove */
-
-#endif /* IRENDERABLE_H_ */

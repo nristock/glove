@@ -1,5 +1,4 @@
-#ifndef SCRIPTING_MODULES_GLOVE_PYGLOVECORE_H_
-#define SCRIPTING_MODULES_GLOVE_PYGLOVECORE_H_
+#pragma once
 
 #include "core/GloveCore.h"
 
@@ -10,5 +9,3 @@ void ExportGloveCore();
 
 } // namespace python
 } // namespace glove
-
-#endif

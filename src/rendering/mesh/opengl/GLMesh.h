@@ -1,5 +1,4 @@
-#ifndef RENDERING_MESH_OPENGL_GLMESH_H_
-#define RENDERING_MESH_OPENGL_GLMESH_H_
+#pragma once
 
 #include "rendering/mesh/Mesh.h"
 #include "rendering/mesh/opengl/GLBaseMesh.h"
@@ -23,5 +22,3 @@ private:
 
 
 } // namespace glove
-
-#endif

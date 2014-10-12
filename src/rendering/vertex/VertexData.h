@@ -1,5 +1,4 @@
-#ifndef RENDERING_VERTEX_VERTEXDATA_H_
-#define RENDERING_VERTEX_VERTEXDATA_H_
+#pragma once
 
 #include <map>
 
@@ -56,5 +55,3 @@ private:
 
 
 } // namespace glove
-
-#endif

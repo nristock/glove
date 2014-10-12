@@ -1,5 +1,4 @@
-#ifndef SCRIPTING_MODULES_GLOVE_PYGLOVEPYTHONENGINE_H_
-#define SCRIPTING_MODULES_GLOVE_PYGLOVEPYTHONENGINE_H_
+#pragma once
 
 namespace glove {
 namespace python {
@@ -8,5 +7,3 @@ void ExportGlovePythonEngine();
 
 } // namespace python
 } // namespace glove
-
-#endif

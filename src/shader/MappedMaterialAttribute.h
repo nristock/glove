@@ -1,6 +1,4 @@
-#ifndef SHADER_MAPPEDMATERIALATTRIBUTE_H_
-#define SHADER_MAPPEDMATERIALATTRIBUTE_H_
-
+#pragma once
 
 namespace glove {
 
@@ -9,5 +7,3 @@ namespace glove {
 	};
 
 } // namespace glove
-
-#endif

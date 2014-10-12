@@ -1,5 +1,4 @@
-#ifndef SCRIPTING_PYTHONPLUGIN_H_
-#define SCRIPTING_PYTHONPLUGIN_H_
+#pragma once
 
 #include <boost/python/dict.hpp>
 
@@ -48,5 +47,3 @@ private:
 
 
 } // namespace glove
-
-#endif

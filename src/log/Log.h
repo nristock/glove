@@ -1,5 +1,4 @@
-#ifndef LOG_LOG_H
-#define LOG_LOG_H
+#pragma once
 
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/log/sources/severity_logger.hpp>
@@ -26,5 +25,3 @@ namespace logging {
 #define LOG(log_, lvl_, lgs_) {BOOST_LOG_FUNCTION(); BOOST_LOG_SEV(log_, glove::logging::SeverityLevel::lvl_) << lgs_;}
 
 }
-
-#endif

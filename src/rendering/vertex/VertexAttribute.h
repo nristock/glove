@@ -1,5 +1,4 @@
-#ifndef RENDERING_VERTEX_VERTEXELEMENT_H_
-#define RENDERING_VERTEX_VERTEXELEMENT_H_
+#pragma once
 
 #include "core/GloveObject.h"
 #include "rendering/vertex/VertexAttributeSemantic.h"
@@ -46,5 +45,3 @@ protected:
 
 
 } // namespace glove
-
-#endif

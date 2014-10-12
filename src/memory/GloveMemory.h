@@ -1,5 +1,4 @@
-#ifndef GLOVEMEMORY_H_
-#define GLOVEMEMORY_H_
+#pragma once
 
 #include <atomic>
 #include <string>
@@ -74,5 +73,3 @@ std::string DumpList(); // TODO
 } // namespcae memory_internal
 
 } // namespace glove
-
-#endif

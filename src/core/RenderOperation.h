@@ -1,5 +1,4 @@
-#ifndef CORE_RENDEROPERATION_H_
-#define CORE_RENDEROPERATION_H_
+#pragma once
 
 #include "core/GloveFwd.h"
 #include "memory/GloveMemory.h"
@@ -26,5 +25,3 @@ public:
 
 
 } // namespace glove
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef CORE_PLUGINLOADER_H_
-#define CORE_PLUGINLOADER_H_
+#pragma once
 
 #include <map>
 
@@ -44,5 +43,3 @@ private:
 
 
 } // namespace glove
-
-#endif

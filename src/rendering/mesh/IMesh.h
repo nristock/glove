@@ -1,5 +1,4 @@
-#ifndef RENDERING_MESH_IMESH_H_
-#define RENDERING_MESH_IMESH_H_
+#pragma once
 
 #include "core/GloveFwd.h"
 #include "core/GloveObject.h"
@@ -31,5 +30,3 @@ public:
 
 
 } // namespace glove
-
-#endif

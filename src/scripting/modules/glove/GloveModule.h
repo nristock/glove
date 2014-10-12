@@ -1,6 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY
-#ifndef SCRIPTING_MODULES_GLOVE_GLOVEMODULE_H_
-#define SCRIPTING_MODULES_GLOVE_GLOVEMODULE_H_
+#pragma once
 
 #include <boost/python.hpp>
 
@@ -9,5 +8,3 @@ namespace python {
 PyObject* CreateGloveModule();
 } // namespace python
 } // namespace glove
-
-#endif

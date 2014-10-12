@@ -1,5 +1,4 @@
-#ifndef SCENEGRAPH_H_
-#define SCENEGRAPH_H_
+#pragma once
 
 #include <list>
 #include <functional>
@@ -62,5 +61,3 @@ protected:
 };
 
 } /* namespace glove */
-
-#endif /* SCENEGRAPH_H_ */

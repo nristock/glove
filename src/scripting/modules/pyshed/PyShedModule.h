@@ -1,5 +1,4 @@
-#ifndef SCRIPTING_MODULES_PYSHED_PYSHEDMODULE_H_
-#define SCRIPTING_MODULES_PYSHED_PYSHEDMODULE_H_
+#pragma once
 
 #include <boost/python.hpp>
 
@@ -8,5 +7,3 @@ namespace python {
 PyObject* CreatePyshedModule();
 } // namespace python
 } // namespace glove
-
-#endif

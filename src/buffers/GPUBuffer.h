@@ -1,5 +1,4 @@
-#ifndef BUFFERS_GPUBUFFER_H_
-#define BUFFERS_GPUBUFFER_H_
+#pragma once
 
 #include "memory/GloveMemory.h"
 #include "buffers/BufferUsage.h"
@@ -25,5 +24,3 @@ public:
 };
 
 } /* namespace glove */
-
-#endif /* BUFFERS_GPUBUFFER_H_ */

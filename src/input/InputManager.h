@@ -1,5 +1,4 @@
-#ifndef INPUT_INPUTMANAGER_H_
-#define INPUT_INPUTMANAGER_H_
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -69,5 +68,3 @@ private:
 
 
 } // namespace glove
-
-#endif

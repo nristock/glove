@@ -1,5 +1,4 @@
-#ifndef RENDERING_VERTEX_VERTEXLAYOUT_H_
-#define RENDERING_VERTEX_VERTEXLAYOUT_H_
+#pragma once
 
 #include <list>
 
@@ -45,5 +44,3 @@ private:
 
 
 } // namespace glove
-
-#endif

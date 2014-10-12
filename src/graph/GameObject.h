@@ -1,12 +1,4 @@
-/*
- * GameObject.h
- *
- *  Created on: Jul 21, 2014
- *      Author: monofraps
- */
-
-#ifndef GAMEOBJECT_H_
-#define GAMEOBJECT_H_
+#pragma once
 
 #include <list>
 #include <memory>
@@ -64,5 +56,3 @@ protected:
 };
 
 } /* namespace glove */
-
-#endif /* GAMEOBJECT_H_ */

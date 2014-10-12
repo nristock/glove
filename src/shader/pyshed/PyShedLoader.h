@@ -1,5 +1,4 @@
-#ifndef SHADER_PYSHED_PYSHEDLOADER_H_
-#define SHADER_PYSHED_PYSHEDLOADER_H_
+#pragma once
 
 #include <string>
 
@@ -26,5 +25,3 @@ private:
 
 
 } // namespace glove
-
-#endif

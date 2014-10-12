@@ -1,5 +1,4 @@
-#ifndef BUFFERS_BUFFERUSAGE_H_
-#define BUFFERS_BUFFERUSAGE_H_
+#pragma once
 
 namespace glove {
 
@@ -16,5 +15,3 @@ enum BufferUsage {
 
 
 } // namespace glove
-
-#endif

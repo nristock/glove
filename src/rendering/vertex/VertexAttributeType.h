@@ -1,5 +1,4 @@
-#ifndef RENDERING_VERTEXATTRIBUTETYPE_H_
-#define RENDERING_VERTEXATTRIBUTETYPE_H_
+#pragma once
 
 namespace glove {
 
@@ -9,5 +8,3 @@ enum VertexAttributeType {
 };
 
 } // namespace glove
-
-#endif

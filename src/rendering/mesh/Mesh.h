@@ -1,5 +1,4 @@
-#ifndef RENDERING_MESH_H_
-#define RENDERING_MESH_H_
+#pragma once
 
 #include "core/GloveFwd.h"
 
@@ -37,5 +36,3 @@ protected:
 };
 
 } /* namespace glove */
-
-#endif /* RENDERING_MESH_H_ */

@@ -1,5 +1,4 @@
-#ifndef SHADER_VERTEXATTRIBUTESEMANTIC_H_
-#define SHADER_VERTEXATTRIBUTESEMANTIC_H_
+#pragma once
 
 namespace glove {
 
@@ -11,5 +10,3 @@ enum VertexAttributeSemantic {
 };
 
 } // namespace glove
-
-#endif

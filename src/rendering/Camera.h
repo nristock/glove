@@ -1,5 +1,4 @@
-#ifndef RENDERING_CAMERA_H_
-#define RENDERING_CAMERA_H_
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -32,5 +31,3 @@ private:
 
 
 } // namespace glove
-
-#endif

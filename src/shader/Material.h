@@ -1,5 +1,4 @@
-#ifndef SHADER_MATERIAL_H_
-#define SHADER_MATERIAL_H_
+#pragma once
 
 #include <string>
 
@@ -38,5 +37,3 @@ private:
 
 
 } // namespace glove
-
-#endif

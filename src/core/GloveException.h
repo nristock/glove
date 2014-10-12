@@ -1,12 +1,4 @@
-/*
- * GloveException.h
- *
- *  Created on: Aug 18, 2014
- *      Author: monofraps
- */
-
-#ifndef GLOVEEXCEPTION_H_
-#define GLOVEEXCEPTION_H_
+#pragma once
 
 #include <exception>
 #include <string>
@@ -33,5 +25,3 @@ private:
 };
 
 } /* namespace glove */
-
-#endif /* GLOVEEXCEPTION_H_ */

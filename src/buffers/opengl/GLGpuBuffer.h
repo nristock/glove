@@ -1,5 +1,4 @@
-#ifndef BUFFERS_OPENGL_GLGPUBUFFER_H_
-#define BUFFERS_OPENGL_GLGPUBUFFER_H_
+#pragma once
 
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -34,5 +33,3 @@ protected:
 
 
 } // namespace glove
-
-#endif

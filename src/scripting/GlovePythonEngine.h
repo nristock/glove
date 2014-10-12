@@ -1,5 +1,4 @@
-#ifndef GLOVEPYTHONENGINE_H_
-#define GLOVEPYTHONENGINE_H_
+#pragma once
 
 #include <string>
 #include <list>
@@ -39,5 +38,3 @@ private:
 };
 
 } // namespace glove
-
-#endif

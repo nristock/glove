@@ -1,5 +1,4 @@
-#ifndef GRAPH_TRANSFORM_H_
-#define GRAPH_TRANSFORM_H_
+#pragma once
 
 #include <functional>
 
@@ -124,5 +123,3 @@ private:
 
 
 } // namespace glove
-
-#endif

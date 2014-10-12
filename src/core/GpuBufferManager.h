@@ -1,5 +1,4 @@
-#ifndef CORE_GPUBUFFERMANAGER_H_
-#define CORE_GPUBUFFERMANAGER_H_
+#pragma once
 
 #include "core/GloveObject.h"
 #include "core/GloveFwd.h"
@@ -26,5 +25,3 @@ public:
 
 
 } // namespace glove
-
-#endif

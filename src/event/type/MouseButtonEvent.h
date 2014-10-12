@@ -1,5 +1,4 @@
-#ifndef EVENT_TYPE_MOUSEBUTTONEVENT_H_
-#define EVENT_TYPE_MOUSEBUTTONEVENT_H_
+#pragma once
 
 #include "memory/GloveMemory.h"
 #include "event/type/KeyEvent.h"
@@ -45,5 +44,3 @@ public:
 
 
 } // namespace glove
-
-#endif

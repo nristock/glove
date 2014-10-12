@@ -1,5 +1,4 @@
-#ifndef EVENT_TYPE_KEYEVENT_H_
-#define EVENT_TYPE_KEYEVENT_H_
+#pragma once
 
 #include "memory/GloveMemory.h"
 
@@ -176,5 +175,3 @@ public:
 
 
 } // namespace glove
-
-#endif

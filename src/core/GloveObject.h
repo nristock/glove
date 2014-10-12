@@ -1,12 +1,4 @@
-/*
- * GloveObject.h
- *
- *  Created on: Aug 18, 2014
- *      Author: monofraps
- */
-
-#ifndef GLOVEOBJECT_H_
-#define GLOVEOBJECT_H_
+#pragma once
 
 #include "core/GloveFwd.h"
 #include "log/Log.h"
@@ -31,5 +23,3 @@ protected:
 };
 
 } /* namespace glove */
-
-#endif /* GLOVEOBJECT_H_ */

@@ -1,5 +1,4 @@
-#ifndef EVENT_EVENTBUS_H_
-#define EVENT_EVENTBUS_H_
+#pragma once
 
 #include <list>
 
@@ -26,5 +25,3 @@ private:
 
 
 } // namespace glove
-
-#endif

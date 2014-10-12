@@ -1,10 +1,7 @@
-#ifndef PYGLOVEOBJECT_H_
-#define PYGLOVEOBJECT_H_
+#pragma once
 
 namespace glove {
 namespace python {
 void ExportGloveObject();
 } // namespace python
 } // namespace glove
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef GRAPH_IGRAPHNODE_H_
-#define GRAPH_IGRAPHNODE_H_
+#pragma once
 
 #include <list>
 #include <memory>
@@ -35,5 +34,3 @@ protected:
 };
 
 } /* namespace glove */
-
-#endif /* GRAPH_IGRAPHNODE_H_ */

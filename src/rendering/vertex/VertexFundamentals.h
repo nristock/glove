@@ -1,5 +1,4 @@
-#ifndef RENDERING_VERTEX_VERTEXFUNDAMENTALS_H_
-#define RENDERING_VERTEX_VERTEXFUNDAMENTALS_H_
+#pragma once
 
 #ifdef VF_MANAGED_DATA
 #include "rendering/vertex/ManagedIndexData.h"
@@ -15,5 +14,3 @@
 
 #include "rendering/vertex/VertexLayout.h"
 #include "rendering/vertex/VertexLayouts.h"
-
-#endif
