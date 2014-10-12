@@ -33,7 +33,7 @@ public:
 	virtual void Init();
     virtual void Exit();
 
-    virtual WindowPtr CreateWindow(int windowWidth, int windowHeight);
+    virtual WindowPtr CreateWindow(int windowWidth, int windowHeight, int contextVersionMajor, int contextVersionMinor);
 
     virtual void ClearBuffers();
 	virtual void RenderScene(ScenegraphPointer scenegraph, FrameData& frameData);

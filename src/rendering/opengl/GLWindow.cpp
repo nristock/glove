@@ -9,6 +9,8 @@
 
 #include "event/EventBus.h"
 #include "event/type/KeyEvent.h"
+#include "event/type/MouseButtonEvent.h"
+#include "event/type/MouseMoveEvent.h"
 
 namespace glove {
 
@@ -23,6 +25,8 @@ GLWindow::GLWindow(int width, int height, WindowPtr parent) : viewportWidth(0), 
     glfwSetFramebufferSizeCallback(glfwWindow, &GLWindow::GlfwFramebufferSizeChanged);
     glfwSetKeyCallback(glfwWindow, &GLWindow::GlfwKeyEvent);
     glfwSetWindowCloseCallback(glfwWindow, &GLWindow::GlfwCloseEvent);
+    glfwSetCursorPosCallback(glfwWindow, &GLWindow::GlfwCursorPositionChanged);
+    glfwSetMouseButtonCallback(glfwWindow, &GLWindow::GlfwMouseButtonEvent);
 
     glfwGetFramebufferSize(glfwWindow, &width, &height);
     SetFramebuffer(width, height);
@@ -72,6 +76,27 @@ void GLWindow::GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int hei
 void GLWindow::GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	GLWindow* gloveWindow = reinterpret_cast<GLWindow*>(glfwGetWindowUserPointer(window));
 	gloveWindow->OnKeyEvent(key, scancode, action, mods);
+}
+
+void GLWindow::OnMouseMove(double x, double y) {
+    MouseMoveEvent moveEvent(x, y);
+    gloveCore->GetEventBusRef()->Publish(moveEvent);
+}
+
+void GLWindow::OnMouseButton(int button, int action, int mods) {
+    ButtonAction buttonAction = (action == GLFW_PRESS) ? BA_PRESS : BA_RELEASE;
+    MouseButtonEvent buttonEvent((MouseButton)button, buttonAction, mods & GLFW_MOD_ALT, mods & GLFW_MOD_CONTROL, mods & GLFW_MOD_SHIFT, mods & GLFW_MOD_SUPER);
+    gloveCore->GetEventBusRef()->Publish(buttonEvent);
+}
+
+void GLWindow::GlfwCursorPositionChanged(GLFWwindow* window, double x, double y) {
+    GLWindow* gloveWindow = reinterpret_cast<GLWindow*>(glfwGetWindowUserPointer(window));
+    gloveWindow->OnMouseMove(x, y);
+}
+
+void GLWindow::GlfwMouseButtonEvent(GLFWwindow* window, int button, int action, int mods) {
+    GLWindow* gloveWindow = reinterpret_cast<GLWindow*>(glfwGetWindowUserPointer(window));
+    gloveWindow->OnMouseButton(button, action, mods);
 }
 
 void GLWindow::GlfwCloseEvent(GLFWwindow *window) {

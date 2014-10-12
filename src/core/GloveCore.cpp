@@ -12,7 +12,6 @@
 
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
-#include <GLFW/glfw3.h>
 
 #include "GloveException.h"
 #include "graph/Scenegraph.h"
@@ -141,7 +140,7 @@ void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
 
 	try {
 		renderer->Init();
-        renderer->CreateWindow(windowWidth, windowHeight);
+        renderer->CreateWindow(windowWidth, windowHeight, parsedArguments["opengl-version-major"].as<int>(), parsedArguments["opengl-version-minor"].as<int>());
 	}
 	catch (const GloveException& e) {
 		OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());

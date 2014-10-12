@@ -142,9 +142,9 @@ void GLRenderer::SwapBuffers() {
     activeWindow->SwapBuffers();
 }
 
-WindowPtr GLRenderer::CreateWindow(int windowWidth, int windowHeight) {
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+WindowPtr GLRenderer::CreateWindow(int windowWidth, int windowHeight, int contextVersionMajor, int contextVersionMinor) {
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextVersionMajor);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextVersionMinor);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     WindowPtr window;

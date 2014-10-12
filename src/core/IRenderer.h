@@ -12,7 +12,7 @@ public:
     virtual void Init() = 0;
     virtual void Exit() = 0;
 
-    virtual WindowPtr CreateWindow(int windowWidth, int windowHeight) = 0;
+    virtual WindowPtr CreateWindow(int windowWidth, int windowHeight, int contextVersionMajor, int contextVersionMinor) = 0;
 
     virtual void ClearBuffers() = 0;
     virtual void RenderScene(ScenegraphPointer scenegraph, FrameData& frameData) = 0;
