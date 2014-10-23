@@ -10,17 +10,18 @@
 namespace glove {
 
 class PyShedLoader : public GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("PyShedLoader")
+Profilable()
 public:
-	PyShedLoader(GlovePythonEnginePointer pythonEngine);
-	virtual ~PyShedLoader();
+    PyShedLoader(GlovePythonEnginePointer pythonEngine);
 
-	ShaderProgramPointer LoadPysehdShader(std::string fileName);
+    virtual ~PyShedLoader();
+
+    ShaderProgramPointer LoadPysehdShader(std::string fileName);
 
 private:
-	boost::python::object CreatePyshedScope();
+    boost::python::object CreatePyshedScope();
 
-	GlovePythonEnginePointer pythonEngine;
+    GlovePythonEnginePointer pythonEngine;
 };
 
 

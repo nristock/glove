@@ -17,7 +17,8 @@ namespace glove {
 GLWindow::GLWindow(int width, int height) : GLWindow(width, height, nullptr) {
 }
 
-GLWindow::GLWindow(int width, int height, WindowPtr parent) : viewportWidth(0), viewportHeight(0), aspectRatio(0), orthoSize(10) {
+GLWindow::GLWindow(int width, int height, WindowPtr parent)
+        : viewportWidth(0), viewportHeight(0), aspectRatio(0), orthoSize(10), EnableProfilable() {
     this->parent = parent ? std::dynamic_pointer_cast<GLWindow>(parent)->GetGlfwWindow() : nullptr;
 
     glfwWindow = glfwCreateWindow(width, height, "glove", NULL, this->parent);
@@ -33,20 +34,20 @@ GLWindow::GLWindow(int width, int height, WindowPtr parent) : viewportWidth(0), 
 }
 
 GLWindow::~GLWindow() {
-	glfwDestroyWindow(glfwWindow);
+    glfwDestroyWindow(glfwWindow);
 }
 
 void GLWindow::MakeCurrent() {
-	glfwMakeContextCurrent(glfwWindow);
+    glfwMakeContextCurrent(glfwWindow);
 }
 
 bool GLWindow::CloseRequested() const {
-	return glfwWindowShouldClose(glfwWindow);
+    return glfwWindowShouldClose(glfwWindow);
 }
 
 void GLWindow::SetFramebuffer(int width, int height) {
-	viewportWidth = width;
-	viewportHeight = height;
+    viewportWidth = width;
+    viewportHeight = height;
 
     //TODO: Remove switching overhead
     GLFWwindow* currentContext = glfwGetCurrentContext();
@@ -54,28 +55,28 @@ void GLWindow::SetFramebuffer(int width, int height) {
     glViewport(0, 0, width, height);
     glfwMakeContextCurrent(currentContext);
 
-	aspectRatio = width / height;
-	projectionMat = glm::ortho(-orthoSize, orthoSize, -orthoSize / aspectRatio, orthoSize / aspectRatio);
+    aspectRatio = width / height;
+    projectionMat = glm::ortho(-orthoSize, orthoSize, -orthoSize / aspectRatio, orthoSize / aspectRatio);
 }
 
 void GLWindow::SwapBuffers() {
-	glfwSwapBuffers(glfwWindow);
+    glfwSwapBuffers(glfwWindow);
 }
 
 void GLWindow::OnKeyEvent(int key, int scancode, int action, int mods) {
-	KeyAction keyAction = (action == GLFW_PRESS) ? KA_PRESS : ((action == GLFW_RELEASE) ? KA_RELEASE : KA_REPEAT);
-	KeyEvent keyEvent((KeyCode)key, keyAction, mods & GLFW_MOD_ALT, mods & GLFW_MOD_CONTROL, mods & GLFW_MOD_SHIFT, mods & GLFW_MOD_SUPER);
-	gloveCore->GetEventBusRef()->Publish(keyEvent);
+    KeyAction keyAction = (action == GLFW_PRESS) ? KA_PRESS : ((action == GLFW_RELEASE) ? KA_RELEASE : KA_REPEAT);
+    KeyEvent keyEvent((KeyCode) key, keyAction, mods & GLFW_MOD_ALT, mods & GLFW_MOD_CONTROL, mods & GLFW_MOD_SHIFT, mods & GLFW_MOD_SUPER);
+    gloveCore->GetEventBusRef()->Publish(keyEvent);
 }
 
 void GLWindow::GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height) {
-	GLWindow* gloveWindow = reinterpret_cast<GLWindow*>(glfwGetWindowUserPointer(window));
-	gloveWindow->SetFramebuffer(width, height);
+    GLWindow* gloveWindow = reinterpret_cast<GLWindow*>(glfwGetWindowUserPointer(window));
+    gloveWindow->SetFramebuffer(width, height);
 }
 
 void GLWindow::GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	GLWindow* gloveWindow = reinterpret_cast<GLWindow*>(glfwGetWindowUserPointer(window));
-	gloveWindow->OnKeyEvent(key, scancode, action, mods);
+    GLWindow* gloveWindow = reinterpret_cast<GLWindow*>(glfwGetWindowUserPointer(window));
+    gloveWindow->OnKeyEvent(key, scancode, action, mods);
 }
 
 void GLWindow::OnMouseMove(double x, double y) {
@@ -85,7 +86,7 @@ void GLWindow::OnMouseMove(double x, double y) {
 
 void GLWindow::OnMouseButton(int button, int action, int mods) {
     ButtonAction buttonAction = (action == GLFW_PRESS) ? BA_PRESS : BA_RELEASE;
-    MouseButtonEvent buttonEvent((MouseButton)button, buttonAction, mods & GLFW_MOD_ALT, mods & GLFW_MOD_CONTROL, mods & GLFW_MOD_SHIFT, mods & GLFW_MOD_SUPER);
+    MouseButtonEvent buttonEvent((MouseButton) button, buttonAction, mods & GLFW_MOD_ALT, mods & GLFW_MOD_CONTROL, mods & GLFW_MOD_SHIFT, mods & GLFW_MOD_SUPER);
     gloveCore->GetEventBusRef()->Publish(buttonEvent);
 }
 
@@ -99,7 +100,7 @@ void GLWindow::GlfwMouseButtonEvent(GLFWwindow* window, int button, int action, 
     gloveWindow->OnMouseButton(button, action, mods);
 }
 
-void GLWindow::GlfwCloseEvent(GLFWwindow *window) {
+void GLWindow::GlfwCloseEvent(GLFWwindow* window) {
     //TODO: Schedule window close
 }
 

@@ -34,7 +34,7 @@ namespace glove {
 
 GLRenderer* rendererInstance = nullptr;
 
-GLRenderer::GLRenderer() {
+GLRenderer::GLRenderer() : EnableProfilable() {
     currentRenderOperation.Reset();
 }
 
@@ -142,7 +142,7 @@ void GLRenderer::SwapBuffers() {
     activeWindow->SwapBuffers();
 }
 
-WindowPtr GLRenderer::CreateWindow(int windowWidth, int windowHeight, int contextVersionMajor, int contextVersionMinor) {
+WindowPtr GLRenderer::CreateRenderWindow(int windowWidth, int windowHeight, int contextVersionMajor, int contextVersionMinor) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextVersionMajor);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextVersionMinor);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -197,7 +197,7 @@ GLuint GLRenderer::GenerateVertexArray(size_t contextId) {
     return temporaryId;
 }
 
-GLuint GLRenderer::DestroyVertexArray(size_t contextId, GLuint vertexArrayId) {
+void GLRenderer::DestroyVertexArray(size_t contextId, GLuint vertexArrayId) {
     size_t prevContextId;
 
     if (currentContextId != contextId) {

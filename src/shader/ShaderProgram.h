@@ -10,40 +10,47 @@
 namespace glove {
 
 class ShaderProgram : public GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("ShaderProgram")
+Profilable()
 public:
-	ShaderProgram();
-	ShaderProgram(int numShaders);
-	virtual ~ShaderProgram();
-	
-	void LoadShader(int shaderId, GLenum shaderType, std::string& fileName);
-	void LoadVertexShader(std::string fileName);
-	void LoadFragmentShader(std::string fileName);
-	
-	void CreateProgram();
+    ShaderProgram();
 
-	void MapVertexAttribute(VertexAttributeSemantic attributeSemantic, std::string attribName);
-	void MapMaterialAttribute(MappedMaterialAttribute attributeIdentifier, std::string attribname);
+    ShaderProgram(int numShaders);
 
-	void Enable();
-	void Disable();
+    virtual ~ShaderProgram();
 
-	void SetShader(int programSlot, GLuint ProgramId);
+    void LoadShader(int shaderId, GLenum shaderType, std::string& fileName);
 
-	GLuint GetVertexAttributePosition(VertexAttributeSemantic attributeSemantic);
-	GLuint GetMaterialAttributePosition(MappedMaterialAttribute attributeIdentifier);
+    void LoadVertexShader(std::string fileName);
+
+    void LoadFragmentShader(std::string fileName);
+
+    void CreateProgram();
+
+    void MapVertexAttribute(VertexAttributeSemantic attributeSemantic, std::string attribName);
+
+    void MapMaterialAttribute(MappedMaterialAttribute attributeIdentifier, std::string attribname);
+
+    void Enable();
+
+    void Disable();
+
+    void SetShader(int programSlot, GLuint ProgramId);
+
+    GLuint GetVertexAttributePosition(VertexAttributeSemantic attributeSemantic);
+
+    GLuint GetMaterialAttributePosition(MappedMaterialAttribute attributeIdentifier);
 
 private:
-	typedef std::map<VertexAttributeSemantic, GLuint> VertexAttribMap;
-	typedef std::map<MappedMaterialAttribute, GLuint> MaterialAttributeMap;
+    typedef std::map<VertexAttributeSemantic, GLuint> VertexAttribMap;
+    typedef std::map<MappedMaterialAttribute, GLuint> MaterialAttributeMap;
 
-	int numShaders;
+    int numShaders;
 
-	GLuint shaderProgramId;
-	GLuint* shaderIds;
+    GLuint shaderProgramId;
+    GLuint* shaderIds;
 
-	VertexAttribMap vertexAttributeMap;
-	MaterialAttributeMap materialAttributeMap;
+    VertexAttribMap vertexAttributeMap;
+    MaterialAttributeMap materialAttributeMap;
 };
 
 } /* namespace glove */

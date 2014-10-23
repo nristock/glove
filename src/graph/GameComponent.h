@@ -6,31 +6,50 @@
 namespace glove {
 
 class GameComponent : public GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("GameComponent")
+Profilable()
 public:
-	GameComponent();
-	virtual ~GameComponent();
+    GameComponent();
 
-	virtual const GameObjectPtr& GetOwnerRef() const { return owner; }
-	virtual GameObjectPtr GetOwner() const { return owner; }
+    virtual ~GameComponent();
 
-	virtual void OnAttach(GameObjectPtr owner);
-	virtual void OnDetach();
+    virtual const GameObjectPtr& GetOwnerRef() const {
+        return owner;
+    }
 
-	// Frame updates
-	virtual void SyncEarlyUpdate() {};
-	virtual void SyncUpdate() {};
-	virtual void AsyncUpdate() {};
-	virtual void SyncLateUpdate() {};
+    virtual GameObjectPtr GetOwner() const {
+        return owner;
+    }
 
-	// Physics updates
-	virtual void AsyncPrePhysicsUpdate() {};
-	virtual void SyncPhysicsUpdate() {};
-	virtual void AsyncPostPhysicsUpdate() {};
+    virtual void OnAttach(GameObjectPtr owner);
+
+    virtual void OnDetach();
+
+    // Frame updates
+    virtual void SyncEarlyUpdate() {
+    };
+
+    virtual void SyncUpdate() {
+    };
+
+    virtual void AsyncUpdate() {
+    };
+
+    virtual void SyncLateUpdate() {
+    };
+
+    // Physics updates
+    virtual void AsyncPrePhysicsUpdate() {
+    };
+
+    virtual void SyncPhysicsUpdate() {
+    };
+
+    virtual void AsyncPostPhysicsUpdate() {
+    };
 
 
 protected:
-	GameObjectPtr owner;
+    GameObjectPtr owner;
 };
 
 

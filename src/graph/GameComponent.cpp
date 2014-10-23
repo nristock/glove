@@ -3,21 +3,21 @@
 #include "core/GloveFwd.h"
 
 namespace glove {
-	
-GameComponent::GameComponent() {
+
+GameComponent::GameComponent() : EnableProfilable() {
 
 }
 
 GameComponent::~GameComponent() {
-	
+
 }
 
 void GameComponent::OnAttach(GameObjectPtr owner) {
-	this->owner = owner;
+    this->owner = owner;
 }
 
 void GameComponent::OnDetach() {
-	owner.reset();
+    owner.reset();
 }
 
 } // namespace glove

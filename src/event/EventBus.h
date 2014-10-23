@@ -7,20 +7,23 @@
 
 namespace glove {
 
+/** Class implementing a simple sync Publish-Subscribe event bus */
 class EventBus : public GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("EventBus")
+Profilable()
 public:
-	typedef std::list<EventSubscriberPtr> EventSubscriberList;
+    typedef std::list<EventSubscriberPtr> EventSubscriberList;
 
-	EventBus();
-	virtual ~EventBus();
+    EventBus();
 
-	void Subscribe(EventSubscriberPtr subscriber);
+    virtual ~EventBus();
 
-	template<class EventType> void Publish(const EventType& evnt);
+    void Subscribe(EventSubscriberPtr subscriber);
+
+    template<class EventType>
+    void Publish(const EventType& evnt);
 
 private:
-	EventSubscriberList subscribers;
+    EventSubscriberList subscribers;
 };
 
 

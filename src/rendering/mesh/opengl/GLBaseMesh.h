@@ -7,13 +7,11 @@
 #include "core/GloveFwd.h"
 #include "core/IRenderer.h"
 #include "rendering/opengl/GLRenderer.h"
-#include "memory/GloveMemory.h"
+#include "pitamem/MemoryProfile.h"
 
 namespace glove {
 
 class GLBaseMesh {
-GLOVE_MEM_ALLOC_FUNCS("GLBaseMesh")
-
 public:
     typedef std::map<size_t, GLuint> VertexArrayIdList;
 

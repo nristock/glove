@@ -17,12 +17,10 @@
 #include "rendering/vertex/VertexFundamentals.h"
 
 #include "log/Log.h"
-#include "memory/GloveMemory.h"
+#include "pitamem/MemoryProfile.h"
 
 int main(int argc, char** argv) {
 	using namespace glove;
-	using namespace memory_internal;
-
 	logging::InitLoggingSystem();
 	logging::GloveLogger lg;
 

@@ -1,17 +1,18 @@
 #pragma once
 
-#include "memory/GloveMemory.h"
+#include "pitamem/MemoryProfile.h"
 
 namespace glove {
 
 struct MouseMoveEvent {
-	GLOVE_MEM_ALLOC_FUNCS("MouseMoveEvent")
+Profilable()
 public:
-	MouseMoveEvent(double x, double y);
-	virtual ~MouseMoveEvent();
+    MouseMoveEvent(double x, double y);
 
-	double x;
-	double y;
+    virtual ~MouseMoveEvent();
+
+    double x;
+    double y;
 };
 
 

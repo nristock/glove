@@ -1,6 +1,6 @@
 #pragma once
 
-#include "memory/GloveMemory.h"
+#include "pitamem/MemoryProfile.h"
 
 #include "event/type/KeyEvent.h"
 #include "event/type/MouseButtonEvent.h"
@@ -9,14 +9,20 @@
 namespace glove {
 
 class EventSubscriber {
-	GLOVE_MEM_ALLOC_FUNCS("EventSubscriber")
+Profilable()
 public:
-	EventSubscriber();
-	virtual ~EventSubscriber();
+    EventSubscriber();
 
-	virtual void OnKeyEvent(const KeyEvent& evnt) {};
-	virtual void OnMouseButtonEvent(const MouseButtonEvent& evnt) {};
-	virtual void OnMouseMoveEvent(const MouseMoveEvent& evnt) {};
+    virtual ~EventSubscriber();
+
+    virtual void OnKeyEvent(const KeyEvent& evnt) {
+    };
+
+    virtual void OnMouseButtonEvent(const MouseButtonEvent& evnt) {
+    };
+
+    virtual void OnMouseMoveEvent(const MouseMoveEvent& evnt) {
+    };
 };
 
 

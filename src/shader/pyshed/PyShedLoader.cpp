@@ -8,40 +8,40 @@
 namespace bpy = boost::python;
 
 namespace glove {
-	
-PyShedLoader::PyShedLoader(GlovePythonEnginePointer pythonEngine) {
-	this->pythonEngine = pythonEngine;
+
+PyShedLoader::PyShedLoader(GlovePythonEnginePointer pythonEngine) : EnableProfilable() {
+    this->pythonEngine = pythonEngine;
 }
 
 PyShedLoader::~PyShedLoader() {
-	
+
 }
 
 ShaderProgramPointer PyShedLoader::LoadPysehdShader(std::string fileName) {
-	bpy::object scope = CreatePyshedScope();
+    bpy::object scope = CreatePyshedScope();
 
-	try {
-		bpy::exec_file(fileName.c_str(), scope);
-		return bpy::extract<ShaderProgramPointer>(scope["shader"]);
-	}
-	catch (boost::python::error_already_set const &) {
-		pythonEngine->HandleError();
-	}
+    try {
+        bpy::exec_file(fileName.c_str(), scope);
+        return bpy::extract<ShaderProgramPointer>(scope["shader"]);
+    }
+    catch (boost::python::error_already_set const&) {
+        pythonEngine->HandleError();
+    }
 }
 
 bpy::object PyShedLoader::CreatePyshedScope() {
-	try {
-		bpy::dict scope(pythonEngine->GetRootNamespace());
-		bpy::exec("from pyshed import *", scope);
-		bpy::exec("shader = ShaderProgram(2)", scope);
+    try {
+        bpy::dict scope(pythonEngine->GetRootNamespace());
+        bpy::exec("from pyshed import *", scope);
+        bpy::exec("shader = ShaderProgram(2)", scope);
 
-		return scope;
-	}
-	catch (boost::python::error_already_set const &) {
-		pythonEngine->HandleError();
-	}	
+        return scope;
+    }
+    catch (boost::python::error_already_set const&) {
+        pythonEngine->HandleError();
+    }
 
-	return bpy::object();
+    return bpy::object();
 }
 
 } // namespace glove

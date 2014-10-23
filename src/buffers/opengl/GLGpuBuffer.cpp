@@ -3,32 +3,37 @@
 
 #include "GLGpuBuffer.h"
 
+GLEWContext* glewGetContext();
+
 namespace glove {
-	
-GLGpuBuffer::GLGpuBuffer(BufferUsage usage, GLenum target) : GPUBuffer(), target(target), usage(usage) {
-	glGenBuffers(1, &bufferId);
+
+GLGpuBuffer::GLGpuBuffer(BufferUsage usage, GLenum target)
+        : GPUBuffer(), target(target), usage(usage), EnableProfilable() {
+    //EnableProfilable();
+
+    glGenBuffers(1, &bufferId);
 }
 
 GLGpuBuffer::~GLGpuBuffer() {
-	glDeleteBuffers(1, &bufferId);
+    glDeleteBuffers(1, &bufferId);
 }
 
 void GLGpuBuffer::Bind() {
-	glBindBuffer(target, bufferId);
+    glBindBuffer(target, bufferId);
 }
 
 void GLGpuBuffer::Unbind() {
-	glBindBuffer(target, 0);
+    glBindBuffer(target, 0);
 }
 
 void GLGpuBuffer::WriteData(size_t sizeInBytes, const void* data) {
-	Bind();
+    Bind();
 
-	switch (usage) {
-	case BU_STATIC:
-		glBufferData(target, sizeInBytes, data, GL_STATIC_DRAW);
-		break;
-	}	
+    switch (usage) {
+        case BU_STATIC:
+            glBufferData(target, sizeInBytes, data, GL_STATIC_DRAW);
+            break;
+    }
 }
 
 } // namespace glove

@@ -1,18 +1,22 @@
 cmake_minimum_required(VERSION 2.8)
 project(glove)
 
-add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB -DGLEW_MX)
+add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB -DGLEW_MX -DBOOST_ALL_DYN_LINK -DHAVE_ROUND)
 
 if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
 	#add_definitions(-DPy_TRACE_REFS -DPy_DEBUG)
 endif()
 
+SET(CMAKE_BUILD_TYPE tests)
+SET(CMAKE_CXX_FLAGS_TESTS "${CMAKE_CXX_FLAGS_DEBUG}")
+SET(COMPILE_DEFINITIONS_TESTS -DGLOVE_TESTS_BUILD)
+
 if(WIN32)
 	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/windows")
 
 	if(MSVC)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:SSE2")
-        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Od" CACHE INTERNAL "" FORCE)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:SSE2 /GR")
+        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /Od /GR" CACHE INTERNAL "" FORCE)
     endif()
 
     if(MINGW)
@@ -59,8 +63,8 @@ file(GLOB_RECURSE glove_sources
 	"log/*.cpp"
 	"log/*.h"
 	
-	"memory/*.cpp"
-	"memory/*.h"
+	"pitamem/*.cpp"
+	"pitamem/*.h"
 	
 	"rendering/*.cpp"
 	"rendering/*.h"
@@ -87,12 +91,13 @@ file(GLOB_RECURSE tests_sources
 	"tests/*.h"
 )
 add_executable(glove_tests ${tests_sources})
+set_target_properties(glove_tests PROPERTIES COMPILE_DEFINITIONS "GLOVE_TESTS_BUILD")
 
 if(WIN32)
 	set(glove_libs
 		general glfw3
 		general OpenGL32
-		general GLEW
+		general GLEWmx
 		general boost_python3
 		general python34
 

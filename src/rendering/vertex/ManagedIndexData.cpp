@@ -3,17 +3,16 @@
 #include "buffers/GPUBuffer.h"
 
 namespace glove {
-	
-ManagedIndexData::ManagedIndexData() : IndexData() {
 
+ManagedIndexData::ManagedIndexData() : IndexData(), EnableProfilable() {
 }
 
 ManagedIndexData::~ManagedIndexData() {
-	
+
 }
 
 void ManagedIndexData::FlushBuffer() const {
-	indexBuffer->WriteData(GetIndexCount() * sizeof(unsigned int), &indices[0]);
+    indexBuffer->WriteData(GetIndexCount() * sizeof(unsigned int), &indices[0]);
 }
 
 } // namespace glove

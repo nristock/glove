@@ -115,7 +115,7 @@ TEST_F(TransformTest, CheckPositionRotationScaleConstructor) {
 }
 
 TEST_F(TransformTest, CheckIdentityTransform) {
-	ASSERT_EQ(Transform::Identity, transform);
+	ASSERT_EQ(Transform::Identity(), transform);
 }
 
 TEST_F(TransformTest, UpdatesPositionCorrectly) {

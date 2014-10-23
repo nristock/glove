@@ -11,28 +11,38 @@
 namespace glove {
 
 class Material : public GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("Material")
+Profilable()
 public:
-	Material(ShaderProgramPointer shader);
-	virtual ~Material();
+    Material(ShaderProgramPointer shader);
 
-	void Enable() const;
-	void Disable() const;
+    virtual ~Material();
 
-	void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, float& value);
-	void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::vec3& value);
-	void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::vec4& value);
-	void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::mat4& value);
+    void Enable() const;
 
-	void PySetMaterialAttributeF(MappedMaterialAttribute mappedAttribute, float& value);
-	void PySetMaterialAttributeV3(MappedMaterialAttribute mappedAttribute, glm::vec3& value);
-	void PySetMaterialAttributeV4(MappedMaterialAttribute mappedAttribute, glm::vec4& value);
-	void PySetMaterialAttributeMat4(MappedMaterialAttribute mappedAttribute, glm::mat4& value);
+    void Disable() const;
 
-	ShaderProgramPointer GetShader() const { return shader; }
+    void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, float& value);
+
+    void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::vec3& value);
+
+    void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::vec4& value);
+
+    void SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm::mat4& value);
+
+    void PySetMaterialAttributeF(MappedMaterialAttribute mappedAttribute, float& value);
+
+    void PySetMaterialAttributeV3(MappedMaterialAttribute mappedAttribute, glm::vec3& value);
+
+    void PySetMaterialAttributeV4(MappedMaterialAttribute mappedAttribute, glm::vec4& value);
+
+    void PySetMaterialAttributeMat4(MappedMaterialAttribute mappedAttribute, glm::mat4& value);
+
+    ShaderProgramPointer GetShader() const {
+        return shader;
+    }
 
 private:
-	ShaderProgramPointer shader;
+    ShaderProgramPointer shader;
 };
 
 

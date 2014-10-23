@@ -15,19 +15,29 @@ namespace glove {
 class GameObject;
 
 class Scenegraph : public GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("Scenegraph");
+Profilable()
 public:
-	Scenegraph();
-	virtual ~Scenegraph();
+    Scenegraph();
 
-	virtual GameObjectPointer CreateSimpleGameObject();
-	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator) {
-        return CreateGameObject<T>(allocator, [](std::shared_ptr<T> object){}, [](std::shared_ptr<T> object){});
+    virtual ~Scenegraph();
+
+    virtual GameObjectPointer CreateSimpleGameObject();
+
+    template<class T>
+    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator) {
+        return CreateGameObject<T>(allocator, [](std::shared_ptr<T> object) {
+        }, [](std::shared_ptr<T> object) {
+        });
     }
-	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit) {
-        return CreateGameObject<T>(allocator, preInit, [](std::shared_ptr<T> object){});
+
+    template<class T>
+    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit) {
+        return CreateGameObject<T>(allocator, preInit, [](std::shared_ptr<T> object) {
+        });
     }
-	template<class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit, std::function<void(std::shared_ptr<T>)> postInit) {
+
+    template<class T>
+    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit, std::function<void(std::shared_ptr<T>)> postInit) {
         typedef std::shared_ptr<T> SharedPtrType;
 
         SharedPtrType go = SharedPtrType(allocator());
@@ -41,23 +51,28 @@ public:
         return go;
     }
 
-	virtual void InjectGameObject(GameObjectPointer gameObject);
+    virtual void InjectGameObject(GameObjectPointer gameObject);
 
-	virtual CameraPointer CreateCamera();
+    virtual CameraPointer CreateCamera();
 
-	void Update();
+    void Update();
 
-	virtual void IterateGameObjects(std::function<void(GameObjectPointer)> callback);
-	virtual void SetActiveCamera(CameraPointer camera);
+    virtual void IterateGameObjects(std::function<void(GameObjectPointer)> callback);
 
-	virtual CameraPointer GetMainCamera() const { return mainCamera; }
+    virtual void SetActiveCamera(CameraPointer camera);
 
-    size_t GetGameObjectCount() const { return gameObjects.size(); }
+    virtual CameraPointer GetMainCamera() const {
+        return mainCamera;
+    }
+
+    size_t GetGameObjectCount() const {
+        return gameObjects.size();
+    }
 
 protected:
-	std::list<GameObjectPointer> gameObjects;
-	
-	CameraPointer mainCamera;
+    std::list<GameObjectPointer> gameObjects;
+
+    CameraPointer mainCamera;
 };
 
 } /* namespace glove */

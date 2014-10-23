@@ -14,22 +14,25 @@
 
 #include "shader/ShaderProgram.h"
 
+GLEWContext* glewGetContext();
+
 namespace glove {
-	
-GLMesh::GLMesh(MaterialPtr material) : Mesh(material) {
+
+GLMesh::GLMesh(MaterialPtr material) : Mesh(material), EnableProfilable() {
+
     glRenderer = std::dynamic_pointer_cast<GLRenderer>(gloveCore->GetRenderer());
 }
 
 GLMesh::~GLMesh() {
-    for(auto vertexArrayIdEntry : vertexArrayIds) {
+    for (auto vertexArrayIdEntry : vertexArrayIds) {
         glRenderer->DestroyVertexArray(vertexArrayIdEntry.first, vertexArrayIdEntry.second);
     }
 }
 
 void GLMesh::SetupRender(RenderOperation& renderOp, const FrameData& frameData) {
-	Mesh::SetupRender(renderOp, frameData);
-	
-	glBindVertexArray(GetVertexArrayId(frameData.currentContext));
+    Mesh::SetupRender(renderOp, frameData);
+
+    glBindVertexArray(GetVertexArrayId(frameData.currentContext));
 }
 
 void GLMesh::PostRender(RenderOperation& renderOp, const FrameData& frameData) {

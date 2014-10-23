@@ -12,66 +12,70 @@ namespace bfs = boost::filesystem;
 
 namespace glove {
 
-PluginLoader::PluginLoader() {
-	pluginBasePath = gloveCore->MakeDataPath("data/game/plugins");
+PluginLoader::PluginLoader() : EnableProfilable() {
+
+
+    pluginBasePath = gloveCore->MakeDataPath("data/game/plugins");
 }
 
 PluginLoader::~PluginLoader() {
-	UnloadPlugins();
+    UnloadPlugins();
 }
 
 void PluginLoader::DiscoverPlugins() {
-	// Discover plugins and import the corresponding python modules
-	bfs::path gloveCorePythonEnvDir(pluginBasePath);
+    // Discover plugins and import the corresponding python modules
+    bfs::path gloveCorePythonEnvDir(pluginBasePath);
 
     bfs::directory_iterator endIter;
-	for (bfs::directory_iterator dir = bfs::directory_iterator(gloveCorePythonEnvDir); dir != endIter; dir++) {
-		if (bfs::is_directory(*dir)) {
-			std::string pluginName = dir->path().filename().string();
-			try {
-				DiscoverPlugin(pluginName);
-			}
-			catch (const GloveException& ex) {
-				OLOG(error, ((boost::format("Failed to load plugin %1%: %2%") % pluginName % ex.what()).str()))
-			}
-		}
-	}
+    for (bfs::directory_iterator dir = bfs::directory_iterator(gloveCorePythonEnvDir); dir != endIter; dir++) {
+        if (bfs::is_directory(*dir)) {
+            std::string pluginName = dir->path().filename().string();
+            try {
+                DiscoverPlugin(pluginName);
+            }
+            catch (const GloveException& ex) {
+                OLOG(error, ((boost::format("Failed to load plugin %1%: %2%") % pluginName % ex.what()).str()))
+            }
+        }
+    }
 }
 
 void PluginLoader::LoadPlugins() {
-	for (auto plugin : pluginMap) {
-		plugin.second->LoadPlugin();
-	}
+    for (auto plugin : pluginMap) {
+        plugin.second->LoadPlugin();
+    }
 }
 
 void PluginLoader::UnloadPlugins() {
-	for (auto plugin : pluginMap) {
-		plugin.second->UnloadPlugin();
-	}
+    for (auto plugin : pluginMap) {
+        if (plugin.second->IsLoaded()) {
+            plugin.second->UnloadPlugin();
+        }
+    }
 }
 
 GlovePluginPtr PluginLoader::DiscoverPlugin(std::string name) {
-	// Create and import the plugin
-	GlovePluginPtr plugin = std::make_shared<GlovePlugin>(name);
-	pluginMap[name] = plugin;
-	gloveCore->GetPythonEngineRef()->AnnouncePlugin(plugin->GetPythonPlugin());
+    // Create and import the plugin
+    GlovePluginPtr plugin = std::make_shared<GlovePlugin>(name);
+    pluginMap[name] = plugin;
+    gloveCore->GetPythonEngineRef()->AnnouncePlugin(plugin->GetPythonPlugin());
 
-	OLOG(info, (boost::format("Discovered plugin %1%") % name).str());
-	return plugin;
+    OLOG(info, (boost::format("Discovered plugin %1%") % name).str());
+    return plugin;
 }
 
 void PluginLoader::UnloadPlugin(std::string name) {
-	auto plugin = pluginMap.find(name);
-	if (plugin != pluginMap.end()) {
-		plugin->second->UnloadPlugin();
-	}
+    auto plugin = pluginMap.find(name);
+    if (plugin != pluginMap.end()) {
+        plugin->second->UnloadPlugin();
+    }
 }
 
 void PluginLoader::ReloadPlugin(std::string name) {
-	auto plugin = pluginMap.find(name);
-	if (plugin != pluginMap.end()) {
-		plugin->second->ReloadPlugin();
-	}
+    auto plugin = pluginMap.find(name);
+    if (plugin != pluginMap.end()) {
+        plugin->second->ReloadPlugin();
+    }
 }
 
 } // namespace glove

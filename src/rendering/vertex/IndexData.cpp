@@ -4,13 +4,13 @@
 #include "core/GpuBufferManager.h"
 
 namespace glove {
-	
-IndexData::IndexData() {
-	indexBuffer = gloveCore->GetGpuBufferManager()->CreateIndexBuffer();
+
+IndexData::IndexData() : EnableProfilable() {
+    indexBuffer = gloveCore->GetGpuBufferManager()->CreateIndexBuffer();
 }
 
 IndexData::~IndexData() {
-	
+
 }
 
 } // namespace glove

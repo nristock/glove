@@ -2,24 +2,27 @@
 
 #include "core/GloveFwd.h"
 #include "log/Log.h"
-#include "memory/GloveMemory.h"
+#include "pitamem/MemoryProfile.h"
 
 #define OLOG(lvl_, lgs_) LOG(this->logger, lvl_, lgs_)
 
 namespace glove {
 
+/** Base class for pretty much all engine objects. Provides easy access to the engine's logging interface. */
 class GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("GloveObject")
-
+Profilable()
 public:
-	GloveObject();
-	GloveObject(bool queryGloveCore);
-	virtual ~GloveObject();
+    GloveObject();
+
+    GloveObject(bool queryGloveCore);
+
+    virtual ~GloveObject();
 
 protected:
-	logging::GloveLogger logger;
+    /** Local logger */
+    logging::GloveLogger logger;
 
-	GloveCorePtr gloveCore;
+    GloveCorePtr gloveCore;
 };
 
 } /* namespace glove */
