@@ -1,12 +1,16 @@
-#ifndef {{protection_define}}
-#define {{protection_define}}
+#pragma once
 
+{{#derive_from_glove_object}}
 #include "core/GloveObject.h"
+{{/derive_from_glove_object}}
+{{#profilable}}
+#include "memory/MemoryProfile.h"
+{{/profilable}}
 
 namespace glove {
 
-class {{class_name}} : public GloveObject {
-	GLOVE_MEM_ALLOC_FUNCS("{{class_name}}")
+class {{class_name}} : {{#derive_from_glove_object}}public GloveObject{{/derive_from_glove_object}} {
+{{#profilable}}Profilable();{{/profilable}}
 public:
 	{{class_name}}();
 	virtual ~{{class_name}}();
