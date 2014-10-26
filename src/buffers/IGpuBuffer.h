@@ -1,16 +1,14 @@
 #pragma once
 
 #include <cstddef>
-#include "buffers/BufferUsage.h"
+#include <buffers/BufferUsage.h>
 
 namespace glove {
 
 /** A class abstracting hardware/GPU buffers */
-class GPUBuffer {
+class IGpuBuffer {
 public:
-    GPUBuffer();
-
-    virtual ~GPUBuffer();
+    virtual ~IGpuBuffer() {};
 
     /** Binds the buffer for use. Can be called mutiple times per frame. */
     virtual void Bind() = 0;

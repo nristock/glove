@@ -1,10 +1,10 @@
 #include "ManagedIndexData.h"
 
-#include "buffers/GPUBuffer.h"
+#include "buffers/IGpuBuffer.h"
 
 namespace glove {
 
-ManagedIndexData::ManagedIndexData() : IndexData(), EnableProfilable() {
+ManagedIndexData::ManagedIndexData(const GpuBufferManagerPtr& gpuBufferManager) : IndexData(gpuBufferManager), EnableProfilable() {
 }
 
 ManagedIndexData::~ManagedIndexData() {

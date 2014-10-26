@@ -14,11 +14,11 @@
 
 namespace glove {
 
-GLWindow::GLWindow(int width, int height) : GLWindow(width, height, nullptr) {
+GLWindow::GLWindow(const EventBusPtr& eventBus, int width, int height) : GLWindow(eventBus, width, height, nullptr) {
 }
 
-GLWindow::GLWindow(int width, int height, WindowPtr parent)
-        : viewportWidth(0), viewportHeight(0), aspectRatio(0), orthoSize(10), EnableProfilable() {
+GLWindow::GLWindow(const EventBusPtr& eventBus, int width, int height, WindowPtr parent)
+        : eventBus(eventBus),  viewportWidth(0), viewportHeight(0), aspectRatio(0), orthoSize(10), EnableProfilable() {
     this->parent = parent ? std::dynamic_pointer_cast<GLWindow>(parent)->GetGlfwWindow() : nullptr;
 
     glfwWindow = glfwCreateWindow(width, height, "glove", NULL, this->parent);
@@ -66,7 +66,7 @@ void GLWindow::SwapBuffers() {
 void GLWindow::OnKeyEvent(int key, int scancode, int action, int mods) {
     KeyAction keyAction = (action == GLFW_PRESS) ? KA_PRESS : ((action == GLFW_RELEASE) ? KA_RELEASE : KA_REPEAT);
     KeyEvent keyEvent((KeyCode) key, keyAction, mods & GLFW_MOD_ALT, mods & GLFW_MOD_CONTROL, mods & GLFW_MOD_SHIFT, mods & GLFW_MOD_SUPER);
-    gloveCore->GetEventBusRef()->Publish(keyEvent);
+    eventBus->Publish(keyEvent);
 }
 
 void GLWindow::GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height) {
@@ -81,13 +81,13 @@ void GLWindow::GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int actio
 
 void GLWindow::OnMouseMove(double x, double y) {
     MouseMoveEvent moveEvent(x, y);
-    gloveCore->GetEventBusRef()->Publish(moveEvent);
+    eventBus->Publish(moveEvent);
 }
 
 void GLWindow::OnMouseButton(int button, int action, int mods) {
     ButtonAction buttonAction = (action == GLFW_PRESS) ? BA_PRESS : BA_RELEASE;
     MouseButtonEvent buttonEvent((MouseButton) button, buttonAction, mods & GLFW_MOD_ALT, mods & GLFW_MOD_CONTROL, mods & GLFW_MOD_SHIFT, mods & GLFW_MOD_SUPER);
-    gloveCore->GetEventBusRef()->Publish(buttonEvent);
+    eventBus->Publish(buttonEvent);
 }
 
 void GLWindow::GlfwCursorPositionChanged(GLFWwindow* window, double x, double y) {

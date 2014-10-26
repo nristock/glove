@@ -12,7 +12,7 @@ namespace glove {
 
 /** Basic engine exception. Should be used for all exceptions thrown during engine operation. */
 class GloveException : public std::exception {
-Profilable()
+Profilable();
 public:
     /** Create an exception with the provided message but without file and line information. */
     GloveException(std::string message);

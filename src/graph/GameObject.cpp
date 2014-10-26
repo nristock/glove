@@ -14,7 +14,8 @@
 
 namespace glove {
 
-GameObject::GameObject() : EnableProfilable() {
+GameObject::GameObject() :
+	EnableProfilable() {
 
 }
 

@@ -19,7 +19,7 @@
 #include "log/Log.h"
 #include "GLWindow.h"
 
-#include "buffers/GPUBuffer.h"
+#include "buffers/IGpuBuffer.h"
 #include "rendering/vertex/IndexData.h"
 #include "rendering/vertex/VertexData.h"
 #include "rendering/vertex/VertexLayout.h"
@@ -34,7 +34,7 @@ namespace glove {
 
 GLRenderer* rendererInstance = nullptr;
 
-GLRenderer::GLRenderer() : EnableProfilable() {
+GLRenderer::GLRenderer(const EventBusPtr& eventBus) : eventBus(eventBus), EnableProfilable() {
     currentRenderOperation.Reset();
 }
 
@@ -50,7 +50,7 @@ void GLRenderer::Init() {
         throw GloveException("GLFW Initialization failed.");
     }
 
-    OLOG(info, "Glove renderer initialized");
+    LOG(logger, info, "Glove renderer initialized");
 }
 
 void GLRenderer::Exit() {
@@ -103,12 +103,12 @@ void GLRenderer::CreateVertexAttributeMappings(IMesh* mesh) {
         }
 
         for (auto vertexAttribute : vertexData->GetVertexLayout()->GetAttributes()) {
-            GPUBufferPtr gpuBuffer = vertexData->GetBuffer(vertexAttribute.GetBindingSlot());
+            IGpuBufferPtr gpuBuffer = vertexData->GetBuffer(vertexAttribute.GetBindingSlot());
             gpuBuffer->Bind();
 
             GLuint attribIndex = shader->GetVertexAttributePosition(vertexAttribute.GetSemantic());
             if (attribIndex < 0) {
-                OLOG(error, "Vertex attribute in buffer not mapped to shader attribute index.");
+                LOG(logger, error, "Vertex attribute in buffer not mapped to shader attribute index.");
                 continue;
             }
 
@@ -149,7 +149,7 @@ WindowPtr GLRenderer::CreateRenderWindow(int windowWidth, int windowHeight, int 
 
     WindowPtr window;
 
-    window = WindowPtr(activeWindow ? new GLWindow(windowWidth, windowHeight, activeWindow) : new GLWindow(windowWidth, windowHeight));
+    window = WindowPtr(activeWindow ? new GLWindow(eventBus, windowWidth, windowHeight, activeWindow) : new GLWindow(eventBus, windowWidth, windowHeight));
 
     windows.push_back(WindowGlewContextPair(window, new GLEWContext()));
 
@@ -166,7 +166,7 @@ WindowPtr GLRenderer::CreateRenderWindow(int windowWidth, int windowHeight, int 
         throw GLOVE_EXCEPTION(std::string((char*) glewGetErrorString(glewInitRes)));
     }
 
-    OLOG(info, (boost::format("Created Window (%1%)") % window->GetContextVersion()).str());
+    LOG(logger, info, (boost::format("Created Window (%1%)") % window->GetContextVersion()).str());
 
     if (currentlyActiveWindow != window) {
         for (unsigned short i = 0; i < GetWindowCount(); ++i) {

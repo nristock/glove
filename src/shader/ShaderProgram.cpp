@@ -1,10 +1,3 @@
-/*
- * Shader.cpp
- *
- *  Created on: Jul 29, 2014
- *      Author: monofraps
- */
-
 #include "ShaderProgram.h"
 
 #include <string>
@@ -54,7 +47,7 @@ ShaderProgram::~ShaderProgram() {
 
 void ShaderProgram::LoadVertexShader(std::string filePath) {
     if (shaderIds[DPS_VERTEX] != 0) {
-        OLOG(error, "Vertex shader has already been set");
+        LOG(logger, error, "Vertex shader has already been set");
         return;
     }
     LoadShader(DPS_VERTEX, GL_VERTEX_SHADER, filePath);
@@ -62,7 +55,7 @@ void ShaderProgram::LoadVertexShader(std::string filePath) {
 
 void ShaderProgram::LoadFragmentShader(std::string filePath) {
     if (shaderIds[DPS_FRAGMENT] != 0) {
-        OLOG(error, "Fragment shader has already been set");
+        LOG(logger, error, "Fragment shader has already been set");
         return;
     }
     LoadShader(DPS_FRAGMENT, GL_FRAGMENT_SHADER, filePath);
@@ -73,7 +66,7 @@ void ShaderProgram::LoadShader(int shaderSlot, GLenum shaderType, std::string& f
     int codeLen = code.length();
 
     if (code.empty()) {
-        OLOG(error, "No shader source");
+        LOG(logger, error, "No shader source");
     }
 
     GLuint shaderId = glCreateShader(shaderType);
@@ -85,7 +78,7 @@ void ShaderProgram::LoadShader(int shaderSlot, GLenum shaderType, std::string& f
     glGetShaderiv(shaderId, GL_COMPILE_STATUS, &compileStatus);
 
     if (compileStatus == false) {
-        OLOG(error, "Failed to compile shader");
+        LOG(logger, error, "Failed to compile shader");
         PrintShaderCompilerLog(shaderId);
 
         glDeleteShader(shaderId);
@@ -108,7 +101,7 @@ void ShaderProgram::CreateProgram() {
     shaderProgramId = glCreateProgram();
     for (int i = 0; i < numShaders; ++i) {
         if (shaderIds[i] == 0) {
-            OLOG(warning, "Shader not initialized");
+            LOG(logger, warning, "Shader not initialized");
             continue;
         }
         glAttachShader(shaderProgramId, shaderIds[i]);
@@ -120,7 +113,7 @@ void ShaderProgram::CreateProgram() {
     glGetProgramiv(shaderProgramId, GL_LINK_STATUS, &linkStatus);
 
     if (linkStatus == false) {
-        OLOG(error, "Failed to link shader program");
+        LOG(logger, error, "Failed to link shader program");
         PrintShaderProgramLinkLog(shaderProgramId);
     }
 
@@ -142,7 +135,7 @@ void ShaderProgram::MapVertexAttribute(VertexAttributeSemantic attributeSemantic
 
     GLint attribIndex = glGetAttribLocation(shaderProgramId, attribName.c_str());
     if (attribIndex < 0) {
-        OLOG(error, "Unknown shader attribute name " << attribName);
+        LOG(logger, error, "Unknown shader attribute name " << attribName);
         return;
     }
 
@@ -157,7 +150,7 @@ void ShaderProgram::MapMaterialAttribute(MappedMaterialAttribute attributeIdenti
 
     GLint attribIndex = glGetUniformLocation(shaderProgramId, attribName.c_str());
     if (attribIndex < 0) {
-        OLOG(error, "Unknown material attribute name " << attribName);
+        LOG(logger, error, "Unknown material attribute name " << attribName);
         return;
     }
 

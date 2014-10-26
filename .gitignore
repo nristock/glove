@@ -78,4 +78,5 @@ python
 # CLion
 .idea
 
-docs/
+docs/doxygen/
+docs/site

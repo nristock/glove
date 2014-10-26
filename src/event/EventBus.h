@@ -3,17 +3,17 @@
 #include <list>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
 
 namespace glove {
 
 /** Class implementing a simple sync Publish-Subscribe event bus */
-class EventBus : public GloveObject {
-Profilable()
+class EventBus {
+Profilable();
 public:
     typedef std::list<EventSubscriberPtr> EventSubscriberList;
 
-    EventBus();
+	EventBus();
 
     virtual ~EventBus();
 

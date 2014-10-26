@@ -16,7 +16,9 @@
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
 
-#include "GloveException.h"
+#include <core/GloveEnvironment.h>
+#include <core/GloveException.h>
+#include <pitamem/MemoryProfile.h>
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
 #include "graph/GameComponent.h"
@@ -32,14 +34,13 @@
 namespace sc = std::chrono;
 
 namespace glove {
-
-GloveCorePointer GloveCore::instance;
-
-GloveCore::GloveCore()
-        : GloveObject(false),
+	
+GloveCore::GloveCore() :
           frameCounter(0),
           exitRequested(false),
           EnableProfilable() {
+    gEnv = std::make_shared<GloveEnvironment>();
+
     frameData.frameId = 0;
     frameData.viewProjectionMatrix = glm::mat4();
     frameData.deltaTime = 0;
@@ -60,7 +61,7 @@ GloveCore::GloveCore()
 	executableName = moduleName;
 	std::free(moduleName);
 #elif defined(__unix__) || defined(__unix)
-    int bufferSize = 1024;
+    std::size_t bufferSize = 1024;
     char* linkName = new char[bufferSize];
     ssize_t charsWritten = readlink("/proc/self/exe", linkName, bufferSize);
 
@@ -71,7 +72,6 @@ GloveCore::GloveCore()
         charsWritten = readlink("/proc/self/exe", linkName, bufferSize);
     }
 
-    OLOG(info, charsWritten);
     linkName[charsWritten] = '\0';
 
     executableName = linkName;
@@ -79,8 +79,10 @@ GloveCore::GloveCore()
 #endif
     executablePath = executableName.substr(0, executableName.find_last_of("\\/"));
 
-    OLOG(info, "Running from " << executablePath);
-    OLOG(info, "GloveCore created");
+    gEnv->executablePath = executablePath;
+
+    LOG(logger, info, "Running from " << executablePath);
+    LOG(logger, info, "GloveCore created");
 }
 
 GloveCore::~GloveCore() {
@@ -114,9 +116,7 @@ void GloveCore::Init(int argc, char** argv) {
         bpo::store(bpo::parse_command_line(argc, argv, commandLineOptions), parsedArguments);
         bpo::store(bpo::parse_config_file(settingsFile, commandLineOptions), parsedArguments);
         bpo::notify(parsedArguments);
-
-        instance = GloveCorePointer(this);
-
+		
         eventBus = EventBusPtr(new EventBus());
 
         if (initRenderingSystem) {
@@ -134,23 +134,23 @@ void GloveCore::Init(int argc, char** argv) {
 
         TimePoint initializationDone = sc::steady_clock::now();
         auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
-        OLOG(info, "Engine initialization took " << timeSpan.count() << "ms");
+        LOG(logger, info, "Engine initialization took " << timeSpan.count() << "ms");
     }
     catch (const GloveException& ex) {
-        OLOG(error, (boost::format("Engine initialization failed: %1%") % ex.what()).str());
+        LOG(logger, error, (boost::format("Engine initialization failed: %1%") % ex.what()).str());
     }
 
 }
 
 void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
-    renderer = RendererPtr(new GLRenderer());
+    renderer = RendererPtr(new GLRenderer(eventBus));
 
     try {
         renderer->Init();
         renderer->CreateRenderWindow(windowWidth, windowHeight, parsedArguments["opengl-version-major"].as<int>(), parsedArguments["opengl-version-minor"].as<int>());
     }
     catch (const GloveException& e) {
-        OLOG(error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
+        LOG(logger, error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
     }
 
     gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());
@@ -175,7 +175,7 @@ void GloveCore::InitializeScripting() {
 
 void GloveCore::InitializeResourceLoaders() {
     pyshedLoader = PyShedLoaderPtr(new PyShedLoader(pythonEngine));
-    pluginLoader = PluginLoaderPtr(new PluginLoader());
+    pluginLoader = PluginLoaderPtr(new PluginLoader(pythonEngine));
 
     pluginLoader->DiscoverPlugins();
     pluginLoader->LoadPlugins();
@@ -228,15 +228,15 @@ void GloveCore::Update() {
             memoryDump << "\n";
         });
 
-        OLOG(info, memoryDump.str());
+        LOG(logger, info, memoryDump.str());
     }
 
     if (inputManager->IsKeyPressed(KC_F6)) {
-        OLOG(info, (boost::format("Last Update Time: %1%ms") % std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());
+        LOG(logger, info, (boost::format("Last Update Time: %1%ms") % std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());
     }
 
     if (inputManager->IsKeyPressed(KC_F7)) {
-        OLOG(info, (boost::format("Shift: %1%\nAlt: %2%\nControl: %3%\nX: %4%\nY: %5%") % inputManager->IsKeyDown(KC_LEFT_SHIFT) % inputManager->IsKeyDown(KC_LEFT_ALT) % inputManager->IsKeyDown(KC_LEFT_CONTROL) % inputManager->GetMousePositionRef().x % inputManager->GetMousePositionRef().y).str());
+        LOG(logger, info, (boost::format("Shift: %1%\nAlt: %2%\nControl: %3%\nX: %4%\nY: %5%") % inputManager->IsKeyDown(KC_LEFT_SHIFT) % inputManager->IsKeyDown(KC_LEFT_ALT) % inputManager->IsKeyDown(KC_LEFT_CONTROL) % inputManager->GetMousePositionRef().x % inputManager->GetMousePositionRef().y).str());
     }
 
     primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject) {
@@ -245,7 +245,11 @@ void GloveCore::Update() {
         });
 
         gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-            gameComponent->SyncUpdate();
+            try {
+                gameComponent->SyncUpdate();
+            } catch (boost::python::error_already_set) {
+                pythonEngine->HandleError();
+            }
         });
 
         gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
@@ -264,10 +268,6 @@ void GloveCore::Render(ScenegraphPointer scenegraph) {
     renderer->ClearBuffers();
     renderer->RenderScene(scenegraph, frameData);
     renderer->SwapBuffers();
-}
-
-std::string GloveCore::MakeDataPath(const std::string& relPath) const {
-    return (boost::format("%1%/%2%") % executablePath % relPath).str();
 }
 
 } /* namespace glove */

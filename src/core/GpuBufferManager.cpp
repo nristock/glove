@@ -4,7 +4,8 @@
 
 namespace glove {
 
-GpuBufferManager::GpuBufferManager() : EnableProfilable() {
+	GpuBufferManager::GpuBufferManager() :
+		EnableProfilable() {
 
 }
 
@@ -12,14 +13,14 @@ GpuBufferManager::~GpuBufferManager() {
 
 }
 
-GPUBufferPtr GpuBufferManager::CreateVertexBuffer(BufferUsage bufferUsage) {
-    GLGpuBuffer* gpuBuffer = new GLGpuBuffer(bufferUsage, GL_ARRAY_BUFFER);
-    return GPUBufferPtr(gpuBuffer);
+IGpuBufferPtr GpuBufferManager::CreateVertexBuffer(BufferUsage bufferUsage) {
+	GLGpuBuffer* gpuBuffer = new GLGpuBuffer(bufferUsage, GL_ARRAY_BUFFER);
+	return IGpuBufferPtr(gpuBuffer);
 }
 
-GPUBufferPtr GpuBufferManager::CreateIndexBuffer() {
-    GLGpuBuffer* gpuBuffer = new GLGpuBuffer(BU_STATIC, GL_ELEMENT_ARRAY_BUFFER);
-    return GPUBufferPtr(gpuBuffer);
+IGpuBufferPtr GpuBufferManager::CreateIndexBuffer() {
+	GLGpuBuffer* gpuBuffer = new GLGpuBuffer(BU_STATIC, GL_ELEMENT_ARRAY_BUFFER);
+	return IGpuBufferPtr(gpuBuffer);
 }
 
 } // namespace glove

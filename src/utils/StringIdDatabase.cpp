@@ -27,7 +27,7 @@ const std::string& StringIdDatabase::GetString(size_t id) {
 
 void StringIdDatabase::Reset() {
 #if !defined(GLOVE_TESTS_BUILD)
-    OLOG(info, "StringID Database has been reset");
+    LOG(logger, info, "StringID Database has been reset");
 #endif
     stringMap.clear();
 }

@@ -4,7 +4,8 @@
 
 namespace glove {
 
-GameComponent::GameComponent() : EnableProfilable() {
+GameComponent::GameComponent() :
+	EnableProfilable() {
 
 }
 

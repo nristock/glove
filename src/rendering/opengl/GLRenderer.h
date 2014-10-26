@@ -6,10 +6,10 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include <log/Log.h>
 
 #include "core/GloveException.h"
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
 #include "core/RenderOperation.h"
 #include "core/IRenderer.h"
 
@@ -21,13 +21,13 @@ struct GLFWwindow;
 
 namespace glove {
 
-class GLRenderer : public GloveObject, public IRenderer {
+class GLRenderer : public IRenderer {
 Profilable()
 public:
     typedef std::pair<WindowPtr, GLEWContext*> WindowGlewContextPair;
     typedef std::vector<WindowGlewContextPair> WindowList;
 
-    GLRenderer();
+	GLRenderer(const EventBusPtr& eventBus);
 
     virtual ~GLRenderer();
 
@@ -77,6 +77,9 @@ public:
     void DestroyVertexArray(size_t contextId, GLuint vertexArrayId);
 
 private:
+    logging::GloveLogger logger;
+    EventBusPtr eventBus;
+
     WindowList windows;
 
     WindowPtr activeWindow;

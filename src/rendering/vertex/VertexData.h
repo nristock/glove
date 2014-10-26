@@ -3,9 +3,9 @@
 #include <map>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
 
 #include "rendering/vertex/VertexLayout.h"
+#include <pitamem/MemoryProfile.h>
 
 namespace glove {
 
@@ -14,13 +14,13 @@ namespace glove {
 * Vertex data consists of one or more hardware/GPU buffers and a corresponding VertexLayout.
 * This class does not cover any vertex data read-back operations. You can either use the buffer's read functions or ManagedVertexData.
 */
-class VertexData : public GloveObject {
-Profilable()
+class VertexData {
+Profilable();
 public:
     /** The type of the buffer binding map (slot <-> buffer) */
-    typedef std::map<unsigned short, GPUBufferPtr> VertexBufferBindingMap;
+	typedef std::map<unsigned short, IGpuBufferPtr> VertexBufferBindingMap;
 
-    VertexData();
+	VertexData();
 
     virtual ~VertexData();
 
@@ -28,7 +28,7 @@ public:
     * @param [in] index The slot index to bind the buffer to
     * @param [in] buffer The buffer to bind
     */
-    virtual void SetBufferBinding(unsigned short index, const GPUBufferPtr& buffer);
+	virtual void SetBufferBinding(unsigned short index, const IGpuBufferPtr& buffer);
 
     /** Returns the curretn number of bound buffers */
     virtual size_t GetBufferCount() const {
@@ -41,7 +41,7 @@ public:
     }
 
     /** Returns the buffer bound to slot @p index */
-    virtual const GPUBufferPtr& GetBuffer(unsigned short index) const;
+	virtual const IGpuBufferPtr& GetBuffer(unsigned short index) const;
 
     /** Returns a pointer to the VertexLayout instance associated with this VertexData object. This does not impose shared ownership. Do not store the pointer for more than one frame. */
     virtual VertexLayout* GetVertexLayout() {

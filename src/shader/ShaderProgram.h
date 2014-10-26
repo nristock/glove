@@ -3,18 +3,19 @@
 #include <GL/glew.h>
 #include <map>
 
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
+#include <log/Log.h>
 #include "shader/MappedMaterialAttribute.h"
 #include "rendering/vertex/VertexAttributeSemantic.h"
 
 namespace glove {
 
-class ShaderProgram : public GloveObject {
-Profilable()
+class ShaderProgram  {
+Profilable();
 public:
-    ShaderProgram();
+	ShaderProgram();
 
-    ShaderProgram(int numShaders);
+	ShaderProgram(int numShaders);
 
     virtual ~ShaderProgram();
 
@@ -43,6 +44,8 @@ public:
 private:
     typedef std::map<VertexAttributeSemantic, GLuint> VertexAttribMap;
     typedef std::map<MappedMaterialAttribute, GLuint> MaterialAttributeMap;
+
+    logging::GloveLogger logger;
 
     int numShaders;
 

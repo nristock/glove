@@ -20,7 +20,7 @@ GLOVE_FWD_DECL(IndexedMeshData);
 
 GLOVE_FWD_DECL(MeshData);
 
-GLOVE_FWD_DECL(GPUBuffer);
+GLOVE_FWD_DECL(IGpuBuffer);
 
 GLOVE_FWD_DECL(GlovePythonEngine);
 

@@ -5,8 +5,9 @@
 
 namespace glove {
 
-IndexData::IndexData() : EnableProfilable() {
-    indexBuffer = gloveCore->GetGpuBufferManager()->CreateIndexBuffer();
+IndexData::IndexData(const GpuBufferManagerPtr& gpuBufferManager) :
+	EnableProfilable() {
+    indexBuffer = gpuBufferManager->CreateIndexBuffer();
 }
 
 IndexData::~IndexData() {

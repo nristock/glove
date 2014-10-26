@@ -8,8 +8,7 @@ namespace glove {
 /** Interface for a rendering subsystem. */
 class IRenderer {
 public:
-    virtual ~IRenderer() {
-    }
+    virtual ~IRenderer() {    }
 
     virtual void Init() = 0;
 

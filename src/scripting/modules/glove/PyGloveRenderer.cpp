@@ -8,7 +8,7 @@ namespace glove {
 namespace python {
 
 void ExportGloveRenderer() {
-	boost::python::class_<glove::GLRenderer, boost::python::bases<GloveObject>, std::shared_ptr<GLRenderer>>("GLRenderer");
+	boost::python::class_<glove::GLRenderer, std::shared_ptr<GLRenderer>>("GLRenderer", boost::python::no_init);
 }
 
 } // namespace python

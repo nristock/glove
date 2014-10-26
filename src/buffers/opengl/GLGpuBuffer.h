@@ -3,14 +3,14 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "core/GloveObject.h"
-#include "buffers/GPUBuffer.h"
+#include <pitamem/MemoryProfile.h>
+#include "buffers/IGpuBuffer.h"
 
 namespace glove {
 
 /** This class implements a GL hardware/GPU buffer */
-class GLGpuBuffer : public GloveObject, public GPUBuffer {
-Profilable()
+class GLGpuBuffer : public IGpuBuffer {
+Profilable();
 public:
     GLGpuBuffer(BufferUsage usage, GLenum target);
 

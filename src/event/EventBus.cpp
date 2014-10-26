@@ -5,10 +5,13 @@
 #include "event/type/MouseButtonEvent.h"
 #include "event/type/MouseMoveEvent.h"
 
+#include <algorithm>
+
 
 namespace glove {
 
-EventBus::EventBus() : EnableProfilable() {
+EventBus::EventBus() :
+	EnableProfilable() {
 
 }
 

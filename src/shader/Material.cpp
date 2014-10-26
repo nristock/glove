@@ -24,7 +24,7 @@ void Material::SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, flo
         glUniform1f(attributeIndex, value);
     }
     catch (const GloveException& ex) {
-        OLOG(error, "Failed to set material attribute: " << ex.what());
+        LOG(logger, error, "Failed to set material attribute: " << ex.what());
     }
 }
 
@@ -35,7 +35,7 @@ void Material::SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm
         glUniform3fv(attributeIndex, 1, glm::value_ptr(value));
     }
     catch (const GloveException& ex) {
-        OLOG(error, "Failed to set material attribute: " << ex.what());
+        LOG(logger, error, "Failed to set material attribute: " << ex.what());
     }
 
 }
@@ -47,7 +47,7 @@ void Material::SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm
         glUniform4fv(attributeIndex, 1, glm::value_ptr(value));
     }
     catch (const GloveException& ex) {
-        OLOG(error, "Failed to set material attribute: " << ex.what());
+        LOG(logger, error, "Failed to set material attribute: " << ex.what());
     }
 
 }
@@ -60,7 +60,7 @@ void Material::SetMaterialAttribute(MappedMaterialAttribute mappedAttribute, glm
         glUniformMatrix4fv(attributeIndex, 1, false, glm::value_ptr(value));
     }
     catch (const GloveException& ex) {
-        OLOG(error, "Failed to set material attribute: " << ex.what());
+        LOG(logger, error, "Failed to set material attribute: " << ex.what());
     }
 
 }

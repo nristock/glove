@@ -14,8 +14,10 @@ template<class VertexLayoutType>
 class GLManagedMesh : public ManagedMesh<VertexLayoutType>, public GLBaseMesh {
 Profilable()
 public:
-    GLManagedMesh(MaterialPtr material) : ManagedMesh<VertexLayoutType>(material), EnableProfilable() {
-        glRenderer = std::dynamic_pointer_cast<GLRenderer>(this->gloveCore->GetRenderer());
+	GLManagedMesh(const RendererPtr& renderer, const GpuBufferManagerPtr& gpuBufferManager, MaterialPtr material) :
+            ManagedMesh<VertexLayoutType>(renderer, gpuBufferManager, material),
+            EnableProfilable() {
+        glRenderer = std::dynamic_pointer_cast<GLRenderer>(renderer);
     }
 
     virtual ~GLManagedMesh() {
@@ -33,7 +35,7 @@ public:
 
         GLenum error = glGetError();
         if (error != GL_NO_ERROR) {
-            OLOG(error, error);
+            LOG(logger, error, error);
         }
     }
 
@@ -41,6 +43,8 @@ public:
     }
 
 private:
+    logging::GloveLogger logger;
+
     std::shared_ptr<GLRenderer> glRenderer;
 };
 

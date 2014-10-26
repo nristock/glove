@@ -13,7 +13,7 @@
 
 namespace glove {
 
-Mesh::Mesh(MaterialPtr material) : GameComponent(), material(material), EnableProfilable() {
+Mesh::Mesh(const RendererPtr& renderer, const GpuBufferManagerPtr gpuBufferManager, MaterialPtr material) : GameComponent(), renderer(renderer), gpuBufferManager(gpuBufferManager), material(material), EnableProfilable() {
     shader = material->GetShader();
 
     vertexData = VertexDataPtr(new VertexData());
@@ -24,7 +24,7 @@ Mesh::~Mesh() {
 }
 
 void Mesh::Refresh() {
-    GloveCore::Instance()->GetRenderer()->CreateVertexAttributeMappings(this);
+    renderer->CreateVertexAttributeMappings(this);
 }
 
 void Mesh::SetupRender(RenderOperation& renderOp, const FrameData& frameData) {
@@ -34,7 +34,7 @@ void Mesh::SetupRender(RenderOperation& renderOp, const FrameData& frameData) {
 }
 
 void Mesh::CreateIndexData() {
-    indexData = IndexDataPtr(new IndexData());
+    indexData = IndexDataPtr(new IndexData(gpuBufferManager));
 }
 
 } /* namespace glove */

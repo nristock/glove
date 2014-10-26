@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
 
 namespace glove {
 
@@ -9,10 +9,10 @@ namespace glove {
 * This class represents generic index data.
 * It does not provider any read-back functionality. You can either use the buffer's read functions or ManagedIndexData.
 */
-class IndexData : public GloveObject {
-Profilable()
+class IndexData  {
+Profilable();
 public:
-    IndexData();
+	IndexData(const GpuBufferManagerPtr& gpuBufferManager);
 
     virtual ~IndexData();
 
@@ -27,14 +27,14 @@ public:
     }
 
     /** Returns the hardware/GPU buffer holding the index data */
-    virtual const GPUBufferPtr GetBuffer() const {
+	virtual const IGpuBufferPtr GetBuffer() const {
         return indexBuffer;
     }
 
 protected:
     size_t indexCount;
 
-    GPUBufferPtr indexBuffer;
+	IGpuBufferPtr indexBuffer;
 };
 
 

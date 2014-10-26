@@ -1,16 +1,17 @@
 #pragma once
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
+
+#include <pitamem/MemoryProfile.h>
 
 namespace glove {
 
 /** This class represents a glove engine plugin */
-class GlovePlugin : public GloveObject {
-Profilable()
+class GlovePlugin  {
+Profilable();
 public:
     /** Creates and "discovers" (imports) the plugin */
-    GlovePlugin(std::string name);
+    GlovePlugin(const GlovePythonEnginePtr& pythonEngine, std::string name);
 
     virtual ~GlovePlugin();
 
@@ -31,6 +32,8 @@ public:
     }
 
 protected:
+    GlovePythonEnginePtr pythonEngine;
+
     /** The plugin's name */
     std::string name;
     /** The plugin's base directory */

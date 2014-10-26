@@ -5,14 +5,14 @@
 #include <boost/python.hpp>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
 
 namespace glove {
 
-class PyShedLoader : public GloveObject {
-Profilable()
+class PyShedLoader {
+Profilable();
 public:
-    PyShedLoader(GlovePythonEnginePointer pythonEngine);
+	PyShedLoader(GlovePythonEnginePointer pythonEngine);
 
     virtual ~PyShedLoader();
 

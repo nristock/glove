@@ -6,7 +6,7 @@
 #include "core/GloveCore.h"
 #include "core/GpuBufferManager.h"
 
-#include "buffers/GPUBuffer.h"
+#include "buffers/IGpuBuffer.h"
 #include "rendering/vertex/VertexData.h"
 
 namespace glove {
@@ -23,7 +23,7 @@ public:
     /** The type of the vertex list */
     typedef std::vector<VertexLayoutType> VertexList;
 
-    ManagedVertexData();
+	ManagedVertexData(const GpuBufferManagerPtr& gpuBufferManager);
 
     virtual ~ManagedVertexData() {
 
@@ -57,10 +57,12 @@ protected:
     VertexList vertices;
 
 private:
+    GpuBufferManagerPtr gpuBufferManager;
+
     /** Creates the GPU buffers */
     virtual void CreateBuffers() {
         // TODO: expose buffer usage, allow multiple buffers
-        GPUBufferPtr vbuf = GloveCore::Instance()->GetGpuBufferManager()->CreateVertexBuffer(BU_STATIC);
+        IGpuBufferPtr vbuf = gpuBufferManager->CreateVertexBuffer(BU_STATIC);
         SetBufferBinding(0, vbuf);
     }
 };

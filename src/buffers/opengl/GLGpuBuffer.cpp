@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include <pitamem/MemoryProfile.h>
 
 #include "GLGpuBuffer.h"
 
@@ -7,10 +8,12 @@ GLEWContext* glewGetContext();
 
 namespace glove {
 
-GLGpuBuffer::GLGpuBuffer(BufferUsage usage, GLenum target)
-        : GPUBuffer(), target(target), usage(usage), EnableProfilable() {
-    //EnableProfilable();
-
+GLGpuBuffer::GLGpuBuffer(BufferUsage usage, GLenum target) :
+	IGpuBuffer(), 
+	target(target), 
+	usage(usage), 
+	EnableProfilable() 
+{
     glGenBuffers(1, &bufferId);
 }
 

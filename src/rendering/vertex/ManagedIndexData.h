@@ -16,7 +16,7 @@ public:
     /** The index list type */
     typedef std::vector<unsigned int> IndexList;
 
-    ManagedIndexData();
+	ManagedIndexData(const GpuBufferManagerPtr& gpuBufferManager);
 
     virtual ~ManagedIndexData();
 

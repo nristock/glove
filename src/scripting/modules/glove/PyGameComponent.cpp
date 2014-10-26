@@ -6,10 +6,11 @@
 #include "scripting/GlovePythonEngine.h"
 #include "graph/GameComponent.h"
 
+#include "scripting/PythonObjectFactory.h"
+
 namespace glove {
 namespace python {
 
-// We have to use a manual wrapper here since boost's wrapper doesn't keep track of reference count correctly
 class GameComponentWrapper : public GameComponent {
 Profilable();
 public:
@@ -49,8 +50,9 @@ private:
     PyObject* self;
 };
 
+
 void ExportGameComponent() {
-    boost::python::class_<GameComponent, std::shared_ptr<GameComponentWrapper>, boost::python::bases<GloveObject>>("GameComponent")
+    boost::python::class_<GameComponent, std::shared_ptr<GameComponentWrapper>, boost::noncopyable>("GameComponent")
             .def("SyncEarlyUpdate", &GameComponent::SyncEarlyUpdate, &GameComponentWrapper::SyncEarlyUpdate_)
             .def("SyncUpdate", &GameComponent::SyncUpdate, &GameComponentWrapper::SyncUpdate_)
             .def("AsyncUpdate", &GameComponent::AsyncUpdate, &GameComponentWrapper::AsyncUpdate_)

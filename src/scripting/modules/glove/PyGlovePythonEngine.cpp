@@ -8,7 +8,7 @@ namespace glove {
 namespace python {
 
 void ExportGlovePythonEngine() {
-	boost::python::class_<glove::GlovePythonEngine, boost::python::bases<GloveObject>, std::shared_ptr<GlovePythonEngine>>("GlovePythonEngine", boost::python::no_init);
+	boost::python::class_<glove::GlovePythonEngine, std::shared_ptr<GlovePythonEngine>>("GlovePythonEngine", boost::python::no_init);
 }
 
 } // namespace python

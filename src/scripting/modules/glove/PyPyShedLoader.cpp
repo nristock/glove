@@ -5,11 +5,13 @@
 #include "scripting/GlovePythonEngine.h"
 #include "shader/pyshed/PyShedLoader.h"
 
+#include "scripting/PythonObjectFactory.h"
+
 namespace glove {
 namespace python {
 
 void ExportPyShedLoader() {
-	boost::python::class_<glove::PyShedLoader, boost::python::bases<GloveObject>, std::shared_ptr<PyShedLoader>>("PyShedLoader", boost::python::init<std::shared_ptr<GlovePythonEngine>>())
+	boost::python::class_<glove::PyShedLoader, std::shared_ptr<PyShedLoader>>("PyShedLoader", boost::python::no_init)
 		.def("LoadPyshedShader", &PyShedLoader::LoadPysehdShader);
 }
 

@@ -1,8 +1,11 @@
 #include "tests/gtest/gtest.h"
 #include "utils/StringIdDatabase.h"
 
+
+#include "tests/GloveTest.h"
+
 namespace glove {
-	class StringIdDatabaseTest : public ::testing::Test {
+	class StringIdDatabaseTest : public GloveTest {
 	protected:
 		const char* testString = "My cool string";
 		const char* testString2 = "My cool string 2";

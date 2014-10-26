@@ -6,17 +6,16 @@
 #include <glm/glm.hpp>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
 
 #include "graph/Transform.h"
 #include "graph/IGraphNode.h"
 
 namespace glove {
 
-class GameObject : public GloveObject, public IGraphNode, public std::enable_shared_from_this<GameObject> {
+class GameObject : public IGraphNode, public std::enable_shared_from_this<GameObject> {
 Profilable()
 public:
-    GameObject();
+	GameObject();
 
     virtual ~GameObject();
 

@@ -8,7 +8,7 @@ namespace glove {
 namespace python {
 
 void ExportCamera() {
-	boost::python::class_<glove::Camera, boost::python::bases<GameObject, GloveObject>, std::shared_ptr<Camera>>("Camera");
+	boost::python::class_<glove::Camera, boost::python::bases<GameObject>, std::shared_ptr<Camera>>("Camera");
 }
 
 } // namespace python

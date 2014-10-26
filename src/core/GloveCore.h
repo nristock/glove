@@ -3,21 +3,24 @@
 #include <chrono>
 
 #include <boost/program_options.hpp>
+#include <log/Log.h>
 
 #include "GloveFwd.h"
 
-#include "GloveObject.h"
 #include "GloveException.h"
 #include "rendering/FrameData.h"
 
 namespace glove {
 
-class GloveCore : public GloveObject, public std::enable_shared_from_this<GloveCore> {
-Profilable()
+class GloveCore : public std::enable_shared_from_this<GloveCore> {
+Profilable();
 public:
     GloveCore();
 
     virtual ~GloveCore();
+
+    GloveCore(const GloveCore&) = delete;
+    GloveCore& operator= (const GloveCore&) = delete;
 
     /** Initializes the Glove engine and all subsystems. Must be called from main thread. */
     void Init(int argc, char** argv);
@@ -29,91 +32,30 @@ public:
 
     void Render(ScenegraphPointer scenegraph);
 
-    GlovePythonEnginePtr GetPythonEngine() const {
-        return pythonEngine;
-    }
+    const GlovePythonEnginePtr& GetPythonEngine() const {return pythonEngine;}
 
-    PyShedLoaderPtr GetPyshedLoader() const {
-        return pyshedLoader;
-    }
+    const PyShedLoaderPtr& GetPyshedLoader() const {return pyshedLoader;}
 
-    RendererPtr GetRenderer() const {
-        return renderer;
-    }
+    const RendererPtr& GetRenderer() const {return renderer;}
 
-    ScenegraphPtr GetScenegraph() const {
-        return primaryScenegraph;
-    }
+    const ScenegraphPtr& GetScenegraph() const {return primaryScenegraph;}
 
-    GpuBufferManagerPtr GetGpuBufferManager() const {
-        return gpuBufferManager;
-    }
+    const GpuBufferManagerPtr& GetGpuBufferManager() const {return gpuBufferManager;}
 
-    PluginLoaderPtr GetPluginLoader() const {
-        return pluginLoader;
-    }
+    const PluginLoaderPtr& GetPluginLoader() const {return pluginLoader;}
 
-    EventBusPtr GetEventBus() const {
-        return eventBus;
-    }
+    const EventBusPtr& GetEventBus() const {return eventBus;}
 
-    InputManagerPtr GetInputManager() const {
-        return inputManager;
-    }
+    const InputManagerPtr& GetInputManager() const {return inputManager;}
 
-    const GlovePythonEnginePtr& GetPythonEngineRef() const {
-        return pythonEngine;
-    }
+    bool IsExitRequested() const {return exitRequested;}
 
-    const PyShedLoaderPtr& GetPyshedLoaderRef() const {
-        return pyshedLoader;
-    }
-
-    const RendererPtr& GetRendererRef() const {
-        return renderer;
-    }
-
-    const ScenegraphPtr& GetScenegraphRef() const {
-        return primaryScenegraph;
-    }
-
-    const GpuBufferManagerPtr& GetGpuBufferManagerRef() const {
-        return gpuBufferManager;
-    }
-
-    const PluginLoaderPtr& GetPluginLoaderRef() const {
-        return pluginLoader;
-    }
-
-    const EventBusPtr& GetEventBusRef() const {
-        return eventBus;
-    }
-
-    const InputManagerPtr& GetInputManagerRef() const {
-        return inputManager;
-    }
-
-    std::string MakeDataPath(const std::string& relPath) const;
-
-    bool IsExitRequested() const {
-        return exitRequested;
-    }
-
-    void SetExitRequested(bool requestExit) {
-        exitRequested = requestExit;
-    }
-
-    static inline GloveCorePointer Instance() {
-        if (GloveCore::instance) {
-            return GloveCore::instance;
-        }
-        else {
-            throw new GloveException("GloveCore has not been initialized");
-        }
-    }
+    void SetExitRequested(bool requestExit) {exitRequested = requestExit;}
 
 private:
     typedef std::chrono::steady_clock::time_point TimePoint;
+
+    logging::GloveLogger logger;
 
     EventBusPtr eventBus;
     RendererPtr renderer;
@@ -134,8 +76,6 @@ private:
     std::string executablePath;
 
     boost::program_options::variables_map parsedArguments;
-
-    static GloveCorePointer instance;
 
     unsigned long frameCounter;
     bool exitRequested;

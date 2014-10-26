@@ -2,7 +2,7 @@
 
 #include <boost/python.hpp>
 
-#include "buffers/GPUBuffer.h"
+#include "buffers/IGpuBuffer.h"
 
 namespace glove {
 namespace python {
@@ -12,10 +12,10 @@ void ExportGPUBuffer() {
 		.value("STATIC", BU_STATIC)
 		.value("DYNAMIC", BU_DYNAMIC);
 
-	boost::python::class_<GPUBuffer, std::shared_ptr<GPUBuffer>, boost::noncopyable>("GPUBuffer", boost::python::no_init)
-		.def("Bind", &GPUBuffer::Bind)
-		.def("Unbind", &GPUBuffer::Unbind)
-		.def("WriteData", &GPUBuffer::WriteData);
+	boost::python::class_<IGpuBuffer, std::shared_ptr<IGpuBuffer>, boost::noncopyable>("IGpuBuffer", boost::python::no_init)
+		.def("Bind", &IGpuBuffer::Bind)
+		.def("Unbind", &IGpuBuffer::Unbind)
+		.def("WriteData", &IGpuBuffer::WriteData);
 }
 
 } // namespace python

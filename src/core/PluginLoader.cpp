@@ -7,15 +7,18 @@
 #include "core/GlovePlugin.h"
 
 #include "scripting/GlovePythonEngine.h"
+#include "GloveEnvironment.h"
 
 namespace bfs = boost::filesystem;
 
 namespace glove {
 
-PluginLoader::PluginLoader() : EnableProfilable() {
+PluginLoader::PluginLoader(const GlovePythonEnginePtr& pythonEngine) :
+        pythonEngine(pythonEngine),
+        EnableProfilable() {
 
 
-    pluginBasePath = gloveCore->MakeDataPath("data/game/plugins");
+    pluginBasePath = gEnv->MakeDataPath("data/game/plugins");
 }
 
 PluginLoader::~PluginLoader() {
@@ -34,7 +37,7 @@ void PluginLoader::DiscoverPlugins() {
                 DiscoverPlugin(pluginName);
             }
             catch (const GloveException& ex) {
-                OLOG(error, ((boost::format("Failed to load plugin %1%: %2%") % pluginName % ex.what()).str()))
+                LOG(logger, error, ((boost::format("Failed to load plugin %1%: %2%") % pluginName % ex.what()).str()))
             }
         }
     }
@@ -56,11 +59,11 @@ void PluginLoader::UnloadPlugins() {
 
 GlovePluginPtr PluginLoader::DiscoverPlugin(std::string name) {
     // Create and import the plugin
-    GlovePluginPtr plugin = std::make_shared<GlovePlugin>(name);
+    GlovePluginPtr plugin = std::make_shared<GlovePlugin>(pythonEngine, name);
     pluginMap[name] = plugin;
-    gloveCore->GetPythonEngineRef()->AnnouncePlugin(plugin->GetPythonPlugin());
+    pythonEngine->AnnouncePlugin(plugin->GetPythonPlugin());
 
-    OLOG(info, (boost::format("Discovered plugin %1%") % name).str());
+    LOG(logger, info, (boost::format("Discovered plugin %1%") % name).str());
     return plugin;
 }
 

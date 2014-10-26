@@ -1,9 +1,9 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <log/Log.h>
 
 #include "core/GloveCore.h"
-#include "core/GloveObject.h"
 #include "event/EventBus.h"
 #include "event/EventSubscriber.h"
 #include "event/type/KeyEvent.h"
@@ -34,10 +34,10 @@ enum ButtonState {
             BS_RELEASED
 };
 
-class InputManager : public GloveObject, public EventSubscriber, public std::enable_shared_from_this<InputManager> {
+class InputManager : public EventSubscriber, public std::enable_shared_from_this<InputManager> {
 Profilable()
 public:
-    InputManager();
+	InputManager();
 
     virtual ~InputManager();
 
@@ -90,6 +90,8 @@ public:
     }
 
 private:
+    logging::GloveLogger logger;
+
     KeyState keyMap[KC_LAST];
     ButtonState mouseButtonMap[MB_LAST];
 

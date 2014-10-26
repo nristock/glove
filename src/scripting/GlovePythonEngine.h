@@ -7,16 +7,17 @@
 #include <boost/python/object.hpp>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
+#include <log/Log.h>
 
 namespace glove {
 
-class GlovePythonEngine : public GloveObject {
-Profilable()
+class GlovePythonEngine {
+Profilable();
 public:
     typedef std::list<PythonPluginPtr> PythonPluginList;
 
-    GlovePythonEngine(const std::string& executableBasePath);
+	GlovePythonEngine(const std::string& executableBasePath);
 
     virtual ~GlovePythonEngine();
 
@@ -31,6 +32,8 @@ public:
     virtual void AnnouncePlugin(const PythonPluginPtr& pythonPlugin);
 
 private:
+    logging::GloveLogger logger;
+
     void LoadPyEnvironmentModule();
 
     std::string basePath;

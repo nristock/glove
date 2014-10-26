@@ -4,7 +4,9 @@
 
 namespace glove {
 
-InputManager::InputManager() : mousePosition(0, 0), EnableProfilable() {
+InputManager::InputManager() :
+	mousePosition(0, 0), 
+	EnableProfilable() {
 
 
     for (int i = 0; i < KC_LAST; i++) {
@@ -21,7 +23,7 @@ InputManager::~InputManager() {
 
 void InputManager::OnKeyEvent(const KeyEvent& evnt) {
     if (evnt.keyCode >= KC_LAST) {
-        OLOG(error, (boost::format("KeyCode %1% of event is out of %2% range") % evnt.keyCode % KC_LAST).str());
+        LOG(logger, error, (boost::format("KeyCode %1% of event is out of %2% range") % evnt.keyCode % KC_LAST).str());
         return;
     }
 
@@ -50,7 +52,7 @@ void InputManager::OnKeyEvent(const KeyEvent& evnt) {
 
 void InputManager::OnMouseButtonEvent(const MouseButtonEvent& evnt) {
     if (evnt.button >= MB_LAST) {
-        OLOG(error, (boost::format("MouseButton code %1% of event is out of %2% range") % evnt.button % MB_LAST).str());
+        LOG(logger, error, (boost::format("MouseButton code %1% of event is out of %2% range") % evnt.button % MB_LAST).str());
         return;
     }
 

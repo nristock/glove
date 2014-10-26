@@ -24,10 +24,10 @@ Profilable();
 public:
     typedef std::shared_ptr<ManagedVertexData<VertexLayoutType>> ManagedVertexDataPtr;
 
-    ManagedMesh(MaterialPtr material) : GameComponent(), material(material), EnableProfilable() {
+	ManagedMesh(const RendererPtr& renderer, const GpuBufferManagerPtr& gpuBufferManager, MaterialPtr material) : GameComponent(), renderer(renderer), gpuBufferManager(gpuBufferManager), material(material), EnableProfilable() {
         shader = material->GetShader();
 
-        managedVertexData = ManagedVertexDataPtr(new ManagedVertexData<VertexLayoutType>());
+        managedVertexData = ManagedVertexDataPtr(new ManagedVertexData<VertexLayoutType>(gpuBufferManager));
         vertexData = std::dynamic_pointer_cast<VertexData>(managedVertexData);
     }
 
@@ -35,7 +35,7 @@ public:
     }
 
     virtual void Refresh() {
-        GloveCore::Instance()->GetRenderer()->CreateVertexAttributeMappings(this);
+        renderer->CreateVertexAttributeMappings(this);
     }
 
     virtual const MaterialPtr& GetMaterial() const {
@@ -71,11 +71,14 @@ public:
     virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData) = 0;
 
     virtual void CreateIndexData() {
-        managedIndexData = ManagedIndexDataPtr(new ManagedIndexData());
+        managedIndexData = ManagedIndexDataPtr(new ManagedIndexData(gpuBufferManager));
         indexData = std::dynamic_pointer_cast<IndexData>(managedIndexData);
     }
 
 protected:
+    RendererPtr renderer;
+    GpuBufferManagerPtr gpuBufferManager;
+
     ManagedVertexDataPtr managedVertexData;
     ManagedIndexDataPtr managedIndexData;
     VertexDataPtr vertexData;

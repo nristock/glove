@@ -17,7 +17,7 @@ namespace bfs = boost::filesystem;
 namespace glove {
 
 GlovePythonEngine::GlovePythonEngine(const std::string& executableBasePath)
-        : GloveObject(), basePath(executableBasePath), EnableProfilable() {
+        : basePath(executableBasePath), EnableProfilable() {
 #if defined(WIN32)
     const wchar_t pathSeparator = L';';
     #else
@@ -34,7 +34,7 @@ GlovePythonEngine::GlovePythonEngine(const std::string& executableBasePath)
 
     try {
         Py_SetPath(cstrPythonHome);
-        OLOG(info, "Using Python in " << std::wstring(Py_GetPath()));
+        LOG(logger, info, "Using Python in " << std::wstring(Py_GetPath()));
 
         PyImport_AppendInittab("glove", &python::CreateGloveModule);
         PyImport_AppendInittab("pyshed", &python::CreatePyshedModule);
@@ -60,7 +60,7 @@ GlovePythonEngine::GlovePythonEngine(const std::string& executableBasePath)
         throw GLOVE_EXCEPTION("Failed to create scripting engine.");
     }
 
-    OLOG(info, "Scripting engine initialized.");
+    LOG(logger, info, "Scripting engine initialized.");
 }
 
 GlovePythonEngine::~GlovePythonEngine() {
@@ -83,19 +83,19 @@ void GlovePythonEngine::LoadPyEnvironmentModule() {
     bfs::directory_iterator endIter;
     for (bfs::directory_iterator dir = bfs::directory_iterator(gloveCorePythonEnvDir); dir != endIter; dir++) {
         if (bfs::is_regular_file(*dir)) {
-            OLOG(info, "Loading python environment file: " << dir->path().filename().string());
+            LOG(logger, info, "Loading python environment file: " << dir->path().filename().string());
 
             std::string path = dir->path().string();
             bpy::exec_file(path.c_str(), rootNamespace);
         }
     }
 
-    OLOG(info, "PyEnv files loaded");
+    LOG(logger, info, "PyEnv files loaded");
 }
 
 void GlovePythonEngine::AnnouncePlugin(const PythonPluginPtr& pythonPlugin) {
     if (pluginScopes.contains(pythonPlugin->GetPluginName().c_str())) {
-        OLOG(warning, (boost::format("Plugin %1% has already been announced. Overwriting previous dict") % pythonPlugin->GetPluginName()).str());
+        LOG(logger, warning, (boost::format("Plugin %1% has already been announced. Overwriting previous dict") % pythonPlugin->GetPluginName()).str());
     }
 
     pluginScopes[pythonPlugin->GetPluginName().c_str()] = pythonPlugin->GetScope();
@@ -109,7 +109,7 @@ void GlovePythonEngine::HandleError() {
     PyErr_Fetch(&pyType, &pyValue, &pyTraceback);
     PyErr_NormalizeException(&pyType, &pyValue, &pyTraceback);
     if (pyType == NULL && pyValue == NULL && pyTraceback == NULL) {
-        OLOG(warning, "GPythonEngine::HandleError() called but no error was set.");
+        LOG(logger, warning, "GPythonEngine::HandleError() called but no error was set.");
     }
 
     using namespace boost::python;
@@ -130,7 +130,7 @@ void GlovePythonEngine::HandleError() {
         error = extract<std::string>(str(hType));
     }
 
-    OLOG(info, "Python Error" << std::endl << error);
+    LOG(logger, info, "Python Error" << std::endl << error);
 }
 
 bpy::object GlovePythonEngine::GetMainModule() {

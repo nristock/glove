@@ -7,17 +7,16 @@
 #include <glm/glm.hpp>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
 #include "graph/GameObject.h"
 
 namespace glove {
 
 class GameObject;
 
-class Scenegraph : public GloveObject {
-Profilable()
+class Scenegraph {
+Profilable();
 public:
-    Scenegraph();
+	Scenegraph();
 
     virtual ~Scenegraph();
 

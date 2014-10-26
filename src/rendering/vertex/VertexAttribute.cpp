@@ -2,8 +2,8 @@
 
 namespace glove {
 
-VertexAttribute::VertexAttribute(size_t binding, size_t offset, VertexAttributeType attributeType, VertexAttributeSemantic attributeSemantic)
-        : binding(binding),
+VertexAttribute::VertexAttribute(std::size_t binding, std::size_t offset, VertexAttributeType attributeType, VertexAttributeSemantic attributeSemantic) :
+          binding(binding),
           offset(offset),
           attributeType(attributeType),
           attributeSemantic(attributeSemantic),
@@ -15,7 +15,7 @@ VertexAttribute::~VertexAttribute() {
 
 }
 
-size_t VertexAttribute::GetNumberOfComponents() const {
+std::size_t VertexAttribute::GetNumberOfComponents() const {
     switch (attributeType) {
         case VAT_FLOAT3:
             return 3;
@@ -24,7 +24,7 @@ size_t VertexAttribute::GetNumberOfComponents() const {
     }
 }
 
-size_t VertexAttribute::GetSize(VertexAttributeType attributeType) {
+std::size_t VertexAttribute::GetSize(VertexAttributeType attributeType) {
     switch (attributeType) {
         case VAT_FLOAT3:
             return 3 * sizeof(float);
@@ -33,7 +33,7 @@ size_t VertexAttribute::GetSize(VertexAttributeType attributeType) {
     }
 }
 
-size_t VertexAttribute::GetSize() const {
+std::size_t VertexAttribute::GetSize() const {
     return VertexAttribute::GetSize(attributeType);
 }
 

@@ -3,17 +3,19 @@
 #include <map>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
+
+#include <pitamem/MemoryProfile.h>
+#include <log/Log.h>
 
 namespace glove {
 
-class PluginLoader : public GloveObject {
-Profilable()
+class PluginLoader  {
+Profilable();
 public:
     /** Name <-> Plugin map type */
     typedef std::map<std::string, GlovePluginPtr> PluginMap;
 
-    PluginLoader();
+	PluginLoader(const GlovePythonEnginePtr& pythonEngine);
 
     virtual ~PluginLoader();
 
@@ -39,6 +41,10 @@ public:
     virtual void ReloadPlugin(std::string name);
 
 private:
+    logging::GloveLogger logger;
+
+    GlovePythonEnginePtr pythonEngine;
+
     /** The map of discovered plugins */
     PluginMap pluginMap;
 

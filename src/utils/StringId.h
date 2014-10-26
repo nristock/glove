@@ -2,6 +2,7 @@
 
 #include <string>
 #include <memory>
+#include <core/GloveFwd.h>
 
 #include  "core/GloveException.h"
 #include "utils/StringIdDatabase.h"
@@ -12,7 +13,7 @@ namespace glove {
 
 class StringId {
 public:
-    StringId(size_t hashId);
+    StringId(std::size_t hashId);
 
     StringId(const StringIdDatabasePtr& stringDb, const char* string);
 
@@ -30,13 +31,13 @@ public:
         return message;
     }
 
-    size_t GetHashId() const {
+    std::size_t GetHashId() const {
         return hashId;
     }
 
 private:
     std::string message;
-    const size_t hashId;
+    const std::size_t hashId;
 };
 
 } /* namespace glove */

@@ -2,7 +2,7 @@
 
 namespace glove {
 
-VertexLayout::VertexLayout() : EnableProfilable() {
+VertexLayout::VertexLayout() :  EnableProfilable() {
 
 }
 

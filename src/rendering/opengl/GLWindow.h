@@ -2,19 +2,19 @@
 
 #include <glm/glm.hpp>
 
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
 #include "core/IWindow.h"
 
 struct GLFWwindow;
 
 namespace glove {
 
-class GLWindow : public GloveObject, public IWindow {
-Profilable()
+class GLWindow : public IWindow {
+Profilable();
 public:
-    GLWindow(int width, int height);
+	GLWindow(const EventBusPtr& eventBus, int width, int height);
 
-    GLWindow(int width, int height, WindowPtr parent);
+	GLWindow(const EventBusPtr& eventBus, int width, int height, WindowPtr parent);
 
     virtual ~GLWindow();
 
@@ -35,6 +35,8 @@ public:
 private:
     GLFWwindow* glfwWindow;
     GLFWwindow* parent;
+
+    EventBusPtr eventBus;
 
     int viewportWidth, viewportHeight;
     float aspectRatio;

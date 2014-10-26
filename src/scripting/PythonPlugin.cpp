@@ -11,10 +11,8 @@ namespace bpy = boost::python;
 
 namespace glove {
 
-PythonPlugin::PythonPlugin(std::string pluginPath, std::string pluginName)
-        : GloveObject(), pluginPath(pluginPath), pluginName(pluginName), loaded(false), EnableProfilable() {
-    pythonEngine = gloveCore->GetPythonEngine();
-
+PythonPlugin::PythonPlugin(const GlovePythonEnginePtr& pythonEngine, std::string pluginPath, std::string pluginName)
+        : pythonEngine(pythonEngine), pluginPath(pluginPath), pluginName(pluginName), loaded(false), EnableProfilable() {
     // Import the plugin module
     pluginModule = bpy::import(pluginName.c_str());
 
@@ -35,10 +33,10 @@ void PythonPlugin::InitPluginScope() {
 
 void PythonPlugin::LoadPlugin() {
     if (IsLoaded()) {
-        OLOG(warning, (boost::format("Loading active plugin %1%") % pluginName).str());
+        LOG(logger, warning, (boost::format("Loading active plugin %1%") % pluginName).str());
     }
 
-    OLOG(info, "Loading python plugin: " << pluginName);
+    LOG(logger, info, "Loading python plugin: " << pluginName);
 
     try {
         if (pluginScope.contains("LoadPlugin")) {
@@ -54,11 +52,11 @@ void PythonPlugin::LoadPlugin() {
 
 void PythonPlugin::UnloadPlugin() {
     if (!IsLoaded()) {
-        OLOG(error, (boost::format("Unloading inactive plugin %1%") % pluginName).str());
+        LOG(logger, error, (boost::format("Unloading inactive plugin %1%") % pluginName).str());
         return;
     }
 
-    OLOG(info, "Unloading python plugin: " << pluginName);
+    LOG(logger, info, "Unloading python plugin: " << pluginName);
 
     try {
         loaded = false;

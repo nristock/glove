@@ -3,6 +3,7 @@
 #include <vector>
 
 #include <glm/glm.hpp>
+#include <core/GloveEnvironment.h>
 
 #include "core/PluginLoader.h"
 #include "core/GloveCore.h"
@@ -24,7 +25,7 @@ int main(int argc, char** argv) {
 	logging::InitLoggingSystem();
 	logging::GloveLogger lg;
 
-	auto gcore = new GloveCore();
+	GloveCorePtr gcore = std::make_shared<GloveCore>();
 	gcore->Init(argc, argv);
 	
 	std::vector<vertexlayouts::PositionColor> vertices;
@@ -49,13 +50,20 @@ int main(int argc, char** argv) {
 	indices.push_back(3);
 	indices.push_back(0);
 
-	ShaderProgramPointer shader = gcore->GetPyshedLoader()->LoadPysehdShader(gcore->MakeDataPath(std::string("data/DefaultShader.pyshed")));
+	ShaderProgramPointer shader = gcore->GetPyshedLoader()->LoadPysehdShader(gEnv->MakeDataPath(std::string("data/DefaultShader.pyshed")));
 	MaterialPtr material = MaterialPtr(new Material(shader));
 	
 	ScenegraphPtr graph = gcore->GetScenegraph();
 	auto go = graph->CreateSimpleGameObject();
 	//IndexedMesh m(meshData, material, go);
-	std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>> m = std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>>(new GLManagedMesh<vertexlayouts::PositionColor>(material));
+	std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>> m =
+            std::shared_ptr<ManagedMesh<vertexlayouts::PositionColor>>(
+                    new GLManagedMesh<vertexlayouts::PositionColor>(
+                            gcore->GetRenderer(),
+                            gcore->GetGpuBufferManager(),
+                            material
+                    )
+            );
     auto mm = std::dynamic_pointer_cast<GLManagedMesh<vertexlayouts::PositionColor>>(m);
 
     mm->AddVAO(0, gcore->GetRenderer());

@@ -3,15 +3,16 @@
 #include <boost/python/dict.hpp>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
+#include <log/Log.h>
 
 namespace glove {
 
 /** Class representing the python part of a plugin */
-class PythonPlugin : public GloveObject {
-Profilable()
+class PythonPlugin  {
+Profilable();
 public:
-    PythonPlugin(std::string pluginPath, std::string pluginName);
+	PythonPlugin(const GlovePythonEnginePtr& pythonEngine, std::string pluginPath, std::string pluginName);
 
     virtual ~PythonPlugin();
 
@@ -40,6 +41,8 @@ public:
     }
 
 protected:
+    logging::GloveLogger logger;
+
     /** Reference to the python engine initialized in constructor */
     GlovePythonEnginePtr pythonEngine;
 

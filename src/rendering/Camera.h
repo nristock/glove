@@ -10,10 +10,10 @@ namespace glove {
 class Camera : public GameObject {
 Profilable()
 public:
-    Camera();
+	Camera();
 
     /** Create the camera using specific position, look at and up vectors */
-    Camera(glm::vec3 pos, glm::vec3 lookAt, glm::vec3 up);
+	Camera(glm::vec3 pos, glm::vec3 lookAt, glm::vec3 up);
 
     virtual ~Camera();
 

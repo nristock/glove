@@ -15,14 +15,11 @@ public:
 
     virtual ~EventSubscriber();
 
-    virtual void OnKeyEvent(const KeyEvent& evnt) {
-    };
+    virtual void OnKeyEvent(const KeyEvent& evnt) {    };
 
-    virtual void OnMouseButtonEvent(const MouseButtonEvent& evnt) {
-    };
+    virtual void OnMouseButtonEvent(const MouseButtonEvent& evnt) {    };
 
-    virtual void OnMouseMoveEvent(const MouseMoveEvent& evnt) {
-    };
+    virtual void OnMouseMoveEvent(const MouseMoveEvent& evnt) {    };
 };
 
 

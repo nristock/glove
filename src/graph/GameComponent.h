@@ -1,14 +1,14 @@
 #pragma once
 
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
 #include "core/GloveFwd.h"
 
 namespace glove {
 
-class GameComponent : public GloveObject {
-Profilable()
+class GameComponent {
+Profilable();
 public:
-    GameComponent();
+	GameComponent();
 
     virtual ~GameComponent();
 

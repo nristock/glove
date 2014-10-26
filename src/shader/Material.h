@@ -5,15 +5,16 @@
 #include <glm/glm.hpp>
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
+#include <log/Log.h>
 #include "MappedMaterialAttribute.h"
 
 namespace glove {
 
-class Material : public GloveObject {
-Profilable()
+class Material {
+Profilable();
 public:
-    Material(ShaderProgramPointer shader);
+	Material(ShaderProgramPointer shader);
 
     virtual ~Material();
 
@@ -42,6 +43,8 @@ public:
     }
 
 private:
+    logging::GloveLogger logger;
+
     ShaderProgramPointer shader;
 };
 

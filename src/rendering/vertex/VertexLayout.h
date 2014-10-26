@@ -1,15 +1,16 @@
 #pragma once
 
 #include <list>
+#include <cstddef>
 
-#include "core/GloveObject.h"
+#include <pitamem/MemoryProfile.h>
 #include "rendering/vertex/VertexAttribute.h"
 
 namespace glove {
 
 /** A class representing a vertex layout definition */
-class VertexLayout : public GloveObject {
-Profilable()
+class VertexLayout {
+Profilable();
 public:
     /** Type of internal attribute list */
     typedef std::list<VertexAttribute> VertexAttributeList;
@@ -31,7 +32,7 @@ public:
     * @param [in] attributeType The type of the attribute
     * @param [in] attributeSemantic The attribute's semantic
     */
-    virtual void AddElement(size_t binding, size_t offset, VertexAttributeType attributeType, VertexAttributeSemantic attributeSemantic);
+    virtual void AddElement(std::size_t binding, std::size_t offset, VertexAttributeType attributeType, VertexAttributeSemantic attributeSemantic);
 
     /** Returns the current number of attributes */
     size_t GetAttributeCount() const {

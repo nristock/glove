@@ -10,7 +10,7 @@ namespace glove {
 class GLMesh : public GLBaseMesh, public Mesh {
 Profilable()
 public:
-    GLMesh(MaterialPtr material);
+	GLMesh(const RendererPtr& renderer, const GpuBufferManagerPtr gpuBufferManager, MaterialPtr material);
 
     virtual ~GLMesh();
 

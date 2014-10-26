@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/GloveFwd.h"
-#include "core/GloveObject.h"
 
 namespace glove {
 

@@ -13,7 +13,7 @@ namespace glove {
 class Mesh : public GameComponent, public IRenderable, public IMesh, public std::enable_shared_from_this<Mesh> {
 Profilable()
 public:
-    Mesh(MaterialPtr material);
+	Mesh(const RendererPtr& renderer, const GpuBufferManagerPtr gpuBufferManager, MaterialPtr material);
 
     virtual ~Mesh();
 
@@ -42,6 +42,9 @@ public:
     virtual void CreateIndexData();
 
 protected:
+    RendererPtr renderer;
+    GpuBufferManagerPtr gpuBufferManager;
+
     VertexDataPtr vertexData;
     IndexDataPtr indexData;
     MaterialPtr material;

@@ -4,7 +4,8 @@
 
 namespace glove {
 
-Scenegraph::Scenegraph() : EnableProfilable() {
+Scenegraph::Scenegraph() :
+	EnableProfilable() {
 
 
 }
@@ -16,8 +17,8 @@ Scenegraph::~Scenegraph() {
 }
 
 GameObjectPointer Scenegraph::CreateSimpleGameObject() {
-    return CreateGameObject<GameObject>([]() {
-        return new GameObject();
+    return CreateGameObject<GameObject>([this]() {
+		return new GameObject();
     });
 }
 

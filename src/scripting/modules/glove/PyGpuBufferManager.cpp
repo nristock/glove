@@ -8,7 +8,7 @@ namespace glove {
 namespace python {
 
 void ExportGpuBufferManager() {
-	boost::python::class_<glove::GpuBufferManager, boost::python::bases<GloveObject>, std::shared_ptr<GpuBufferManager>>("GpuBufferManager")
+	boost::python::class_<glove::GpuBufferManager, std::shared_ptr<GpuBufferManager>>("GpuBufferManager", boost::python::no_init)
 		.def("CreateVertexBuffer", &GpuBufferManager::CreateVertexBuffer)
 		.def("CreateIndexBuffer", &GpuBufferManager::CreateIndexBuffer);
 }

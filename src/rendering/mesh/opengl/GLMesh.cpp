@@ -6,7 +6,7 @@
 #include "core/GloveCore.h"
 #include "core/IRenderer.h"
 
-#include "buffers/GPUBuffer.h"
+#include "buffers/IGpuBuffer.h"
 
 #include "rendering/vertex/VertexData.h"
 #include "rendering/vertex/VertexLayout.h"
@@ -18,9 +18,9 @@ GLEWContext* glewGetContext();
 
 namespace glove {
 
-GLMesh::GLMesh(MaterialPtr material) : Mesh(material), EnableProfilable() {
+GLMesh::GLMesh(const RendererPtr& renderer, const GpuBufferManagerPtr gpuBufferManager, MaterialPtr material) : Mesh(renderer, gpuBufferManager, material), EnableProfilable() {
 
-    glRenderer = std::dynamic_pointer_cast<GLRenderer>(gloveCore->GetRenderer());
+    glRenderer = std::dynamic_pointer_cast<GLRenderer>(renderer);
 }
 
 GLMesh::~GLMesh() {

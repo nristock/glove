@@ -2,6 +2,8 @@
 #include "utils/StringIdDatabase.h"
 #include "utils/StringId.h"
 
+#include "core/GloveCore.h"
+
 namespace glove {
 	class StringIdTest : public ::testing::Test {
 	protected:
@@ -9,9 +11,14 @@ namespace glove {
 		const char* testString = "My cool string";
 		const char* testString2 = "Another cool string";
 
+        GloveCorePtr gloveCore;
 		StringIdDatabasePtr stringDb;
 	public:
 		StringIdTest() {
+
+
+            gloveCore = std::make_shared<GloveCore>();
+
 			stringDb = std::make_shared<StringIdDatabase>();
 			hashId = StringIdDatabase::HashString(testString);
 
