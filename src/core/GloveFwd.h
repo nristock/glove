@@ -85,6 +85,10 @@ GLOVE_FWD_DECL(InputManager);
 
 GLOVE_FWD_DECL(StringIdDatabase);
 
-GLOVE_FWD_DECL(MemoryProfile)
+GLOVE_FWD_DECL(MemoryProfile);
+
+GLOVE_FWD_DECL(ISubsystemFactory);
+GLOVE_FWD_DECL(ISharedLibraryLoader);
+GLOVE_FWD_DECL(ISharedLibraryLoaderFactory);
 
 }
