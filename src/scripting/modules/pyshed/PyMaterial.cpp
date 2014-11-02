@@ -1,7 +1,6 @@
 #include "PyMaterial.h"
 
 #include <boost/python.hpp>
-#include <scripting/PythonObjectFactory.h>
 
 #include "shader/Material.h"
 

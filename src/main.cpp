@@ -20,12 +20,12 @@
 #include "log/Log.h"
 #include "pitamem/MemoryProfile.h"
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
 	using namespace glove;
 	logging::InitLoggingSystem();
 	logging::GloveLogger lg;
 
-	GloveCorePtr gcore = std::make_shared<GloveCore>();
+	GloveCorePtr gcore = std::make_shared<GloveCore>(argc, argv);
 	gcore->Init(argc, argv);
 	
 	std::vector<vertexlayouts::PositionColor> vertices;

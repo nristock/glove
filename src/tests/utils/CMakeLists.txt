@@ -1,0 +1,2 @@
+add_executable(tests_utils StringIdDatabaseTest.cpp StringIdTest.cpp)
+target_link_libraries(tests_utils vendor_gmock vendor_gtest_main ${glove_libs})

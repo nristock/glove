@@ -7,10 +7,6 @@ if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
 	#add_definitions(-DPy_TRACE_REFS -DPy_DEBUG)
 endif()
 
-SET(CMAKE_BUILD_TYPE tests)
-SET(CMAKE_CXX_FLAGS_TESTS "${CMAKE_CXX_FLAGS_DEBUG}")
-SET(COMPILE_DEFINITIONS_TESTS -DGLOVE_TESTS_BUILD)
-
 if(WIN32)
 	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/windows")
 
@@ -43,6 +39,8 @@ else()
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR})
+
+add_subdirectory(vendor)
 
 file(GLOB_RECURSE glove_sources 
 	"buffers/*.cpp"
@@ -82,6 +80,7 @@ file(GLOB_RECURSE glove_sources
 	"utils/*.h"
 )
 add_library(glove ${glove_sources})
+target_link_libraries(glove vendor_jsoncpp)
 
 set(cellulose_source main.cpp)
 add_executable(cellulose ${cellulose_source})
@@ -90,8 +89,8 @@ file(GLOB_RECURSE tests_sources
 	"tests/*.cpp"
 	"tests/*.h"
 )
-add_executable(glove_tests ${tests_sources})
-set_target_properties(glove_tests PROPERTIES COMPILE_DEFINITIONS "GLOVE_TESTS_BUILD")
+#add_executable(glove_tests ${tests_sources})
+#set_target_properties(glove_tests PROPERTIES COMPILE_DEFINITIONS "GLOVE_TESTS_BUILD")
 
 if(WIN32)
 	set(glove_libs
@@ -140,7 +139,9 @@ else()
 endif()
 
 target_link_libraries(cellulose ${glove_libs})
-target_link_libraries(glove_tests ${glove_libs})
+#target_link_libraries(glove_tests ${glove_libs})
+
+add_subdirectory(tests)
 
 if(WIN32)
 	add_custom_command(TARGET cellulose POST_BUILD

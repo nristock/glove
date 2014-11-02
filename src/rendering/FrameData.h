@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "pitamem/MemoryProfile.h"
+#include <pitamem/MemoryProfile.h>
 
 namespace glove {
 
@@ -10,7 +10,8 @@ namespace glove {
 struct FrameData {
 Profilable()
 public:
-    FrameData() : EnableProfilable() {
+    FrameData() :
+            EnableProfilable(), frameId(0), viewProjectionMatrix(glm::mat4()), deltaTime(0), currentContext(0) {
     }
 
     virtual ~FrameData() {
@@ -23,7 +24,7 @@ public:
     /** The time since the last frame update */
     double deltaTime;
     /** The current context ID */
-    size_t currentContext;
+    std::size_t currentContext;
 };
 
 

@@ -1,4 +1,4 @@
-#include "tests/gtest/gtest.h"
+#include <vendor/gtest/gtest.h>
 #include "utils/StringIdDatabase.h"
 #include "utils/StringId.h"
 
@@ -11,14 +11,9 @@ namespace glove {
 		const char* testString = "My cool string";
 		const char* testString2 = "Another cool string";
 
-        GloveCorePtr gloveCore;
 		StringIdDatabasePtr stringDb;
 	public:
 		StringIdTest() {
-
-
-            gloveCore = std::make_shared<GloveCore>();
-
 			stringDb = std::make_shared<StringIdDatabase>();
 			hashId = StringIdDatabase::HashString(testString);
 

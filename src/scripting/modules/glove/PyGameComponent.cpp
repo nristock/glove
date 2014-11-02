@@ -6,8 +6,6 @@
 #include "scripting/GlovePythonEngine.h"
 #include "graph/GameComponent.h"
 
-#include "scripting/PythonObjectFactory.h"
-
 namespace glove {
 namespace python {
 

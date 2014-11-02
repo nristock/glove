@@ -1,0 +1,1 @@
+add_library(vendor_gtest_main STATIC gtest.h gtest_main.cpp)

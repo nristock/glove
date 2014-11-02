@@ -1,0 +1,1 @@
+add_library(vendor_jsoncpp STATIC json-forwards.h json.h jsoncpp.cpp)

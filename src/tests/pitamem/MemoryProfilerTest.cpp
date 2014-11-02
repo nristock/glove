@@ -2,7 +2,7 @@
 #include <list>
 #include <algorithm>
 
-#include "tests/gtest/gtest.h"
+#include <vendor/gtest/gtest.h>
 #include "pitamem/MemoryProfiler.h"
 #include "pitamem/MemoryProfile.h"
 

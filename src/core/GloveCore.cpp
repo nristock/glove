@@ -4,17 +4,10 @@
 #include <fstream>
 #include <cstring>
 
-#if defined(_WIN32) || defined(WIN32)
-#include <Windows.h>
-#elif defined(__unix__) || defined(__unix)
-
-#include <unistd.h>
-#include <cstdlib>
-
-#endif
+#include <tclap/CmdLine.h>
 
 #include <boost/format.hpp>
-#include <boost/program_options.hpp>
+#include <boost/filesystem.hpp>
 
 #include <core/GloveEnvironment.h>
 #include <core/GloveException.h>
@@ -31,95 +24,89 @@
 #include "input/InputManager.h"
 #include "pitamem/MemoryProfiler.h"
 
+#include <utils/RuntimePathInfo.h>
+
+#include <vendor/json/json.h>
+
 namespace sc = std::chrono;
 
 namespace glove {
-	
-GloveCore::GloveCore() :
-          frameCounter(0),
-          exitRequested(false),
-          EnableProfilable() {
+
+GloveCore::GloveCore(int argc, const char** argv) :
+        frameCounter(0),
+        exitRequested(false),
+        EnableProfilable() {
+    auto constructionStartTime = sc::steady_clock::now();
+
     gEnv = std::make_shared<GloveEnvironment>();
 
-    frameData.frameId = 0;
-    frameData.viewProjectionMatrix = glm::mat4();
-    frameData.deltaTime = 0;
+    GetExecutionPathInfo(gEnv->executablePath, gEnv->executableName);
+    LOG(logger, info, "Running from " << gEnv->executablePath);
 
-#if defined(_WIN32) || defined(WIN32)
-	int bufferSize = 4096;
-	char* moduleName = reinterpret_cast<char*>(std::malloc(sizeof(char) * bufferSize));
-	GetModuleFileName(NULL, moduleName, bufferSize);
+    // Command line arguments
+    {
+        using namespace TCLAP;
 
-	while (GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
-		std::free(moduleName);
-		bufferSize += 64;
-		moduleName = reinterpret_cast<char*>(std::malloc(sizeof(wchar_t) * bufferSize));
+        try {
+            CmdLine cmd("Glove Engine", ' ', "1.0.0");
 
-		GetModuleFileName(NULL, moduleName, bufferSize);
-	}
+            ValueArg<int> windowWidth("", "window-width", "Main window's width", false, 800, "int", cmd);
+            ValueArg<int> windowHeight("", "window-height", "Main window's height", false, 600, "int", cmd);
+            ValueArg<int> openGlVersionMajor("", "opengl-version-major", "OpenGL major version to request", false, 3, "int", cmd);
+            ValueArg<int> openGlVersionMinor("", "opengl-version-minor", "OpenGL minor version to request", false, 3, "int", cmd);
+            ValueArg<std::string> configFile("c", "config", "Path to engine configuration", false, gEnv->MakeDataPath("data/glove.json"), "path", cmd);
+            ValueArg<bool> initRendering("", "init-rendering", "Init rendering system", false, true, "true/false", cmd);
+            ValueArg<bool> initScripting("", "init-scripting", "Init scripting system", false, true, "true/false", cmd);
+            cmd.parse(argc, argv);
 
-	executableName = moduleName;
-	std::free(moduleName);
-#elif defined(__unix__) || defined(__unix)
-    std::size_t bufferSize = 1024;
-    char* linkName = new char[bufferSize];
-    ssize_t charsWritten = readlink("/proc/self/exe", linkName, bufferSize);
+            // Load configuration
+            LoadConfiguration(configFile.getValue());
 
-    while (charsWritten == bufferSize) {
-        delete[] linkName;
-        bufferSize += 64;
-        linkName = new char[bufferSize];
-        charsWritten = readlink("/proc/self/exe", linkName, bufferSize);
+            Configuration& engineConfig = gEnv->engineConfiguration;
+
+            if(!initRendering.getValue()) {
+                auto iter = std::find(engineConfig.engine.subsystemInitList.begin(), engineConfig.engine.subsystemInitList.end(), "rendering");
+
+                if(iter != engineConfig.engine.subsystemInitList.end()) {
+                    engineConfig.engine.subsystemInitList.erase(iter);
+                }
+            }
+            if(!initScripting.getValue()) {
+                auto iter = std::find(engineConfig.engine.subsystemInitList.begin(), engineConfig.engine.subsystemInitList.end(), "scripting");
+
+                if(iter != engineConfig.engine.subsystemInitList.end()) {
+                    engineConfig.engine.subsystemInitList.erase(iter);
+                }
+            }
+        } catch (ArgException& ex) {
+            // Failing to parse the command line is a recoverable error so don't bubble up the exception and continue as usual
+            LOG(logger, error, (boost::format("Failed to parse command line: %1%") % ex.error()).str());
+        }
     }
 
-    linkName[charsWritten] = '\0';
+    // Event bus
+    {
+        eventBus = std::make_shared<EventBus>();
+    }
 
-    executableName = linkName;
-    delete[]linkName;
-#endif
-    executablePath = executableName.substr(0, executableName.find_last_of("\\/"));
+    auto constructionEndTime = sc::steady_clock::now();
 
-    gEnv->executablePath = executablePath;
-
-    LOG(logger, info, "Running from " << executablePath);
-    LOG(logger, info, "GloveCore created");
+    LOG(logger, info, (boost::format("GloveCore created in %1%") % sc::duration_cast<sc::milliseconds>(constructionEndTime - constructionStartTime).count()).str());
 }
 
 GloveCore::~GloveCore() {
 }
 
-void GloveCore::Init(int argc, char** argv) {
+void GloveCore::Init(int argc, const char** argv) {
     initializationTime = sc::steady_clock::now();
 
-    namespace bpo = boost::program_options;
     try {
-        bool initRenderingSystem = true;
-        bool initScripting = true;
-        int windowWidth = 800;
-        int windowHeight = 600;
+        Configuration& engineConfig = gEnv->engineConfiguration;
 
-        bpo::options_description coreOptions("Core Options");
-        coreOptions.add_options()
-                           ("help", "prints help message")
-                           ("init-rendering", bpo::value<bool>(&initRenderingSystem)->default_value(true), "initialize rendering system")
-                           ("init-scripting", bpo::value<bool>(&initScripting)->default_value(true), "initialize scripting system")
-                           ("window-width,w", bpo::value<int>(&windowWidth)->default_value(800), "main window's width")
-                           ("window-height,h", bpo::value<int>(&windowHeight)->default_value(600), "main window's height")
-                           ("opengl-version-major", bpo::value<int>()->default_value(3), "OpenGL major version to request")
-                           ("opengl-version-minor", bpo::value<int>()->default_value(3), "OpenGL minor version to request");
+        auto subsystemInitListBegin = engineConfig.engine.subsystemInitList.begin();
+        auto subsystemInitListEnd = engineConfig.engine.subsystemInitList.end();
 
-        bpo::options_description commandLineOptions;
-        commandLineOptions.add(coreOptions);
-
-        std::ifstream settingsFile("glove.cfg");
-
-        bpo::store(bpo::parse_command_line(argc, argv, commandLineOptions), parsedArguments);
-        bpo::store(bpo::parse_config_file(settingsFile, commandLineOptions), parsedArguments);
-        bpo::notify(parsedArguments);
-		
-        eventBus = EventBusPtr(new EventBus());
-
-        if (initRenderingSystem) {
+        if (std::find(subsystemInitListBegin, subsystemInitListEnd, "rendering") != subsystemInitListEnd) {
             InitializeRenderingSystem(800, 600);
             primaryScenegraph = ScenegraphPtr(new Scenegraph());
 
@@ -127,7 +114,7 @@ void GloveCore::Init(int argc, char** argv) {
             eventBus->Subscribe(inputManager);
         }
 
-        if (initScripting) {
+        if (std::find(subsystemInitListBegin, subsystemInitListEnd, "scripting") != subsystemInitListEnd) {
             InitializeScripting();
             InitializeResourceLoaders();
         }
@@ -147,7 +134,7 @@ void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
 
     try {
         renderer->Init();
-        renderer->CreateRenderWindow(windowWidth, windowHeight, parsedArguments["opengl-version-major"].as<int>(), parsedArguments["opengl-version-minor"].as<int>());
+        renderer->CreateRenderWindow(windowWidth, windowHeight, 3, 3);
     }
     catch (const GloveException& e) {
         LOG(logger, error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
@@ -157,7 +144,7 @@ void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
 }
 
 void GloveCore::InitializeScripting() {
-    pythonEngine = GlovePythonEnginePtr(new GlovePythonEngine(executablePath));
+    pythonEngine = GlovePythonEnginePtr(new GlovePythonEngine(gEnv->executablePath));
 
     try {
         namespace bpy = boost::python;
@@ -270,4 +257,21 @@ void GloveCore::Render(ScenegraphPointer scenegraph) {
     renderer->SwapBuffers();
 }
 
+void GloveCore::LoadConfiguration(const std::string& configPath) {
+    using namespace Json;
+
+    Configuration& engineConfig = gEnv->engineConfiguration;
+    engineConfig.LoadDefaults();
+
+    if(!boost::filesystem::exists(configPath)) {
+        engineConfig.SaveToFile(configPath);
+        return;
+    }
+
+    try {
+        engineConfig.LoadFromFile(configPath);
+    } catch (GloveException& ex) {
+        LOG(logger, error, (boost::format("Failed to load glove.json: \n%1%") % ex.what()).str());
+    }
+}
 } /* namespace glove */

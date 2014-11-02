@@ -1,11 +1,8 @@
-#include "tests/gtest/gtest.h"
+#include <vendor/gtest/gtest.h>
 #include "utils/StringIdDatabase.h"
 
-
-#include "tests/GloveTest.h"
-
 namespace glove {
-	class StringIdDatabaseTest : public GloveTest {
+	class StringIdDatabaseTest : public ::testing::Test {
 	protected:
 		const char* testString = "My cool string";
 		const char* testString2 = "My cool string 2";

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -d "build" ]; then
-  cd build
+if [ -d "gen" ]; then
+  cd gen
   make
   exit
 fi

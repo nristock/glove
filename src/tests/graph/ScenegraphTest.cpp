@@ -1,5 +1,5 @@
-#include "tests/gtest/gtest.h"
-#include "tests/gmock/gmock.h"
+#include <vendor/gmock/gmock.h>
+#include <vendor/gtest/gtest.h>
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
 #include "tests/graph/mock/GameObjectMock.h"

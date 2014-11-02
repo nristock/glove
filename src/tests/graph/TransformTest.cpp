@@ -1,11 +1,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "graph/Transform.h"
-#include "tests/gtest/gtest.h"
+#include <vendor/gtest/gtest.h>
 
 namespace glove {
 
-class TransformTest : public testing::Test {
+class TransformTest : public ::testing::Test {
 protected:
 	const glm::vec3 defaultPosition;
 	const glm::quat defaultRotation;

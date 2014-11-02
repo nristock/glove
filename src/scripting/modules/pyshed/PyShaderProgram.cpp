@@ -1,7 +1,6 @@
 #include "PyShaderProgram.h"
 
 #include <boost/python.hpp>
-#include <scripting/PythonObjectFactory.h>
 
 #include "shader/ShaderProgram.h"
 

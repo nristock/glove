@@ -2,7 +2,6 @@
 
 #include <chrono>
 
-#include <boost/program_options.hpp>
 #include <log/Log.h>
 
 #include "GloveFwd.h"
@@ -15,7 +14,7 @@ namespace glove {
 class GloveCore : public std::enable_shared_from_this<GloveCore> {
 Profilable();
 public:
-    GloveCore();
+    GloveCore(int argc, const char** argv);
 
     virtual ~GloveCore();
 
@@ -23,7 +22,7 @@ public:
     GloveCore& operator= (const GloveCore&) = delete;
 
     /** Initializes the Glove engine and all subsystems. Must be called from main thread. */
-    void Init(int argc, char** argv);
+    void Init(int argc, const char** argv);
 
     /** Starts the main application loop. Must be called from main thread. */
     void EnterMainLoop();
@@ -52,6 +51,8 @@ public:
 
     void SetExitRequested(bool requestExit) {exitRequested = requestExit;}
 
+    void LoadConfiguration(const std::string& param);
+
 private:
     typedef std::chrono::steady_clock::time_point TimePoint;
 
@@ -71,11 +72,6 @@ private:
     std::chrono::duration<double> lastFrameTime;
 
     FrameData frameData;
-
-    std::string executableName;
-    std::string executablePath;
-
-    boost::program_options::variables_map parsedArguments;
 
     unsigned long frameCounter;
     bool exitRequested;

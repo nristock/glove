@@ -5,8 +5,6 @@
 #include "scripting/GlovePythonEngine.h"
 #include "shader/pyshed/PyShedLoader.h"
 
-#include "scripting/PythonObjectFactory.h"
-
 namespace glove {
 namespace python {
 

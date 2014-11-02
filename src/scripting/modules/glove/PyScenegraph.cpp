@@ -1,7 +1,6 @@
 #include "PyScenegraph.h"
 
 #include <boost/python.hpp>
-#include <scripting/PythonObjectFactory.h>
 
 #include "graph/Scenegraph.h"
 
