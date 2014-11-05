@@ -4,18 +4,9 @@
 
 namespace glove {
 
-struct MouseMoveEvent : AbstractEvent {
+struct CorePreInitEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
 
-    MouseMoveEvent(double x, double y);
-
-    virtual ~MouseMoveEvent();
-
     virtual const EventTypeId& GetEventType() const;
-
-    double x;
-    double y;
 };
-
-
-} // namespace glove
+} /* namespace glove */

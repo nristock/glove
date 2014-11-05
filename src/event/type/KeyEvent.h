@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pitamem/MemoryProfile.h"
+#include <event/AbstractEvent.h>
 
 namespace glove {
 
@@ -157,14 +157,15 @@ enum KeyAction {
     KA_REPEAT
 };
 
-struct KeyEvent {
-Profilable()
-public:
-    KeyEvent(KeyCode keyCode, KeyAction action);
+struct KeyEvent : AbstractEvent {
+    static const AbstractEvent::EventTypeId eventTypeId;
 
+    KeyEvent(KeyCode keyCode, KeyAction action);
     KeyEvent(KeyCode keyCode, KeyAction action, bool shiftDown, bool controlDown, bool altDown, bool osKeyDown);
 
     virtual ~KeyEvent();
+
+    virtual const EventTypeId& GetEventType() const;
 
     KeyCode keyCode;
     KeyAction action;

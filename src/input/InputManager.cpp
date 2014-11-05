@@ -4,10 +4,9 @@
 
 namespace glove {
 
-InputManager::InputManager() :
+InputManager::InputManager(EventBusPtr& eventBus) :
 	mousePosition(0, 0), 
 	EnableProfilable() {
-
 
     for (int i = 0; i < KC_LAST; i++) {
         keyMap[i] = KS_UP;
@@ -16,6 +15,10 @@ InputManager::InputManager() :
     for (int i = 0; i < MB_LAST; i++) {
         mouseButtonMap[i] = BS_UP;
     }
+
+    eventBus->Subscribe<KeyEvent>(KeyEvent::eventTypeId, [this](const KeyEvent& evnt){this->OnKeyEvent(evnt);});
+    eventBus->Subscribe<MouseButtonEvent>(MouseButtonEvent::eventTypeId, [this](const MouseButtonEvent& evnt){this->OnMouseButtonEvent(evnt);});
+    eventBus->Subscribe<MouseMoveEvent>(MouseMoveEvent::eventTypeId, [this](const MouseMoveEvent& evnt){this->OnMouseMoveEvent(evnt);});
 }
 
 InputManager::~InputManager() {

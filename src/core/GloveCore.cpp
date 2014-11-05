@@ -110,8 +110,7 @@ void GloveCore::Init(int argc, const char** argv) {
             InitializeRenderingSystem(800, 600);
             primaryScenegraph = ScenegraphPtr(new Scenegraph());
 
-            inputManager = InputManagerPtr(new InputManager());
-            eventBus->Subscribe(inputManager);
+            inputManager = InputManagerPtr(new InputManager(eventBus));
         }
 
         if (std::find(subsystemInitListBegin, subsystemInitListEnd, "scripting") != subsystemInitListEnd) {

@@ -5,7 +5,6 @@
 
 #include "core/GloveCore.h"
 #include "event/EventBus.h"
-#include "event/EventSubscriber.h"
 #include "event/type/KeyEvent.h"
 #include "event/type/MouseButtonEvent.h"
 #include "event/type/MouseMoveEvent.h"
@@ -34,10 +33,10 @@ enum ButtonState {
             BS_RELEASED
 };
 
-class InputManager : public EventSubscriber, public std::enable_shared_from_this<InputManager> {
+class InputManager : public std::enable_shared_from_this<InputManager> {
 Profilable()
 public:
-	InputManager();
+	InputManager(EventBusPtr& eventBus);
 
     virtual ~InputManager();
 

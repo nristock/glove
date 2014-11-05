@@ -77,8 +77,6 @@ GLOVE_FWD_DECL(PluginLoader);
 GLOVE_FWD_DECL_STRUCT(RenderOperation);
 GLOVE_FWD_DECL_STRUCT(KeyEvent);
 
-GLOVE_FWD_DECL(EventSubscriber);
-
 GLOVE_FWD_DECL(EventBus);
 
 GLOVE_FWD_DECL(InputManager);

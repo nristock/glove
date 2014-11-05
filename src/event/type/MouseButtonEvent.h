@@ -1,6 +1,5 @@
 #pragma once
 
-#include "pitamem/MemoryProfile.h"
 #include "event/type/KeyEvent.h"
 
 namespace glove {
@@ -27,14 +26,15 @@ enum ButtonAction {
     BA_RELEASE
 };
 
-class MouseButtonEvent {
-Profilable()
-public:
-    MouseButtonEvent(MouseButton button, ButtonAction buttonAction);
+struct MouseButtonEvent : AbstractEvent {
+    static const AbstractEvent::EventTypeId eventTypeId;
 
+    MouseButtonEvent(MouseButton button, ButtonAction buttonAction);
     MouseButtonEvent(MouseButton button, ButtonAction buttonAction, bool shiftDown, bool controlDown, bool altDown, bool osKeyDown);
 
     virtual ~MouseButtonEvent();
+
+    virtual const EventTypeId& GetEventType() const;
 
     MouseButton button;
     ButtonAction action;
