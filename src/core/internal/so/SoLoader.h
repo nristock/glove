@@ -1,5 +1,5 @@
 #pragma once
-#if defined(__unix__) || defined(__unix)
+#if defined(ON_UNIX)
 
 #include <string>
 
@@ -24,4 +24,4 @@ private:
 
 } /* namespace glove */
 
-#endif // defined(__unix__) || defined(__unix)
+#endif // defined(ON_UNIX)

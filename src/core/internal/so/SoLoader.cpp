@@ -1,4 +1,4 @@
-#if defined(__unix__) || defined(__unix)
+#if defined(ON_UNIX)
 
 #include "SoLoader.h"
 
@@ -10,7 +10,7 @@
 
 namespace glove {
 SoLoader::SoLoader(const std::string& soFilePath) {
-    libraryHandle = dlopen(soFilePath.c_str(), RTLD_NOW);
+    libraryHandle = dlopen(soFilePath.c_str(), RTLD_NOW | RTLD_GLOBAL);
 
     if (!libraryHandle) {
         throw GLOVE_EXCEPTION((boost::format("Failed to load SO library %1%: %2%") % soFilePath % dlerror()).str());
@@ -36,4 +36,4 @@ void* SoLoader::LoadSymbol(const std::string& symbolName) {
 }
 }
 
-#endif // defined(__unix__) || defined(__unix)
+#endif

@@ -1,5 +1,5 @@
 #pragma once
-#if defined(__unix__) || defined(__unix)
+#if defined(ON_UNIX)
 
 #include <core/ISharedLibraryLoaderFactory.h>
 

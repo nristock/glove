@@ -8,18 +8,20 @@
 
 #include "GloveException.h"
 #include "rendering/FrameData.h"
+#include <core/BifrostLoader.h>
 
 namespace glove {
 
 class GloveCore : public std::enable_shared_from_this<GloveCore> {
-Profilable();
-public:
+    Profilable();
+
+  public:
     GloveCore(int argc, const char** argv);
 
     virtual ~GloveCore();
 
     GloveCore(const GloveCore&) = delete;
-    GloveCore& operator= (const GloveCore&) = delete;
+    GloveCore& operator=(const GloveCore&) = delete;
 
     /** Initializes the Glove engine and all subsystems. Must be called from main thread. */
     void Init(int argc, const char** argv);
@@ -31,32 +33,34 @@ public:
 
     void Render(ScenegraphPointer scenegraph);
 
-    const GlovePythonEnginePtr& GetPythonEngine() const {return pythonEngine;}
+    const GlovePythonEnginePtr& GetPythonEngine() const { return pythonEngine; }
 
-    const PyShedLoaderPtr& GetPyshedLoader() const {return pyshedLoader;}
+    const PyShedLoaderPtr& GetPyshedLoader() const { return pyshedLoader; }
 
-    const RendererPtr& GetRenderer() const {return renderer;}
+    const RendererPtr& GetRenderer() const { return renderer; }
 
-    const ScenegraphPtr& GetScenegraph() const {return primaryScenegraph;}
+    const ScenegraphPtr& GetScenegraph() const { return primaryScenegraph; }
 
-    const GpuBufferManagerPtr& GetGpuBufferManager() const {return gpuBufferManager;}
+    const GpuBufferManagerPtr& GetGpuBufferManager() const { return gpuBufferManager; }
 
-    const PluginLoaderPtr& GetPluginLoader() const {return pluginLoader;}
+    const PluginLoaderPtr& GetPluginLoader() const { return pluginLoader; }
 
-    const EventBusPtr& GetEventBus() const {return eventBus;}
+    const EventBusPtr& GetEventBus() const { return eventBus; }
 
-    const InputManagerPtr& GetInputManager() const {return inputManager;}
+    const InputManagerPtr& GetInputManager() const { return inputManager; }
 
-    bool IsExitRequested() const {return exitRequested;}
+    bool IsExitRequested() const { return exitRequested; }
 
-    void SetExitRequested(bool requestExit) {exitRequested = requestExit;}
+    void SetExitRequested(bool requestExit) { exitRequested = requestExit; }
 
     void LoadConfiguration(const std::string& param);
 
-private:
+  private:
     typedef std::chrono::steady_clock::time_point TimePoint;
 
     logging::GloveLogger logger;
+
+    BifrostLoader bifrostLoader;
 
     EventBusPtr eventBus;
     RendererPtr renderer;

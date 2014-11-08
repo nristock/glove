@@ -1,4 +1,4 @@
-#if defined(__unix__) || defined(__unix)
+#if defined(ON_UNIX)
 
 #include "SoLoaderFactory.h"
 
