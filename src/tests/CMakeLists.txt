@@ -1,6 +1,5 @@
 include_directories(${CMAKE_SOURCE_DIR}/vendor)
 
-add_subdirectory(core)
 add_subdirectory(graph)
 add_subdirectory(pitamem)
 add_subdirectory(utils)
