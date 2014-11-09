@@ -1,0 +1,8 @@
+---
+BasedOnStyle:  LLVM
+IndentWidth: 4
+TabWidth: 4
+AccessModifierOffset: -2
+PointerBindsToType: true
+Standard: Cpp11
+ColumnLimit: 120
