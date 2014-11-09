@@ -83,6 +83,13 @@ GLOVE_FWD_DECL(InputManager);
 
 GLOVE_FWD_DECL(StringIdDatabase);
 
-GLOVE_FWD_DECL(MemoryProfile)
+GLOVE_FWD_DECL(MemoryProfile);
+
+GLOVE_FWD_DECL(ISubsystemFactory);
+GLOVE_FWD_DECL(ISharedLibraryLoader);
+GLOVE_FWD_DECL(ISharedLibraryLoaderFactory);
+class ISystemExtension;
+typedef std::weak_ptr<ISystemExtension> ISystemExtensionPtr;
+typedef std::shared_ptr<ISystemExtension> ISystemExtensionSharedPtr;
 
 }

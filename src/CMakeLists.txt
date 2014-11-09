@@ -1,11 +1,34 @@
 cmake_minimum_required(VERSION 2.8)
 project(glove)
 
+set(GLOVE_VERSION_MAJOR 1)
+set(GLOVE_VERSION_MINOR 0)
+set(GLOVE_VERSION_PATCH 0)
+
+if(WIN32)
+	set(ON_WINDOWS 1)
+	add_definitions(-DON_WINDOWS)
+else()
+	set(ON_UNIX 1)
+	add_definitions(-DON_UNIX)
+endif()
+
 add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB -DGLEW_MX -DBOOST_ALL_DYN_LINK -DHAVE_ROUND)
 
 if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
 	#add_definitions(-DPy_TRACE_REFS -DPy_DEBUG)
 endif()
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+include_directories(BEFORE ${CMAKE_BINARY_DIR})
+
+configure_file (
+  "${PROJECT_SOURCE_DIR}/GloveConfig.h.in"
+  "${PROJECT_BINARY_DIR}/GloveConfig.h"
+)
 
 if(WIN32)
 	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/windows")
@@ -25,6 +48,7 @@ if(WIN32)
 	include_directories("${deps_path}/include/glfw")
 	include_directories("${deps_path}/include/glm")
 	include_directories("${deps_path}/include/python")
+	include_directories("${deps_path}/include/tclap")
 
 	link_directories("${deps_path}/libs/boost")
 	link_directories("${deps_path}/libs/glew")
@@ -42,55 +66,48 @@ include_directories(${CMAKE_SOURCE_DIR})
 
 add_subdirectory(vendor)
 
-file(GLOB_RECURSE glove_sources 
+file(GLOB_RECURSE glove_sources
 	"buffers/*.cpp"
 	"buffers/*.h"
-	
+
 	"core/*.cpp"
 	"core/*.h"
-	
+
 	"event/*.cpp"
 	"event/*.h"
-	
+
 	"graph/*.cpp"
 	"graph/*.h"
-	
+
 	"input/*.cpp"
 	"input/*.h"
-	
+
 	"log/*.cpp"
 	"log/*.h"
-	
+
 	"pitamem/*.cpp"
 	"pitamem/*.h"
-	
+
 	"rendering/*.cpp"
 	"rendering/*.h"
-	
+
 	"resources/*.cpp"
 	"resources/*.h"
-	
+
 	"scripting/*.cpp"
 	"scripting/*.h"
-	
+
 	"shader/*.cpp"
 	"shader/*.h"
-	
+
 	"utils/*.cpp"
 	"utils/*.h"
 )
 add_library(glove ${glove_sources})
-target_link_libraries(glove vendor_jsoncpp)
+target_link_libraries(glove vendor_jsoncpp dl)
 
 set(cellulose_source main.cpp)
 add_executable(cellulose ${cellulose_source})
-
-file(GLOB_RECURSE tests_sources
-	"tests/*.cpp"
-	"tests/*.h"
-)
-#add_executable(glove_tests ${tests_sources})
-#set_target_properties(glove_tests PROPERTIES COMPILE_DEFINITIONS "GLOVE_TESTS_BUILD")
 
 if(WIN32)
 	set(glove_libs
@@ -106,7 +123,6 @@ if(WIN32)
 		optimized boost_filesystem
 		optimized boost_log
 		optimized boost_log_setup
-		optimized boost_program_options
 
 		debug boost_thread-d
 		debug boost_system-d
@@ -114,15 +130,14 @@ if(WIN32)
 		debug boost_filesystem-d
 		debug boost_log-d
 		debug boost_log_setup-d
-        debug boost_program_options-d
 
 		general glove
-	)	
+	)
 else()
 	set(glove_libs
 		pthread
 		glfw
-		GL	
+		GL
 		GLEWmx
 		GLU
 		boost_thread
@@ -132,10 +147,9 @@ else()
 		boost_log
 		boost_log_setup
 		boost_python3
-		boost_program_options
 		${PYTHON_LIBRARY}
 		glove
-	)	
+	)
 endif()
 
 target_link_libraries(cellulose ${glove_libs})
