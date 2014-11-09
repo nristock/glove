@@ -1,0 +1,7 @@
+site_name: Glove Engine
+theme: readthedocs
+pages:
+- [index.md, Home]
+- [cmdconfig.md, 'CLI and Configuration']
+- ['classes/GloveCore.md', 'Classes', 'GloveCore']
+- ['classes/GloveException.md', 'Classes', 'GloveException']
