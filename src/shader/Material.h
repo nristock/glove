@@ -6,7 +6,7 @@
 
 #include "core/GloveFwd.h"
 #include <pitamem/MemoryProfile.h>
-#include <log/Log.h>
+#include <core/log/Log.h>
 #include "MappedMaterialAttribute.h"
 
 namespace glove {

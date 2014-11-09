@@ -1,9 +1,9 @@
 #pragma once
 
-#include "core/GloveFwd.h"
+#include "GloveFwd.h"
 #include <pitamem/MemoryProfile.h>
 
-#include "buffers/BufferUsage.h"
+#include <rendering/buffers/BufferUsage.h>
 
 namespace glove {
 

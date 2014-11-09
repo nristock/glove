@@ -56,7 +56,7 @@ if(WIN32)
 	link_directories("${deps_path}/libs/python")
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++11 -pthread")
-	set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -MMD -MP")
+	set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -MMD -MP -DDEBUG")
 
 	find_package(PythonLibs 3.0 REQUIRED)
 	include_directories(${PYTHON_INCLUDE_DIR})
@@ -65,6 +65,8 @@ endif()
 include_directories(${CMAKE_SOURCE_DIR})
 
 add_subdirectory(vendor)
+
+add_subdirectory(core)
 
 file(GLOB_RECURSE glove_sources
 	"buffers/*.cc"

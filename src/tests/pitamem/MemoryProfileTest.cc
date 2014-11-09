@@ -3,8 +3,8 @@
 #include <algorithm>
 
 #include <vendor/gtest/gtest.h>
-#include "pitamem/MemoryProfile.h"
-#include "pitamem/MemoryProfiler.h"
+#include <core/pitamem/MemoryProfile.h>
+#include <core/pitamem/MemoryProfiler.h>
 #include "utils/Demangle.h"
 
 namespace glove {

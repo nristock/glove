@@ -4,10 +4,10 @@
 #include <map>
 
 #include <core/GloveFwd.h>
-#include <core/ISharedLibraryLoaderFactory.h>
-#include <core/ISystemExtensionLoader.h>
-#include <core/ISystemExtension.h>
-#include <log/Log.h>
+#include <core/natex/ISharedLibraryLoaderFactory.h>
+#include <core/natex/ISystemExtensionLoader.h>
+#include <core/natex/ISystemExtension.h>
+#include <core/log/Log.h>
 
 namespace glove {
 
@@ -23,7 +23,7 @@ class BifrostLoader : public ISystemExtensionLoader {
     virtual ISystemExtensionPtr LoadSystemExtension(const std::string& extensionName);
     virtual void UnloadSystemExtension(const ISystemExtensionPtr& systemExtension);
 
-    inline void SetSharedLoaderFactory(const ISharedLibraryLoaderFactoryPtr& proxyFactory);
+    GLOVE_INLINE void SetSharedLoaderFactory(const ISharedLibraryLoaderFactoryPtr& proxyFactory);
 
   private:
     logging::GloveLogger logger;

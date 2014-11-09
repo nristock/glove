@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 #include <vendor/gtest/gtest.h>
-#include "graph/Scenegraph.h"
-#include "graph/GameObject.h"
+#include <core/graph/Scenegraph.h>
+#include <core/graph/GameObject.h>
 #include "tests/graph/mock/GameObjectMock.h"
 
 namespace glove {

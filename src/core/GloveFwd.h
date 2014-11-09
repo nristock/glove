@@ -12,6 +12,12 @@
     GLOVE_MAKE_SHARED(type_) type_##Pointer;    \
     GLOVE_MAKE_SHARED(type_) type_##Ptr;
 
+#if defined (DEBUG)
+#define GLOVE_INLINE
+#else
+#define GLOVE_INLINE inline
+#endif
+
 namespace glove {
 
 GLOVE_FWD_DECL(ShaderProgram);
@@ -85,6 +91,7 @@ GLOVE_FWD_DECL(StringIdDatabase);
 
 GLOVE_FWD_DECL(MemoryProfile);
 
+GLOVE_FWD_DECL(IGpuBufferManager);
 GLOVE_FWD_DECL(ISubsystemFactory);
 GLOVE_FWD_DECL(ISharedLibraryLoader);
 GLOVE_FWD_DECL(ISharedLibraryLoaderFactory);

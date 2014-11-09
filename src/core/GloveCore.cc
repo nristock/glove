@@ -15,15 +15,15 @@
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
 #include "graph/GameComponent.h"
-#include "rendering/opengl/GLRenderer.h"
 #include "core/GpuBufferManager.h"
 #include "core/PluginLoader.h"
 #include "scripting/GlovePythonEngine.h"
 #include "shader/pyshed/PyShedLoader.h"
-#include "event/EventBus.h"
+#include <core/events/EventBus.h>
 #include "input/InputManager.h"
 #include "pitamem/MemoryProfiler.h"
-#include <event/type/CorePreInitEvent.h>
+#include <core/events/type/CorePreInitEvent.h>
+#include <core/rendering/IRenderer.h>
 
 #include "GloveConfig.h"
 
@@ -138,7 +138,7 @@ void GloveCore::Init(int argc, const char** argv) {
 }
 
 void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
-    renderer = RendererPtr(new GLRenderer(eventBus));
+    //renderer = RendererPtr(new GLRenderer(eventBus));
 
     try {
         renderer->Init();

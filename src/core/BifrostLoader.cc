@@ -3,7 +3,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/format.hpp>
 
-#include <core/ISharedLibraryLoader.h>
+#include <core/natex/ISharedLibraryLoader.h>
 
 #if defined(__unix__) || defined(__unix)
 #include <core/internal/so/SoLoaderFactory.h>

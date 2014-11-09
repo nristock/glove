@@ -4,9 +4,9 @@
 #include <map>
 
 #include <pitamem/MemoryProfile.h>
-#include <log/Log.h>
+#include <core/log/Log.h>
 #include "shader/MappedMaterialAttribute.h"
-#include "rendering/vertex/VertexAttributeSemantic.h"
+#include <core/rendering/vertex/VertexAttributeSemantic.h>
 
 namespace glove {
 

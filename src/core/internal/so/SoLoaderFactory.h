@@ -1,7 +1,7 @@
 #pragma once
 #if defined(ON_UNIX)
 
-#include <core/ISharedLibraryLoaderFactory.h>
+#include <core/natex/ISharedLibraryLoaderFactory.h>
 
 namespace glove {
 
