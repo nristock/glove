@@ -8,8 +8,8 @@ namespace glove {
 namespace python {
 
 void ExportGameObject() {
-	boost::python::class_<glove::GameObject, std::shared_ptr<GameObject>>("GameObject")
-		.def("AddComponent", &GameObject::AddComponent);
+    boost::python::class_<glove::GameObject, std::shared_ptr<GameObject>>("GameObject")
+            .def("AddComponent", &GameObject::AddComponent);
 }
 
 } // namespace python
