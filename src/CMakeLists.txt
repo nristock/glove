@@ -67,46 +67,46 @@ include_directories(${CMAKE_SOURCE_DIR})
 add_subdirectory(vendor)
 
 file(GLOB_RECURSE glove_sources
-	"buffers/*.cpp"
+	"buffers/*.cc"
 	"buffers/*.h"
 
-	"core/*.cpp"
+	"core/*.cc"
 	"core/*.h"
 
-	"event/*.cpp"
+	"event/*.cc"
 	"event/*.h"
 
-	"graph/*.cpp"
+	"graph/*.cc"
 	"graph/*.h"
 
-	"input/*.cpp"
+	"input/*.cc"
 	"input/*.h"
 
-	"log/*.cpp"
+	"log/*.cc"
 	"log/*.h"
 
-	"pitamem/*.cpp"
+	"pitamem/*.cc"
 	"pitamem/*.h"
 
-	"rendering/*.cpp"
+	"rendering/*.cc"
 	"rendering/*.h"
 
-	"resources/*.cpp"
+	"resources/*.cc"
 	"resources/*.h"
 
-	"scripting/*.cpp"
+	"scripting/*.cc"
 	"scripting/*.h"
 
-	"shader/*.cpp"
+	"shader/*.cc"
 	"shader/*.h"
 
-	"utils/*.cpp"
+	"utils/*.cc"
 	"utils/*.h"
 )
 add_library(glove ${glove_sources})
 target_link_libraries(glove vendor_jsoncpp dl)
 
-set(cellulose_source main.cpp)
+set(cellulose_source main.cc)
 add_executable(cellulose ${cellulose_source})
 
 if(WIN32)
@@ -153,7 +153,6 @@ else()
 endif()
 
 target_link_libraries(cellulose ${glove_libs})
-#target_link_libraries(glove_tests ${glove_libs})
 
 add_subdirectory(tests)
 

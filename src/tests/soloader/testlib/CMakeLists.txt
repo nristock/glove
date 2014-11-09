@@ -1,1 +1,1 @@
-add_library(tests_soloader_testlib SHARED Testlib.cpp)
+add_library(tests_soloader_testlib SHARED Testlib.cc)

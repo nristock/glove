@@ -1,4 +1,4 @@
-add_executable(tests_bifrost BifrostLoaderTests.cpp)
+add_executable(tests_bifrost BifrostLoaderTests.cc)
 target_link_libraries(tests_bifrost vendor_gmock vendor_gtest_main ${glove_libs})
 
 add_subdirectory(testlib)
