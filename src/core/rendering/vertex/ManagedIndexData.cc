@@ -4,12 +4,10 @@
 
 namespace glove {
 
-ManagedIndexData::ManagedIndexData(const GpuBufferManagerPtr& gpuBufferManager) : IndexData(gpuBufferManager), EnableProfilable() {
-}
+ManagedIndexData::ManagedIndexData(const IGpuBufferManagerPtr& gpuBufferManager)
+    : IndexData(gpuBufferManager), EnableProfilable() {}
 
-ManagedIndexData::~ManagedIndexData() {
-
-}
+ManagedIndexData::~ManagedIndexData() {}
 
 void ManagedIndexData::FlushBuffer() const {
     indexBuffer->WriteData(GetIndexCount() * sizeof(unsigned int), &indices[0]);

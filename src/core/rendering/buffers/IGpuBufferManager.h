@@ -7,14 +7,14 @@
 namespace glove {
 
 class IGpuBufferManager {
-public:
-    virtual ~IGpuBufferManager();
+  public:
+    virtual ~IGpuBufferManager() {};
 
     /// @brief Creates a vertex buffer
-    virtual IGpuBufferPtr CreateVertexBuffer(BufferUsage bufferUsage);
+    virtual IGpuBufferPtr CreateVertexBuffer(BufferUsage bufferUsage) = 0;
 
     /// @brief Creates an index buffer
-    virtual IGpuBufferPtr CreateIndexBuffer();
+    virtual IGpuBufferPtr CreateIndexBuffer() = 0;
 };
 
 } /* namespace glove */

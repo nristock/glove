@@ -15,7 +15,6 @@
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
 #include "graph/GameComponent.h"
-#include "core/GpuBufferManager.h"
 #include "core/PluginLoader.h"
 #include "scripting/GlovePythonEngine.h"
 #include "shader/pyshed/PyShedLoader.h"
@@ -30,6 +29,11 @@
 #include <utils/RuntimePathInfo.h>
 
 #include <vendor/json/json.h>
+#include <core/natex/IExtensionSearcher.h>
+#include <core/natex/internal/DirectoryExtensionSearcher.h>
+#include <core/events/type/PreExtensionLoadEvent.h>
+#include <core/events/type/NativeExtensionLoadedEvent.h>
+#include <core/events/type/NativeExtensionsLoadedEvent.h>
 
 namespace sc = std::chrono;
 
@@ -110,6 +114,31 @@ void GloveCore::Init(int argc, const char** argv) {
     CorePreInitEvent preInitEvent;
     eventBus->Publish(preInitEvent);
 
+    Configuration& config = gEnv->engineConfiguration;
+
+    DirectoryExtensionSearcher extensionSearcher("data/natex");
+
+    for (auto extension : extensionSearcher.GetExtensions()) {
+        try {
+            PreExtensionLoadEvent preloadEvent;
+            eventBus->Publish(preloadEvent);
+
+            ISystemExtensionPtr systemExtension = bifrostLoader.LoadSystemExtension(extension);
+            systemExtension.lock()->RegisterSubsystems(shared_from_this());
+
+            NativeExtensionLoadedEvent postloadEvent;
+            eventBus->Publish(postloadEvent);
+        }
+        catch (GloveException& ex) {
+            LOG(logger, error, ex.what());
+        }
+    }
+
+    {
+        NativeExtensionsLoadedEvent allExtensionsLoadedEvent;
+        eventBus->Publish(allExtensionsLoadedEvent);
+    }
+
     try {
         Configuration& engineConfig = gEnv->engineConfiguration;
 
@@ -138,7 +167,7 @@ void GloveCore::Init(int argc, const char** argv) {
 }
 
 void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
-    //renderer = RendererPtr(new GLRenderer(eventBus));
+    // renderer = RendererPtr(new GLRenderer(eventBus));
 
     try {
         renderer->Init();
@@ -148,7 +177,7 @@ void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
         LOG(logger, error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
     }
 
-    gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());
+    //    gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());
 }
 
 void GloveCore::InitializeScripting() {

@@ -57,4 +57,11 @@ TEST_F(SoLoaderTests, ThrowsIfSymbolCouldntBeLoaded) {
 
     ASSERT_NO_THROW(delete loader);
 }
+
+TEST_F(SoLoaderTests, CanReloadLibrary) {
+    SoLoader* loader;
+    ASSERT_NO_THROW(loader = new SoLoader(libraryFile));
+    ASSERT_NO_THROW(loader->ReloadLibrary());
+    ASSERT_NO_THROW(delete loader);
+}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include <list>
 
 #include <core/log/Log.h>
 
@@ -41,7 +42,7 @@ class GloveCore : public std::enable_shared_from_this<GloveCore> {
 
     const ScenegraphPtr& GetScenegraph() const { return primaryScenegraph; }
 
-    const GpuBufferManagerPtr& GetGpuBufferManager() const { return gpuBufferManager; }
+    //    const GpuBufferManagerPtr& GetGpuBufferManager() const { return gpuBufferManager; }
 
     const PluginLoaderPtr& GetPluginLoader() const { return pluginLoader; }
 
@@ -57,6 +58,7 @@ class GloveCore : public std::enable_shared_from_this<GloveCore> {
 
   private:
     typedef std::chrono::steady_clock::time_point TimePoint;
+    typedef std::list<ISystemExtensionPtr> SystemExtensionList;
 
     logging::GloveLogger logger;
 
@@ -66,7 +68,7 @@ class GloveCore : public std::enable_shared_from_this<GloveCore> {
     RendererPtr renderer;
     GlovePythonEnginePtr pythonEngine;
     PyShedLoaderPtr pyshedLoader;
-    GpuBufferManagerPtr gpuBufferManager;
+    //    GpuBufferManagerPtr gpuBufferManager;
     ScenegraphPtr primaryScenegraph;
     PluginLoaderPtr pluginLoader;
     InputManagerPtr inputManager;
@@ -74,6 +76,8 @@ class GloveCore : public std::enable_shared_from_this<GloveCore> {
     TimePoint initializationTime;
 
     std::chrono::duration<double> lastFrameTime;
+
+    SystemExtensionList systemExtensionList;
 
     FrameData frameData;
 

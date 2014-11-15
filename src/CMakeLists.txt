@@ -63,10 +63,12 @@ else()
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/core)
 
 add_subdirectory(vendor)
 
 add_subdirectory(core)
+add_subdirectory(modules)
 
 file(GLOB_RECURSE glove_sources
 	"buffers/*.cc"

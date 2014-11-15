@@ -2,20 +2,17 @@
 
 #include <glm/glm.hpp>
 
-#include <pitamem/MemoryProfile.h>
+#include <core/pitamem/MemoryProfile.h>
 
 namespace glove {
 
 /** Data structure representing the current frame state. */
 struct FrameData {
-Profilable()
-public:
-    FrameData() :
-            EnableProfilable(), frameId(0), viewProjectionMatrix(glm::mat4()), deltaTime(0), currentContext(0) {
-    }
+    Profilable()
+  public:
+    FrameData() : EnableProfilable(), frameId(0), viewProjectionMatrix(glm::mat4()), deltaTime(0), currentContext(0) {}
 
-    virtual ~FrameData() {
-    }
+    virtual ~FrameData() {}
 
     /** The current frame's Id */
     unsigned long frameId;
@@ -26,6 +23,5 @@ public:
     /** The current context ID */
     std::size_t currentContext;
 };
-
 
 } // namespace glove

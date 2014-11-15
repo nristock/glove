@@ -3,16 +3,16 @@
 #include <memory>
 
 #define GLOVE_MAKE_SHARED(type_) typedef std::shared_ptr<type_>
-#define GLOVE_FWD_DECL(type_)                    \
-    class type_;                                \
-    GLOVE_MAKE_SHARED(type_) type_##Pointer;    \
+#define GLOVE_FWD_DECL(type_)                                                                                          \
+    class type_;                                                                                                       \
+    GLOVE_MAKE_SHARED(type_) type_##Pointer;                                                                           \
     GLOVE_MAKE_SHARED(type_) type_##Ptr;
-#define GLOVE_FWD_DECL_STRUCT(type_)                    \
-    struct type_;                                \
-    GLOVE_MAKE_SHARED(type_) type_##Pointer;    \
+#define GLOVE_FWD_DECL_STRUCT(type_)                                                                                   \
+    struct type_;                                                                                                      \
+    GLOVE_MAKE_SHARED(type_) type_##Pointer;                                                                           \
     GLOVE_MAKE_SHARED(type_) type_##Ptr;
 
-#if defined (DEBUG)
+#if defined(DEBUG)
 #define GLOVE_INLINE
 #else
 #define GLOVE_INLINE inline
@@ -63,8 +63,6 @@ GLOVE_FWD_DECL(IndexData);
 
 GLOVE_FWD_DECL(ManagedIndexData);
 
-GLOVE_FWD_DECL(GpuBufferManager);
-
 GLOVE_FWD_DECL(IRenderer);
 typedef IRendererPtr RendererPtr;
 
@@ -98,5 +96,5 @@ GLOVE_FWD_DECL(ISharedLibraryLoaderFactory);
 class ISystemExtension;
 typedef std::weak_ptr<ISystemExtension> ISystemExtensionPtr;
 typedef std::shared_ptr<ISystemExtension> ISystemExtensionSharedPtr;
-
+GLOVE_FWD_DECL(ISubsystemDefinition);
 }

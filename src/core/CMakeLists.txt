@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/core)
-
 add_subdirectory(internal)
 add_subdirectory(rendering)
 add_subdirectory(natex)

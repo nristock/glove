@@ -13,7 +13,7 @@ class IndexData {
     Profilable();
 
   public:
-    IndexData(const GpuBufferManagerPtr& gpuBufferManager);
+    IndexData(const IGpuBufferManagerPtr& gpuBufferManager);
     virtual ~IndexData();
 
     /** Returns the number of indices */

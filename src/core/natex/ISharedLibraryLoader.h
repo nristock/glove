@@ -9,7 +9,7 @@ namespace glove {
 /// A shared library loader is an object bound to a specific shared library file (.so, .dll) and will be used as an
 /// interface to load symbols (primarily the LoadExtension and UnloadExtension functions) from the library.
 class ISharedLibraryLoader {
-public:
+  public:
     virtual ~ISharedLibraryLoader() {};
 
     /// @brief Loads a named symbol from the library.
@@ -17,6 +17,9 @@ public:
     /// @param symbolName [in] The name of the symbol to load.
     /// @return Returns a pointer to the loaded symbol or throws a GloveException.
     virtual void* LoadSymbol(const std::string& symbolName) = 0;
+
+    /// @brief Reloads the library this loader has loaded.
+    virtual void ReloadLibrary() = 0;
 };
 
 } /* namespace glove */

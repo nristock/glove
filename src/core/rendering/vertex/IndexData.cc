@@ -1,27 +1,18 @@
 #include "IndexData.h"
 
-#include <core/GpuBufferManager.h>
+#include <core/rendering/buffers/IGpuBufferManager.h>
 
 namespace glove {
 
-IndexData::IndexData(const GpuBufferManagerPtr& gpuBufferManager) :
-	EnableProfilable() {
+IndexData::IndexData(const IGpuBufferManagerPtr& gpuBufferManager) : EnableProfilable() {
     indexBuffer = gpuBufferManager->CreateIndexBuffer();
 }
 
-IndexData::~IndexData() {
+IndexData::~IndexData() {}
 
-}
+IGpuBufferPtr const IndexData::GetBuffer() const { return indexBuffer; }
 
-IGpuBufferPtr const IndexData::GetBuffer() const {
-    return indexBuffer;
-}
+void IndexData::SetIndexCount(size_t count) { indexCount = count; }
 
-void IndexData::SetIndexCount(size_t count) {
-    indexCount = count;
-}
-
-size_t const IndexData::GetIndexCount() const {
-    return indexCount;
-}
+size_t const IndexData::GetIndexCount() const { return indexCount; }
 } // namespace glove
