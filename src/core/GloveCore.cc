@@ -30,10 +30,16 @@
 
 #include <vendor/json/json.h>
 #include <core/natex/IExtensionSearcher.h>
-#include <core/natex/internal/DirectoryExtensionSearcher.h>
+#include <core/natex/ISubsystemDefinition.h>
+#include <core/natex/ISubsystemFactory.h>
+#include <core/natex/DirectoryExtensionSearcher.h>
+#include <core/natex/GloveSubsystemDefinitionRegistry.h>
 #include <core/events/type/PreExtensionLoadEvent.h>
 #include <core/events/type/NativeExtensionLoadedEvent.h>
 #include <core/events/type/NativeExtensionsLoadedEvent.h>
+#include <core/events/type/PreSubsystemCreateEvent.h>
+#include <core/events/type/SubsystemCreatedEvent.h>
+#include <core/natex/GloveSubsystemInstanceRegistry.h>
 
 namespace sc = std::chrono;
 
@@ -117,6 +123,7 @@ void GloveCore::Init(int argc, const char** argv) {
     Configuration& config = gEnv->engineConfiguration;
 
     DirectoryExtensionSearcher extensionSearcher("data/natex");
+    ISubsystemDefinitionRegistryPtr subsystemDefinitionRegistry = std::make_shared<GloveSubsystemDefinitionRegistry>();
 
     for (auto extension : extensionSearcher.GetExtensions()) {
         try {
@@ -124,7 +131,7 @@ void GloveCore::Init(int argc, const char** argv) {
             eventBus->Publish(preloadEvent);
 
             ISystemExtensionPtr systemExtension = bifrostLoader.LoadSystemExtension(extension);
-            systemExtension.lock()->RegisterSubsystems(shared_from_this());
+            systemExtension.lock()->RegisterSubsystems(subsystemDefinitionRegistry);
 
             NativeExtensionLoadedEvent postloadEvent;
             eventBus->Publish(postloadEvent);
@@ -138,6 +145,9 @@ void GloveCore::Init(int argc, const char** argv) {
         NativeExtensionsLoadedEvent allExtensionsLoadedEvent;
         eventBus->Publish(allExtensionsLoadedEvent);
     }
+
+    ISubsystemInstanceRegistryPtr subsystemInstanceRegistry = std::make_shared<GloveSubsystemInstanceRegistry>(eventBus);
+    subsystemInstanceRegistry->InstantiateDefinitionRegistry(subsystemDefinitionRegistry);
 
     try {
         Configuration& engineConfig = gEnv->engineConfiguration;

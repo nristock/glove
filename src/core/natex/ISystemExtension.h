@@ -2,13 +2,11 @@
 
 #include <boost/uuid/uuid.hpp>
 
+#include "Natex.h"
+
 #include <core/GloveFwd.h>
 
 namespace glove {
-
-typedef boost::uuids::uuid ExtensionUuid;
-typedef ISystemExtension* (*LoadSystemExtensionLibraryFunc)();
-typedef void (*UnloadSystemExtensionLibrary)();
 
 /// @brief Interface for system extension.
 ///
@@ -20,8 +18,8 @@ public:
 
     /// @brief Registers all subsystems the extension module provides.
     ///
-    /// @param engineCore [in] A shared_ptr to the engine core currently being initialized.
-    virtual void RegisterSubsystems(const GloveCorePtr& engineCore) = 0;
+    /// @param engineCore [in] A shared_ptr to the subsystem registry.
+    virtual void RegisterSubsystems(const ISubsystemDefinitionRegistryPtr& subsystemRegistry) = 0;
 
     virtual const ExtensionUuid GetExtensionUuid() const = 0;
 

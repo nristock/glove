@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "Natex.h"
+
 namespace glove {
 
 /// @brief Interface for shared library loaders.
@@ -20,6 +22,9 @@ class ISharedLibraryLoader {
 
     /// @brief Reloads the library this loader has loaded.
     virtual void ReloadLibrary() = 0;
+
+    virtual LoadSystemExtensionLibraryFunc GetLibraryLoaderFunc() = 0;
+    virtual UnloadSystemExtensionLibraryFunc GetLibraryUnloaderFunc() = 0;
 };
 
 } /* namespace glove */

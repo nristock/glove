@@ -54,6 +54,26 @@ void SoLoader::UnloadLibrary() {
         LOG(logger, error, (boost::format("Failed to unload SO library %1%: %2%") % libraryHandle % dlerror()).str());
     }
 }
+
+LoadSystemExtensionLibraryFunc SoLoader::GetLibraryLoaderFunc() {
+    LoadSystemExtensionLibraryFunc loadFunction = (LoadSystemExtensionLibraryFunc)(LoadSymbol("LoadExtension"));
+
+    if(!loadFunction) {
+        throw GLOVE_EXCEPTION((boost::format("Failed to retrieve library load function for %1%") % libraryFile).str());
+    }
+
+    return loadFunction;
+}
+
+UnloadSystemExtensionLibraryFunc SoLoader::GetLibraryUnloaderFunc() {
+    UnloadSystemExtensionLibraryFunc unloadFunction = (UnloadSystemExtensionLibraryFunc)(LoadSymbol("UnloadExtension"));
+
+    if(!unloadFunction) {
+        throw GLOVE_EXCEPTION((boost::format("Failed to retrieve library unload function for %1%") % libraryFile).str());
+    }
+
+    return unloadFunction;
+}
 }
 
 #endif

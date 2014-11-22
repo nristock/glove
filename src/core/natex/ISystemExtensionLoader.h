@@ -5,14 +5,14 @@
 
 namespace glove {
 
+/// @brief Loads a system extension by file-path.
 class ISystemExtensionLoader {
 public:
     virtual ~ISystemExtensionLoader() {}
 
     /// @brief Loads a system extension.
     ///
-    /// @param extensionName [in] The extension's name. This can either be an actual file path or just a simple name
-    ///                           depending on the extension finder used to discover the extension.
+    /// @param extensionName [in] The extension's file path.
     virtual ISystemExtensionPtr LoadSystemExtension(const std::string& extensionName) = 0;
 
     /// @brief Unloads a system extension.

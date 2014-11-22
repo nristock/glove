@@ -9,7 +9,7 @@
 
 #include "GloveException.h"
 #include "rendering/FrameData.h"
-#include <core/BifrostLoader.h>
+#include <core/natex/BifrostLoader.h>
 
 namespace glove {
 

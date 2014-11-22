@@ -3,7 +3,7 @@
 #include "ISubsystemDefinition.h"
 
 namespace glove {
-namespace systemtypes {
+namespace SystemTypes {
 
 extern const SubsystemType renderingSystem;
 }

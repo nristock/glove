@@ -2,6 +2,8 @@
 
 #include <queue>
 
+#include "../ISubsystemDefinition.h"
+
 namespace glove {
 
 ExtensionDependencyGraph::ExtensionDependencyGraph(SubsystemDefinitionList& unsortedSubsystemDefinitions) {
@@ -18,11 +20,8 @@ ExtensionDependencyGraph::ExtensionDependencyGraph(SubsystemDefinitionList& unso
 void ExtensionDependencyGraph::BuildEdges() {
     for (DependencyGraphNode& currentGraphNode : graphNodes) {
         for (DependencyGraphNode& probableDependentGraphNode : graphNodes) {
-            for (const SubsystemType& subsystemType :
-                 probableDependentGraphNode.subsystemDefinition->GetSystemDependencies()) {
-                if (subsystemType == currentGraphNode.subsystemDefinition->GetSystemType()) {
-                    currentGraphNode.dependentNodes.push_back(&probableDependentGraphNode);
-                }
+            if(probableDependentGraphNode.DependsOnSystemType(currentGraphNode.subsystemDefinition->GetSystemType())) {
+                currentGraphNode.dependentNodes.push_back(&probableDependentGraphNode);
             }
         }
     }
@@ -65,9 +64,19 @@ void ExtensionDependencyGraph::VisitNode(DependencyGraphNode& node) {
     sortedSubsystemList.push_front(node.subsystemDefinition);
 }
 
-ExtensionDependencyGraph::SubsystemDefinitionList ExtensionDependencyGraph::GetSortedList() {
+SubsystemDefinitionList ExtensionDependencyGraph::GetSortedList() {
     return sortedSubsystemList;
 }
 
 ExtensionDependencyGraph::~ExtensionDependencyGraph() {}
+
+bool ExtensionDependencyGraph::DependencyGraphNode::DependsOnSystemType(const SubsystemType& subsystemType) {
+    for (const SubsystemType& currentSubsystemType : subsystemDefinition->GetSystemDependencies()) {
+        if (currentSubsystemType == subsystemType) {
+            return true;
+        }
+    }
+
+    return false;
+}
 }

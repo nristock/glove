@@ -8,7 +8,6 @@ add_subdirectory(graph)
 add_subdirectory(pitamem)
 
 set(core_src
-    BifrostLoader.cc
     Configuration.cc
     GloveCore.cc
     GloveEnvironment.cc

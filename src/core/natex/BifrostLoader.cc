@@ -14,7 +14,7 @@ namespace glove {
 BifrostLoader::BifrostLoader() {
 #if defined(ON_UNIX)
     LOG(logger, info, "Initializing Bifrost loader with default SoLoaderFactory (UNIX, .so)");
-    proxyFactory = std::make_shared<SoLoaderFactory>();
+    loaderFactory = std::make_shared<SoLoaderFactory>();
 #elif defined(ON_WINDOWS)
     LOG(logger, info, "Initializing Bifrost loader with default DllLoaderFactory (WINDOWS, .dll)");
 // Not implemented yet
@@ -24,33 +24,27 @@ BifrostLoader::BifrostLoader() {
 #endif
 }
 
-void BifrostLoader::SetSharedLoaderFactory(const ISharedLibraryLoaderFactoryPtr& proxyFactory) {
-    this->proxyFactory = proxyFactory;
-}
+BifrostLoader::BifrostLoader(const ISharedLibraryLoaderFactoryPtr& sharedLibraryLoaderFactory)
+    : loaderFactory(sharedLibraryLoaderFactory) {}
 
-ISystemExtensionPtr BifrostLoader::LoadSystemExtension(const std::string& extensionName) {
-    #if defined(ON_UNIX)
-    const std::string libraryName = "../lib/" + extensionName + ".so";
-    #elif defined(ON_WINDOWS)
-    const std::string libraryName = "../lib/" + extensionName + ".dll";
-    #endif
+ISystemExtensionPtr BifrostLoader::LoadSystemExtension(const std::string& extensionFile) {
+    LOG(logger, info, (boost::format("Creating library loader for %1%...") % extensionFile).str());
 
-    LOG(logger, info, (boost::format("Creating library loader for %1%...") % libraryName).str());
+    ISharedLibraryLoaderPtr sharedLibraryLoader = this->CreateLibraryLoader(extensionFile);
 
-    ISharedLibraryLoaderPtr sharedLibraryLoader = this->CreateLibraryLoader(libraryName);
+    LoadSystemExtensionLibraryFunc extensionLoaderFunc = sharedLibraryLoader->GetLibraryLoaderFunc();
 
-    LoadSystemExtensionLibraryFunc extensionLoaderFunc =
-        (LoadSystemExtensionLibraryFunc)(sharedLibraryLoader->LoadSymbol("LoadExtension"));
+    LOG(logger, info, (boost::format("Invoking extension loader function for %1%...") % extensionFile).str());
 
-    LOG(logger, info, (boost::format("Invoking extension loader function for %1%...") % libraryName).str());
     // We currently have to allocate the shared_ptr object inside the main module to prevent memory invalidation when
     // the extension's SO/DLL is unloaded
-    ISystemExtensionSharedPtr systemExtension (extensionLoaderFunc());
+    ISystemExtensionSharedPtr systemExtension(extensionLoaderFunc());
 
     loadedExtensions.insert(
         std::make_pair(systemExtension->GetExtensionUuid(), std::make_pair(sharedLibraryLoader, systemExtension)));
 
-    LOG(logger, info, (boost::format("Extension %1% (%2%) has been loaded.") % systemExtension->GetExtensionUuid() % systemExtension->GetExtensionName()).str());
+    LOG(logger, info, (boost::format("Extension %1% (%2%) has been loaded.") % systemExtension->GetExtensionUuid() %
+                       systemExtension->GetExtensionName()).str());
     return systemExtension;
 }
 
@@ -61,20 +55,25 @@ void BifrostLoader::UnloadSystemExtension(const ISystemExtensionPtr& systemExten
     {
         SystemExtensionMap::iterator iter = loadedExtensions.find(extensionUuid);
 
-        UnloadSystemExtensionLibrary extensionUnloaderFunc =
-                (UnloadSystemExtensionLibrary) (iter->second.first->LoadSymbol("UnloadExtension"));
+        UnloadSystemExtensionLibraryFunc extensionUnloaderFunc = iter->second.first->GetLibraryUnloaderFunc();
 
         if (!iter->second.second.unique()) {
-            LOG(logger, warning, (boost::format("Unloading extension module %1% which still has references :(") % extensionUuid).str());
+            LOG(logger, warning,
+                (boost::format("Unloading extension module %1% which still has references :(") % extensionUuid).str());
         }
         iter->second.second.reset();
 
-        LOG(logger, info, (boost::format("Invoking extension unloader function for %1% (%2%)...") % extensionUuid % extensionName).str());
+        LOG(logger, info, (boost::format("Invoking extension unloader function for %1% (%2%)...") % extensionUuid %
+                           extensionName).str());
         extensionUnloaderFunc();
     }
 
     loadedExtensions.erase(extensionUuid);
 
     LOG(logger, info, (boost::format("Extension %1% has been unloaded.") % extensionUuid).str());
+}
+
+ISharedLibraryLoaderPtr BifrostLoader::CreateLibraryLoader(const std::string& libraryFilePath) {
+    return loaderFactory->CreateLibraryLoader(libraryFilePath);
 }
 }

@@ -17,7 +17,12 @@ class SoLoader : public ISharedLibraryLoader {
 
     virtual void ReloadLibrary();
 
-  private:
+
+    virtual LoadSystemExtensionLibraryFunc GetLibraryLoaderFunc() override;
+
+    virtual UnloadSystemExtensionLibraryFunc GetLibraryUnloaderFunc() override;
+
+private:
     const std::string libraryFile;
     logging::GloveLogger logger;
 

@@ -1,7 +1,11 @@
 set(gc_natex_src
    SubsystemTypes.cc
+   BifrostLoader.cc
+   GloveSubsystemDefinition.cc
+   GloveSubsystemDefinitionRegistry.cc
+   GloveSubsystemInstanceRegistry.cc
+   DirectoryExtensionSearcher.cc
 
-   internal/DirectoryExtensionSearcher.cc
    internal/ExtensionDependencyGraph.cc
 )
 

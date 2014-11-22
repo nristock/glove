@@ -7,12 +7,9 @@
 #include <core/GloveFwd.h>
 #include <core/natex/ISubsystemFactory.h>
 
+#include "Natex.h"
+
 namespace glove {
-
-typedef boost::uuids::uuid SubsystemType;
-typedef boost::uuids::uuid SubsystemUuid;
-
-typedef std::list<SubsystemType> SubsystemTypeList;
 
 /// @brief Interface for subsystem definitions
 class ISubsystemDefinition {

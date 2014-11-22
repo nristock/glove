@@ -1,6 +1,6 @@
 #include "GpuBufferManager.h"
 
-#include "buffers/opengl/GLGpuBuffer.h"
+#include <core/opengl/GLGpuBuffer.h>
 
 namespace glove {
 

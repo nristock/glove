@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/GloveFwd.h>
+#include "Natex.h"
 
 namespace glove {
 
