@@ -131,7 +131,7 @@ void GloveCore::Init(int argc, const char** argv) {
             eventBus->Publish(preloadEvent);
 
             ISystemExtensionPtr systemExtension = bifrostLoader.LoadSystemExtension(extension);
-            systemExtension.lock()->RegisterSubsystems(subsystemDefinitionRegistry);
+            systemExtension->RegisterSubsystems(subsystemDefinitionRegistry);
 
             NativeExtensionLoadedEvent postloadEvent;
             eventBus->Publish(postloadEvent);
@@ -146,7 +146,7 @@ void GloveCore::Init(int argc, const char** argv) {
         eventBus->Publish(allExtensionsLoadedEvent);
     }
 
-    ISubsystemInstanceRegistryPtr subsystemInstanceRegistry = std::make_shared<GloveSubsystemInstanceRegistry>(eventBus);
+    ISubsystemInstanceRegistryPtr subsystemInstanceRegistry = std::make_shared<GloveSubsystemInstanceRegistry>(eventBus, shared_from_this());
     subsystemInstanceRegistry->InstantiateDefinitionRegistry(subsystemDefinitionRegistry);
 
     try {

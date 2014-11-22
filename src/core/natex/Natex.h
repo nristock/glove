@@ -34,14 +34,13 @@ typedef std::shared_ptr<ISharedLibraryLoader> ISharedLibraryLoaderPtr;
 typedef std::shared_ptr<ISharedLibraryLoaderFactory> ISharedLibraryLoaderFactoryPtr;
 typedef std::shared_ptr<ISubsystemDefinition> ISubsystemDefinitionPtr;
 typedef std::shared_ptr<ISubsystemFactory> ISubsystemFactoryPtr;
-typedef std::weak_ptr<ISystemExtension> ISystemExtensionPtr;
-typedef std::shared_ptr<ISystemExtension> ISystemExtensionSharedPtr;
+typedef std::shared_ptr<ISystemExtension> ISystemExtensionPtr;
 typedef std::shared_ptr<ISubsystemDefinitionRegistry> ISubsystemDefinitionRegistryPtr;
 typedef std::shared_ptr<ISubsystemInstanceRegistry> ISubsystemInstanceRegistryPtr;
 typedef std::shared_ptr<ISubsystem> ISubsystemPtr;
 
 typedef std::list<ISubsystemDefinitionPtr> SubsystemDefinitionList;
 
-typedef ISystemExtension* (*LoadSystemExtensionLibraryFunc)();
+typedef ISystemExtensionPtr (*LoadSystemExtensionLibraryFunc)();
 typedef void (*UnloadSystemExtensionLibraryFunc)();
 } /* namespace glove */

@@ -1,4 +1,4 @@
-#include <core/BifrostLoader.h>
+#include <core/natex/BifrostLoader.h>
 
 #include <vendor/gtest/gtest.h>
 
@@ -11,7 +11,7 @@ class BifrostLoaderTests : public ::testing::Test {
     static const char* extensionName;
 };
 
-const char* BifrostLoaderTests::extensionName = "libtests_bifrost_testlib";
+const char* BifrostLoaderTests::extensionName = "../lib/libtests_bifrost_testlib.so";
 
 TEST_F(BifrostLoaderTests, CanConstructLoader) { ASSERT_NO_THROW(BifrostLoader loader()); }
 
@@ -20,18 +20,15 @@ TEST_F(BifrostLoaderTests, CanLoadAndUnloadExtensionModule) {
 
     ASSERT_NO_THROW(loader = new BifrostLoader());
 
-    ISystemExtensionPtr sysExtensionWeakPtr = loader->LoadSystemExtension(extensionName);
+    ISystemExtensionPtr sysExtension = loader->LoadSystemExtension(extensionName);
 
-    {
-        auto sysExtension = sysExtensionWeakPtr.lock();
-        ASSERT_NE(nullptr, sysExtension.get());
+    ASSERT_NE(nullptr, sysExtension.get());
 
-        ExtensionUuid uuid = TEST_EXTENSION_UUID;
-        ASSERT_EQ(uuid, sysExtension->GetExtensionUuid());
-        ASSERT_EQ(std::string(TEST_EXTENSION_NAME), sysExtension->GetExtensionName());
-    }
+    ExtensionUuid uuid = TEST_EXTENSION_UUID;
+    ASSERT_EQ(uuid, sysExtension->GetExtensionUuid());
+    ASSERT_EQ(std::string(TEST_EXTENSION_NAME), sysExtension->GetExtensionName());
 
-    ASSERT_NO_THROW(loader->UnloadSystemExtension(sysExtensionWeakPtr));
+    ASSERT_NO_THROW(loader->UnloadSystemExtension(sysExtension));
 
     ASSERT_NO_THROW(delete loader);
 }

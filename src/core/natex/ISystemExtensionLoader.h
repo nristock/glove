@@ -17,8 +17,8 @@ public:
 
     /// @brief Unloads a system extension.
     ///
-    /// @param systemExtension [in] The extension to unload.
-    virtual void UnloadSystemExtension(const ISystemExtensionPtr& systemExtension) = 0;
+    /// @param systemExtension [in/out] The extension to unload. The smart pointer will be invalidated by this!
+    virtual void UnloadSystemExtension(ISystemExtensionPtr& systemExtension) = 0;
 };
 
 } /* namespace glove */

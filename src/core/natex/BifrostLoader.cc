@@ -7,6 +7,8 @@
 
 #if defined(__unix__) || defined(__unix)
 #include <core/internal/so/SoLoaderFactory.h>
+#include <core/GloveException.h>
+
 #endif
 
 namespace glove {
@@ -38,7 +40,7 @@ ISystemExtensionPtr BifrostLoader::LoadSystemExtension(const std::string& extens
 
     // We currently have to allocate the shared_ptr object inside the main module to prevent memory invalidation when
     // the extension's SO/DLL is unloaded
-    ISystemExtensionSharedPtr systemExtension(extensionLoaderFunc());
+    ISystemExtensionPtr systemExtension = extensionLoaderFunc();
 
     loadedExtensions.insert(
         std::make_pair(systemExtension->GetExtensionUuid(), std::make_pair(sharedLibraryLoader, systemExtension)));
@@ -48,12 +50,19 @@ ISystemExtensionPtr BifrostLoader::LoadSystemExtension(const std::string& extens
     return systemExtension;
 }
 
-void BifrostLoader::UnloadSystemExtension(const ISystemExtensionPtr& systemExtensionWeakPtr) {
-    const ExtensionUuid extensionUuid = systemExtensionWeakPtr.lock()->GetExtensionUuid();
-    const std::string extensionName = systemExtensionWeakPtr.lock()->GetExtensionName();
+void BifrostLoader::UnloadSystemExtension(ISystemExtensionPtr& systemExtensionPtr) {
+    const ExtensionUuid extensionUuid = systemExtensionPtr->GetExtensionUuid();
+    const std::string extensionName = systemExtensionPtr->GetExtensionName();
 
     {
         SystemExtensionMap::iterator iter = loadedExtensions.find(extensionUuid);
+        if(iter == loadedExtensions.end()) {
+            throw GLOVE_EXCEPTION((boost::format("Extension %1% is not loaded by this loader.") % systemExtensionPtr->GetExtensionName()).str());
+        }
+
+        // Free the reference to the system extension - the only one left then should be the one from the
+        // loadedExtensions map
+        systemExtensionPtr.reset();
 
         UnloadSystemExtensionLibraryFunc extensionUnloaderFunc = iter->second.first->GetLibraryUnloaderFunc();
 

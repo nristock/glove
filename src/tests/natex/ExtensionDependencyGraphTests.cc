@@ -4,6 +4,8 @@
 
 #include <vendor/gtest/gtest.h>
 #include <core/GloveException.h>
+#include <core/natex/Natex.h>
+#include <core/natex/ISubsystemDefinition.h>
 
 namespace glove {
 
@@ -83,15 +85,15 @@ class ExtensionDependencyGraphTests : public ::testing::Test {
     }
 
   protected:
-    ExtensionDependencyGraph::SubsystemDefinitionList unsortedDefinitionList;
-    ExtensionDependencyGraph::SubsystemDefinitionList sortedDefinitionList;
+    SubsystemDefinitionList unsortedDefinitionList;
+    SubsystemDefinitionList sortedDefinitionList;
 };
 
 TEST_F(ExtensionDependencyGraphTests, SortsDependenciesCorrectly) {
     ExtensionDependencyGraph* dependencyGraph;
     ASSERT_NO_THROW(dependencyGraph = new ExtensionDependencyGraph(unsortedDefinitionList));
 
-    ExtensionDependencyGraph::SubsystemDefinitionList graphSortedList = dependencyGraph->GetSortedList();
+    SubsystemDefinitionList graphSortedList = dependencyGraph->GetSortedList();
 
     ASSERT_EQ(sortedDefinitionList.size(), graphSortedList.size());
 

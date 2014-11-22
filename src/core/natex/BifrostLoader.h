@@ -15,7 +15,7 @@ namespace glove {
 /// @brief The Bifrost loader is the default system extension loader.
 class BifrostLoader : public ISystemExtensionLoader {
   public:
-    typedef std::pair<ISharedLibraryLoaderPtr, ISystemExtensionSharedPtr> SystemExtensionAndLoader;
+    typedef std::pair<ISharedLibraryLoaderPtr, ISystemExtensionPtr> SystemExtensionAndLoader;
     typedef std::map<ExtensionUuid, SystemExtensionAndLoader> SystemExtensionMap;
 
     BifrostLoader();
@@ -23,7 +23,7 @@ class BifrostLoader : public ISystemExtensionLoader {
     virtual ~BifrostLoader() {}
 
     virtual ISystemExtensionPtr LoadSystemExtension(const std::string& extensionFile);
-    virtual void UnloadSystemExtension(const ISystemExtensionPtr& systemExtension);
+    virtual void UnloadSystemExtension(ISystemExtensionPtr& systemExtension);
 
   private:
     logging::GloveLogger logger;
