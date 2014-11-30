@@ -5,17 +5,18 @@
 #include "core/GloveFwd.h"
 
 #include <pitamem/MemoryProfile.h>
-#include <log/Log.h>
+#include <core/log/Log.h>
 
 namespace glove {
 
-class PluginLoader  {
-Profilable();
-public:
+class PluginLoader {
+    Profilable();
+
+  public:
     /** Name <-> Plugin map type */
     typedef std::map<std::string, GlovePluginPtr> PluginMap;
 
-	PluginLoader(const GlovePythonEnginePtr& pythonEngine);
+    PluginLoader(const GlovePythonEnginePtr& pythonEngine);
 
     virtual ~PluginLoader();
 
@@ -30,7 +31,8 @@ public:
 
     /**
     * Discovers a single plugin by name.
-    * When a plugin is discovered it will be imported as a python plugin and it will be added to the list of discovered plugins.
+    * When a plugin is discovered it will be imported as a python plugin and it will be added to the list of discovered
+    * plugins.
     */
     virtual GlovePluginPtr DiscoverPlugin(std::string name);
 
@@ -40,7 +42,7 @@ public:
     /** Reloads a single plugin by name */
     virtual void ReloadPlugin(std::string name);
 
-private:
+  private:
     logging::GloveLogger logger;
 
     GlovePythonEnginePtr pythonEngine;
@@ -51,6 +53,5 @@ private:
     /** Base plugin search path; usually /data/game/plugins/ */
     std::string pluginBasePath;
 };
-
 
 } // namespace glove

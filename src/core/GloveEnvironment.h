@@ -20,5 +20,4 @@ struct GloveEnvironment {
 typedef std::shared_ptr<GloveEnvironment> GloveEnvironmentPtr;
 
 extern GloveEnvironmentPtr gEnv;
-
 }

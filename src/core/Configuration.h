@@ -24,13 +24,15 @@ struct RenderingConfig {
 };
 
 struct EngineConfig {
+    bool loadNativeExtensions;
     std::vector<std::string> subsystemInitList;
 };
 }
 
 class Configuration {
-Profilable();
-public:
+    Profilable();
+
+  public:
     Configuration();
 
     virtual ~Configuration();
@@ -43,5 +45,4 @@ public:
     configuration::RenderingConfig rendering;
     configuration::EngineConfig engine;
 };
-
 }

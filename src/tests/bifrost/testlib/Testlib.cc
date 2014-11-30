@@ -1,10 +1,10 @@
 #include "TestExtension.h"
 
-#include <core/ISystemExtension.h>
+#include <core/natex/Natex.h>
 
 extern "C" {
-glove::ISystemExtension* LoadExtension() {
-    return new glove::TestExtension();
+glove::ISystemExtensionPtr LoadExtension() {
+    return glove::ISystemExtensionPtr(new glove::TestExtension(), [=](glove::TestExtension* ptr) {delete ptr;});
 }
 
 void UnloadExtension() {

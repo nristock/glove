@@ -13,10 +13,7 @@ namespace bfs = boost::filesystem;
 
 namespace glove {
 
-PluginLoader::PluginLoader(const GlovePythonEnginePtr& pythonEngine) :
-        pythonEngine(pythonEngine),
-        EnableProfilable() {
-
+PluginLoader::PluginLoader(const GlovePythonEnginePtr& pythonEngine) : pythonEngine(pythonEngine), EnableProfilable() {
 
     pluginBasePath = gEnv->MakeDataPath("data/game/plugins");
 }
@@ -35,8 +32,7 @@ void PluginLoader::DiscoverPlugins() {
             std::string pluginName = dir->path().filename().string();
             try {
                 DiscoverPlugin(pluginName);
-            }
-            catch (const GloveException& ex) {
+            } catch (const GloveException& ex) {
                 LOG(logger, error, ((boost::format("Failed to load plugin %1%: %2%") % pluginName % ex.what()).str()))
             }
         }

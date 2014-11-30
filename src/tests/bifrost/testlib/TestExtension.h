@@ -1,7 +1,7 @@
 #pragma once
 
-#include <core/ISystemExtension.h>
-#include "core/GloveFwd.h"
+#include <core/GloveFwd.h>
+#include <core/natex/ISystemExtension.h>
 
 namespace glove {
 
@@ -16,6 +16,9 @@ public:
     virtual const ExtensionUuid GetExtensionUuid() const;
 
     virtual const std::string& GetExtensionName() const;
+
+
+    virtual void RegisterSubsystems(const ISubsystemDefinitionRegistryPtr& subsystemRegistry);
 };
 
 } /* namespace glove */

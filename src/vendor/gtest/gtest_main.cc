@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
 
     const char* gloveInitArgs[] = {"", "--init-rendering", "0", "--init-scripting", "0"};
 
-    glove::GloveCore* core = new glove::GloveCore(5, gloveInitArgs);
+    glove::GloveCorePtr core = glove::GloveCorePtr(new glove::GloveCore(5, gloveInitArgs));
     core->Init(5, gloveInitArgs);
 
     testing::InitGoogleMock(&argc, argv);

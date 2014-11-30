@@ -9,12 +9,28 @@ namespace glove {
 class SoLoaderTests : public ::testing::Test {
   protected:
     static const char* libraryFile;
+    SoLoader* loader;
+
+    void CreateLoader() {
+        ClearDLErrors();
+
+        ASSERT_NO_THROW(loader = new SoLoader(libraryFile));
+    }
+
+    void DeleteSoLoader() {
+        ClearDLErrors();
+
+        ASSERT_NO_THROW(delete loader);
+        ASSERT_EQ(nullptr, dlerror());
+    }
+
+    void ClearDLErrors() { dlerror(); }
 };
 
 const char* SoLoaderTests::libraryFile = "../lib/libtests_soloader_testlib.so";
 
 TEST_F(SoLoaderTests, ConstructorLoadsLibrary) {
-    dlerror();
+    ClearDLErrors();
     ASSERT_NO_THROW(SoLoader loader(libraryFile));
     ASSERT_EQ(nullptr, dlerror());
 }
@@ -24,37 +40,57 @@ TEST_F(SoLoaderTests, ConstructorThrowsOnFailure) {
 }
 
 TEST_F(SoLoaderTests, DestructorUnloadsLibrary) {
-    SoLoader* soLoader;
-    ASSERT_NO_THROW(soLoader = new SoLoader(libraryFile));
-
-    dlerror();
-    ASSERT_NO_THROW(delete soLoader);
-    ASSERT_EQ(nullptr, dlerror());
+    ASSERT_NO_FATAL_FAILURE(CreateLoader());
+    ASSERT_NO_FATAL_FAILURE(DeleteSoLoader());
 }
 
 TEST_F(SoLoaderTests, CanLoadSymbol) {
-    SoLoader* loader;
-    ASSERT_NO_THROW(loader = new SoLoader(libraryFile));
+    ASSERT_NO_FATAL_FAILURE(CreateLoader());
 
-    dlerror();
+    ClearDLErrors();
     void* loadedSymbol;
-    ASSERT_NO_THROW(loadedSymbol = loader->LoadSymbol("TestLibFunction"));
+    EXPECT_NO_THROW(loadedSymbol = loader->LoadSymbol("TestLibFunction"));
     ASSERT_EQ(nullptr, dlerror());
 
     typedef int (*TestLibFunction)(int);
-
     TestLibFunction testFunction = (TestLibFunction)loadedSymbol;
-    ASSERT_EQ(5, testFunction(5));
+    EXPECT_EQ(5, testFunction(5));
 
-    ASSERT_NO_THROW(delete loader);
+    ASSERT_NO_FATAL_FAILURE(DeleteSoLoader());
 }
 
 TEST_F(SoLoaderTests, ThrowsIfSymbolCouldntBeLoaded) {
-    SoLoader* loader;
-    ASSERT_NO_THROW(loader = new SoLoader(libraryFile));
+    ASSERT_NO_FATAL_FAILURE(CreateLoader());
 
-    ASSERT_THROW(loader->LoadSymbol("TotallyRandomFunctionName"), GloveException);
+    EXPECT_THROW(loader->LoadSymbol("TotallyRandomFunctionName"), GloveException);
 
-    ASSERT_NO_THROW(delete loader);
+    ASSERT_NO_FATAL_FAILURE(DeleteSoLoader());
+}
+
+TEST_F(SoLoaderTests, CanLoadLibraryLoaderFunction) {
+    ASSERT_NO_FATAL_FAILURE(CreateLoader());
+
+    LoadSystemExtensionLibraryFunc extensionLoaderFunc = loader->GetLibraryLoaderFunc();
+    ASSERT_NE(nullptr, extensionLoaderFunc);
+    EXPECT_EQ(nullptr, extensionLoaderFunc());
+
+    ASSERT_NO_FATAL_FAILURE(DeleteSoLoader());
+}
+
+TEST_F(SoLoaderTests, CanLoadLibraryUnloaderFunction) {
+    ASSERT_NO_FATAL_FAILURE(CreateLoader());
+
+    UnloadSystemExtensionLibraryFunc extensionLoaderFunc = loader->GetLibraryUnloaderFunc();
+    EXPECT_NE(nullptr, extensionLoaderFunc);
+
+    ASSERT_NO_FATAL_FAILURE(DeleteSoLoader());
+}
+
+TEST_F(SoLoaderTests, CanReloadLibrary) {
+    ASSERT_NO_FATAL_FAILURE(CreateLoader());
+
+    EXPECT_NO_THROW(loader->ReloadLibrary());
+
+    ASSERT_NO_FATAL_FAILURE(DeleteSoLoader());
 }
 }

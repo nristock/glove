@@ -9,33 +9,40 @@
 #include <boost/format.hpp>
 #include <boost/filesystem.hpp>
 
+#include "GloveConfig.h"
+
 #include <core/GloveEnvironment.h>
 #include <core/GloveException.h>
-#include <pitamem/MemoryProfile.h>
 #include "graph/Scenegraph.h"
 #include "graph/GameObject.h"
 #include "graph/GameComponent.h"
-#include "rendering/opengl/GLRenderer.h"
-#include "core/GpuBufferManager.h"
-#include "core/PluginLoader.h"
-#include "scripting/GlovePythonEngine.h"
-#include "shader/pyshed/PyShedLoader.h"
-#include "event/EventBus.h"
+#include <boost/python.hpp>
+#include <core/events/EventBus.h>
 #include "input/InputManager.h"
 #include "pitamem/MemoryProfiler.h"
-#include <event/type/CorePreInitEvent.h>
-
-#include "GloveConfig.h"
+#include <core/events/type/CorePreInitEvent.h>
+#include <core/rendering/IRenderer.h>
 
 #include <utils/RuntimePathInfo.h>
 
 #include <vendor/json/json.h>
+#include <core/natex/IExtensionSearcher.h>
+#include <core/natex/ISubsystemDefinition.h>
+#include <core/natex/ISubsystemFactory.h>
+#include <core/natex/DirectoryExtensionSearcher.h>
+#include <core/natex/GloveSubsystemDefinitionRegistry.h>
+#include <core/events/type/PreExtensionLoadEvent.h>
+#include <core/events/type/NativeExtensionLoadedEvent.h>
+#include <core/events/type/NativeExtensionsLoadedEvent.h>
+#include <core/events/type/PreSubsystemCreateEvent.h>
+#include <core/events/type/SubsystemCreatedEvent.h>
+#include <core/natex/GloveSubsystemInstanceRegistry.h>
 
 namespace sc = std::chrono;
 
 namespace glove {
 
-GloveCore::GloveCore(int argc, const char** argv) : frameCounter(0), exitRequested(false), EnableProfilable() {
+GloveCore::GloveCore(int argc, const char** argv) : frameCounter(0), exitRequested(false) {
     auto constructionStartTime = sc::steady_clock::now();
 
     LOG(logger, info, (boost::format("Creating GloveCore version %1%") % GLOVE_VERSION_STRING).str());
@@ -62,12 +69,17 @@ GloveCore::GloveCore(int argc, const char** argv) : frameCounter(0), exitRequest
                                              gEnv->MakeDataPath("data/glove.json"), "path", cmd);
             ValueArg<bool> initRendering("", "init-rendering", "Init rendering system", false, true, "true/false", cmd);
             ValueArg<bool> initScripting("", "init-scripting", "Init scripting system", false, true, "true/false", cmd);
+            SwitchArg skipNatexLoading("", "no-natex", "Skip native extension loading", cmd);
             cmd.parse(argc, argv);
 
             // Load configuration
             LoadConfiguration(configFile.getValue());
 
             Configuration& engineConfig = gEnv->engineConfiguration;
+
+            if (skipNatexLoading.isSet()) {
+                engineConfig.engine.loadNativeExtensions = false;
+            }
 
             if (!initRendering.getValue()) {
                 auto iter = std::find(engineConfig.engine.subsystemInitList.begin(),
@@ -85,8 +97,7 @@ GloveCore::GloveCore(int argc, const char** argv) : frameCounter(0), exitRequest
                     engineConfig.engine.subsystemInitList.erase(iter);
                 }
             }
-        }
-        catch (ArgException& ex) {
+        } catch (ArgException& ex) {
             // Failing to parse the command line is a recoverable error so don't bubble up the exception and continue as
             // usual
             LOG(logger, error, (boost::format("Failed to parse command line: %1%") % ex.error()).str());
@@ -102,13 +113,42 @@ GloveCore::GloveCore(int argc, const char** argv) : frameCounter(0), exitRequest
                        sc::duration_cast<sc::milliseconds>(constructionEndTime - constructionStartTime).count()).str());
 }
 
-GloveCore::~GloveCore() {}
-
 void GloveCore::Init(int argc, const char** argv) {
     initializationTime = sc::steady_clock::now();
 
     CorePreInitEvent preInitEvent;
     eventBus->Publish(preInitEvent);
+
+    Configuration& config = gEnv->engineConfiguration;
+
+    if (config.engine.loadNativeExtensions) {
+        DirectoryExtensionSearcher extensionSearcher("data/natex");
+        ISubsystemDefinitionRegistryPtr subsystemDefinitionRegistry =
+            std::make_shared<GloveSubsystemDefinitionRegistry>();
+
+        for (auto extension : extensionSearcher.GetExtensions()) {
+            try {
+                PreExtensionLoadEvent preloadEvent;
+                eventBus->Publish(preloadEvent);
+
+                ISystemExtensionPtr systemExtension = bifrostLoader.LoadSystemExtension(extension);
+                systemExtension->RegisterSubsystems(subsystemDefinitionRegistry);
+
+                NativeExtensionLoadedEvent postloadEvent;
+                eventBus->Publish(postloadEvent);
+            } catch (GloveException& ex) {
+                LOG(logger, error, ex.what());
+            }
+        }
+
+        {
+            NativeExtensionsLoadedEvent allExtensionsLoadedEvent;
+            eventBus->Publish(allExtensionsLoadedEvent);
+        }
+
+        subsystemInstanceRegistry = std::make_shared<GloveSubsystemInstanceRegistry>(eventBus, shared_from_this());
+        subsystemInstanceRegistry->InstantiateDefinitionRegistry(subsystemDefinitionRegistry);
+    }
 
     try {
         Configuration& engineConfig = gEnv->engineConfiguration;
@@ -117,63 +157,17 @@ void GloveCore::Init(int argc, const char** argv) {
         auto subsystemInitListEnd = engineConfig.engine.subsystemInitList.end();
 
         if (std::find(subsystemInitListBegin, subsystemInitListEnd, "rendering") != subsystemInitListEnd) {
-            InitializeRenderingSystem(800, 600);
             primaryScenegraph = ScenegraphPtr(new Scenegraph());
 
             inputManager = InputManagerPtr(new InputManager(eventBus));
         }
 
-        if (std::find(subsystemInitListBegin, subsystemInitListEnd, "scripting") != subsystemInitListEnd) {
-            InitializeScripting();
-            InitializeResourceLoaders();
-        }
-
         TimePoint initializationDone = sc::steady_clock::now();
         auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
         LOG(logger, info, "Engine initialization took " << timeSpan.count() << "ms");
-    }
-    catch (const GloveException& ex) {
+    } catch (const GloveException& ex) {
         LOG(logger, error, (boost::format("Engine initialization failed: %1%") % ex.what()).str());
     }
-}
-
-void GloveCore::InitializeRenderingSystem(int windowWidth, int windowHeight) {
-    renderer = RendererPtr(new GLRenderer(eventBus));
-
-    try {
-        renderer->Init();
-        renderer->CreateRenderWindow(windowWidth, windowHeight, 3, 3);
-    }
-    catch (const GloveException& e) {
-        LOG(logger, error, "Exception while initializing rendering subsystem:" << std::endl << e.what());
-    }
-
-    gpuBufferManager = GpuBufferManagerPtr(new GpuBufferManager());
-}
-
-void GloveCore::InitializeScripting() {
-    pythonEngine = GlovePythonEnginePtr(new GlovePythonEngine(gEnv->executablePath));
-
-    try {
-        namespace bpy = boost::python;
-        bpy::object mainNs = pythonEngine->GetBuiltins();
-
-        mainNs["g_Core"] = bpy::object(shared_from_this());
-        mainNs["g_Scenegraph"] = bpy::object(primaryScenegraph);
-    }
-    catch (boost::python::error_already_set const&) {
-        pythonEngine->HandleError();
-
-        throw GLOVE_EXCEPTION("Failed to expose global scripting objects");
-    }
-}
-
-void GloveCore::InitializeResourceLoaders() {
-    pyshedLoader = PyShedLoaderPtr(new PyShedLoader(pythonEngine));
-    pluginLoader = PluginLoaderPtr(new PluginLoader(pythonEngine));
-
-    pluginLoader->DiscoverPlugins();
-    pluginLoader->LoadPlugins();
 }
 
 void GloveCore::EnterMainLoop() {
@@ -194,8 +188,6 @@ void GloveCore::EnterMainLoop() {
 }
 
 void GloveCore::Update() {
-    renderer->PollSystemEvents();
-
     if (inputManager->IsKeyPressed(KC_F5)) {
         std::stringstream memoryDump;
         memoryDump << (boost::format("[GLOVE HEAP (P: %1%B, U: %2%B, O: %3%)]\n\n") %
@@ -238,9 +230,8 @@ void GloveCore::Update() {
         gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
             try {
                 gameComponent->SyncUpdate();
-            }
-            catch (boost::python::error_already_set) {
-                pythonEngine->HandleError();
+            } catch (boost::python::error_already_set) {
+                //                pythonEngine->HandleError();
             }
         });
 
@@ -253,9 +244,9 @@ void GloveCore::Update() {
 }
 
 void GloveCore::Render(ScenegraphPointer scenegraph) {
-    renderer->ClearBuffers();
-    renderer->RenderScene(scenegraph, frameData);
-    renderer->SwapBuffers();
+    //    renderer->ClearBuffers();
+    //    renderer->RenderScene(scenegraph, frameData);
+    //    renderer->SwapBuffers();
 }
 
 void GloveCore::LoadConfiguration(const std::string& configPath) {
@@ -271,8 +262,7 @@ void GloveCore::LoadConfiguration(const std::string& configPath) {
 
     try {
         engineConfig.LoadFromFile(configPath);
-    }
-    catch (GloveException& ex) {
+    } catch (GloveException& ex) {
         LOG(logger, error, (boost::format("Failed to load glove.json: \n%1%") % ex.what()).str());
     }
 }

@@ -19,4 +19,8 @@ const std::string& TestExtension::GetExtensionName() const {
 TestExtension::~TestExtension() {
 
 }
+
+void TestExtension::RegisterSubsystems(const ISubsystemDefinitionRegistryPtr& subsystemRegistry) {
+
+}
 }

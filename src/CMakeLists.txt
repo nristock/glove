@@ -56,58 +56,20 @@ if(WIN32)
 	link_directories("${deps_path}/libs/python")
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++11 -pthread")
-	set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -MMD -MP")
+	set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -MMD -MP -DDEBUG")
 
 	find_package(PythonLibs 3.0 REQUIRED)
 	include_directories(${PYTHON_INCLUDE_DIR})
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/core)
 
 add_subdirectory(vendor)
 
-file(GLOB_RECURSE glove_sources
-	"buffers/*.cc"
-	"buffers/*.h"
-
-	"core/*.cc"
-	"core/*.h"
-
-	"event/*.cc"
-	"event/*.h"
-
-	"graph/*.cc"
-	"graph/*.h"
-
-	"input/*.cc"
-	"input/*.h"
-
-	"log/*.cc"
-	"log/*.h"
-
-	"pitamem/*.cc"
-	"pitamem/*.h"
-
-	"rendering/*.cc"
-	"rendering/*.h"
-
-	"resources/*.cc"
-	"resources/*.h"
-
-	"scripting/*.cc"
-	"scripting/*.h"
-
-	"shader/*.cc"
-	"shader/*.h"
-
-	"utils/*.cc"
-	"utils/*.h"
-)
-add_library(glove ${glove_sources})
-target_link_libraries(glove vendor_jsoncpp dl)
-
-set(cellulose_source main.cc)
-add_executable(cellulose ${cellulose_source})
+add_subdirectory(core)
+add_subdirectory(modules)
+add_subdirectory(utils)
 
 if(WIN32)
 	set(glove_libs
@@ -131,7 +93,7 @@ if(WIN32)
 		debug boost_log-d
 		debug boost_log_setup-d
 
-		general glove
+		general glove_core
 	)
 else()
 	set(glove_libs
@@ -148,30 +110,12 @@ else()
 		boost_log_setup
 		boost_python3
 		${PYTHON_LIBRARY}
-		glove
+		glove_core
 	)
 endif()
 
-target_link_libraries(cellulose ${glove_libs})
-
 add_subdirectory(tests)
-
-if(WIN32)
-	add_custom_command(TARGET cellulose POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${deps_path}/shared"
-        $<TARGET_FILE_DIR:cellulose>)
-endif()
-
-	add_custom_command(TARGET cellulose POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_SOURCE_DIR}/../data"
-        $<TARGET_FILE_DIR:cellulose>/data)
-
-	add_custom_command(TARGET cellulose POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_SOURCE_DIR}/../python"
-        $<TARGET_FILE_DIR:cellulose>/data/python)
+add_subdirectory(cellulose)
 
 # Fix source tree representation in Visual Studio
 if(MSVC)

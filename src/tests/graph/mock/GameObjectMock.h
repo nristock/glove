@@ -1,7 +1,8 @@
 #pragma once
 
 #include <vendor/gmock/gmock.h>
-#include "graph/GameObject.h"
+#include <core/graph/GameObject.h>
+#include <core/pitamem/MemoryProfile.h>
 
 namespace glove {
 

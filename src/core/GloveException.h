@@ -5,15 +5,16 @@
 
 #include "pitamem/MemoryProfile.h"
 
-/** Creates a GloveException with the _msg message specified and file and line number information. */
-#define GLOVE_EXCEPTION(_msg) GloveException(_msg, __FILE__, __LINE__);
+/// @brief Creates a GloveException with the _msg message specified and file and line number information.
+#define GLOVE_EXCEPTION(_msg) ::glove::GloveException(_msg, __FILE__, __LINE__);
 
 namespace glove {
 
 /** Basic engine exception. Should be used for all exceptions thrown during engine operation. */
 class GloveException : public std::exception {
-Profilable();
-public:
+    Profilable();
+
+  public:
     /** Create an exception with the provided message but without file and line information. */
     GloveException(std::string message);
 
@@ -24,7 +25,7 @@ public:
 
     virtual const char* what() const throw();
 
-private:
+  private:
     std::string message;
     const char* file;
     int line;
