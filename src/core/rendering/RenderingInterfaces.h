@@ -16,6 +16,8 @@
 #include "shader/IShader.h"
 #include "shader/IShaderProgram.h"
 
+#include "mesh/IMesh.h"
+
 #include "IRenderable.h"
 #include "IRenderer.h"
 #include "IRenderSubsystem.h"
