@@ -2,9 +2,10 @@
 
 namespace glove {
 
-enum VertexAttributeType {
-	VAT_FLOAT3 = 0,
-	VAT_FLOAT4 = 1,
+/// @ingroup RenderSubsystemInterface
+enum class VertexAttributeType {
+	FLOAT3 = 0,
+	FLOAT4 = 1,
 };
 
 } // namespace glove

@@ -2,25 +2,27 @@
 
 namespace glove {
 
-VertexLayout::VertexLayout() :  EnableProfilable() {
-
-}
-
-VertexLayout::~VertexLayout() {
-
-}
-
 void VertexLayout::AddElement(const VertexAttribute& element) {
-    attributeList.push_back(element);
+    attributes.push_back(element);
+
+    strideMap[element.GetBufferIndex()] += element.GetSizeInBytes();
 }
 
-void VertexLayout::AddElement(size_t binding, size_t offset, VertexAttributeType attributeType, VertexAttributeSemantic attributeSemantic) {
-    attributeList.push_back(VertexAttribute(binding, offset, attributeType, attributeSemantic));
+const VertexAttribute& VertexLayout::GetAttribute(std::size_t index) const {
+    VertexAttributeList::const_iterator it = std::next(attributes.begin(), index);
+    return *it;
 }
 
-const VertexAttribute* VertexLayout::GetAttribute(unsigned short index) const {
-    VertexAttributeList::const_iterator it = std::next(attributeList.begin(), index);
-    return &(*it);
+std::size_t VertexLayout::GetAttributeCount() const {
+    return attributes.size();
+}
+
+const std::size_t VertexLayout::GetStrideForBufferIndex(std::size_t bufferIndex) {
+    return strideMap[bufferIndex];
+}
+
+bool VertexLayout::operator==(const VertexLayout& other) const {
+    return attributes == other.attributes;
 }
 
 } // namespace glove

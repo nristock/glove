@@ -2,15 +2,15 @@
 
 namespace glove {
 
-/**
-* Enum describing buffer usage
-*/
-enum BufferUsage {
-    /** Write-once data store (GL_STATIC_DRAW) */
-    BU_STATIC = 0,
+/// @brief BufferUsage is a hint to the implementing render system at how the buffer will be used and accessed allowing
+///        it to optimize the data stores. It does not constrain the usage of a buffer in any way.
+/// @ingroup RenderSubsystemInterface
+enum class BufferUsage {
+    /// @brief The data store contents will be modified once and used many times.
+    STATIC = 0,
 
-    /** Data store will be modified repeatedly (GL_DYNAMIC_DRAW) */
-    BU_DYNAMIC = 1,
+    /// @brief The data store contents will be modified repeatedly and used many times.
+    DYNAMIC = 1,
 };
 
 } // namespace glove

@@ -4,44 +4,34 @@
 
 #include <core/graph/GameComponent.h>
 
-#include <core/rendering/IRenderable.h>
-#include <core/rendering/buffers/IGpuBufferManager.h>
-#include <core/rendering/mesh/IMesh.h>
+#include "../Rendering.h"
+#include "../FrameData.h"
+#include "../IRenderable.h"
+#include "../mesh/IMesh.h"
 
 namespace glove {
 
-/** Abstract mesh representation storing vertex, material and optional index data for passive rendering. */
-class Mesh : public GameComponent, public IRenderable, public IMesh, public std::enable_shared_from_this<Mesh> {
-    Profilable()
+/// @brief Abstract mesh base class to be used by render system implementations.
+/// @ingroup RenderSubsystemInterface
+///
+/// Note: Rendering *always* requires an IMaterial instance to be bound. Binding a material (which basically is a shader
+/// program) and the corresponding IVertexAttributeMapping to the vertex data's VertexLayout is very implementation
+/// specific. Thus, material binding has to be implemented by the render system implementation.
+class Mesh : public GameComponent, public IRenderable, public IMesh {
   public:
-    Mesh(const RendererPtr& renderer, const IGpuBufferManagerPtr gpuBufferManager, MaterialPtr material);
-
-    virtual ~Mesh();
-
-    virtual void Refresh();
-
-    virtual const MaterialPtr& GetMaterial() const { return material; }
-
-    virtual const VertexDataPtr& GetVertexData() const { return vertexData; }
-
-    virtual const IndexDataPtr& GetIndexData() const { return indexData; }
-
-    virtual const ShaderProgramPointer& GetShader() const { return shader; }
+    Mesh(const IVertexDataPtr& vertexData, const IIndexDataPtr& indexData);
 
     virtual void SetupRender(RenderOperation& renderOp, const FrameData& frameData);
+    virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData);
 
-    virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData) = 0;
-
-    virtual void CreateIndexData();
+    virtual const IMaterialPtr& GetMaterial() const;
+    virtual const IVertexDataPtr& GetVertexData() const;
+    virtual const IIndexDataPtr& GetIndexData() const;
 
   protected:
-    RendererPtr renderer;
-    IGpuBufferManagerPtr gpuBufferManager;
-
-    VertexDataPtr vertexData;
-    IndexDataPtr indexData;
-    MaterialPtr material;
-    ShaderProgramPointer shader;
+    IVertexDataPtr vertexData;
+    IIndexDataPtr indexData;
+    IMaterialPtr material;
 };
 
 } /* namespace glove */

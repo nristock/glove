@@ -2,54 +2,43 @@
 
 #include <list>
 #include <cstddef>
+#include <cstring>
 
-#include <pitamem/MemoryProfile.h>
-#include <core/rendering/vertex/VertexAttribute.h>
+#include <core/GloveFwd.h>
+
+#include "../Rendering.h"
+#include "VertexAttribute.h"
 
 namespace glove {
 
-/** A class representing a vertex layout definition */
+/// @brief Represents a vertex layout definition
+/// @ingroup RenderSubsystemInterface
+///
+/// A vertex layout is a collection of VertexAttributes. This class does also automatically calculate the stride
+/// (the bytes between two elements) per buffer.
 class VertexLayout {
-Profilable();
 public:
-    /** Type of internal attribute list */
-    typedef std::list<VertexAttribute> VertexAttributeList;
+    VertexLayout() = default;
 
-    VertexLayout();
+    /// @brief Adds a VertexAttribute element to the internal list of vertex attributes and recalculates the stride
+    ///        for the affected buffer.
+    GLOVE_INLINE void AddElement(const VertexAttribute& element);
 
-    virtual ~VertexLayout();
+    GLOVE_INLINE std::size_t GetAttributeCount() const;
 
-    /**
-    * Adds a VertexAttribute element to the internal list of vertex attributes.
-    * @param [in] element The element to add to the internal list
-    */
-    virtual void AddElement(const VertexAttribute& element);
+    GLOVE_INLINE const VertexAttribute& GetAttribute(std::size_t index) const;
 
-    /**
-    * Adds a vertex attribute element to the internal list of vertex attributes.
-    * @param [in] binding The buffer binding this attribute belongs to (this is the index the buffer has in the VertexData binding)
-    * @param [in] offset The offset of the attribute in bytes
-    * @param [in] attributeType The type of the attribute
-    * @param [in] attributeSemantic The attribute's semantic
-    */
-    virtual void AddElement(std::size_t binding, std::size_t offset, VertexAttributeType attributeType, VertexAttributeSemantic attributeSemantic);
+    GLOVE_INLINE const std::size_t GetStrideForBufferIndex(std::size_t bufferIndex);
 
-    /** Returns the current number of attributes */
-    size_t GetAttributeCount() const {
-        return attributeList.size();
-    }
-
-    /** Returns the internal attribute list */
-    const VertexAttributeList& GetAttributes() const {
-        return attributeList;
-    }
-
-    /** Returns a pointer to a registered vertex attribute */
-    const VertexAttribute* GetAttribute(unsigned short index) const;
+    /// @brief Equality is determined by the equality of the underlying VertexAttributeList (VertexLayout::attributes)
+    GLOVE_INLINE bool operator== (const VertexLayout& other) const;
 
 private:
-    VertexAttributeList attributeList;
-};
+    typedef std::list<VertexAttribute> VertexAttributeList;
+    typedef std::map<std::size_t, std::size_t> AttributeStrideMap;
 
+    VertexAttributeList attributes;
+    AttributeStrideMap strideMap;
+};
 
 } // namespace glove

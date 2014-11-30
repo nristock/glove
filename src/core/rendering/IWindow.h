@@ -1,27 +1,27 @@
 #pragma once
 
-#include <string>
-
 #include <glm/glm.hpp>
 
-#include "core/GloveFwd.h"
+#include "Rendering.h"
 
 namespace glove {
 
+/// @ingroup RenderSubsystemInterface
 class IWindow {
 public:
     virtual ~IWindow() {}
 
-    virtual void MakeCurrent() = 0;
-    virtual void SetFramebuffer(int newWidth, int newHeight) = 0;
+    virtual ScreenPoint GetPosition() const = 0;
+    virtual ScreenDimensions GetDimensions() const = 0;
 
-    virtual void SwapBuffers() = 0;
+    virtual void SetPosition(const ScreenPoint& newPosition) = 0;
+    virtual void SetDimensions(const ScreenDimensions& newDimensions) = 0;
 
     virtual bool CloseRequested() const = 0;
 
-    virtual std::string GetContextVersion() const = 0;
+    virtual glm::mat4 GetProjectionMatrix() const = 0;
 
-    virtual glm::mat4 GetProjMatrix() const = 0;
+    virtual void PollSystemEvents() = 0;
 };
 
 } /* namespace glove */

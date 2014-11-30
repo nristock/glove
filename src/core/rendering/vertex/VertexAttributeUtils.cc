@@ -1,22 +1,21 @@
 #include "VertexAttributeUtils.h"
 
-#include <core/GloveException.h>
-
 namespace glove {
 
-
-VertexAttributeUtils::VertexAttributeUtils() {
-
+template<> std::size_t VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize() {
+    return 3 * sizeof(float);
 }
 
-std::size_t VertexAttributeUtils::GetAttributeTypeSize(VertexAttributeType attributeType) {
-    switch (attributeType) {
-        case VAT_FLOAT3:
-            return 3 * sizeof(float);
-        case VAT_FLOAT4:
-            return 4 * sizeof(float);
-    }
-
-    throw GLOVE_EXCEPTION("Unexpected control flow in VertexAttribute::GetSize");
+template<> std::size_t VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetComponentCount() {
+    return 3;
 }
+
+template<> std::size_t VertexAttributeUtils<VertexAttributeType::FLOAT4>::GetTypeSize() {
+    return 4 * sizeof(float);
+}
+
+template<> std::size_t VertexAttributeUtils<VertexAttributeType::FLOAT4>::GetComponentCount() {
+    return 4;
+}
+
 }

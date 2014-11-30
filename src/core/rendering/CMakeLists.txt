@@ -1,14 +1,17 @@
 set(gc_rendering_src
    mesh/Mesh.cc
 
-   vertex/IndexData.cc
-   vertex/ManagedIndexData.cc
+   vertex/StaticIndexData.cc
+   vertex/StaticVertexData.cc
    vertex/VertexAttribute.cc
    vertex/VertexAttributeUtils.cc
-   vertex/VertexData.cc
    vertex/VertexLayout.cc
 
+   WindowConstructionHints.cc
+
    RenderOperation.cc
+
+   IRenderSubsystem.cc
 )
 
-add_library(gc_rendering STATIC ${gc_rendering_src})
+add_library(gc_rendering OBJECT ${gc_rendering_src})

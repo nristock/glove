@@ -4,50 +4,52 @@
 
 #include <core/GloveFwd.h>
 
-#include <pitamem/MemoryProfile.h>
 #include <core/rendering/vertex/VertexAttributeSemantic.h>
 #include <core/rendering/vertex/VertexAttributeType.h>
 
 namespace glove {
 
-/** Represents a vertex attribute */
+/// @brief Holds all vital information about a single VertexAttribute in a VertexLayout.
+/// @ingroup RenderSubsystemInterface
 class VertexAttribute {
-Profilable();
-public:
-    /**
-    * @param [in] binding The buffer binding this attribute belongs to (relates to the buffer binding slot in VertexData)
-    * @param [in] offset The attribute's offset in bytes
-    * @param [in] attributeType The attribute's type
-    * @param [in] attributeSemantic The attribute's semantic
-    */
-	VertexAttribute(std::size_t binding, std::size_t offset, VertexAttributeType attributeType, VertexAttributeSemantic attributeSemantic);
+  public:
+    /// @param [in] binding The buffer index this attribute belongs to (relates to the buffer index in VertexData)
+    /// @param [in] offset The attribute's offset in bytes.
+    VertexAttribute(std::size_t bufferIndex, std::size_t offset, VertexAttributeType dataType,
+                    VertexAttributeSemantic semantic);
 
-    virtual ~VertexAttribute();
-
-    /** Returns the binding slot */
-    GLOVE_INLINE std::size_t GetBindingSlot() const;
-
-    /** Returns the attribute offset */
-    GLOVE_INLINE std::size_t GetOffset() const;
-
-    /** Returns the attribute type */
+    GLOVE_INLINE std::size_t GetBufferIndex() const;
+    GLOVE_INLINE std::size_t GetByteOffset() const;
     GLOVE_INLINE VertexAttributeType GetType() const;
-
-    /** Returns the attribute semantic */
     GLOVE_INLINE VertexAttributeSemantic GetSemantic() const;
 
-    /** Returns the number of individual components - e.g. FLOAT3 has 3 float components */
+    /// @brief Returns the number of individual components - e.g. FLOAT3 has 3 float components.
+    ///        The number of components is determined using VertexAttributeUtils.
     GLOVE_INLINE std::size_t GetNumberOfComponents() const;
 
-    /** Returns the total size of this attribute in bytes */
-    GLOVE_INLINE std::size_t GetSize() const;
+    GLOVE_INLINE std::size_t GetSizeInBytes() const;
 
-protected:
-    size_t binding;
+    GLOVE_INLINE bool operator==(const VertexAttribute& other) const;
+
+  private:
+    /// @brief The buffer index (also called buffer binding slot)
+    ///
+    /// It is possible to provide vertex data using multiple GPU buffers and thus separating data which has to be
+    /// updated often from rarely updated data. IVertexData provides a method to get a GPU buffer by its index which
+    /// directly corresponds to the buffer index specified here.
+    size_t bufferIndex;
+
+    /// @brief Byte offset of this attribute from the beginning of a vertex.
+    ///
+    /// Assume the following VertexLayout:
+    ///    position  : FLOAT3
+    ///    color     : FLOAT4
+    /// Position is the first attribute and thus does not have an offset from the beginning. Color on the other hand has
+    /// an offset of 3 * sizeof(float).
     size_t offset;
-    VertexAttributeType attributeType;
-    VertexAttributeSemantic attributeSemantic;
-};
 
+    VertexAttributeType dataType;
+    VertexAttributeSemantic semantic;
+};
 
 } // namespace glove

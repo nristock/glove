@@ -2,14 +2,6 @@
 
 namespace glove {
 
-RenderOperation::RenderOperation() {
-
-}
-
-RenderOperation::~RenderOperation() {
-
-}
-
 void RenderOperation::Reset() {
     vertexData = nullptr;
     indexData = nullptr;

@@ -5,19 +5,19 @@
 
 namespace glove {
 
-/// @brief A class abstracting hardware/GPU buffers
+/// @ingroup RenderSubsystemInterface
 class IGpuBuffer {
 public:
     virtual ~IGpuBuffer() {};
 
-    /// @brief Binds the buffer for use. Can be called multiple times per frame.
+    /// @brief Binds the buffer for use. Could be called multiple times per frame.
     virtual void Bind() = 0;
 
-    /// @brief Unbinds the buffer. Can be called multiple times per frame.
+    /// @brief Unbinds the buffer. Could be called multiple times per frame and potentially without binding this
+    ///        specific buffer first.
     virtual void Unbind() = 0;
 
-    /// @brief Writes data to the buffer and uploads it to the GPU
-    virtual void WriteData(size_t sizeInBytes, const void* data) = 0;
+    virtual void WriteData(std::size_t sizeInBytes, const void* data) = 0;
 
 };
 

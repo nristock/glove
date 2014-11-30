@@ -4,36 +4,20 @@
 #include <core/rendering/FrameData.h>
 #include <core/rendering/buffers/BufferUsage.h>
 
+#include "Rendering.h"
+
 namespace glove {
 
-/** Interface for a rendering subsystem. */
+/// @ingroup RenderSubsystemInterface
 class IRenderer {
 public:
-    virtual ~IRenderer() {    }
-
-    virtual void Init() = 0;
-
-    virtual void Exit() = 0;
-
-    virtual WindowPtr CreateRenderWindow(int windowWidth, int windowHeight, int contextVersionMajor, int contextVersionMinor) = 0;
+    virtual ~IRenderer() {}
 
     virtual void ClearBuffers() = 0;
-
     virtual void RenderScene(ScenegraphPointer scenegraph, FrameData& frameData) = 0;
-
     virtual void SwapBuffers() = 0;
 
-    virtual WindowPtr GetActiveWindow() const = 0;
-
-    virtual void SetActiveWindow(unsigned short id) = 0;
-
-    virtual size_t GetWindowCount() const = 0;
-
-    virtual void CreateVertexAttributeMappings(IMesh* mesh) = 0;
-
-    virtual void PollSystemEvents() = 0;
-
-    virtual IGpuBufferManagerPtr GetGpuBufferManager() = 0;
+    virtual IWindowPtr GetAssociatedWindow() = 0;
 };
 
 } /* namespace glove */

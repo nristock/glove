@@ -1,50 +1,53 @@
-#include <core/GloveException.h>
 #include "VertexAttribute.h"
+
+#include <core/GloveException.h>
+
 #include "VertexAttributeUtils.h"
 
 namespace glove {
 
-VertexAttribute::VertexAttribute(std::size_t binding, std::size_t offset, VertexAttributeType attributeType, VertexAttributeSemantic attributeSemantic) :
-          binding(binding),
-          offset(offset),
-          attributeType(attributeType),
-          attributeSemantic(attributeSemantic),
-          EnableProfilable() {
-
+VertexAttribute::VertexAttribute(std::size_t bufferIndex, std::size_t offset, VertexAttributeType dataType,
+                                 VertexAttributeSemantic semantic)
+    : bufferIndex(bufferIndex), offset(offset), dataType(dataType), semantic(semantic) {
 }
 
-VertexAttribute::~VertexAttribute() {
-
-}
-
-std::size_t VertexAttribute::GetNumberOfComponents() const {
-    switch (attributeType) {
-        case VAT_FLOAT3:
-            return 3;
-        case VAT_FLOAT4:
-            return 4;
+std::size_t VertexAttribute::GetSizeInBytes() const {
+    switch (dataType) {
+    case VertexAttributeType::FLOAT3:
+        return VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize();
+    case VertexAttributeType::FLOAT4:
+        return VertexAttributeUtils<VertexAttributeType::FLOAT4>::GetTypeSize();
     }
-
-    throw GLOVE_EXCEPTION("Unexpected control flow in VertexAttribute::GetNumberOfComponents");
-}
-
-std::size_t VertexAttribute::GetSize() const {
-    return VertexAttributeUtils::GetAttributeTypeSize(attributeType);
 }
 
 VertexAttributeSemantic VertexAttribute::GetSemantic() const {
-    return attributeSemantic;
+    return semantic;
 }
 
 VertexAttributeType VertexAttribute::GetType() const {
-    return attributeType;
+    return dataType;
 }
 
-size_t VertexAttribute::GetOffset() const {
+std::size_t VertexAttribute::GetByteOffset() const {
     return offset;
 }
 
-size_t VertexAttribute::GetBindingSlot() const {
-    return binding;
+std::size_t VertexAttribute::GetBufferIndex() const {
+    return bufferIndex;
 }
+
+std::size_t VertexAttribute::GetNumberOfComponents() const {
+    switch (dataType) {
+    case VertexAttributeType::FLOAT3:
+        return VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetComponentCount();
+    case VertexAttributeType::FLOAT4:
+        return VertexAttributeUtils<VertexAttributeType::FLOAT4>::GetComponentCount();
+    }
+}
+
+bool VertexAttribute::operator==(const VertexAttribute& other) const {
+    return bufferIndex == other.bufferIndex && offset == other.offset && dataType == other.dataType &&
+           semantic == other.semantic;
+}
+
 } // namespace glove
