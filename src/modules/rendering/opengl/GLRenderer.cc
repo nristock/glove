@@ -1,224 +1,97 @@
 #include "GLRenderer.h"
 
 #include <sstream>
-#include <stdio.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <boost/format.hpp>
 
 #include "core/GloveCore.h"
 #include "core/GloveException.h"
-#include "graph/Scenegraph.h"
-#include "rendering/Camera.h"
-#include "rendering/IRenderable.h"
-#include "rendering/FrameData.h"
-#include "log/Log.h"
-#include "GLWindow.h"
+#include <core/graph/Scenegraph.h>
+#include <core/graph/Camera.h>
 
-#include "buffers/IGpuBuffer.h"
-#include "rendering/vertex/IndexData.h"
-#include "rendering/vertex/VertexData.h"
-#include "rendering/vertex/VertexLayout.h"
-#include "rendering/mesh/IMesh.h"
-#include "rendering/mesh/opengl/GLBaseMesh.h"
-#include "shader/ShaderProgram.h"
-#include "shader/Material.h"
+#include <core/rendering/Rendering.h>
+#include <core/rendering/IRenderable.h>
+#include <core/rendering/buffers/IGpuBuffer.h>
+#include <core/rendering/mesh/IMesh.h>
+#include <core/rendering/WindowConstructionHints.h>
+#include <core/rendering/vertex/IVertexData.h>
+#include <core/rendering/vertex/IIndexData.h>
+
+#include "GLBaseMesh.h"
+#include "internal/GlfwWrapper.h"
 
 GLEWContext* glewGetContext();
 
 namespace glove {
+namespace gl {
 
-GLRenderer* rendererInstance = nullptr;
-
-GLRenderer::GLRenderer(const EventBusPtr& eventBus) : eventBus(eventBus), EnableProfilable() {
+GLRenderer::GLRenderer(const EventBusPtr& eventBus, const WindowConstructionHints& windowCreationHints,
+                       const ContextId contextId)
+    : eventBus(eventBus), contextId(contextId) {
     currentRenderOperation.Reset();
-}
 
-GLRenderer::~GLRenderer() {
-}
-
-void GLRenderer::Init() {
-    rendererInstance = this;
-
-    glfwSetErrorCallback(&GLRenderer::GlfwErrorSink);
-
-    if (!glfwInit()) {
-        throw GloveException("GLFW Initialization failed.");
-    }
-
-    LOG(logger, info, "Glove renderer initialized");
-}
-
-void GLRenderer::Exit() {
-    glfwTerminate();
-}
-
-void GLRenderer::GlfwErrorSink(int error, const char* description) {
-    LOG(logging::globalLogger, error, "GLFW Error (" << error << "): " << description);
+    CreateWindow(windowCreationHints);
 }
 
 void GLRenderer::RenderScene(ScenegraphPointer scenegraph, FrameData& frameData) {
-    frameData.currentContext = currentContextId;
-    frameData.viewProjectionMatrix = activeWindow->GetProjMatrix() * scenegraph->GetMainCamera()->GetViewMatrix();
+    frameData.viewProjectionMatrix = window->GetProjectionMatrix() * scenegraph->GetMainCamera()->GetViewMatrix();
 
     scenegraph->IterateGameObjects([&](GameObjectPtr gameObject) {
         gameObject->IterateRenderableComponents([&](const IRenderablePtr& renderable) {
             renderable->SetupRender(currentRenderOperation, frameData);
-            RenderObject(currentRenderOperation, frameData, gameObject);
+
+            GLBaseMeshPtr baseMesh = std::dynamic_pointer_cast<GLBaseMesh>(renderable);
+            RenderObject(currentRenderOperation, frameData, baseMesh);
             renderable->PostRender(currentRenderOperation, frameData);
         });
     });
 }
 
-void GLRenderer::RenderObject(RenderOperation& renderOp, const FrameData& frameData, const GameObjectPtr& gameObject) {
-    glm::mat4 mvpMatrix = gameObject->GetTransform().GetGlobalTransform() * frameData.viewProjectionMatrix;
-    renderOp.material->SetMaterialAttribute(MMA_MAT_MVP, mvpMatrix);
+void GLRenderer::RenderObject(RenderOperation& renderOp, const FrameData& frameData, const GLBaseMeshPtr& baseMesh) {
+    baseMesh->EnsureVertexArrayObjectExistsForContext(contextId);
+    GL::BindVertexArray(baseMesh->GetVertexArrayId(contextId));
 
     if (renderOp.indexData == nullptr) {
-        glDrawArrays(GL_TRIANGLES, 0, renderOp.vertexData->GetVertexCount());
+        renderOp.vertexData->BindAllBuffers();
+        GL::DrawArrays(GL_TRIANGLES, 0, (GLsizei)renderOp.vertexData->GetVertexCount());
+    } else {
+        renderOp.indexData->BindBuffer();
+        GL::DrawElements(GL_TRIANGLES, (GLsizei)renderOp.indexData->GetIndexCount(), GL_UNSIGNED_INT, 0);
     }
-    else {
-        renderOp.indexData->GetBuffer()->Bind();
-        glDrawElements(GL_TRIANGLES, renderOp.indexData->GetIndexCount(), GL_UNSIGNED_INT, 0);
-    }
-}
-
-void GLRenderer::CreateVertexAttributeMappings(IMesh* mesh) {
-    GLBaseMesh* oglMesh = dynamic_cast<GLBaseMesh*>(mesh);
-    VertexDataPtr vertexData = mesh->GetVertexData();
-    ShaderProgramPtr shader = mesh->GetShader();
-
-    for (size_t i = 0; i < GetWindowCount(); ++i) {
-        SetActiveWindow(i);
-
-        glBindVertexArray(oglMesh->GetVertexArrayId(i));
-
-        size_t stride = 0;
-        for (auto vertexAttribute : vertexData->GetVertexLayout()->GetAttributes()) {
-            stride += vertexAttribute.GetSize();
-        }
-
-        for (auto vertexAttribute : vertexData->GetVertexLayout()->GetAttributes()) {
-            IGpuBufferPtr gpuBuffer = vertexData->GetBuffer(vertexAttribute.GetBindingSlot());
-            gpuBuffer->Bind();
-
-            GLuint attribIndex = shader->GetVertexAttributePosition(vertexAttribute.GetSemantic());
-            if (attribIndex < 0) {
-                LOG(logger, error, "Vertex attribute in buffer not mapped to shader attribute index.");
-                continue;
-            }
-
-            glVertexAttribPointer(
-                    attribIndex,
-                    vertexAttribute.GetNumberOfComponents(),
-                    TranslateVertexAttributeType(vertexAttribute.GetType()),
-                    GL_FALSE,
-                    stride,
-                    (void*) vertexAttribute.GetOffset());
-            glEnableVertexAttribArray(attribIndex);
-        }
-    }
-}
-
-GLenum GLRenderer::TranslateVertexAttributeType(VertexAttributeType attribType) {
-    switch (attribType) {
-        case VAT_FLOAT3:
-        case VAT_FLOAT4:
-            return GL_FLOAT;
-    }
-
-    throw GLOVE_EXCEPTION("Invalid VertexAttributeType");
 }
 
 void GLRenderer::ClearBuffers() {
-    glClear(GL_COLOR_BUFFER_BIT);
+    GL::Clear(GL_COLOR_BUFFER_BIT);
 }
 
 void GLRenderer::SwapBuffers() {
-    activeWindow->SwapBuffers();
+    window->SwapBuffers();
 }
 
-WindowPtr GLRenderer::CreateRenderWindow(int windowWidth, int windowHeight, int contextVersionMajor, int contextVersionMinor) {
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, contextVersionMajor);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, contextVersionMinor);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+void GLRenderer::CreateWindow(const WindowConstructionHints& windowCreationHints) {
+    window = std::make_shared<GLWindow>(eventBus, windowCreationHints);
 
-    WindowPtr window;
-
-    window = WindowPtr(activeWindow ? new GLWindow(eventBus, windowWidth, windowHeight, activeWindow) : new GLWindow(eventBus, windowWidth, windowHeight));
-
-    windows.push_back(WindowGlewContextPair(window, new GLEWContext()));
-
-    if (!activeWindow) {
-        activeWindow = window;
-    }
-
-    WindowPtr currentlyActiveWindow = activeWindow;
-    SetActiveWindow(GetWindowCount() - 1);
+    window->MakeCurrent();
 
     glewExperimental = GL_TRUE;
     GLenum glewInitRes = glewInit();
     if (glewInitRes != GLEW_OK) {
-        throw GLOVE_EXCEPTION(std::string((char*) glewGetErrorString(glewInitRes)));
+        throw GLOVE_EXCEPTION(std::string((char*)glewGetErrorString(glewInitRes)));
     }
 
     LOG(logger, info, (boost::format("Created Window (%1%)") % window->GetContextVersion()).str());
+}
 
-    if (currentlyActiveWindow != window) {
-        for (unsigned short i = 0; i < GetWindowCount(); ++i) {
-            if (windows[i].first == currentlyActiveWindow) {
-                SetActiveWindow(i);
-                break;
-            }
-        }
-    }
-
+IWindowPtr GLRenderer::GetAssociatedWindow() {
     return window;
 }
 
-GLuint GLRenderer::GenerateVertexArray(size_t contextId) {
-    size_t prevContextId = currentContextId;
-
-    if (currentContextId != contextId) {
-        SetActiveWindow(contextId);
-    }
-
-    GLuint temporaryId;
-    glGenVertexArrays(1, &temporaryId);
-
-    if (prevContextId != contextId) {
-        SetActiveWindow(prevContextId);
-    }
-
-    return temporaryId;
 }
-
-void GLRenderer::DestroyVertexArray(size_t contextId, GLuint vertexArrayId) {
-    size_t prevContextId;
-
-    if (currentContextId != contextId) {
-        prevContextId = currentContextId;
-        SetActiveWindow(contextId);
-    }
-
-    glDeleteVertexArrays(1, &vertexArrayId);
-
-    if (prevContextId != contextId) {
-        SetActiveWindow(prevContextId);
-    }
-}
-
-void GLRenderer::PollSystemEvents() {
-    glfwPollEvents();
-}
-}
-
-/* namespace glove */
+} /* namespace glove */
 
 GLEWContext* glewGetContext() {
-    return glove::rendererInstance->GetCurrentGLEWContext();
+    return glove::gl::GlfwWrapper::GetCurrentGLWindow()->GetGlewContext();
 }

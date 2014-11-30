@@ -4,34 +4,34 @@
 
 #include <GL/glew.h>
 
-#include "core/GloveFwd.h"
-#include "core/IRenderer.h"
-#include "rendering/opengl/GLRenderer.h"
-#include "pitamem/MemoryProfile.h"
+#include <core/rendering/IRenderer.h>
+
+#include "GLRenderer.h"
+#include "internal/OpenGLWrapper.h"
+#include "subsystem/OpenGLRendererModule.h"
 
 namespace glove {
+namespace gl {
 
+/// @ingroup OpenGLRenderer
 class GLBaseMesh {
-public:
-    typedef std::map<size_t, GLuint> VertexArrayIdList;
+  public:
+    GLBaseMesh() = default;
+    GLBaseMesh(const GLBaseMesh&) = delete;
+    virtual ~GLBaseMesh();
 
-    virtual ~GLBaseMesh() {
-    };
+    GLBaseMesh& operator=(const GLBaseMesh&) = delete;
 
-    const GLuint GetVertexArrayId(size_t contextId) {
-        return vertexArrayIds[contextId];
-    }
+    const GLuint GetVertexArrayId(ContextId contextId);
+    void EnsureVertexArrayObjectExistsForContext(ContextId contextId);
 
-    void AddVAO(size_t contextId, const RendererPtr& renderer) {
-        std::shared_ptr<GLRenderer> glRenderer = std::dynamic_pointer_cast<GLRenderer>(renderer);
-
-        vertexArrayIds[contextId] = glRenderer->GenerateVertexArray(contextId);
-    }
-
-protected:
-    /** The Vertex Array Object ID */
+  protected:
+    typedef std::map<ContextId, GLuint> VertexArrayIdList;
     VertexArrayIdList vertexArrayIds;
+
+    void CreateVertexArrayObjectForContext(ContextId contextId);
+    virtual void InitVertexAttributeObjectStateForContext(ContextId contextId) = 0;
 };
 
-
+}
 } // namespace glove

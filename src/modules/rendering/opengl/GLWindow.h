@@ -1,40 +1,50 @@
 #pragma once
 
+#include <GL/glew.h>
+#include <GL/gl.h>
 #include <glm/glm.hpp>
 
-#include <pitamem/MemoryProfile.h>
-#include "core/IWindow.h"
+#include <core/GloveFwd.h>
+
+#include <core/rendering/Rendering.h>
+#include <core/rendering/IWindow.h>
 
 struct GLFWwindow;
 
 namespace glove {
+namespace gl {
 
+/// @ingroup OpenGLRenderer
 class GLWindow : public IWindow {
-Profilable();
-public:
-	GLWindow(const EventBusPtr& eventBus, int width, int height);
+    friend class GlfwWrapper;
 
-	GLWindow(const EventBusPtr& eventBus, int width, int height, WindowPtr parent);
+  public:
+    GLWindow(const EventBusPtr& eventBus, const WindowConstructionHints& creationHints);
 
     virtual ~GLWindow();
 
-    virtual void MakeCurrent();
+    virtual GLOVE_INLINE void MakeCurrent();
 
-    virtual void SetFramebuffer(int newWidth, int newHeight);
+    virtual GLOVE_INLINE void SetFramebufferSize(int newWidth, int newHeight);
 
-    virtual void SwapBuffers();
+    virtual GLOVE_INLINE void SwapBuffers();
+    virtual GLOVE_INLINE bool CloseRequested() const;
+    virtual GLOVE_INLINE std::string GetContextVersion() const;
+    virtual GLOVE_INLINE glm::mat4 GetProjectionMatrix() const;
 
-    virtual bool CloseRequested() const;
+    virtual GLOVE_INLINE ScreenPoint GetPosition() const;
+    virtual GLOVE_INLINE ScreenDimensions GetDimensions() const;
 
-    virtual std::string GetContextVersion() const;
+    virtual GLOVE_INLINE void SetPosition(const ScreenPoint& newPosition);
+    virtual GLOVE_INLINE void SetDimensions(const ScreenDimensions& newDimensions);
+    virtual GLOVE_INLINE void PollSystemEvents();
 
-    virtual glm::mat4 GetProjMatrix() const {
-        return projectionMat;
-    }
+    GLOVE_INLINE GLFWwindow* GetGlfwWindow() const;
+    GLOVE_INLINE GLEWContext* GetGlewContext() const;
 
-private:
+  private:
     GLFWwindow* glfwWindow;
-    GLFWwindow* parent;
+    GLEWContext* glewContext;
 
     EventBusPtr eventBus;
 
@@ -44,24 +54,11 @@ private:
     glm::mat4 projectionMat;
 
     void OnKeyEvent(int key, int scancode, int action, int mods);
-
     void OnMouseMove(double x, double y);
-
     void OnMouseButton(int button, int action, int mods);
 
-    GLFWwindow* GetGlfwWindow() const {
-        return glfwWindow;
-    }
-
-    static void GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height);
-
-    static void GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-    static void GlfwCloseEvent(GLFWwindow* window);
-
-    static void GlfwCursorPositionChanged(GLFWwindow* window, double x, double y);
-
-    static void GlfwMouseButtonEvent(GLFWwindow* window, int button, int action, int mods);
+    void SetupViewport();
 };
 
+}
 } // namespace glove

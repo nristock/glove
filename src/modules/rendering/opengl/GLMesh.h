@@ -1,26 +1,30 @@
 #pragma once
 
-#include "rendering/mesh/Mesh.h"
-#include "rendering/mesh/opengl/GLBaseMesh.h"
-#include "rendering/opengl/GLRenderer.h"
+#include <core/rendering/mesh/Mesh.h>
+
+#include "GLRenderer.h"
+#include "GLBaseMesh.h"
 
 namespace glove {
+namespace gl {
 
-/** OpenGL Mesh implementation; basically wraps VAO related calls. */
+/// @ingroup OpenGLRenderer
 class GLMesh : public GLBaseMesh, public Mesh {
-Profilable()
-public:
-	GLMesh(const RendererPtr& renderer, const GpuBufferManagerPtr gpuBufferManager, MaterialPtr material);
+  public:
+    GLMesh(const IMaterialPtr& material, const IVertexDataPtr& vertexData, const IIndexDataPtr& indexData);
+    GLMesh(const GLMesh&) = delete;
+    GLMesh& operator=(const GLMesh&) = delete;
 
-    virtual ~GLMesh();
+    virtual void BindMaterial(const IMaterialPtr& material);
 
-    virtual void SetupRender(RenderOperation& renderOp, const FrameData& frameData);
+  protected:
+    virtual void InitVertexAttributeObjectStateForContext(ContextId contextId);
+    void SetupVertexAttribute(const IVertexAttributeMappingPtr& shaderProgramAttributeMapping,
+                              VertexLayout& vertexLayout, const VertexAttribute& vertexAttribute);
 
-    virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData);
-
-private:
-    std::shared_ptr<GLRenderer> glRenderer;
+  private:
+    logging::GloveLogger logger;
 };
 
-
+}
 } // namespace glove

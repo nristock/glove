@@ -3,35 +3,32 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include <pitamem/MemoryProfile.h>
-#include "buffers/IGpuBuffer.h"
+#include <core/rendering/buffers/IGpuBuffer.h>
 
 namespace glove {
+namespace gl {
 
-/** This class implements a GL hardware/GPU buffer */
+/// @brief OpenGL GPU buffer implementation.
+/// @ingroup OpenGLRenderer
 class GLGpuBuffer : public IGpuBuffer {
-Profilable();
-public:
+  public:
+    /// @brief Please refer to https://www.opengl.org/sdk/docs/man/html/glBindBuffer.xhtml for information on possible
+    ///        binding targets.
     GLGpuBuffer(BufferUsage usage, GLenum target);
-
+    GLGpuBuffer(const GLGpuBuffer&) = delete;
     virtual ~GLGpuBuffer();
 
+    GLGpuBuffer& operator=(const GLGpuBuffer&) = delete;
+
     virtual void Bind();
-
     virtual void Unbind();
-
     virtual void WriteData(size_t sizeInBytes, const void* data);
 
-protected:
-    /** Buffer object ID */
+  protected:
     GLuint bufferId;
-
-    /** The buffer binding target */
     GLenum target;
-
-    /** The buffer's intended usage */
     BufferUsage usage;
 };
 
-
+}
 } // namespace glove
