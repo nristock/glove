@@ -5,8 +5,8 @@
 
 #include "pitamem/MemoryProfile.h"
 
-/** Creates a GloveException with the _msg message specified and file and line number information. */
-#define GLOVE_EXCEPTION(_msg) GloveException(_msg, __FILE__, __LINE__);
+/// @brief Creates a GloveException with the _msg message specified and file and line number information.
+#define GLOVE_EXCEPTION(_msg) ::glove::GloveException(_msg, __FILE__, __LINE__);
 
 namespace glove {
 

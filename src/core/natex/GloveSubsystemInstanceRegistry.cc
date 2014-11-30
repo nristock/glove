@@ -40,4 +40,31 @@ void GloveSubsystemInstanceRegistry::InstantiateDefinitionRegistry(
 void GloveSubsystemInstanceRegistry::EmitPreCreateEvent() { eventBus->Publish(PreSubsystemCreateEvent()); }
 
 void GloveSubsystemInstanceRegistry::EmitPostCreateEvent() { eventBus->Publish(SubsystemCreatedEvent()); }
+
+SubsystemInstanceList GloveSubsystemInstanceRegistry::GetSubsystemsOfType(const SubsystemType& subsystemType) {
+    std::list<ISubsystemPtr> instances;
+
+    std::pair<SubsystemInstanceMap::const_iterator, SubsystemInstanceMap::const_iterator> instanceRange =
+        subsystemInstances.equal_range(subsystemType);
+
+    for (auto& iter = instanceRange.first; iter != instanceRange.second; ++iter) {
+        instances.push_back(iter->second);
+    }
+
+    return instances;
+}
+
+ISubsystemPtr GloveSubsystemInstanceRegistry::GetUniqueSubsystemOfType(const SubsystemType& subsystemType) {
+    SubsystemInstanceList subsystemInstances = GetSubsystemsOfType(subsystemType);
+
+    if(subsystemInstances.size() > 1) {
+        throw GLOVE_EXCEPTION("Found more than one subsystem instancen of type") //todo
+    }
+
+    if(subsystemInstances.empty()) {
+        throw GLOVE_EXCEPTION("Couldn't find any subsystem instance of type") //todo
+    }
+
+    return *subsystemInstances.begin();
+}
 }

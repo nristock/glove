@@ -33,6 +33,8 @@ void Configuration::LoadFromFile(const std::string& filePath) {
     for(auto& subsys : rootJsonNode["engine"]["subsystems"]["init"]) {
         engine.subsystemInitList.push_back(subsys.asString());
     }
+
+    engine.loadNativeExtensions = rootJsonNode["engine"]["load-natex"].asBool();
 }
 
 void Configuration::SaveToFile(const std::string& path) {
@@ -62,6 +64,7 @@ void Configuration::SaveToFile(const std::string& path) {
         initList.append(subsys);
     }
     engineNode["subsystems"] = subsystemsNode;
+    engineNode["load-natex"] = engine.loadNativeExtensions;
 
     rootNode["engine"] = engineNode;
 
@@ -79,5 +82,6 @@ void Configuration::LoadDefaults() {
 
     engine.subsystemInitList.push_back("rendering");
     engine.subsystemInitList.push_back("scripting");
+    engine.loadNativeExtensions = true;
 }
 }

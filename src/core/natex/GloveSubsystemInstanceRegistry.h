@@ -14,16 +14,19 @@ class GloveSubsystemInstanceRegistry : public ISubsystemInstanceRegistry {
 public:
     GloveSubsystemInstanceRegistry(const EventBusPtr& eventBus, const GloveCorePtr& engineCore);
 
-    virtual void InstantiateDefinitionRegistry(ISubsystemDefinitionRegistryPtr const& definitionRegistry) override;
+    virtual void InstantiateDefinitionRegistry(const ISubsystemDefinitionRegistryPtr& definitionRegistry);
+    virtual SubsystemInstanceList GetSubsystemsOfType(const SubsystemType& subsystemType);
+    virtual ISubsystemPtr GetUniqueSubsystemOfType(const SubsystemType& subsystemType);
 
 private:
+    typedef std::multimap<SubsystemType, ISubsystemPtr> SubsystemInstanceMap;
+
     logging::GloveLogger logger;
     EventBusPtr eventBus;
     GloveCorePtr engineCore;
-    std::multimap<SubsystemType, ISubsystemPtr> subsystemInstances;
+    SubsystemInstanceMap subsystemInstances;
 
     void EmitPreCreateEvent();
-
     void EmitPostCreateEvent();
 };
 

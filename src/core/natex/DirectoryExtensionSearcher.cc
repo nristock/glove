@@ -27,7 +27,7 @@ DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& search
         std::string entryName(entry->d_name);
 #if defined(ON_UNIX)
         if (EndsWith(entryName, ".so")) {
-            extensionFileList.push_back(entryName);
+            extensionFileList.push_back(searchDirectory + "/" + entryName);
         }
 #elif defined(ON_WINDOWS)
         if (EndsWith(entryName, ".dll")) {

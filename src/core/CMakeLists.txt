@@ -12,8 +12,6 @@ set(core_src
     GloveCore.cc
     GloveEnvironment.cc
     GloveException.cc
-    GlovePlugin.cc
-    PluginLoader.cc
 )
 
 set(core_object_libs

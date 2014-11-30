@@ -24,6 +24,7 @@ struct RenderingConfig {
 };
 
 struct EngineConfig {
+    bool loadNativeExtensions;
     std::vector<std::string> subsystemInitList;
 };
 }

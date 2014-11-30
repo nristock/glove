@@ -40,6 +40,7 @@ typedef std::shared_ptr<ISubsystemInstanceRegistry> ISubsystemInstanceRegistryPt
 typedef std::shared_ptr<ISubsystem> ISubsystemPtr;
 
 typedef std::list<ISubsystemDefinitionPtr> SubsystemDefinitionList;
+typedef std::list<ISubsystemPtr> SubsystemInstanceList;
 
 typedef ISystemExtensionPtr (*LoadSystemExtensionLibraryFunc)();
 typedef void (*UnloadSystemExtensionLibraryFunc)();

@@ -15,6 +15,7 @@
         "rendering",
         "scripting"
       ]
-    }
+    },
+    "load-natex": true
   }
 }
