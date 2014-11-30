@@ -60,7 +60,7 @@ TEST(DynamicIndexDataTest, BindBufferBindsUnderlyingGpuBuffer) {
     indexData.BindBuffer();
 }
 
-TEST(DynamicIndexDataTest, FlushWritesToUnderlyingGpuBuffer) {
+TEST(DynamicIndexDataTest, FlushCallsWriteDataOfUnderlyingBuffer) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
@@ -68,6 +68,25 @@ TEST(DynamicIndexDataTest, FlushWritesToUnderlyingGpuBuffer) {
     EXPECT_CALL(*(MockGpuBuffer*)gpuBuffer.get(), WriteData(0, _)).Times(1);
 
     DynamicIndexData<unsigned int> indexData(gpuBufferFactory);
+    indexData.FlushBuffer();
+}
+
+TEST(DynamicIndexDataTest, FlushWritesDataToUnderlyingBuffer) {
+    IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
+    IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
+
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(Return(gpuBuffer));
+
+    DynamicIndexData<unsigned int>::IndexList indices;
+
+    indices.push_back(1);
+    indices.push_back(2);
+    indices.push_back(3);
+
+    EXPECT_CALL(*(MockGpuBuffer*)gpuBuffer.get(), WriteData(indices.size() * sizeof(unsigned int), _)).Times(1);
+
+    DynamicIndexData<unsigned int> indexData(gpuBufferFactory);
+    indexData.SetIndices(indices);
     indexData.FlushBuffer();
 }
 
