@@ -3,7 +3,8 @@
 namespace glove {
 WindowConstructionHints::WindowConstructionHints(const ScreenPoint& position, const ScreenDimensions& size,
                                                  const std::string& title)
-    : position(position), size(size), title(title) {}
+    : position(position), size(size), title(title) {
+}
 
 int WindowConstructionHints::GetWidth() const {
     return size.x;

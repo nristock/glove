@@ -27,7 +27,8 @@ BifrostLoader::BifrostLoader() {
 }
 
 BifrostLoader::BifrostLoader(const ISharedLibraryLoaderFactoryPtr& sharedLibraryLoaderFactory)
-    : loaderFactory(sharedLibraryLoaderFactory) {}
+    : loaderFactory(sharedLibraryLoaderFactory) {
+}
 
 ISystemExtensionPtr BifrostLoader::LoadSystemExtension(const std::string& extensionFile) {
     LOG(logger, info, (boost::format("Creating library loader for %1%...") % extensionFile).str());
@@ -56,8 +57,9 @@ void BifrostLoader::UnloadSystemExtension(ISystemExtensionPtr& systemExtensionPt
 
     {
         SystemExtensionMap::iterator iter = loadedExtensions.find(extensionUuid);
-        if(iter == loadedExtensions.end()) {
-            throw GLOVE_EXCEPTION((boost::format("Extension %1% is not loaded by this loader.") % systemExtensionPtr->GetExtensionName()).str());
+        if (iter == loadedExtensions.end()) {
+            throw GLOVE_EXCEPTION((boost::format("Extension %1% is not loaded by this loader.") %
+                                   systemExtensionPtr->GetExtensionName()).str());
         }
 
         // Free the reference to the system extension - the only one left then should be the one from the

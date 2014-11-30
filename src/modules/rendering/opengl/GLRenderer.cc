@@ -88,7 +88,6 @@ void GLRenderer::CreateWindow(const WindowConstructionHints& windowCreationHints
 IWindowPtr GLRenderer::GetAssociatedWindow() {
     return window;
 }
-
 }
 } /* namespace glove */
 

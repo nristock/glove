@@ -32,6 +32,5 @@ class GLBaseMesh {
     void CreateVertexArrayObjectForContext(ContextId contextId);
     virtual void InitVertexAttributeObjectStateForContext(ContextId contextId) = 0;
 };
-
 }
 } // namespace glove

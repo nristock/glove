@@ -6,9 +6,8 @@
 
 namespace glove {
 ISharedLibraryLoaderPtr glove::SoLoaderFactory::CreateLibraryLoader(const std::string& libraryFilePath) {
-   return std::make_shared<SoLoader>(libraryFilePath);
+    return std::make_shared<SoLoader>(libraryFilePath);
 }
 }
 
 #endif
-

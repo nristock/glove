@@ -77,7 +77,7 @@ GloveCore::GloveCore(int argc, const char** argv) : frameCounter(0), exitRequest
 
             Configuration& engineConfig = gEnv->engineConfiguration;
 
-            if(skipNatexLoading.isSet()) {
+            if (skipNatexLoading.isSet()) {
                 engineConfig.engine.loadNativeExtensions = false;
             }
 
@@ -97,8 +97,7 @@ GloveCore::GloveCore(int argc, const char** argv) : frameCounter(0), exitRequest
                     engineConfig.engine.subsystemInitList.erase(iter);
                 }
             }
-        }
-        catch (ArgException& ex) {
+        } catch (ArgException& ex) {
             // Failing to parse the command line is a recoverable error so don't bubble up the exception and continue as
             // usual
             LOG(logger, error, (boost::format("Failed to parse command line: %1%") % ex.error()).str());
@@ -122,9 +121,10 @@ void GloveCore::Init(int argc, const char** argv) {
 
     Configuration& config = gEnv->engineConfiguration;
 
-    if(config.engine.loadNativeExtensions) {
+    if (config.engine.loadNativeExtensions) {
         DirectoryExtensionSearcher extensionSearcher("data/natex");
-        ISubsystemDefinitionRegistryPtr subsystemDefinitionRegistry = std::make_shared<GloveSubsystemDefinitionRegistry>();
+        ISubsystemDefinitionRegistryPtr subsystemDefinitionRegistry =
+            std::make_shared<GloveSubsystemDefinitionRegistry>();
 
         for (auto extension : extensionSearcher.GetExtensions()) {
             try {
@@ -136,8 +136,7 @@ void GloveCore::Init(int argc, const char** argv) {
 
                 NativeExtensionLoadedEvent postloadEvent;
                 eventBus->Publish(postloadEvent);
-            }
-            catch (GloveException& ex) {
+            } catch (GloveException& ex) {
                 LOG(logger, error, ex.what());
             }
         }
@@ -166,12 +165,10 @@ void GloveCore::Init(int argc, const char** argv) {
         TimePoint initializationDone = sc::steady_clock::now();
         auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
         LOG(logger, info, "Engine initialization took " << timeSpan.count() << "ms");
-    }
-    catch (const GloveException& ex) {
+    } catch (const GloveException& ex) {
         LOG(logger, error, (boost::format("Engine initialization failed: %1%") % ex.what()).str());
     }
 }
-
 
 void GloveCore::EnterMainLoop() {
     TimePoint start = std::chrono::steady_clock::now();
@@ -233,9 +230,8 @@ void GloveCore::Update() {
         gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
             try {
                 gameComponent->SyncUpdate();
-            }
-            catch (boost::python::error_already_set) {
-//                pythonEngine->HandleError();
+            } catch (boost::python::error_already_set) {
+                //                pythonEngine->HandleError();
             }
         });
 
@@ -248,9 +244,9 @@ void GloveCore::Update() {
 }
 
 void GloveCore::Render(ScenegraphPointer scenegraph) {
-//    renderer->ClearBuffers();
-//    renderer->RenderScene(scenegraph, frameData);
-//    renderer->SwapBuffers();
+    //    renderer->ClearBuffers();
+    //    renderer->RenderScene(scenegraph, frameData);
+    //    renderer->SwapBuffers();
 }
 
 void GloveCore::LoadConfiguration(const std::string& configPath) {
@@ -266,8 +262,7 @@ void GloveCore::LoadConfiguration(const std::string& configPath) {
 
     try {
         engineConfig.LoadFromFile(configPath);
-    }
-    catch (GloveException& ex) {
+    } catch (GloveException& ex) {
         LOG(logger, error, (boost::format("Failed to load glove.json: \n%1%") % ex.what()).str());
     }
 }

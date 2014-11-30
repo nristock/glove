@@ -6,10 +6,7 @@
 namespace glove {
 
 class SoLoaderFactory : public ISharedLibraryLoaderFactory {
-
-public:
-    virtual ~SoLoaderFactory() {}
-
+  public:
     virtual ISharedLibraryLoaderPtr CreateLibraryLoader(const std::string& libraryFilePath);
 };
 

@@ -46,6 +46,5 @@ void GLMaterialAttribute::BindMaterial() {
 
     material.lock()->GetShaderProgram()->Enable();
 }
-
 }
 }

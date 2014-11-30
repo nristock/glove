@@ -11,6 +11,5 @@ class GLMaterialFactory : public IMaterialFactory {
   public:
     virtual IMaterialPtr CreateMaterial(const IShaderProgramPtr& shaderProgram);
 };
-
 }
 }

@@ -34,6 +34,5 @@ const SubsystemTypeList& GLRendererSubsystemDefinition::GetSystemDependencies() 
 const ISubsystemFactoryPtr& GLRendererSubsystemDefinition::GetSystemFactory() {
     return rendererFactory;
 }
-
 }
 }

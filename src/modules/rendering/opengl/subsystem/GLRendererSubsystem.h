@@ -34,6 +34,5 @@ class GLRendererSubsystem : public IRenderSubsystem, public ISubsystem {
     GLMaterialFactoryPtr materialFactory;
     GLShaderProgramFactoryPtr shaderProgramFactory;
 };
-
 }
 } /* namespace glove */

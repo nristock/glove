@@ -11,6 +11,5 @@ class GLGpuBufferFactory : public IGpuBufferFactory {
     virtual IGpuBufferPtr CreateVertexBuffer(BufferUsage bufferUsage) const;
     virtual IGpuBufferPtr CreateIndexBuffer() const;
 };
-
 }
 } /* namespace glove */

@@ -19,6 +19,5 @@ class GLRendererFactory : public IRendererFactory {
     EventBusPtr eventBus;
     ContextId nextContextId;
 };
-
 }
 } /* namespace glove */

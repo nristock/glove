@@ -9,7 +9,7 @@
 namespace glove {
 
 class IGraphNode {
-public:
+  public:
     typedef std::list<IGraphNodePtr> GraphNodeList;
     typedef GraphNodeList::iterator GraphNodeListIterator;
 
@@ -23,13 +23,11 @@ public:
 
     virtual void OnParented(IGraphNodePtr parent) = 0;
 
-    Transform& GetTransform() {
-        return transform;
-    }
+    Transform& GetTransform() { return transform; }
 
     void RefreshTransformTree();
 
-protected:
+  protected:
     IGraphNodePtr parent;
     GraphNodeList children;
 

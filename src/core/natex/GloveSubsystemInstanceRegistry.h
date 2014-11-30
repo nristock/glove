@@ -11,14 +11,14 @@
 namespace glove {
 
 class GloveSubsystemInstanceRegistry : public ISubsystemInstanceRegistry {
-public:
+  public:
     GloveSubsystemInstanceRegistry(const EventBusPtr& eventBus, const GloveCorePtr& engineCore);
 
     virtual void InstantiateDefinitionRegistry(const ISubsystemDefinitionRegistryPtr& definitionRegistry);
     virtual SubsystemInstanceList GetSubsystemsOfType(const SubsystemType& subsystemType);
     virtual ISubsystemPtr GetUniqueSubsystemOfType(const SubsystemType& subsystemType);
 
-private:
+  private:
     typedef std::multimap<SubsystemType, ISubsystemPtr> SubsystemInstanceMap;
 
     logging::GloveLogger logger;

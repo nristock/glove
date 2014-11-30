@@ -14,7 +14,8 @@ namespace glove {
 
 GloveSubsystemInstanceRegistry::GloveSubsystemInstanceRegistry(const EventBusPtr& eventBus,
                                                                const GloveCorePtr& engineCore)
-    : eventBus(eventBus), engineCore(engineCore) {}
+    : eventBus(eventBus), engineCore(engineCore) {
+}
 
 void GloveSubsystemInstanceRegistry::InstantiateDefinitionRegistry(
     const ISubsystemDefinitionRegistryPtr& definitionRegistry) {
@@ -30,16 +31,19 @@ void GloveSubsystemInstanceRegistry::InstantiateDefinitionRegistry(
                 std::pair<SubsystemType, ISubsystemPtr>(subsystemDefinition->GetSystemType(), subsystemInstance));
 
             EmitPostCreateEvent();
-        }
-        catch (GloveException& ex) {
+        } catch (GloveException& ex) {
             LOG(logger, error, ex.what());
         }
     }
 }
 
-void GloveSubsystemInstanceRegistry::EmitPreCreateEvent() { eventBus->Publish(PreSubsystemCreateEvent()); }
+void GloveSubsystemInstanceRegistry::EmitPreCreateEvent() {
+    eventBus->Publish(PreSubsystemCreateEvent());
+}
 
-void GloveSubsystemInstanceRegistry::EmitPostCreateEvent() { eventBus->Publish(SubsystemCreatedEvent()); }
+void GloveSubsystemInstanceRegistry::EmitPostCreateEvent() {
+    eventBus->Publish(SubsystemCreatedEvent());
+}
 
 SubsystemInstanceList GloveSubsystemInstanceRegistry::GetSubsystemsOfType(const SubsystemType& subsystemType) {
     std::list<ISubsystemPtr> instances;
@@ -57,12 +61,12 @@ SubsystemInstanceList GloveSubsystemInstanceRegistry::GetSubsystemsOfType(const 
 ISubsystemPtr GloveSubsystemInstanceRegistry::GetUniqueSubsystemOfType(const SubsystemType& subsystemType) {
     SubsystemInstanceList subsystemInstances = GetSubsystemsOfType(subsystemType);
 
-    if(subsystemInstances.size() > 1) {
-        throw GLOVE_EXCEPTION("Found more than one subsystem instancen of type") //todo
+    if (subsystemInstances.size() > 1) {
+        throw GLOVE_EXCEPTION("Found more than one subsystem instancen of type") // todo
     }
 
-    if(subsystemInstances.empty()) {
-        throw GLOVE_EXCEPTION("Couldn't find any subsystem instance of type") //todo
+    if (subsystemInstances.empty()) {
+        throw GLOVE_EXCEPTION("Couldn't find any subsystem instance of type") // todo
     }
 
     return *subsystemInstances.begin();

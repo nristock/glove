@@ -13,5 +13,4 @@ glove::ISystemExtensionPtr LoadExtension() {
 /// @ingroup OpenGLRenderer
 void UnloadExtension() {
 }
-
 }

@@ -4,9 +4,7 @@
 
 namespace glove {
 
-InputManager::InputManager(EventBusPtr& eventBus) :
-	mousePosition(0, 0), 
-	EnableProfilable() {
+InputManager::InputManager(EventBusPtr& eventBus) : mousePosition(0, 0), EnableProfilable() {
 
     for (int i = 0; i < KC_LAST; i++) {
         keyMap[i] = KS_UP;
@@ -16,9 +14,11 @@ InputManager::InputManager(EventBusPtr& eventBus) :
         mouseButtonMap[i] = BS_UP;
     }
 
-    eventBus->Subscribe<KeyEvent>(KeyEvent::eventTypeId, [this](const KeyEvent& evnt){this->OnKeyEvent(evnt);});
-    eventBus->Subscribe<MouseButtonEvent>(MouseButtonEvent::eventTypeId, [this](const MouseButtonEvent& evnt){this->OnMouseButtonEvent(evnt);});
-    eventBus->Subscribe<MouseMoveEvent>(MouseMoveEvent::eventTypeId, [this](const MouseMoveEvent& evnt){this->OnMouseMoveEvent(evnt);});
+    eventBus->Subscribe<KeyEvent>(KeyEvent::eventTypeId, [this](const KeyEvent& evnt) { this->OnKeyEvent(evnt); });
+    eventBus->Subscribe<MouseButtonEvent>(MouseButtonEvent::eventTypeId,
+                                          [this](const MouseButtonEvent& evnt) { this->OnMouseButtonEvent(evnt); });
+    eventBus->Subscribe<MouseMoveEvent>(MouseMoveEvent::eventTypeId,
+                                        [this](const MouseMoveEvent& evnt) { this->OnMouseMoveEvent(evnt); });
 }
 
 InputManager::~InputManager() {
@@ -55,7 +55,8 @@ void InputManager::OnKeyEvent(const KeyEvent& evnt) {
 
 void InputManager::OnMouseButtonEvent(const MouseButtonEvent& evnt) {
     if (evnt.button >= MB_LAST) {
-        LOG(logger, error, (boost::format("MouseButton code %1% of event is out of %2% range") % evnt.button % MB_LAST).str());
+        LOG(logger, error,
+            (boost::format("MouseButton code %1% of event is out of %2% range") % evnt.button % MB_LAST).str());
         return;
     }
 
@@ -91,8 +92,7 @@ void InputManager::SyncUpdate() {
     for (int i = 0; i < KC_LAST; i++) {
         if (keyMap[i] == KS_PRESSED) {
             keyMap[i] = KS_DOWN;
-        }
-        else if (keyMap[i] == KS_RELEASED) {
+        } else if (keyMap[i] == KS_RELEASED) {
             keyMap[i] = KS_UP;
         }
     }
@@ -100,8 +100,7 @@ void InputManager::SyncUpdate() {
     for (int i = 0; i < MB_LAST; i++) {
         if (mouseButtonMap[i] == BS_PRESSED) {
             mouseButtonMap[i] = BS_DOWN;
-        }
-        else if (mouseButtonMap[i] == BS_RELEASED) {
+        } else if (mouseButtonMap[i] == BS_RELEASED) {
             mouseButtonMap[i] = BS_UP;
         }
     }

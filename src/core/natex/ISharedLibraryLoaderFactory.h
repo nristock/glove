@@ -7,7 +7,7 @@ namespace glove {
 /// @brief Interface for shared library loder factories.
 class ISharedLibraryLoaderFactory {
   public:
-    virtual ~ISharedLibraryLoaderFactory() {};
+    virtual ~ISharedLibraryLoaderFactory(){};
 
     /// @brief Creates a shared library loader object designated to libraryFilePath.
     ///

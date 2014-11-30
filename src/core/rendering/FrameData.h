@@ -4,7 +4,6 @@
 
 #include <core/pitamem/MemoryProfile.h>
 
-
 namespace glove {
 
 /// @brief Data structure representing the current frame state.

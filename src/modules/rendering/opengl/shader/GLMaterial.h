@@ -25,6 +25,5 @@ class GLMaterial : public IMaterial, public std::enable_shared_from_this<GLMater
 
     GLShaderProgramPtr shader;
 };
-
 }
 } // namespace glove

@@ -60,6 +60,5 @@ typedef uint16_t ContextId;
 
 typedef OpenGLWrapper GL;
 /// @}
-
 }
 } /* namespace glove */

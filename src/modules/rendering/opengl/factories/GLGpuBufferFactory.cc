@@ -12,6 +12,5 @@ IGpuBufferPtr GLGpuBufferFactory::CreateVertexBuffer(BufferUsage bufferUsage) co
 IGpuBufferPtr GLGpuBufferFactory::CreateIndexBuffer() const {
     return IGpuBufferPtr(new GLGpuBuffer(BufferUsage::STATIC, GL_ELEMENT_ARRAY_BUFFER));
 }
-
 }
 }

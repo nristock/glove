@@ -44,12 +44,9 @@ class GloveCore : public std::enable_shared_from_this<GloveCore> {
 
     void LoadConfiguration(const std::string& param);
 
+    const ISubsystemInstanceRegistryPtr& GetSubsystemInstanceRegistry() const { return subsystemInstanceRegistry; }
 
-  const ISubsystemInstanceRegistryPtr& GetSubsystemInstanceRegistry() const {
-    return subsystemInstanceRegistry;
-  }
-
-private:
+  private:
     typedef std::chrono::steady_clock::time_point TimePoint;
     typedef std::list<ISystemExtensionPtr> SystemExtensionList;
 

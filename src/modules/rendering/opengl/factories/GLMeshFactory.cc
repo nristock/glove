@@ -18,6 +18,5 @@ IMeshPtr GLMeshFactory::CreateMesh(const IMaterialPtr& material, const IVertexDa
 IMeshPtr GLMeshFactory::CreateEmptyMesh(const IMaterialPtr& material) const {
     return GLMeshPtr(new GLMesh(material, IVertexDataPtr(), IIndexDataPtr()));
 }
-
 }
 }

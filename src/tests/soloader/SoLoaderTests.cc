@@ -24,9 +24,7 @@ class SoLoaderTests : public ::testing::Test {
         ASSERT_EQ(nullptr, dlerror());
     }
 
-    void ClearDLErrors() {
-        dlerror();
-    }
+    void ClearDLErrors() { dlerror(); }
 };
 
 const char* SoLoaderTests::libraryFile = "../lib/libtests_soloader_testlib.so";
@@ -59,7 +57,6 @@ TEST_F(SoLoaderTests, CanLoadSymbol) {
     EXPECT_EQ(5, testFunction(5));
 
     ASSERT_NO_FATAL_FAILURE(DeleteSoLoader());
-
 }
 
 TEST_F(SoLoaderTests, ThrowsIfSymbolCouldntBeLoaded) {

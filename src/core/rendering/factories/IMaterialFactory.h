@@ -6,10 +6,9 @@ namespace glove {
 
 /// @ingroup RenderSubsystemInterface
 class IMaterialFactory {
-public:
+  public:
     virtual ~IMaterialFactory() = default;
-    
+
     virtual IMaterialPtr CreateMaterial(const IShaderProgramPtr& shaderProgram) = 0;
 };
-
 }

@@ -14,7 +14,7 @@ namespace glove {
 /// @brief Interface for subsystem definitions
 class ISubsystemDefinition {
   public:
-    virtual ~ISubsystemDefinition() {};
+    virtual ~ISubsystemDefinition(){};
 
     /// @brief Returns a human-readable name of the subsystem.
     virtual const std::string& GetSystemName() = 0;

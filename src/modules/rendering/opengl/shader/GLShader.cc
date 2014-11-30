@@ -36,6 +36,5 @@ GLShader::~GLShader() {
 const GLuint GLShader::GetGLShaderId() const {
     return shaderName;
 }
-
 }
 }

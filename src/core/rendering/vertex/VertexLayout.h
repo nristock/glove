@@ -17,7 +17,7 @@ namespace glove {
 /// A vertex layout is a collection of VertexAttributes. This class does also automatically calculate the stride
 /// (the bytes between two elements) per buffer.
 class VertexLayout {
-public:
+  public:
     VertexLayout() = default;
 
     /// @brief Adds a VertexAttribute element to the internal list of vertex attributes and recalculates the stride
@@ -31,9 +31,9 @@ public:
     GLOVE_INLINE const std::size_t GetStrideForBufferIndex(std::size_t bufferIndex);
 
     /// @brief Equality is determined by the equality of the underlying VertexAttributeList (VertexLayout::attributes)
-    GLOVE_INLINE bool operator== (const VertexLayout& other) const;
+    GLOVE_INLINE bool operator==(const VertexLayout& other) const;
 
-private:
+  private:
     typedef std::list<VertexAttribute> VertexAttributeList;
     typedef std::map<std::size_t, std::size_t> AttributeStrideMap;
 

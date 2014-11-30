@@ -16,11 +16,7 @@ class ExtensionDependencyGraph {
     SubsystemDefinitionList GetSortedList();
 
   private:
-    enum NodeMarkState {
-        UNMARKED,
-        TEMPORARY,
-        PERMANENT
-    };
+    enum NodeMarkState { UNMARKED, TEMPORARY, PERMANENT };
 
     struct DependencyGraphNode {
         const ISubsystemDefinitionPtr subsystemDefinition;
@@ -29,7 +25,7 @@ class ExtensionDependencyGraph {
         std::list<DependencyGraphNode*> dependentNodes;
 
         DependencyGraphNode(const ISubsystemDefinitionPtr& subsystemDefinition)
-                : subsystemDefinition(subsystemDefinition), markState(UNMARKED) {}
+            : subsystemDefinition(subsystemDefinition), markState(UNMARKED) {}
 
         bool DependsOnSystemType(const SubsystemType& subsystemType);
     };

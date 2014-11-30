@@ -17,5 +17,4 @@ struct MouseMoveEvent : AbstractEvent {
     double y;
 };
 
-
 } // namespace glove

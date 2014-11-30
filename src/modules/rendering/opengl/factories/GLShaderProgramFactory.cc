@@ -9,6 +9,5 @@ namespace gl {
 IShaderProgramPtr GLShaderProgramFactory::CreateShaderProgram(const std::list<IShaderPtr>& shaders) {
     return GLShaderProgramPtr(new GLShaderProgram(shaders));
 }
-
 }
 }

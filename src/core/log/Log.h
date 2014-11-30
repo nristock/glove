@@ -6,22 +6,19 @@
 
 namespace glove {
 namespace logging {
-	enum SeverityLevel {
-		debug,
-		info,
-		warning,
-		error,
-		fatal
-	};
+enum SeverityLevel { debug, info, warning, error, fatal };
 
-	std::ostream& operator<< (std::ostream& strm, SeverityLevel level);
-	
-	typedef boost::log::sources::wseverity_logger<SeverityLevel> GloveLogger;
-	extern GloveLogger globalLogger;
+std::ostream& operator<<(std::ostream& strm, SeverityLevel level);
 
-    void InitLoggingSystem();
+typedef boost::log::sources::wseverity_logger<SeverityLevel> GloveLogger;
+extern GloveLogger globalLogger;
+
+void InitLoggingSystem();
 }
 
-#define LOG(log_, lvl_, lgs_) {BOOST_LOG_FUNCTION(); BOOST_LOG_SEV(log_, glove::logging::SeverityLevel::lvl_) << lgs_;}
-
+#define LOG(log_, lvl_, lgs_)                                                                                          \
+    {                                                                                                                  \
+        BOOST_LOG_FUNCTION();                                                                                          \
+        BOOST_LOG_SEV(log_, glove::logging::SeverityLevel::lvl_) << lgs_;                                              \
+    }
 }

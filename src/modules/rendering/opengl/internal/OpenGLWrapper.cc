@@ -254,6 +254,5 @@ void OpenGLWrapper::_glDrawArrays(GLenum mode, GLint first, GLsizei count) {
 void OpenGLWrapper::_glDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid* indices) {
     glDrawElements(mode, count, type, indices);
 }
-
 }
 }

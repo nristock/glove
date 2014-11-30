@@ -13,6 +13,5 @@ class GLMeshFactory : public IMeshFactory {
     virtual IMeshPtr CreateMesh(const IMaterialPtr& material, const IVertexDataPtr& vertexData);
     virtual IMeshPtr CreateEmptyMesh(const IMaterialPtr& material) const;
 };
-
 }
 }

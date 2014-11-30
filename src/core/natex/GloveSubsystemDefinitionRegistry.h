@@ -20,10 +20,9 @@ class GloveSubsystemDefinitionRegistry : public ISubsystemDefinitionRegistry {
     /// @brief NOP in this implementation.
     virtual void RegisterSubsystemType(const SubsystemType& subsystemType);
 
-
     virtual SubsystemDefinitionList GetTopologicallySortedSubsystemDefinitions();
 
-private:
+  private:
     logging::GloveLogger logger;
 
     std::multimap<SubsystemType, ISubsystemDefinitionPtr> subsystemDefinitions;

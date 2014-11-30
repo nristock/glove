@@ -5,7 +5,7 @@
 
 namespace glove {
 class MockMesh : public Mesh {
-public:
+  public:
     MockMesh(const IVertexDataPtr& vertexData, const IIndexDataPtr& indexData) : Mesh(vertexData, indexData) {}
 
     MOCK_METHOD1(BindMaterial, void(const IMaterialPtr& material));

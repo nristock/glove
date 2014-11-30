@@ -84,6 +84,5 @@ void GlfwWrapper::GlfwMouseButtonEvent(GLFWwindow* window, int button, int actio
 GLWindow* GlfwWrapper::GetCurrentGLWindow() {
     return GetGLWindow(glfwGetCurrentContext());
 }
-
 }
 }

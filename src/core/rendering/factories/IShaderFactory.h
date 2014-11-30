@@ -8,8 +8,8 @@ namespace glove {
 
 /// @ingroup RenderSubsystemInterface
 class IShaderFactory {
-public:
-    virtual ~IShaderFactory() {};
+  public:
+    virtual ~IShaderFactory(){};
 
     /// @brief Creates a vertex shader by loading it from the provided fileName.
     ///
@@ -21,5 +21,4 @@ public:
     /// @param [in] fileName Path to the file containing the shader source.
     virtual IShaderPtr CreateFragmentShader(std::string fileName) = 0;
 };
-
 }

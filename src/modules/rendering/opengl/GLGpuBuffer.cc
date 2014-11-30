@@ -33,6 +33,5 @@ void GLGpuBuffer::WriteData(size_t sizeInBytes, const void* data) {
         break;
     }
 }
-
 }
 } // namespace glove

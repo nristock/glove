@@ -52,6 +52,5 @@ class GLRenderer : public IRenderer {
     void CreateWindow(const WindowConstructionHints& windowCreationHints);
     void RenderObject(RenderOperation& renderOp, const FrameData& frameData, const GLBaseMeshPtr& baseMesh);
 };
-
 }
 } /* namespace glove */

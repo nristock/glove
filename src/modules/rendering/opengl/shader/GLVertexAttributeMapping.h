@@ -18,6 +18,5 @@ class GLVertexAttributeMapping : public IVertexAttributeMapping {
   private:
     std::map<VertexAttributeSemantic, uint32_t> attributeMappings;
 };
-
 }
 }

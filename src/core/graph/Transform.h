@@ -49,7 +49,8 @@ struct Transform {
     * @return localTransform
     */
     glm::mat4 GetLocalTransform() {
-        if (isDirty) RecalculateMatrix();
+        if (isDirty)
+            RecalculateMatrix();
         return localTransform;
     }
 
@@ -57,9 +58,7 @@ struct Transform {
     * Returns the accumulated tranform matrix (parent's accumulated matrix * localTransform)
     * @return globalTransform
     */
-    glm::mat4 GetGlobalTransform() const {
-        return globalTransform;
-    }
+    glm::mat4 GetGlobalTransform() const { return globalTransform; }
 
     /**
     * Calls Transform::SetPosition(const glm::vec3&, bool updateMatrix) with updateMatrix=true.
@@ -79,42 +78,39 @@ struct Transform {
     /**
     * Sets the Transform's position and updates the local transform matrix if requested.
     * @param [in] position The new position
-    * @param [in] updateMatrix Specifies wether the local matrix should be updated immediately (true) or if the isDirty flag should be set (false).
+    * @param [in] updateMatrix Specifies wether the local matrix should be updated immediately (true) or if the isDirty
+    * flag should be set (false).
     */
     void SetPosition(const glm::vec3& position, bool updateMatrix);
 
     /**
     * Sets the Transform's rotation and updates the local transform matrix if requested.
     * @param [in] position The new rotation
-    * @param [in] updateMatrix Specifies wether the local matrix should be updated immediately (true) or if the isDirty flag should be set (false).
+    * @param [in] updateMatrix Specifies wether the local matrix should be updated immediately (true) or if the isDirty
+    * flag should be set (false).
     */
     void SetRotation(const glm::quat& rotation, bool updateMatrix);
 
     /**
     * Sets the Transform's scale and updates the local transform matrix if requested.
     * @param [in] position The new scale
-    * @param [in] updateMatrix Specifies wether the local matrix should be updated immediately (true) or if the isDirty flag should be set (false).
+    * @param [in] updateMatrix Specifies wether the local matrix should be updated immediately (true) or if the isDirty
+    * flag should be set (false).
     */
     void SetScale(const glm::vec3& scale, bool updateMatrix);
 
-    const glm::vec3& GetPosition() const {
-        return position;
-    }
+    const glm::vec3& GetPosition() const { return position; }
 
-    const glm::quat& GetRotation() const {
-        return rotation;
-    }
+    const glm::quat& GetRotation() const { return rotation; }
 
-    const glm::vec3& GetScale() const {
-        return scale;
-    }
+    const glm::vec3& GetScale() const { return scale; }
 
     /**
     * Sets an onModify callback.
     */
     void SetModifyCallback(std::function<void()> callback);
 
-private:
+  private:
     bool isDirty;
     bool isGlobalDirty;
 
@@ -127,6 +123,5 @@ private:
 
     std::function<void()> onModify;
 };
-
 
 } // namespace glove

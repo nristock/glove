@@ -16,7 +16,7 @@ using ::testing::_;
 namespace glove {
 TEST(StaticIndexDataTest, ConstructorStoresGpuBufferAndNumverOfIndices) {
     std::default_random_engine generator(
-            static_cast<ulong>(std::chrono::system_clock::now().time_since_epoch().count()));
+        static_cast<ulong>(std::chrono::system_clock::now().time_since_epoch().count()));
     std::uniform_int_distribution<int> distribution(0, 1000);
 
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
@@ -40,7 +40,8 @@ TEST(DynamicIndexDataTest, ConstructorCreatesGpuBufferAndEmptyIndexList) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
-    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(Return(gpuBuffer));
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(
+        Return(gpuBuffer));
 
     DynamicIndexData<unsigned int> indexData(gpuBufferFactory);
 
@@ -53,7 +54,8 @@ TEST(DynamicIndexDataTest, BindBufferBindsUnderlyingGpuBuffer) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
-    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(Return(gpuBuffer));
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(
+        Return(gpuBuffer));
     EXPECT_CALL(*(MockGpuBuffer*)gpuBuffer.get(), Bind()).Times(1);
 
     DynamicIndexData<unsigned int> indexData(gpuBufferFactory);
@@ -64,7 +66,8 @@ TEST(DynamicIndexDataTest, FlushCallsWriteDataOfUnderlyingBuffer) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
-    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(Return(gpuBuffer));
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(
+        Return(gpuBuffer));
     EXPECT_CALL(*(MockGpuBuffer*)gpuBuffer.get(), WriteData(0, _)).Times(1);
 
     DynamicIndexData<unsigned int> indexData(gpuBufferFactory);
@@ -75,7 +78,8 @@ TEST(DynamicIndexDataTest, FlushWritesDataToUnderlyingBuffer) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
-    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(Return(gpuBuffer));
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(
+        Return(gpuBuffer));
 
     DynamicIndexData<unsigned int>::IndexList indices;
 
@@ -94,7 +98,8 @@ TEST(DynamicIndexDataTest, GetIndexCountReturnsSizeOfBackingIndexListr) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
-    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(Return(gpuBuffer));
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(
+        Return(gpuBuffer));
 
     DynamicIndexData<unsigned int> indexData(gpuBufferFactory);
 
@@ -111,7 +116,8 @@ TEST(DynamicIndexDataTest, CanSetIndexList) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
-    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(Return(gpuBuffer));
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateIndexBuffer()).Times(1).WillOnce(
+        Return(gpuBuffer));
 
     DynamicIndexData<unsigned int> indexData(gpuBufferFactory);
     DynamicIndexData<unsigned int>::IndexList indices;

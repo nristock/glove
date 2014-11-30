@@ -8,7 +8,6 @@ namespace glove {
 
 /** Abstract camera representation. */
 class Camera : public GameObject {
-    Profilable()
   public:
     Camera();
 

@@ -7,8 +7,8 @@
 namespace glove {
 
 class IGameComponentFactory {
-public:
-    virtual ~IGameComponentFactory() {};
+  public:
+    virtual ~IGameComponentFactory(){};
 
     virtual GameComponentPtr Build(const GameObjectPtr owner) const = 0;
 };

@@ -20,6 +20,5 @@ IShaderPtr GLShaderFactory::CreateFragmentShader(std::string fileName) {
 
     return GLShaderPtr(new GLShader(shaderSource, GL_FRAGMENT_SHADER));
 }
-
 }
 }

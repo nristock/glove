@@ -25,6 +25,5 @@ class GLMesh : public GLBaseMesh, public Mesh {
   private:
     logging::GloveLogger logger;
 };
-
 }
 } // namespace glove

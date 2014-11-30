@@ -21,6 +21,5 @@ class GLShader : public IShader {
   private:
     GLuint shaderName;
 };
-
 }
 }

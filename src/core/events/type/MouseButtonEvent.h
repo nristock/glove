@@ -21,16 +21,14 @@ enum MouseButton {
     MB_LAST = MBTN_8
 };
 
-enum ButtonAction {
-    BA_PRESS,
-    BA_RELEASE
-};
+enum ButtonAction { BA_PRESS, BA_RELEASE };
 
 struct MouseButtonEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
 
     MouseButtonEvent(MouseButton button, ButtonAction buttonAction);
-    MouseButtonEvent(MouseButton button, ButtonAction buttonAction, bool shiftDown, bool controlDown, bool altDown, bool osKeyDown);
+    MouseButtonEvent(MouseButton button, ButtonAction buttonAction, bool shiftDown, bool controlDown, bool altDown,
+                     bool osKeyDown);
 
     virtual ~MouseButtonEvent();
 
@@ -43,6 +41,5 @@ struct MouseButtonEvent : AbstractEvent {
     bool altDown;
     bool osKeyDown;
 };
-
 
 } // namespace glove

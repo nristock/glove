@@ -14,29 +14,26 @@ namespace glove {
 class GameObject;
 
 class Scenegraph {
-Profilable();
-public:
-	Scenegraph();
+  public:
+    Scenegraph();
 
     virtual ~Scenegraph();
 
     virtual GameObjectPointer CreateSimpleGameObject();
 
-    template<class T>
-    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator) {
-        return CreateGameObject<T>(allocator, [](std::shared_ptr<T> object) {
-        }, [](std::shared_ptr<T> object) {
-        });
+    template <class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator) {
+        return CreateGameObject<T>(allocator, [](std::shared_ptr<T> object) {}, [](std::shared_ptr<T> object) {});
     }
 
-    template<class T>
-    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit) {
-        return CreateGameObject<T>(allocator, preInit, [](std::shared_ptr<T> object) {
-        });
+    template <class T>
+    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator,
+                                        std::function<void(std::shared_ptr<T>)> preInit) {
+        return CreateGameObject<T>(allocator, preInit, [](std::shared_ptr<T> object) {});
     }
 
-    template<class T>
-    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit, std::function<void(std::shared_ptr<T>)> postInit) {
+    template <class T>
+    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit,
+                                        std::function<void(std::shared_ptr<T>)> postInit) {
         typedef std::shared_ptr<T> SharedPtrType;
 
         SharedPtrType go = SharedPtrType(allocator());
@@ -60,15 +57,11 @@ public:
 
     virtual void SetActiveCamera(CameraPointer camera);
 
-    virtual CameraPointer GetMainCamera() const {
-        return mainCamera;
-    }
+    virtual CameraPointer GetMainCamera() const { return mainCamera; }
 
-    size_t GetGameObjectCount() const {
-        return gameObjects.size();
-    }
+    size_t GetGameObjectCount() const { return gameObjects.size(); }
 
-protected:
+  protected:
     std::list<GameObjectPointer> gameObjects;
 
     CameraPointer mainCamera;

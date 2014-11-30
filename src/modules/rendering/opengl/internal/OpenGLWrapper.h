@@ -90,6 +90,5 @@ class OpenGLWrapper {
   private:
     static OpenGLWrapperPtr sharedWrapper;
 };
-
 }
 }

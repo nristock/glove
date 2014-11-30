@@ -10,7 +10,7 @@ namespace glove {
 
 /// @ingroup RenderSubsystemInterface
 class IRenderer {
-public:
+  public:
     virtual ~IRenderer() {}
 
     virtual void ClearBuffers() = 0;

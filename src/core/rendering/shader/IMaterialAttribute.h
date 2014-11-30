@@ -7,7 +7,7 @@ namespace glove {
 /// @brief Represents a mutable attribute bound to a material.
 /// @ingroup RenderSubsystemInterface
 class IMaterialAttribute {
-public:
+  public:
     virtual ~IMaterialAttribute() = default;
 
     virtual void Set(glm::mat3& value) = 0;
@@ -16,5 +16,4 @@ public:
     virtual void Set(glm::vec4& value) = 0;
     virtual void Set(float& value) = 0;
 };
-
 }

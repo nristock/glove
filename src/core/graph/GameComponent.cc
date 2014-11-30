@@ -4,13 +4,10 @@
 
 namespace glove {
 
-GameComponent::GameComponent() :
-	EnableProfilable() {
-
+GameComponent::GameComponent() : EnableProfilable() {
 }
 
 GameComponent::~GameComponent() {
-
 }
 
 void GameComponent::OnAttach(GameObjectPtr owner) {

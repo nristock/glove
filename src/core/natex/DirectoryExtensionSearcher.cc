@@ -39,7 +39,8 @@ DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& search
     closedir(dir);
 }
 
-DirectoryExtensionSearcher::~DirectoryExtensionSearcher() {}
+DirectoryExtensionSearcher::~DirectoryExtensionSearcher() {
+}
 
 IExtensionSearcher::ExtensionFileList const& DirectoryExtensionSearcher::GetExtensions() const {
     return extensionFileList;

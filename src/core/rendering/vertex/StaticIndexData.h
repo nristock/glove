@@ -21,7 +21,7 @@ class StaticIndexData : public IIndexData {
 
     virtual GLOVE_INLINE void BindBuffer();
 
-protected:
+  protected:
     IGpuBufferPtr indexBuffer;
     size_t indexCount;
 };

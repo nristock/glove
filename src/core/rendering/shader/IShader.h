@@ -4,8 +4,7 @@ namespace glove {
 
 /// @ingroup RenderSubsystemInterface
 class IShader {
-public:
+  public:
     virtual ~IShader() = default;
 };
-
 }

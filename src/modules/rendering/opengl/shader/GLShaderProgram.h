@@ -35,6 +35,5 @@ class GLShaderProgram : public IShaderProgram {
     std::list<GLShaderPtr> shaders;
     IVertexAttributeMappingPtr vertexAttributeMapping;
 };
-
 }
 } /* namespace glove */

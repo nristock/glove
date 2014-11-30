@@ -3,8 +3,7 @@
 namespace glove {
 
 class ISubsystem {
-public:
+  public:
     virtual ~ISubsystem() = default;
 };
-
 }

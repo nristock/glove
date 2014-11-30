@@ -12,7 +12,7 @@ namespace glove {
 /// interface to load symbols (primarily the LoadExtension and UnloadExtension functions) from the library.
 class ISharedLibraryLoader {
   public:
-    virtual ~ISharedLibraryLoader() {};
+    virtual ~ISharedLibraryLoader(){};
 
     /// @brief Loads a named symbol from the library.
     ///

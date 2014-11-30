@@ -8,7 +8,7 @@ namespace glove {
 
 /// @ingroup RenderSubsystemInterface
 class IWindow {
-public:
+  public:
     virtual ~IWindow() {}
 
     virtual ScreenPoint GetPosition() const = 0;

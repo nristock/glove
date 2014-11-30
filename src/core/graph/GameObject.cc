@@ -7,11 +7,6 @@
 
 namespace glove {
 
-GameObject::GameObject() :
-	EnableProfilable() {
-
-}
-
 GameObject::~GameObject() {
     renderableComponents.clear();
     components.clear();
@@ -39,8 +34,7 @@ std::weak_ptr<GameComponent> GameObject::CreateComponent(const IGameComponentFac
     return std::weak_ptr<GameComponent>(component);
 }
 
-template<class T>
-std::weak_ptr<T> GameObject::GetComponent() {
+template <class T> std::weak_ptr<T> GameObject::GetComponent() {
     for (auto component : components) {
         if (typeid(*component) == typeid(T)) {
             return std::weak_ptr<T>(std::dynamic_pointer_cast<T>(component));
@@ -54,7 +48,7 @@ void GameObject::IterateComponents(std::function<void(const GameComponentPointer
     }
 }
 
-void GameObject::IterateRenderableComponents(std::function<void(const IRenderablePointer&)> callback) {
+void GameObject::IterateRenderableComponents(std::function<void(const IRenderablePtr&)> callback) {
     for (auto component : renderableComponents) {
         callback(component.lock());
     }
@@ -77,8 +71,7 @@ void GameObject::OnParented(IGraphNodePtr parent) {
 
     if (parent) {
         transform.RecalculateAccumulatedTransform(parent->GetTransform());
-    }
-    else {
+    } else {
         transform.RecalculateAccumulatedTransform(Transform::Identity());
     }
 }

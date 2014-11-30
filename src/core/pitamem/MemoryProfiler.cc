@@ -7,7 +7,6 @@ namespace glove {
 std::map<std::thread::id, MemoryProfiler*> MemoryProfiler::instances;
 std::recursive_mutex MemoryProfiler::mutex;
 
-
 void MemoryProfiler::RegisterProfilable(MemoryProfile* profilable) {
     LockGuard lock(mutex);
 
@@ -17,14 +16,16 @@ void MemoryProfiler::RegisterProfilable(MemoryProfile* profilable) {
     }
 
     currentMemoryUsage += profilable->GetSizeInBytes();
-    if (currentMemoryUsage > peakMemoryUsage) peakMemoryUsage = currentMemoryUsage;
+    if (currentMemoryUsage > peakMemoryUsage)
+        peakMemoryUsage = currentMemoryUsage;
     profilableObjects.insert(profilable);
 }
 
 void MemoryProfiler::UnregisterProfilable(MemoryProfile* profilable) {
     LockGuard lock(mutex);
 
-    if (profilableObjects.find(profilable) == profilableObjects.end()) return;
+    if (profilableObjects.find(profilable) == profilableObjects.end())
+        return;
 
     currentMemoryUsage -= profilable->GetSizeInBytes();
     profilableObjects.erase(profilable);

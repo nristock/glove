@@ -23,10 +23,8 @@ class MemoryProfiler;
 typedef std::shared_ptr<MemoryProfiler> MemoryProfilerPtr;
 
 class MemoryProfiler {
-public:
-    static MemoryProfiler* GetProfilerInstance() {
-        return GetThreadProfilerInstance(std::this_thread::get_id());
-    }
+  public:
+    static MemoryProfiler* GetProfilerInstance() { return GetThreadProfilerInstance(std::this_thread::get_id()); }
 
     static MemoryProfiler* GetThreadProfilerInstance(std::thread::id threadId) {
         LockGuard lock(mutex);
@@ -54,33 +52,19 @@ public:
         instances.insert(InstanceEntry(threadId, profiler));
     }
 
-    MemoryProfiler() :
-            currentMemoryUsage(0),
-            peakMemoryUsage(0),
-            profilableObjects(64,
-                    [](MemoryProfile* profile) {
-                        return (std::size_t) (profile->GetMemoryRoot());
-                    },
-                    [](MemoryProfile* lhs, MemoryProfile* rhs) {
-                        return lhs->GetMemoryRoot() == rhs->GetMemoryRoot();
-                    }) {
-    }
+    MemoryProfiler()
+        : currentMemoryUsage(0), peakMemoryUsage(0),
+          profilableObjects(
+              64, [](MemoryProfile* profile) { return (std::size_t)(profile->GetMemoryRoot()); },
+              [](MemoryProfile* lhs, MemoryProfile* rhs) { return lhs->GetMemoryRoot() == rhs->GetMemoryRoot(); }) {}
 
-    virtual ~MemoryProfiler() {
+    virtual ~MemoryProfiler() {}
 
-    }
+    unsigned long GetCurrentMemoryUsage() const { return currentMemoryUsage; }
 
-    unsigned long GetCurrentMemoryUsage() const {
-        return currentMemoryUsage;
-    }
+    unsigned long GetPeakMemoryUsage() const { return peakMemoryUsage; }
 
-    unsigned long GetPeakMemoryUsage() const {
-        return peakMemoryUsage;
-    }
-
-    unsigned long GetRegisteredObjectCount() const {
-        return profilableObjects.size();
-    }
+    unsigned long GetRegisteredObjectCount() const { return profilableObjects.size(); }
 
     void RegisterProfilable(MemoryProfile* profilable);
 
@@ -88,10 +72,11 @@ public:
 
     void IterateRegisteredObjects(std::function<void(MemoryProfile*)> callback);
 
-private:
+  private:
     typedef std::lock_guard<std::recursive_mutex> LockGuard;
     typedef std::pair<std::thread::id, MemoryProfiler*> InstanceEntry;
-    typedef std::unordered_set<MemoryProfile*, std::function<size_t(MemoryProfile*)>, std::function<bool(MemoryProfile*, MemoryProfile*)>> ProfilableObjectList;
+    typedef std::unordered_set<MemoryProfile*, std::function<size_t(MemoryProfile*)>,
+                               std::function<bool(MemoryProfile*, MemoryProfile*)>> ProfilableObjectList;
 
     static std::map<std::thread::id, MemoryProfiler*> instances;
     static std::recursive_mutex mutex;

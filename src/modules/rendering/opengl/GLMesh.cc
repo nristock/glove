@@ -29,7 +29,6 @@ GLenum TranslateVertexAttributeType(glove::VertexAttributeType attribType) {
 
     throw GLOVE_EXCEPTION("Unexpected contorl flow.");
 }
-
 }
 
 namespace glove {
@@ -81,6 +80,5 @@ void GLMesh::SetupVertexAttribute(const IVertexAttributeMappingPtr& shaderProgra
         LOG(logger, error, "Vertex attribute in buffer not mapped to shader attribute index.");
     }
 }
-
 }
 } // namespace glove

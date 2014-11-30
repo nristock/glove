@@ -4,7 +4,8 @@
 
 namespace glove {
 
-Mesh::Mesh(const IVertexDataPtr& vertexData, const IIndexDataPtr& indexData) : vertexData(vertexData), indexData(indexData) {
+Mesh::Mesh(const IVertexDataPtr& vertexData, const IIndexDataPtr& indexData)
+    : vertexData(vertexData), indexData(indexData) {
 }
 
 void Mesh::SetupRender(RenderOperation& renderOp, const FrameData& frameData) {
@@ -14,7 +15,6 @@ void Mesh::SetupRender(RenderOperation& renderOp, const FrameData& frameData) {
 }
 
 void Mesh::PostRender(RenderOperation& renderOp, const FrameData& frameData) {
-
 }
 
 const IMaterialPtr& Mesh::GetMaterial() const {

@@ -23,12 +23,10 @@ class EventBus {
 
     template <typename EventType>
     void Subscribe(const AbstractEvent::EventTypeId& eventType, std::function<void(const EventType&)> callback) {
-        subscribers.insert(
-            std::make_pair(eventType, [=](const AbstractEvent* evnt)
-            {
-                const EventType& typedEvent = *static_cast<const EventType*>(evnt);
-                callback(typedEvent); }
-            ));
+        subscribers.insert(std::make_pair(eventType, [=](const AbstractEvent* evnt) {
+            const EventType& typedEvent = *static_cast<const EventType*>(evnt);
+            callback(typedEvent);
+        }));
     }
 
     template <class EventType> void Publish(const EventType& evnt) {

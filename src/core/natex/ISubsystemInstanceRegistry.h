@@ -7,7 +7,7 @@
 namespace glove {
 
 class ISubsystemInstanceRegistry {
-public:
+  public:
     virtual ~ISubsystemInstanceRegistry() {}
     virtual void InstantiateDefinitionRegistry(const ISubsystemDefinitionRegistryPtr& definitionRegistry) = 0;
 

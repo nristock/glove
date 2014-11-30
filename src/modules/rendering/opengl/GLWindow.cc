@@ -35,7 +35,6 @@ bool GLOVE_INLINE IsShiftKeyDown(int modsFlag) {
 bool GLOVE_INLINE IsSuperKeyDown(int modsFlag) {
     return IsModifierKeyDown(modsFlag, GLFW_MOD_SUPER);
 }
-
 }
 
 namespace glove {
@@ -152,6 +151,5 @@ void GLWindow::SetDimensions(const ScreenDimensions& newDimensions) {
 void GLWindow::PollSystemEvents() {
     glfwPollEvents();
 }
-
 }
 } // namespace glove

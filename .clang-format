@@ -6,3 +6,6 @@ AccessModifierOffset: -2
 PointerBindsToType: true
 Standard: Cpp11
 ColumnLimit: 120
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowAllParametersOfDeclarationOnNextLine: true

@@ -25,6 +25,5 @@ class GLRendererExtension : public ISystemExtension {
 
     ISubsystemDefinitionPtr subsystemDefinition;
 };
-
 }
 } /* namespace glove */

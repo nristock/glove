@@ -7,7 +7,7 @@ namespace glove {
 
 /// @brief Loads a system extension by file-path.
 class ISystemExtensionLoader {
-public:
+  public:
     virtual ~ISystemExtensionLoader() {}
 
     /// @brief Loads a system extension.

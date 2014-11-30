@@ -30,8 +30,9 @@ struct EngineConfig {
 }
 
 class Configuration {
-Profilable();
-public:
+    Profilable();
+
+  public:
     Configuration();
 
     virtual ~Configuration();
@@ -44,5 +45,4 @@ public:
     configuration::RenderingConfig rendering;
     configuration::EngineConfig engine;
 };
-
 }

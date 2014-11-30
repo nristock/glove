@@ -20,7 +20,7 @@ ExtensionDependencyGraph::ExtensionDependencyGraph(SubsystemDefinitionList& unso
 void ExtensionDependencyGraph::BuildEdges() {
     for (DependencyGraphNode& currentGraphNode : graphNodes) {
         for (DependencyGraphNode& probableDependentGraphNode : graphNodes) {
-            if(probableDependentGraphNode.DependsOnSystemType(currentGraphNode.subsystemDefinition->GetSystemType())) {
+            if (probableDependentGraphNode.DependsOnSystemType(currentGraphNode.subsystemDefinition->GetSystemType())) {
                 currentGraphNode.dependentNodes.push_back(&probableDependentGraphNode);
             }
         }
@@ -68,7 +68,8 @@ SubsystemDefinitionList ExtensionDependencyGraph::GetSortedList() {
     return sortedSubsystemList;
 }
 
-ExtensionDependencyGraph::~ExtensionDependencyGraph() {}
+ExtensionDependencyGraph::~ExtensionDependencyGraph() {
+}
 
 bool ExtensionDependencyGraph::DependencyGraphNode::DependsOnSystemType(const SubsystemType& subsystemType) {
     for (const SubsystemType& currentSubsystemType : subsystemDefinition->GetSystemDependencies()) {

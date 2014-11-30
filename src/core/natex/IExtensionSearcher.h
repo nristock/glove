@@ -8,7 +8,7 @@ class IExtensionSearcher {
   public:
     typedef std::vector<std::string> ExtensionFileList;
 
-    virtual ~IExtensionSearcher() {};
+    virtual ~IExtensionSearcher(){};
 
     /// @brief Returns all discovered extensions.
     ///

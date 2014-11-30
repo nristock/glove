@@ -26,6 +26,5 @@ class GLMaterialAttribute : public IMaterialAttribute {
 
     void BindMaterial();
 };
-
 }
 } /* namespace glove */

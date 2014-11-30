@@ -10,7 +10,7 @@ namespace glove {
 /// It is the renderer's responsibility to make sure the provided vertex/index data and material are valid and in a
 /// suitable state (i.e. pipeline binding states, etc.)
 struct RenderOperation {
-public:
+  public:
     /// @brief Resets the structure by setting all members to nullptr
     void Reset();
 

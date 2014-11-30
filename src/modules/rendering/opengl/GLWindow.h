@@ -59,6 +59,5 @@ class GLWindow : public IWindow {
 
     void SetupViewport();
 };
-
 }
 } // namespace glove

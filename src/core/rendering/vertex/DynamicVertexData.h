@@ -71,7 +71,9 @@ template <class VertexDataType> class DynamicVertexData : public IVertexData {
     virtual GLOVE_INLINE const VertexLayout& GetVertexLayout() const { return vertexLayout; }
 
     /// @brief Uploads the backing data from RAM to the GPU.
-    virtual GLOVE_INLINE void FlushBuffer() { vertexBuffer->WriteData(sizeof(VertexDataType) * GetVertexCount(), &vertices[0]); }
+    virtual GLOVE_INLINE void FlushBuffer() {
+        vertexBuffer->WriteData(sizeof(VertexDataType) * GetVertexCount(), &vertices[0]);
+    }
 
     virtual GLOVE_INLINE void BindAllBuffers() { vertexBuffer->Bind(); }
 

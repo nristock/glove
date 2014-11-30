@@ -11,6 +11,5 @@ class GLRendererSubsystemFactory : public ISubsystemFactory {
   public:
     virtual ISubsystemPtr CreateSubsystem(const GloveCorePtr& engineCore);
 };
-
 }
 } /* namespace glove */

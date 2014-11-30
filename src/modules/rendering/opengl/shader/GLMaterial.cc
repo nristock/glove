@@ -18,6 +18,5 @@ IShaderProgramPtr GLMaterial::GetShaderProgram() const {
 IMaterialAttributePtr GLMaterial::GetMaterialAttribute(const std::string& name) {
     return IMaterialAttributePtr(new GLMaterialAttribute(shader->GetUniformLocation(name), shared_from_this()));
 }
-
 }
 } // namespace glove

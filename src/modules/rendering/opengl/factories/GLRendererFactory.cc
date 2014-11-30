@@ -15,6 +15,5 @@ IRendererPtr GLRendererFactory::CreateRenderer(const WindowConstructionHints& wi
     return GLRendererPtr(new GLRenderer(eventBus, windowDescription, nextContextId++),
                          [=](GLRenderer* ptr) { delete ptr; });
 }
-
 }
 }

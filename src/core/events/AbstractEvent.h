@@ -7,12 +7,11 @@
 namespace glove {
 
 struct AbstractEvent {
-public:
+  public:
     typedef boost::uuids::uuid EventTypeId;
 
-    virtual ~AbstractEvent() {};
+    virtual ~AbstractEvent(){};
     virtual GLOVE_INLINE const EventTypeId& GetEventType() const = 0;
-
 };
 
 } /* namespace glove */

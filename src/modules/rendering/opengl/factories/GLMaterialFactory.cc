@@ -11,6 +11,5 @@ IMaterialPtr GLMaterialFactory::CreateMaterial(const IShaderProgramPtr& shaderPr
     GLShaderProgramPtr glShaderProgram = std::dynamic_pointer_cast<GLShaderProgram>(shaderProgram);
     return GLMaterialPtr(new GLMaterial(glShaderProgram));
 }
-
 }
 }

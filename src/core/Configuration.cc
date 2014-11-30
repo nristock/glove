@@ -8,11 +8,9 @@
 
 namespace glove {
 Configuration::Configuration() : EnableProfilable() {
-
 }
 
 Configuration::~Configuration() {
-
 }
 
 void Configuration::LoadFromFile(const std::string& filePath) {
@@ -22,7 +20,9 @@ void Configuration::LoadFromFile(const std::string& filePath) {
     Json::Reader jsonReader;
 
     bool parsedSuccessfully = jsonReader.parse(configFile, rootJsonNode, false);
-    if (!parsedSuccessfully) throw GLOVE_EXCEPTION((boost::format("Failed to parse JSON istream:\n%1%") % jsonReader.getFormattedErrorMessages()).str());
+    if (!parsedSuccessfully)
+        throw GLOVE_EXCEPTION(
+            (boost::format("Failed to parse JSON istream:\n%1%") % jsonReader.getFormattedErrorMessages()).str());
 
     rendering.window.height = rootJsonNode["rendering"]["window"]["height"].asInt();
     rendering.window.width = rootJsonNode["rendering"]["window"]["width"].asInt();
@@ -30,7 +30,7 @@ void Configuration::LoadFromFile(const std::string& filePath) {
     rendering.opengl.versionMajor = rootJsonNode["rendering"]["opengl"]["major"].asInt();
     rendering.opengl.versionMinor = rootJsonNode["rendering"]["opengl"]["minor"].asInt();
 
-    for(auto& subsys : rootJsonNode["engine"]["subsystems"]["init"]) {
+    for (auto& subsys : rootJsonNode["engine"]["subsystems"]["init"]) {
         engine.subsystemInitList.push_back(subsys.asString());
     }
 
@@ -60,7 +60,7 @@ void Configuration::SaveToFile(const std::string& path) {
 
     Json::Value subsystemsNode = Json::objectValue;
     Json::Value initList = Json::arrayValue;
-    for(auto& subsys : engine.subsystemInitList) {
+    for (auto& subsys : engine.subsystemInitList) {
         initList.append(subsys);
     }
     engineNode["subsystems"] = subsystemsNode;

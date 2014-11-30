@@ -23,6 +23,5 @@ class GLRendererSubsystemDefinition : public ISubsystemDefinition {
 
     ISubsystemFactoryPtr rendererFactory;
 };
-
 }
 } /* namespace glove */

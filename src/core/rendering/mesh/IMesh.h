@@ -6,7 +6,7 @@ namespace glove {
 
 /// @ingroup RenderSubsystemInterface
 class IMesh {
-public:
+  public:
     virtual ~IMesh() = default;
 
     /// @brief Changes the mesh's material and does everything required to update buffer data/vertex layout bindings.

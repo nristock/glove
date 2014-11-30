@@ -5,7 +5,7 @@
 
 namespace glove {
 class MockGpuBufferFactory : public IGpuBufferFactory {
-public:
+  public:
     MOCK_CONST_METHOD1(CreateVertexBuffer, IGpuBufferPtr(BufferUsage bufferUsage));
     MOCK_CONST_METHOD0(CreateIndexBuffer, IGpuBufferPtr());
 };

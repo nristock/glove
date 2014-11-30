@@ -32,6 +32,5 @@ void GLBaseMesh::EnsureVertexArrayObjectExistsForContext(ContextId contextId) {
     CreateVertexArrayObjectForContext(contextId);
     InitVertexAttributeObjectStateForContext(contextId);
 }
-
 }
 }

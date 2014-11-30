@@ -7,27 +7,22 @@
 
 #include "core/GloveFwd.h"
 
-#include <pitamem/MemoryProfile.h>
 #include <graph/Transform.h>
 #include <graph/IGraphNode.h>
+
+#include <core/rendering/Rendering.h>
 
 namespace glove {
 
 class GameObject : public IGraphNode, public std::enable_shared_from_this<GameObject> {
-Profilable();
-public:
-	GameObject();
-
+  public:
     virtual ~GameObject();
 
-    virtual void Init() {
-    };
+    virtual void Init(){};
 
-    virtual void Destroy() {
-    };
+    virtual void Destroy(){};
 
-    virtual void Update() {
-    };
+    virtual void Update(){};
 
     virtual void AttachChild(IGraphNodePtr child);
 
@@ -45,17 +40,16 @@ public:
     * Returns a pointer to the first component found. The game object stays the exclusive owner of the component.
     * A user may store the returned weak_ptr for optimization purposes.
     */
-    template<class T>
-    std::weak_ptr<T> GetComponent();
+    template <class T> std::weak_ptr<T> GetComponent();
 
     /**
     * Iterates all attached components and calls the specified callback.
     */
     virtual void IterateComponents(std::function<void(const GameComponentPointer&)> callback);
 
-    virtual void IterateRenderableComponents(std::function<void(const IRenderablePointer&)> callback);
+    virtual void IterateRenderableComponents(std::function<void(const IRenderablePtr&)> callback);
 
-protected:
+  protected:
     std::list<GameComponentPointer> components;
     std::list<std::weak_ptr<IRenderable>> renderableComponents;
 

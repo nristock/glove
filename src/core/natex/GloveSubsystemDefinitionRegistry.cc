@@ -9,9 +9,11 @@
 #include "ISubsystemDefinition.h"
 
 namespace glove {
-GloveSubsystemDefinitionRegistry::GloveSubsystemDefinitionRegistry() {}
+GloveSubsystemDefinitionRegistry::GloveSubsystemDefinitionRegistry() {
+}
 
-GloveSubsystemDefinitionRegistry::~GloveSubsystemDefinitionRegistry() {}
+GloveSubsystemDefinitionRegistry::~GloveSubsystemDefinitionRegistry() {
+}
 
 void GloveSubsystemDefinitionRegistry::RegisterSubsystemDefinition(const ISubsystemDefinitionPtr& subsystemDefinition) {
     subsystemDefinitions.insert(
@@ -46,10 +48,9 @@ void GloveSubsystemDefinitionRegistry::CheckConsistency() {
     for (const auto& multiMapPair : subsystemDefinitions) {
         for (const SubsystemType& subsystemType : multiMapPair.second->GetSystemDependencies()) {
             if (subsystemDefinitions.count(subsystemType) == 0) {
-                throw GLOVE_EXCEPTION((
-                    boost::format(
-                        "Inconsistent subsystem registry. Requirement for subsystem type %1% has not been satisfied.") %
-                    subsystemType).str());
+                throw GLOVE_EXCEPTION((boost::format("Inconsistent subsystem registry. Requirement for subsystem type "
+                                                     "%1% has not been satisfied.") %
+                                       subsystemType).str());
             }
         }
     }

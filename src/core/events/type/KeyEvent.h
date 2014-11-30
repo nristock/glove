@@ -11,13 +11,13 @@ enum KeyCode {
     KC_SPACE = 32,
     KC_APOSTROPHE = 36, /* ' */
 
-            KC_COMMA = 44,
+    KC_COMMA = 44,
     KC_MINUS,
     KC_PERIOD,
     KC_SLASH = 47,
 
     /** Numerical keys */
-            KC_0 = 48,
+    KC_0 = 48,
     KC_1,
     KC_2,
     KC_3,
@@ -32,7 +32,7 @@ enum KeyCode {
     KC_EQUAL = 61,
 
     /** Alpha keys */
-            KC_A = 65,
+    KC_A = 65,
     KC_B,
     KC_C,
     KC_D,
@@ -59,15 +59,15 @@ enum KeyCode {
     KC_Y,
     KC_Z = 90,
 
-    KC_LEFT_BRACKET = 91, /* [ */
-            KC_BACKSLASH = 92, /* \ */
-            KC_RIGHT_BRACKET = 93, /* ] */
-            KC_GRAVE = 96, /* ` */
-            KC_INTERNAT_1 = 161,
+    KC_LEFT_BRACKET = 91,  /* [ */
+    KC_BACKSLASH = 92,     /* \ */
+    KC_RIGHT_BRACKET = 93, /* ] */
+    KC_GRAVE = 96,         /* ` */
+    KC_INTERNAT_1 = 161,
     KC_INTERNAT_2 = 162,
 
     /** Special keys */
-            KC_ESCAPE = 256,
+    KC_ESCAPE = 256,
     KC_ENTER,
     KC_TAB,
     KC_BACKSPACE,
@@ -83,14 +83,14 @@ enum KeyCode {
     KC_END = 269,
 
     /** Lock keys */
-            KC_CAPS_LOCK = 280,
+    KC_CAPS_LOCK = 280,
     KC_SCROLL_LOCK,
     KC_NUM_LOCK,
     KC_PRINT_SCREEN,
     KC_PAUSE = 284,
 
     /** F-Keys */
-            KC_F1 = 290,
+    KC_F1 = 290,
     KC_F2,
     KC_F3,
     KC_F4,
@@ -117,7 +117,7 @@ enum KeyCode {
     KC_F25 = 314,
 
     /** Keypad keys */
-            KC_NUM_0 = 320,
+    KC_NUM_0 = 320,
     KC_NUM_1,
     KC_NUM_2,
     KC_NUM_3,
@@ -136,7 +136,7 @@ enum KeyCode {
     KC_NUM_EQUAL = 336,
 
     /** Modifier keys */
-            KC_LEFT_SHIFT = 340,
+    KC_LEFT_SHIFT = 340,
     KC_LEFT_CONTROL,
     KC_LEFT_ALT,
     KC_LEFT_OS = 343,
@@ -151,11 +151,7 @@ enum KeyCode {
     KC_LAST = KC_MENU
 };
 
-enum KeyAction {
-    KA_PRESS,
-    KA_RELEASE,
-    KA_REPEAT
-};
+enum KeyAction { KA_PRESS, KA_RELEASE, KA_REPEAT };
 
 struct KeyEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
@@ -175,6 +171,5 @@ struct KeyEvent : AbstractEvent {
     bool altDown;
     bool osKeyDown;
 };
-
 
 } // namespace glove

@@ -6,7 +6,7 @@
 
 namespace glove {
 class MockVertexData : public IVertexData {
-public:
+  public:
     MOCK_CONST_METHOD0(GetGpuBufferCount, const std::size_t());
     MOCK_CONST_METHOD1(GetGpuBuffer, const IGpuBufferPtr&(std::size_t bufferIndex));
     MOCK_CONST_METHOD0(GetVertexLayout, const VertexLayout&());

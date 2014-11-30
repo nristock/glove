@@ -10,6 +10,5 @@ class GLShaderProgramFactory : public IShaderProgramFactory {
   public:
     virtual IShaderProgramPtr CreateShaderProgram(const std::list<IShaderPtr>& shaders);
 };
-
 }
 }

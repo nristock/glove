@@ -10,7 +10,8 @@ TEST(VertexAttributeTest, ConstructorStoresBufferIndexOffsetDataTypeAndSemantic)
     EXPECT_EQ(0, referenceAttribute.GetBufferIndex());
     EXPECT_EQ(0, referenceAttribute.GetByteOffset());
     EXPECT_EQ(VertexAttributeType::FLOAT3, referenceAttribute.GetType());
-    EXPECT_EQ(VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetComponentCount(), referenceAttribute.GetNumberOfComponents());
+    EXPECT_EQ(VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetComponentCount(),
+              referenceAttribute.GetNumberOfComponents());
     EXPECT_EQ(VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize(), referenceAttribute.GetSizeInBytes());
     EXPECT_EQ(VertexAttributeSemantic::POSITION, referenceAttribute.GetSemantic());
 }

@@ -70,6 +70,5 @@ void GLShaderProgram::Enable() {
 void GLShaderProgram::Disable() {
     GL::UseProgram(0);
 }
-
 }
 } /* namespace glove */

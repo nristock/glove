@@ -9,7 +9,9 @@
 #include <core/GloveException.h>
 
 namespace glove {
-SoLoader::SoLoader(const std::string& soFilePath) : libraryFile(soFilePath) { LoadLibrary(); }
+SoLoader::SoLoader(const std::string& soFilePath) : libraryFile(soFilePath) {
+    LoadLibrary();
+}
 
 SoLoader::~SoLoader() {
     if (libraryHandle) {
@@ -58,7 +60,7 @@ void SoLoader::UnloadLibrary() {
 LoadSystemExtensionLibraryFunc SoLoader::GetLibraryLoaderFunc() {
     LoadSystemExtensionLibraryFunc loadFunction = (LoadSystemExtensionLibraryFunc)(LoadSymbol("LoadExtension"));
 
-    if(!loadFunction) {
+    if (!loadFunction) {
         throw GLOVE_EXCEPTION((boost::format("Failed to retrieve library load function for %1%") % libraryFile).str());
     }
 
@@ -68,8 +70,9 @@ LoadSystemExtensionLibraryFunc SoLoader::GetLibraryLoaderFunc() {
 UnloadSystemExtensionLibraryFunc SoLoader::GetLibraryUnloaderFunc() {
     UnloadSystemExtensionLibraryFunc unloadFunction = (UnloadSystemExtensionLibraryFunc)(LoadSymbol("UnloadExtension"));
 
-    if(!unloadFunction) {
-        throw GLOVE_EXCEPTION((boost::format("Failed to retrieve library unload function for %1%") % libraryFile).str());
+    if (!unloadFunction) {
+        throw GLOVE_EXCEPTION(
+            (boost::format("Failed to retrieve library unload function for %1%") % libraryFile).str());
     }
 
     return unloadFunction;

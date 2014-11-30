@@ -11,6 +11,5 @@ class GLShaderFactory : public IShaderFactory {
     virtual IShaderPtr CreateVertexShader(std::string fileName);
     virtual IShaderPtr CreateFragmentShader(std::string fileName);
 };
-
 }
 }

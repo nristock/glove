@@ -16,6 +16,5 @@ uint32_t GLVertexAttributeMapping::GetAttributeLocation(VertexAttributeSemantic 
 void GLVertexAttributeMapping::MapAttribute(VertexAttributeSemantic semantic, uint32_t location) {
     attributeMappings[semantic] = location;
 }
-
 }
 }

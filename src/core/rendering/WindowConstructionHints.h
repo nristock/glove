@@ -9,7 +9,7 @@ namespace glove {
 
 /// @ingroup RenderSubsystemInterface
 class WindowConstructionHints {
-public:
+  public:
     WindowConstructionHints(const ScreenPoint& position, const ScreenDimensions& size, const std::string& title);
 
     virtual GLOVE_INLINE int GetWidth() const;
@@ -20,7 +20,7 @@ public:
 
     virtual GLOVE_INLINE const std::string GetTitle() const;
 
-private:
+  private:
     ScreenPoint position;
     ScreenDimensions size;
     std::string title;

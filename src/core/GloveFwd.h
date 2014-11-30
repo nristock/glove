@@ -43,5 +43,4 @@ GLOVE_FWD_DECL(InputManager);
 GLOVE_FWD_DECL(StringIdDatabase);
 
 GLOVE_FWD_DECL(MemoryProfile);
-
 }

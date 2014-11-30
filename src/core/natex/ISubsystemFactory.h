@@ -5,8 +5,8 @@
 namespace glove {
 
 class ISubsystemFactory {
-public:
-    virtual ~ISubsystemFactory() {};
+  public:
+    virtual ~ISubsystemFactory(){};
 
     virtual ISubsystemPtr CreateSubsystem(const GloveCorePtr& engineCore) = 0;
 };

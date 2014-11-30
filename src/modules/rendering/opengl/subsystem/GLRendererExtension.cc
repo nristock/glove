@@ -24,6 +24,5 @@ void GLRendererExtension::RegisterSubsystems(const ISubsystemDefinitionRegistryP
     subsystemRegistry->RegisterSubsystemType(subsystemDefinition->GetSystemType());
     subsystemRegistry->RegisterSubsystemDefinition(subsystemDefinition);
 }
-
 }
 }

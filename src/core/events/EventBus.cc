@@ -2,8 +2,10 @@
 
 namespace glove {
 
-EventBus::EventBus() : EnableProfilable() {}
+EventBus::EventBus() : EnableProfilable() {
+}
 
-EventBus::~EventBus() {}
+EventBus::~EventBus() {
+}
 
 } // namespace glove

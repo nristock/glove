@@ -45,6 +45,5 @@ class GlfwWrapper {
 
     GlfwWrapper();
 };
-
 }
 } /* namespace glove */

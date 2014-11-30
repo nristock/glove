@@ -29,6 +29,5 @@ class GLGpuBuffer : public IGpuBuffer {
     GLenum target;
     BufferUsage usage;
 };
-
 }
 } // namespace glove

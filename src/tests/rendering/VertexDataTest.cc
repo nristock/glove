@@ -17,7 +17,7 @@ using ::testing::_;
 namespace glove {
 TEST(StaticVertexDataTest, ConstructorStoresVertexLayoutBufferBindingMapAndNumberOfVertices) {
     std::default_random_engine generator(
-            static_cast<ulong>(std::chrono::system_clock::now().time_since_epoch().count()));
+        static_cast<ulong>(std::chrono::system_clock::now().time_since_epoch().count()));
     std::uniform_int_distribution<int> distribution(0, 1000);
 
     std::size_t numVertices = static_cast<std::size_t>(distribution(generator));
@@ -40,9 +40,9 @@ TEST(StaticVertexDataTest, ConstructorStoresVertexLayoutBufferBindingMapAndNumbe
 TEST(StaticVertexDataTest, BindAllBuffersBindsAllUnderlyingGpuBuffers) {
     VertexBufferBindingMap bufferBindingMap;
 
-    for(int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; ++i) {
         IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
-        EXPECT_CALL(*(MockGpuBuffer*) gpuBuffer.get(), Bind()).Times(1);
+        EXPECT_CALL(*(MockGpuBuffer*)gpuBuffer.get(), Bind()).Times(1);
 
         bufferBindingMap[i] = gpuBuffer;
     }
@@ -58,9 +58,11 @@ TEST(DynamicVertexDataTest, ConstructorCreatesGpuBufferAndEmptyVertexList) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
-    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateVertexBuffer(bufferUsage)).Times(1).WillOnce(Return(gpuBuffer));
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateVertexBuffer(bufferUsage)).Times(1).WillOnce(
+        Return(gpuBuffer));
 
-    DynamicVertexData<VertexLayouts::Position> vertexData(gpuBufferFactory, VertexLayouts::Position::GetLayout(), bufferUsage);
+    DynamicVertexData<VertexLayouts::Position> vertexData(gpuBufferFactory, VertexLayouts::Position::GetLayout(),
+                                                          bufferUsage);
 
     EXPECT_TRUE(vertexData.GetVertices().empty());
     EXPECT_EQ(0, vertexData.GetVertexCount());
@@ -73,7 +75,8 @@ TEST(DynamicVertexDataTest, ConstructorThrowsGivenVertexLayoutWithMoreThanOneBuf
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
     VertexLayout inconsistentLayout;
-    inconsistentLayout.AddElement(VertexAttribute({0, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION}));
+    inconsistentLayout.AddElement(
+        VertexAttribute({0, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION}));
     inconsistentLayout.AddElement(VertexAttribute({1, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::COLOR}));
 
     EXPECT_THROW(DynamicVertexData<VertexLayouts::Position> vertexData(gpuBuffer, inconsistentLayout), GloveException);
@@ -83,7 +86,9 @@ TEST(DynamicVertexDataTest, BufferUsageDefaultsToStatic) {
     IGpuBufferFactoryPtr gpuBufferFactory(new MockGpuBufferFactory());
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
-    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateVertexBuffer(BufferUsage::STATIC)).Times(1).WillOnce(Return(gpuBuffer));
+    EXPECT_CALL(*(MockGpuBufferFactory*)gpuBufferFactory.get(), CreateVertexBuffer(BufferUsage::STATIC))
+        .Times(1)
+        .WillOnce(Return(gpuBuffer));
 
     DynamicVertexData<VertexLayouts::Position> vertexData(gpuBufferFactory, VertexLayouts::Position::GetLayout());
 }
@@ -127,7 +132,7 @@ TEST(DynamicVertexDataTest, CanSetVertexList) {
 
 TEST(DynamicVertexDataTest, BindAllBuffersBindsAllUnderlayingBuffer) {
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
-    EXPECT_CALL(*(MockGpuBuffer*) gpuBuffer.get(), Bind()).Times(1);
+    EXPECT_CALL(*(MockGpuBuffer*)gpuBuffer.get(), Bind()).Times(1);
 
     DynamicVertexData<VertexLayouts::Position> vertexData(gpuBuffer, VertexLayouts::Position::GetLayout());
     vertexData.BindAllBuffers();
@@ -135,7 +140,7 @@ TEST(DynamicVertexDataTest, BindAllBuffersBindsAllUnderlayingBuffer) {
 
 TEST(DynamicVertexDataTest, FlushCallsWriteDataOfUnderlyingBuffer) {
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
-    EXPECT_CALL(*(MockGpuBuffer*) gpuBuffer.get(), WriteData(0, _)).Times(1);
+    EXPECT_CALL(*(MockGpuBuffer*)gpuBuffer.get(), WriteData(0, _)).Times(1);
 
     DynamicVertexData<VertexLayouts::Position> vertexData(gpuBuffer, VertexLayouts::Position::GetLayout());
     vertexData.FlushBuffer();
@@ -150,7 +155,8 @@ TEST(DynamicVertexDataTest, FlushWritesDataToUnderlyingBuffer) {
     vertices.push_back(VertexLayouts::Position());
     vertices.push_back(VertexLayouts::Position());
 
-    EXPECT_CALL(*(MockGpuBuffer*) gpuBuffer.get(), WriteData(vertices.size() * sizeof(VertexLayouts::Position), _)).Times(1);
+    EXPECT_CALL(*(MockGpuBuffer*)gpuBuffer.get(), WriteData(vertices.size() * sizeof(VertexLayouts::Position), _))
+        .Times(1);
 
     DynamicVertexData<VertexLayouts::Position> vertexData(gpuBuffer, VertexLayouts::Position::GetLayout());
     vertexData.SetVertices(vertices);
