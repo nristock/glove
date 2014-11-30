@@ -7,4 +7,4 @@ set(gc_graph_src
    Transform.cc
 )
 
-add_library(gc_graph STATIC ${gc_graph_src})
+add_library(gc_graph OBJECT ${gc_graph_src})

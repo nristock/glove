@@ -3,4 +3,4 @@ set(gc_pitamem_src
    MemoryProfiler.cc
 )
 
-add_library(gc_pitamem STATIC ${gc_pitamem_src})
+add_library(gc_pitamem OBJECT ${gc_pitamem_src})

@@ -2,4 +2,4 @@ set(gc_log_src
    Log.cc
 )
 
-add_library(gc_log STATIC ${gc_log_src})
+add_library(gc_log OBJECT ${gc_log_src})

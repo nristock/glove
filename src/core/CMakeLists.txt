@@ -16,9 +16,26 @@ set(core_src
     PluginLoader.cc
 )
 
-add_library(glove_core ${core_src})
-target_link_libraries(glove_core gc_rendering gc_natex gc_events gc_input gc_log gc_graph gc_pitamem)
+set(core_object_libs
+    $<TARGET_OBJECTS:gc_rendering>
+    $<TARGET_OBJECTS:gc_natex>
+    $<TARGET_OBJECTS:gc_events>
+    $<TARGET_OBJECTS:gc_input>
+    $<TARGET_OBJECTS:gc_log>
+    $<TARGET_OBJECTS:gc_graph>
+    $<TARGET_OBJECTS:gc_pitamem>
+    $<TARGET_OBJECTS:glove_utils>
+)
 
-if(ON_UINX)
-target_link_libraries(glove_core gc_loaders_so)
+if(ON_UNIX)
+    set(core_object_libs
+        ${core_object_libs}
+        $<TARGET_OBJECTS:gc_loaders_so>
+    )
 endif()
+
+add_library(glove_core SHARED
+    ${core_src}
+    ${core_object_libs}
+)
+target_link_libraries(glove_core vendor_jsoncpp dl)

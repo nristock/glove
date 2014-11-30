@@ -1,7 +1,7 @@
 set(gc_events_src
    type/CorePreInitEvent.cc
    type/KeyEvent.cc
-   type/MouseMoveEvent.cc
+   type/MouseButtonEvent.cc
    type/MouseMoveEvent.cc
    type/PreExtensionLoadEvent.cc
    type/NativeExtensionLoadedEvent.cc
@@ -12,4 +12,4 @@ set(gc_events_src
    EventBus.cc
 )
 
-add_library(gc_events STATIC ${gc_events_src})
+add_library(gc_events OBJECT ${gc_events_src})

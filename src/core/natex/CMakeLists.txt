@@ -1,5 +1,4 @@
 set(gc_natex_src
-   SubsystemTypes.cc
    BifrostLoader.cc
    GloveSubsystemDefinition.cc
    GloveSubsystemDefinitionRegistry.cc
@@ -9,4 +8,4 @@ set(gc_natex_src
    internal/ExtensionDependencyGraph.cc
 )
 
-add_library(gc_natex STATIC ${gc_natex_src})
+add_library(gc_natex OBJECT ${gc_natex_src})
