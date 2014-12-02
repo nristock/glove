@@ -16,20 +16,25 @@ namespace gl {
 
 /// @ingroup Internal
 class GlfwWrapper {
-    friend struct GlfwWrapperFactory;
-
   public:
+    GlfwWrapper() = default;
     GlfwWrapper(const GlfwWrapper&) = delete;
     GlfwWrapper& operator=(const GlfwWrapper&) = delete;
 
-    ~GlfwWrapper();
+    virtual ~GlfwWrapper();
+
+    static void SetSharedWrapper(const GlfwWrapperPtr& wrapperPtr);
 
     static const std::string GetGlfwVersion();
     static GLFWwindow* CreateGlfwWindow(const WindowConstructionHints& creationHints, GLWindow* glWindow);
     static GLWindow* GetCurrentGLWindow();
 
+    static void InitWrapper();
+
   private:
     logging::GloveLogger logger;
+
+    static GlfwWrapperPtr sharedWrapper;
 
     static GLWindow* GetGLWindow(GLFWwindow* glfwWindow);
 
@@ -42,8 +47,6 @@ class GlfwWrapper {
     static void GlfwCloseEvent(GLFWwindow* window);
     static void GlfwCursorPositionChanged(GLFWwindow* window, double x, double y);
     static void GlfwMouseButtonEvent(GLFWwindow* window, int button, int action, int mods);
-
-    GlfwWrapper();
 };
 }
 } /* namespace glove */

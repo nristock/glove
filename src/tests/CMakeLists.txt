@@ -9,5 +9,6 @@ add_subdirectory(pitamem)
 add_subdirectory(rendering)
 add_subdirectory(utils)
 add_subdirectory(natex)
+add_subdirectory(modules/glrenderer)
 
 add_custom_target(tests_all DEPENDS tests_soloader tests_graph tests_pitamem tests_gc_rendering tests_utils tests_bifrost tests_natex)

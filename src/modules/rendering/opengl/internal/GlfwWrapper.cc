@@ -8,13 +8,11 @@
 namespace glove {
 namespace gl {
 
-struct GlfwWrapperFactory {
-    static GlfwWrapper* CreateGlfwWrapper() { return new GlfwWrapper(); }
-};
+/// @brief The shared wrapper is initialized in subsystem/OpenGLRendererModule.cc LoadExtension making it possible to
+///        mock out the actual wrapper when testing.
+GlfwWrapperPtr GlfwWrapper::sharedWrapper = GlfwWrapperPtr(new GlfwWrapper());
 
-static GlfwWrapper* wrapperInstance = GlfwWrapperFactory::CreateGlfwWrapper();
-
-GlfwWrapper::GlfwWrapper() {
+void GlfwWrapper::InitWrapper() {
     glfwSetErrorCallback(&GlfwWrapper::GlfwErrorSink);
 
     if (!glfwInit()) {
@@ -26,12 +24,16 @@ GlfwWrapper::GlfwWrapper() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 }
 
+void GlfwWrapper::SetSharedWrapper(const GlfwWrapperPtr& wrapperPtr) {
+    sharedWrapper = wrapperPtr;
+}
+
 GlfwWrapper::~GlfwWrapper() {
     glfwTerminate();
 }
 
 void GlfwWrapper::GlfwErrorSink(int error, const char* description) {
-    LOG(wrapperInstance->logger, error, "GLFW Error (" << error << "): " << description);
+    LOG(sharedWrapper->logger, error, "GLFW Error (" << error << "): " << description);
 }
 
 const std::string GlfwWrapper::GetGlfwVersion() {
@@ -84,5 +86,6 @@ void GlfwWrapper::GlfwMouseButtonEvent(GLFWwindow* window, int button, int actio
 GLWindow* GlfwWrapper::GetCurrentGLWindow() {
     return GetGLWindow(glfwGetCurrentContext());
 }
+
 }
 }

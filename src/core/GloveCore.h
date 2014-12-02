@@ -34,7 +34,7 @@ class GloveCore : public std::enable_shared_from_this<GloveCore> {
 
     const ScenegraphPtr& GetScenegraph() const { return primaryScenegraph; }
 
-    const EventBusPtr& GetEventBus() const { return eventBus; }
+    virtual const EventBusPtr& GetEventBus() const { return eventBus; }
 
     const InputManagerPtr& GetInputManager() const { return inputManager; }
 
