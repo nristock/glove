@@ -5,10 +5,10 @@ add_subdirectory(rendering)
 add_subdirectory(natex)
 add_subdirectory(events)
 add_subdirectory(input)
-add_subdirectory(jef)
 add_subdirectory(log)
 add_subdirectory(graph)
 add_subdirectory(pitamem)
+add_subdirectory(utils)
 
 set(core_src
     Configuration.cc
@@ -22,10 +22,10 @@ set(core_object_libs
     $<TARGET_OBJECTS:gc_natex>
     $<TARGET_OBJECTS:gc_events>
     $<TARGET_OBJECTS:gc_input>
-    $<TARGET_OBJECTS:gc_jef>
     $<TARGET_OBJECTS:gc_log>
     $<TARGET_OBJECTS:gc_graph>
     $<TARGET_OBJECTS:gc_pitamem>
+    $<TARGET_OBJECTS:gc_utils>
     $<TARGET_OBJECTS:glove_utils>
 )
 

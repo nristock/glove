@@ -48,4 +48,8 @@ void GameObject::IndexSingleComponent(const SharedGameComponentHandle& gameCompo
 //        componentIndex.insert(ComponentIndexEntry(typeid(IRenderable), gameComponent));
 //    }
 }
+
+LayerMask GameObject::GetLayer() const {
+    return layer;
+}
 } /* namespace glove */
