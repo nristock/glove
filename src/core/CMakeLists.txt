@@ -1,8 +1,11 @@
+include_directories(${CMAKE_CURRENT_LIST_DIR})
+
 add_subdirectory(internal)
 add_subdirectory(rendering)
 add_subdirectory(natex)
 add_subdirectory(events)
 add_subdirectory(input)
+add_subdirectory(jef)
 add_subdirectory(log)
 add_subdirectory(graph)
 add_subdirectory(pitamem)
@@ -19,6 +22,7 @@ set(core_object_libs
     $<TARGET_OBJECTS:gc_natex>
     $<TARGET_OBJECTS:gc_events>
     $<TARGET_OBJECTS:gc_input>
+    $<TARGET_OBJECTS:gc_jef>
     $<TARGET_OBJECTS:gc_log>
     $<TARGET_OBJECTS:gc_graph>
     $<TARGET_OBJECTS:gc_pitamem>

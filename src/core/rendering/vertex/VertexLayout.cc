@@ -2,13 +2,15 @@
 
 namespace glove {
 
-void VertexLayout::AddElement(const VertexAttribute& element) {
+void VertexLayout::AddAttribute(const VertexAttribute& element) {
     attributes.push_back(element);
 
     strideMap[element.GetBufferIndex()] += element.GetSizeInBytes();
 }
 
 const VertexAttribute& VertexLayout::GetAttribute(std::size_t index) const {
+    assert(index < GetAttributeCount());
+
     VertexAttributeList::const_iterator it = std::next(attributes.begin(), index);
     return *it;
 }

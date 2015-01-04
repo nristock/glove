@@ -12,11 +12,12 @@
 #include <core/rendering/vertex/VertexLayout.h>
 #include <core/rendering/FrameData.h>
 #include <core/rendering/vertex/IVertexData.h>
-
-#include "GLRenderer.h"
 #include <core/rendering/shader/IMaterial.h>
 #include <core/rendering/shader/IShaderProgram.h>
 #include <core/rendering/vertex/IVertexAttributeMapping.h>
+
+#include "internal/OpenGLWrapper.h"
+#include "GLRenderer.h"
 
 namespace {
 
@@ -37,6 +38,12 @@ namespace gl {
 GLMesh::GLMesh(const IMaterialPtr& material, const IVertexDataPtr& vertexData, const IIndexDataPtr& indexData)
     : Mesh(vertexData, indexData) {
     BindMaterial(material);
+}
+
+GLMesh::~GLMesh() {
+    for (const std::pair<ContextId, GLuint>& vertexArrayIdContextMapping : vertexArrayIds) {
+        GL::DeleteVertexArrays(1, &vertexArrayIdContextMapping.second);
+    }
 }
 
 void GLMesh::BindMaterial(const IMaterialPtr& material) {
@@ -80,5 +87,30 @@ void GLMesh::SetupVertexAttribute(const IVertexAttributeMappingPtr& shaderProgra
         LOG(logger, error, "Vertex attribute in buffer not mapped to shader attribute index.");
     }
 }
+
+void GLMesh::CreateVertexArrayObjectForContext(ContextId contextId) {
+    if (vertexArrayIds.count(contextId)) {
+    throw GLOVE_EXCEPTION("Cannot create multiple vertex array objects per mesh per context.")
+    }
+
+    GLuint temporaryId;
+    GL::GenVertexArrays(1, &temporaryId);
+    vertexArrayIds[contextId] = temporaryId;
+}
+
+const GLuint GLMesh::GetVertexArrayId(ContextId contextId) {
+    const GLuint vertexArrayObjectId = vertexArrayIds[contextId];
+    return vertexArrayObjectId;
+}
+
+void GLMesh::EnsureVertexArrayObjectExistsForContext(ContextId contextId) {
+    if (vertexArrayIds.count(contextId)) {
+        return;
+    }
+
+    CreateVertexArrayObjectForContext(contextId);
+    InitVertexAttributeObjectStateForContext(contextId);
+}
+
 }
 } // namespace glove

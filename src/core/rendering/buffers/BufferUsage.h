@@ -6,7 +6,7 @@ namespace glove {
 ///        it to optimize the data stores. It does not constrain the usage of a buffer in any way.
 /// @ingroup RenderSubsystemInterface
 enum class BufferUsage {
-    /// @brief The data store contents will be modified once and used many times.
+    /// @brief Written once by the application - read often by the rendering implementation (e.g. OpenGL, DirectX)
     STATIC = 0,
 
     /// @brief The data store contents will be modified repeatedly and used many times.

@@ -26,70 +26,41 @@ Transform::Transform(glm::quat rotation) : Transform(glm::vec3(0), rotation, glm
 }
 
 const Transform& Transform::Identity() {
-    static Transform identity;
+    static const Transform identity;
 
     return identity;
 }
 
-void Transform::RecalculateMatrix(bool notifyModify) {
+void Transform::RecalculateMatrix() {
     localTransform = glm::mat4_cast(rotation);
     localTransform = glm::scale(localTransform, scale);
     localTransform = glm::translate(localTransform, position);
-    isDirty = false;
-
-    if (notifyModify && onModify)
-        onModify();
-}
-
-void Transform::RecalculateMatrix() {
-    RecalculateMatrix(true);
 }
 
 void Transform::RecalculateAccumulatedTransform(const Transform& parent) {
     globalTransform = parent.GetGlobalTransform() * GetLocalTransform();
 }
 
-void Transform::SetPosition(const glm::vec3& position, bool updateMatrix) {
+void Transform::SetPosition(const glm::vec3& position) {
     this->position = position;
 
-    if (updateMatrix)
-        RecalculateMatrix();
-    else
-        isDirty = true;
-}
-
-void Transform::SetRotation(const glm::quat& rotation, bool updateMatrix) {
-    this->rotation = rotation;
-
-    if (updateMatrix)
-        RecalculateMatrix();
-    else
-        isDirty = true;
-}
-
-void Transform::SetScale(const glm::vec3& scale, bool updateMatrix) {
-    this->scale = scale;
-
-    if (updateMatrix)
-        RecalculateMatrix();
-    else
-        isDirty = true;
-}
-
-void Transform::SetPosition(const glm::vec3& position) {
-    SetPosition(position, true);
+    RecalculateMatrix();
 }
 
 void Transform::SetRotation(const glm::quat& rotation) {
-    SetRotation(rotation, true);
+    this->rotation = rotation;
+
+    RecalculateMatrix();
 }
 
 void Transform::SetScale(const glm::vec3& scale) {
-    SetScale(scale, true);
+    this->scale = scale;
+
+    RecalculateMatrix();
 }
 
-void Transform::SetModifyCallback(std::function<void()> callback) {
-    onModify = callback;
+const glm::mat4& Transform::GetLocalTransform() {
+    return localTransform;
 }
 
 bool operator==(const Transform& transform1, const Transform& transform2) {
@@ -100,5 +71,4 @@ bool operator==(const Transform& transform1, const Transform& transform2) {
 bool operator!=(const Transform& transform1, const Transform& transform2) {
     return !(transform1 == transform2);
 }
-
 } // namespace glove

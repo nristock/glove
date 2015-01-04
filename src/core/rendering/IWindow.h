@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "Rendering.h"
+#include <utils/Dimensions.h>
 
 namespace glove {
 
@@ -12,7 +13,7 @@ class IWindow {
     virtual ~IWindow() {}
 
     virtual ScreenPoint GetPosition() const = 0;
-    virtual ScreenDimensions GetDimensions() const = 0;
+    virtual Dimensions GetDimensions() const = 0;
 
     virtual void SetPosition(const ScreenPoint& newPosition) = 0;
     virtual void SetDimensions(const ScreenDimensions& newDimensions) = 0;

@@ -20,6 +20,7 @@ class IRenderSubsystem {
     virtual IShaderFactoryPtr GetShaderFactory(const IRendererPtr& owningRenderer) = 0;
     virtual IShaderProgramFactoryPtr GetShaderProgramFactory() = 0;
     virtual IMaterialFactoryPtr GetMaterialFactory() = 0;
+  virtual RenderOperationFactoryHandle GetRenderOperationFactory() = 0;
 };
 
 } /* namespace glove */

@@ -75,9 +75,9 @@ TEST(DynamicVertexDataTest, ConstructorThrowsGivenVertexLayoutWithMoreThanOneBuf
     IGpuBufferPtr gpuBuffer(new MockGpuBuffer());
 
     VertexLayout inconsistentLayout;
-    inconsistentLayout.AddElement(
-        VertexAttribute({0, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION}));
-    inconsistentLayout.AddElement(VertexAttribute({1, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::COLOR}));
+    inconsistentLayout.AddAttribute(
+            VertexAttribute({0, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION}));
+    inconsistentLayout.AddAttribute(VertexAttribute({1, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::COLOR}));
 
     EXPECT_THROW(DynamicVertexData<VertexLayouts::Position> vertexData(gpuBuffer, inconsistentLayout), GloveException);
 }

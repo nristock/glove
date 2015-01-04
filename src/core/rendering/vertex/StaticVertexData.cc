@@ -11,6 +11,9 @@ StaticVertexData::StaticVertexData(const VertexLayout& vertexLayout, const Verte
 
 const IGpuBufferPtr& StaticVertexData::GetGpuBuffer(std::size_t index) const {
     VertexBufferBindingMap::const_iterator it = bufferBindingMap.find(index);
+
+    assert(it != bufferBindingMap.end());
+
     return it->second;
 }
 

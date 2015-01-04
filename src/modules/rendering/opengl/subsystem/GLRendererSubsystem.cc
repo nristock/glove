@@ -23,6 +23,7 @@ GLRendererSubsystem::GLRendererSubsystem(const GloveCorePtr& engineCore) {
     shaderFactory = GLShaderFactoryPtr(new GLShaderFactory());
     shaderProgramFactory = GLShaderProgramFactoryPtr(new GLShaderProgramFactory());
     materialFactory = GLMaterialFactoryPtr(new GLMaterialFactory());
+    renderOperationFactory = GLRenderOperationFactoryHandle(new GLRenderOperationFactory());
 
     LOG(logger, info,
         (boost::format("Create OpenGL rendering subsystem (GLFW: %1%)") % GlfwWrapper::GetGlfwVersion()).str());
@@ -50,6 +51,10 @@ IShaderProgramFactoryPtr GLRendererSubsystem::GetShaderProgramFactory() {
 
 IMaterialFactoryPtr GLRendererSubsystem::GetMaterialFactory() {
     return materialFactory;
+}
+
+RenderOperationFactoryHandle GLRendererSubsystem::GetRenderOperationFactory() {
+    return renderOperationFactory;
 }
 }
 }

@@ -8,6 +8,9 @@
 /// @brief Creates a GloveException with the _msg message specified and file and line number information.
 #define GLOVE_EXCEPTION(_msg) ::glove::GloveException(_msg, __FILE__, __LINE__);
 
+/// @brief Creates an exception of type _type with the provided varargs as well as file and line number information
+#define GLOVE_THROW(_type, ...) throw _type(__VA_ARGS__, __FILE__, __LINE__);
+
 namespace glove {
 
 /** Basic engine exception. Should be used for all exceptions thrown during engine operation. */

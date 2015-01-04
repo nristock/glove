@@ -9,8 +9,6 @@ set(gc_rendering_src
 
    WindowConstructionHints.cc
 
-   RenderOperation.cc
-
    IRenderSubsystem.cc
 )
 

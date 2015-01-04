@@ -22,7 +22,7 @@ TEST(VertexLayoutTest, CanAddElements) {
     VertexAttribute attribute({static_cast<std::size_t>(distribution(generator)),
                                static_cast<std::size_t>(distribution(generator)), VertexAttributeType::FLOAT3,
                                VertexAttributeSemantic::POSITION});
-    layout.AddElement(attribute);
+    layout.AddAttribute(attribute);
 
     EXPECT_EQ(1, layout.GetAttributeCount());
     EXPECT_EQ(attribute, layout.GetAttribute(0));
@@ -32,11 +32,11 @@ TEST(VertexLayoutTest, UpdatesStrideForBuffersWhenAddindElements) {
     VertexLayout layout;
 
     VertexAttribute attribute1({0, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::POSITION});
-    layout.AddElement(attribute1);
+    layout.AddAttribute(attribute1);
     VertexAttribute attribute2({1, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::POSITION});
-    layout.AddElement(attribute2);
+    layout.AddAttribute(attribute2);
     VertexAttribute attribute3({1, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::COLOR});
-    layout.AddElement(attribute3);
+    layout.AddAttribute(attribute3);
 
     EXPECT_EQ(sizeof(float) * 4, layout.GetStrideForBufferIndex(0));
     EXPECT_EQ(sizeof(float) * 8, layout.GetStrideForBufferIndex(1));
@@ -45,16 +45,16 @@ TEST(VertexLayoutTest, UpdatesStrideForBuffersWhenAddindElements) {
 TEST(VertexLayoutTest, ComparisonOperatorComparesAttributeList) {
     VertexLayout layout1;
     VertexAttribute attribute1({0, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::POSITION});
-    layout1.AddElement(attribute1);
+    layout1.AddAttribute(attribute1);
     VertexAttribute attribute2({1, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::POSITION});
-    layout1.AddElement(attribute2);
+    layout1.AddAttribute(attribute2);
     VertexAttribute attribute3({1, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::COLOR});
-    layout1.AddElement(attribute3);
+    layout1.AddAttribute(attribute3);
 
     VertexLayout layout2;
-    layout2.AddElement(attribute1);
-    layout2.AddElement(attribute2);
-    layout2.AddElement(attribute3);
+    layout2.AddAttribute(attribute1);
+    layout2.AddAttribute(attribute2);
+    layout2.AddAttribute(attribute3);
 
     EXPECT_TRUE(layout1 == layout2);
 }
@@ -62,17 +62,17 @@ TEST(VertexLayoutTest, ComparisonOperatorComparesAttributeList) {
 TEST(VertexLayoutTest, ComparisonOperatorChecksAttributeListElementEquality) {
     VertexLayout layout1;
     VertexAttribute attribute1({0, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::POSITION});
-    layout1.AddElement(attribute1);
+    layout1.AddAttribute(attribute1);
     VertexAttribute attribute2({1, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::POSITION});
-    layout1.AddElement(attribute2);
+    layout1.AddAttribute(attribute2);
     VertexAttribute attribute3({1, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::COLOR});
-    layout1.AddElement(attribute3);
+    layout1.AddAttribute(attribute3);
 
     VertexLayout layout2;
-    layout2.AddElement(attribute1);
-    layout2.AddElement(attribute2);
+    layout2.AddAttribute(attribute1);
+    layout2.AddAttribute(attribute2);
     VertexAttribute attribute3b({0, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::COLOR});
-    layout2.AddElement(attribute3b);
+    layout2.AddAttribute(attribute3b);
 
     EXPECT_FALSE(layout1 == layout2);
 }
@@ -80,18 +80,18 @@ TEST(VertexLayoutTest, ComparisonOperatorChecksAttributeListElementEquality) {
 TEST(VertexLayoutTest, ComparisonOperatorChecksAttributeListLength) {
     VertexLayout layout1;
     VertexAttribute attribute1({0, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::POSITION});
-    layout1.AddElement(attribute1);
+    layout1.AddAttribute(attribute1);
     VertexAttribute attribute2({1, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::POSITION});
-    layout1.AddElement(attribute2);
+    layout1.AddAttribute(attribute2);
     VertexAttribute attribute3({1, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::COLOR});
-    layout1.AddElement(attribute3);
+    layout1.AddAttribute(attribute3);
 
     VertexLayout layout2;
-    layout2.AddElement(attribute1);
-    layout2.AddElement(attribute2);
-    layout2.AddElement(attribute3);
+    layout2.AddAttribute(attribute1);
+    layout2.AddAttribute(attribute2);
+    layout2.AddAttribute(attribute3);
     VertexAttribute attribute3b({0, 0, VertexAttributeType::FLOAT4, VertexAttributeSemantic::COLOR});
-    layout2.AddElement(attribute3b);
+    layout2.AddAttribute(attribute3b);
 
     EXPECT_FALSE(layout1 == layout2);
 }

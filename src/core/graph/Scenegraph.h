@@ -7,64 +7,45 @@
 #include <glm/glm.hpp>
 
 #include "core/GloveFwd.h"
-#include <core/graph/GameObject.h>
+#include "graph/Graph.h"
+#include "graph/gameobject/GameObject.h"
 
 namespace glove {
 
-class GameObject;
+typedef std::function<void(const GameObjectHandle&)> GameObjectIterationCallback;
+typedef std::function<bool(const GameObjectHandle&)> GameObjectPredicate;
+typedef std::function<void(const GameObjectHandle&)> GameObjectPreInitCallback;
+typedef std::function<void(const GameObjectHandle&)> GameObjectPostInitCallback;
 
 class Scenegraph {
   public:
     Scenegraph();
-
     virtual ~Scenegraph();
 
-    virtual GameObjectPointer CreateSimpleGameObject();
+    virtual GameObjectHandle CreateSimpleGameObject();
 
-    template <class T> std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator) {
-        return CreateGameObject<T>(allocator, [](std::shared_ptr<T> object) {}, [](std::shared_ptr<T> object) {});
-    }
+    GameObjectHandle CreateGameObject(IGameObjectFactory& gameObjectFactory);
+    GameObjectHandle CreateGameObject(const GameObjectFactoryHandle& gameObjectFactory);
 
-    template <class T>
-    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator,
-                                        std::function<void(std::shared_ptr<T>)> preInit) {
-        return CreateGameObject<T>(allocator, preInit, [](std::shared_ptr<T> object) {});
-    }
+    GameObjectHandle CreateGameObject(IGameObjectFactory& gameObjectFactory,
+                                          GameObjectPreInitCallback preInit);
+    GameObjectHandle CreateGameObject(const GameObjectFactoryHandle& gameObjectFactory,
+                                      GameObjectPreInitCallback preInit);
 
-    template <class T>
-    std::shared_ptr<T> CreateGameObject(std::function<T*()> allocator, std::function<void(std::shared_ptr<T>)> preInit,
-                                        std::function<void(std::shared_ptr<T>)> postInit) {
-        typedef std::shared_ptr<T> SharedPtrType;
+    GameObjectHandle CreateGameObject(IGameObjectFactory& gameObjectFactory, GameObjectPreInitCallback preInit,
+                                          GameObjectPostInitCallback postInit);
+    GameObjectHandle CreateGameObject(const GameObjectFactoryHandle& gameObjectFactory, GameObjectPreInitCallback preInit,
+                                      GameObjectPostInitCallback postInit);
 
-        SharedPtrType go = SharedPtrType(allocator());
+    virtual void InjectGameObject(const GameObjectHandle& gameObject);
 
-        preInit(go);
-        go->Init();
-        postInit(go);
-
-        gameObjects.push_back(go);
-
-        return go;
-    }
-
-    virtual void InjectGameObject(GameObjectPointer gameObject);
-
-    virtual CameraPointer CreateCamera();
-
-    void Update();
-
-    virtual void IterateGameObjects(std::function<void(GameObjectPointer)> callback);
-
-    virtual void SetActiveCamera(CameraPointer camera);
-
-    virtual CameraPointer GetMainCamera() const { return mainCamera; }
+    virtual void IterateGameObjects(GameObjectIterationCallback callback);
+    virtual void IterateGameObjects(GameObjectIterationCallback callback, GameObjectPredicate predicate);
 
     size_t GetGameObjectCount() const { return gameObjects.size(); }
 
   protected:
-    std::list<GameObjectPointer> gameObjects;
-
-    CameraPointer mainCamera;
+    std::list<GameObjectHandle> gameObjects;
 };
 
 } /* namespace glove */

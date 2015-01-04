@@ -23,6 +23,9 @@ class IRenderer;
 class IRenderSubsystem;
 class IRenderable;
 
+class IRenderOperation;
+class IRenderOperationFactory;
+
 class IShaderFactory;
 class IShaderProgramFactory;
 
@@ -31,7 +34,6 @@ class IWindow;
 class WindowConstructionHints;
 class VertexLayout;
 class VertexAttribute;
-class FrameData;
 
 class IIndexData;
 class IVertexData;
@@ -42,6 +44,7 @@ class IShader;
 class IShaderProgram;
 class IMesh;
 class IMaterialAttribute;
+class IRenderTarget;
 
 typedef std::shared_ptr<IGpuBufferFactory> IGpuBufferFactoryPtr;
 typedef std::shared_ptr<IGpuBuffer> IGpuBufferPtr;
@@ -52,6 +55,7 @@ typedef std::shared_ptr<IRendererFactory> IRendererFactoryPtr;
 typedef std::shared_ptr<IRenderer> IRendererPtr;
 
 typedef std::shared_ptr<IRenderable> IRenderablePtr;
+typedef std::shared_ptr<IRenderTarget> RenderTargetHandle;
 
 typedef std::shared_ptr<IShaderFactory> IShaderFactoryPtr;
 
@@ -69,6 +73,8 @@ typedef std::shared_ptr<IRenderSubsystem> IRenderSubsystemPtr;
 typedef std::shared_ptr<IShaderProgramFactory> IShaderProgramFactoryPtr;
 typedef std::shared_ptr<IMaterialFactory> IMaterialFactoryPtr;
 
+typedef std::shared_ptr<IRenderOperationFactory> RenderOperationFactoryHandle;
+
 /// @brief The type of the buffer binding map (slot <-> buffer)
 typedef std::map<std::size_t, IGpuBufferPtr> VertexBufferBindingMap;
 
@@ -76,7 +82,6 @@ typedef glm::vec2 Vector2;
 typedef glm::vec3 Vector3;
 
 typedef Vector2 Point;
-typedef Vector3 Dimensions;
 
 typedef glm::ivec2 IntVector2;
 typedef glm::ivec3 IntVector3;

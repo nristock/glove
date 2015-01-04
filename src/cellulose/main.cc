@@ -16,7 +16,9 @@
 #include <core/rendering/vertex/DynamicIndexData.h>
 #include <core/rendering/vertex/VertexLayouts.h>
 #include <core/graph/Scenegraph.h>
-#include <core/graph/GameComponent.h>
+#include <core/graph/gamecomponent/GameComponent.h>
+#include <core/graph/gamecomponent/OrthoCamera.h>
+#include <core/graph/gamecomponent/MeshRenderer.h>
 
 int main(int argc, const char** argv) {
     using namespace glove;
@@ -83,22 +85,25 @@ int main(int argc, const char** argv) {
 
     IMeshPtr mesh = renderSubsystem->GetMeshFactory(renderer)->CreatedIndexedMesh(material, vertexData, indexData);
 
-    ScenegraphPtr graph = gcore->GetScenegraph();
-    auto cam = graph->CreateCamera();
-    graph->SetActiveCamera(cam);
+    ScenegraphHandle graph = std::make_shared<Scenegraph>();
 
-    auto go = graph->CreateSimpleGameObject();
-    GameComponentPtr gp = std::dynamic_pointer_cast<GameComponent>(mesh);
+    GameObjectHandle cameraObject = graph->CreateSimpleGameObject();
+    CameraBaseHandle camera = std::make_shared<GameComponents::OrthoCamera>(2, 1);
+    renderer->MapCameraToTarget(camera, renderer->GetDefaultRenderTarget());
+    cameraObject->AddComponent(camera);
 
-    go->AddComponent(gp);
+    GameObjectHandle meshObject = graph->CreateSimpleGameObject();
+    MeshRendererHandle meshRenderer = std::make_shared<GameComponents::MeshRenderer>(mesh, renderSubsystem->GetRenderOperationFactory());
+    meshObject->AddComponent(meshRenderer);
 
-    FrameData frameData;
+
+    glm::mat4 modelViewProjection = camera->GetViewProjectionMatrix() * meshObject->GetTransform().GetGlobalTransform();
 
     while (!renderer->GetAssociatedWindow()->CloseRequested()) {
         renderer->GetAssociatedWindow()->PollSystemEvents();
         renderer->ClearBuffers();
-        renderer->RenderScene(graph, frameData);
+        renderer->RenderScene(graph);
         renderer->SwapBuffers();
-        mvp->Set(frameData.viewProjectionMatrix);
+        mvp->Set(modelViewProjection);
     }
 }

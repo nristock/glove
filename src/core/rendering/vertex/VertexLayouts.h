@@ -23,7 +23,7 @@ struct Position {
 
     static VertexLayout GetLayout(size_t bufferIndex) {
         VertexLayout layout;
-        layout.AddElement({bufferIndex, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION});
+        layout.AddAttribute({bufferIndex, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION});
 
         return layout;
     }
@@ -43,8 +43,8 @@ struct PositionNormal {
 
     static VertexLayout GetLayout(size_t bufferIndex) {
         VertexLayout layout;
-        layout.AddElement({bufferIndex, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION});
-        layout.AddElement({bufferIndex, VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize(),
+        layout.AddAttribute({bufferIndex, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION});
+        layout.AddAttribute({bufferIndex, VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize(),
                            VertexAttributeType::FLOAT3, VertexAttributeSemantic::NORMAL});
 
         return layout;
@@ -67,8 +67,8 @@ struct PositionColor {
 
     static VertexLayout GetLayout(size_t bufferIndex) {
         VertexLayout layout;
-        layout.AddElement({bufferIndex, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION});
-        layout.AddElement({bufferIndex, VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize(),
+        layout.AddAttribute({bufferIndex, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION});
+        layout.AddAttribute({bufferIndex, VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize(),
                            VertexAttributeType::FLOAT4, VertexAttributeSemantic::COLOR});
 
         return layout;

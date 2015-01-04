@@ -1,15 +1,17 @@
 #pragma once
 
 #include <core/rendering/mesh/Mesh.h>
+#include <map>
+#include <GL/glew.h>
+#include <core/rendering/IRenderer.h>
 
 #include "GLRenderer.h"
-#include "GLBaseMesh.h"
 
 namespace glove {
 namespace gl {
 
 /// @ingroup OpenGLRenderer
-class GLMesh : public GLBaseMesh, public Mesh {
+class GLMesh : public Mesh {
   public:
     GLMesh(const IMaterialPtr& material, const IVertexDataPtr& vertexData, const IIndexDataPtr& indexData);
     GLMesh(const GLMesh&) = delete;
@@ -17,12 +19,22 @@ class GLMesh : public GLBaseMesh, public Mesh {
 
     virtual void BindMaterial(const IMaterialPtr& material);
 
-  protected:
+  virtual ~GLMesh();
+
+  const GLuint GetVertexArrayId(ContextId contextId);
+
+  void EnsureVertexArrayObjectExistsForContext(ContextId contextId);
+
+protected:
     virtual void InitVertexAttributeObjectStateForContext(ContextId contextId);
     void SetupVertexAttribute(const IVertexAttributeMappingPtr& shaderProgramAttributeMapping,
                               VertexLayout& vertexLayout, const VertexAttribute& vertexAttribute);
 
-  private:
+  void CreateVertexArrayObjectForContext(ContextId contextId);
+
+  typedef std::map<ContextId, GLuint> VertexArrayIdList;
+  VertexArrayIdList vertexArrayIds;
+private:
     logging::GloveLogger logger;
 };
 }

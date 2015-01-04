@@ -133,11 +133,11 @@ ScreenPoint GLWindow::GetPosition() const {
     return position;
 }
 
-ScreenDimensions GLWindow::GetDimensions() const {
-    ScreenDimensions dimensions;
-    glfwGetWindowSize(glfwWindow, &dimensions.x, &dimensions.y);
+Dimensions GLWindow::GetDimensions() const {
+    int x, y;
+    glfwGetWindowSize(glfwWindow, &x, &y);
 
-    return dimensions;
+    return Dimensions(x, y);;
 }
 
 void GLWindow::SetPosition(const ScreenPoint& newPosition) {

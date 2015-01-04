@@ -2,11 +2,8 @@
 
 #include "core/GloveFwd.h"
 
-#include <core/graph/GameComponent.h>
-
 #include "../Rendering.h"
 #include "../FrameData.h"
-#include "../IRenderable.h"
 #include "../mesh/IMesh.h"
 
 namespace glove {
@@ -17,12 +14,9 @@ namespace glove {
 /// Note: Rendering *always* requires an IMaterial instance to be bound. Binding a material (which basically is a shader
 /// program) and the corresponding IVertexAttributeMapping to the vertex data's VertexLayout is very implementation
 /// specific. Thus, material binding has to be implemented by the render system implementation.
-class Mesh : public GameComponent, public IRenderable, public IMesh {
+class Mesh : public IMesh {
   public:
     Mesh(const IVertexDataPtr& vertexData, const IIndexDataPtr& indexData);
-
-    virtual void SetupRender(RenderOperation& renderOp, const FrameData& frameData);
-    virtual void PostRender(RenderOperation& renderOp, const FrameData& frameData);
 
     virtual const IMaterialPtr& GetMaterial() const;
     virtual const IVertexDataPtr& GetVertexData() const;

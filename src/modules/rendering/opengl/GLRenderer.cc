@@ -10,18 +10,22 @@
 #include "core/GloveCore.h"
 #include "core/GloveException.h"
 #include <core/graph/Scenegraph.h>
-#include <core/graph/Camera.h>
+#include <core/graph/gamecomponent/CameraBase.h>
 
 #include <core/rendering/Rendering.h>
-#include <core/rendering/IRenderable.h>
+#include <core/rendering/target/IRenderTarget.h>
 #include <core/rendering/buffers/IGpuBuffer.h>
 #include <core/rendering/mesh/IMesh.h>
 #include <core/rendering/WindowConstructionHints.h>
 #include <core/rendering/vertex/IVertexData.h>
 #include <core/rendering/vertex/IIndexData.h>
+#include <modules/rendering/opengl/target/GLRenderTarget.h>
+#include <modules/rendering/opengl/target/GLDefaultRenderTarget.h>
 
-#include "GLBaseMesh.h"
 #include "internal/GlfwWrapper.h"
+#include "internal/OpenGLWrapper.h"
+#include "GLMesh.h"
+#include "GLRenderOperation.h"
 
 GLEWContext* glewGetContext();
 
@@ -31,26 +35,11 @@ namespace gl {
 GLRenderer::GLRenderer(const EventBusPtr& eventBus, const WindowConstructionHints& windowCreationHints,
                        const ContextId contextId)
     : eventBus(eventBus), contextId(contextId) {
-    currentRenderOperation.Reset();
-
     CreateWindow(windowCreationHints);
+    defaultRenderTarget = std::make_shared<GLDefaultRenderTarget>(window->GetDimensions());
 }
 
-void GLRenderer::RenderScene(ScenegraphPointer scenegraph, FrameData& frameData) {
-    frameData.viewProjectionMatrix = window->GetProjectionMatrix() * scenegraph->GetMainCamera()->GetViewMatrix();
-
-    scenegraph->IterateGameObjects([&](GameObjectPtr gameObject) {
-        gameObject->IterateRenderableComponents([&](const IRenderablePtr& renderable) {
-            renderable->SetupRender(currentRenderOperation, frameData);
-
-            GLBaseMeshPtr baseMesh = std::dynamic_pointer_cast<GLBaseMesh>(renderable);
-            RenderObject(currentRenderOperation, frameData, baseMesh);
-            renderable->PostRender(currentRenderOperation, frameData);
-        });
-    });
-}
-
-void GLRenderer::RenderObject(RenderOperation& renderOp, const FrameData& frameData, const GLBaseMeshPtr& baseMesh) {
+void GLRenderer::RenderObject(RenderOperation& renderOp, const FrameData& frameData, const GLMeshPtr& baseMesh) {
     baseMesh->EnsureVertexArrayObjectExistsForContext(contextId);
     GL::BindVertexArray(baseMesh->GetVertexArrayId(contextId));
 
@@ -87,6 +76,44 @@ void GLRenderer::CreateWindow(const WindowConstructionHints& windowCreationHints
 
 IWindowPtr GLRenderer::GetAssociatedWindow() {
     return window;
+}
+
+ContextId GLRenderer::GetContextId() const {
+    return contextId;
+}
+
+RenderTargetHandle GLRenderer::CreateRenderTarget() {
+    throw GLOVE_EXCEPTION("Not implemented");
+    //return std::make_shared<GLRenderTarget>()
+}
+
+void GLRenderer::MapCameraToTarget(const CameraBaseHandle& camera, const RenderTargetHandle& renderTarget) {
+    const Dimensions& targetDimensions = renderTarget->GetDimensions();
+    camera->SetAspectRatio(targetDimensions.GetAspectRatio());
+}
+
+void GLRenderer::RenderScene(const ScenegraphHandle& scenegraph) {
+    std::queue<IRenderOperation*> renderQueue;
+
+    scenegraph->IterateGameObjects([&](const GameObjectHandle& gameObject) {
+        gameObject->IterateComponents([&](const GameComponentHandle& component) {
+            component.lock()->QueueRenderOperation(renderQueue);
+        });
+    });
+
+    while(!renderQueue.empty()) {
+        IRenderOperation* renderOp = renderQueue.front();
+        renderQueue.pop();
+
+        renderOp->Execute(shared_from_this());
+        if (renderOp->ShouldDelete()) {
+            delete renderOp;
+        }
+    }
+}
+
+RenderTargetHandle GLRenderer::GetDefaultRenderTarget() {
+    return defaultRenderTarget;
 }
 }
 } /* namespace glove */

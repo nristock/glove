@@ -3,10 +3,13 @@ set(opengl_renderer_src
     GLWindow.cc
     GLGpuBuffer.cc
     GLMesh.cc
-    GLBaseMesh.cc
+    GLRenderOperation.cc
 
     internal/GlfwWrapper.cc
     internal/OpenGLWrapper.cc
+
+    target/GLRenderTarget.cc
+    target/GLDefaultRenderTarget.cc
 
     shader/GLMaterialAttribute.cc
     shader/GLMaterial.cc
@@ -21,6 +24,7 @@ set(opengl_renderer_src
     factories/GLShaderFactory.cc
     factories/GLShaderProgramFactory.cc
     factories/GLMaterialFactory.cc
+    factories/GLRenderOperationFactory.cc
 
     subsystem/OpenGLRendererModule.cc
     subsystem/GLRendererExtension.cc

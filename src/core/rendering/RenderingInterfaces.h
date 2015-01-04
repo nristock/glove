@@ -16,12 +16,14 @@
 #include "shader/IShader.h"
 #include "shader/IShaderProgram.h"
 
+#include "target/IRenderTarget.h"
+
 #include "mesh/IMesh.h"
 
-#include "IRenderable.h"
 #include "IRenderer.h"
 #include "IRenderSubsystem.h"
 #include "IWindow.h"
+#include "IRenderOperation.h"
 
 #include "FrameData.h"
 #include "RenderOperation.h"

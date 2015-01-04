@@ -1,6 +1,6 @@
 #include "Scenegraph.h"
-#include <core/graph/GameObject.h>
-#include <core/graph/Camera.h>
+#include "gameobject/factories/IGameObjectFactory.h"
+#include "gameobject/factories/EmptyGameObjectFactory.h"
 
 namespace glove {
 
@@ -13,35 +13,57 @@ Scenegraph::~Scenegraph() {
     }
 }
 
-GameObjectPointer Scenegraph::CreateSimpleGameObject() {
-    return CreateGameObject<GameObject>([this]() { return new GameObject(); });
+GameObjectHandle Scenegraph::CreateSimpleGameObject() {
+    EmptyGameObjectFactory defaultGameObjectFactory;
+    return CreateGameObject(defaultGameObjectFactory);
 }
 
-CameraPointer Scenegraph::CreateCamera() {
-    auto cam = CameraPointer(new Camera());
-    cam->Init();
-
-    return cam;
-}
-
-void Scenegraph::Update() {
-    for (auto gameObject : gameObjects) {
-        gameObject->Update();
-    }
-}
-
-void Scenegraph::IterateGameObjects(std::function<void(GameObjectPointer)> callback) {
+void Scenegraph::IterateGameObjects(GameObjectIterationCallback callback) {
     for (auto gameObject : gameObjects) {
         callback(gameObject);
     }
 }
 
-void Scenegraph::InjectGameObject(GameObjectPointer gameObject) {
+void Scenegraph::InjectGameObject(const GameObjectHandle& gameObject) {
     gameObjects.push_back(gameObject);
 }
 
-void Scenegraph::SetActiveCamera(CameraPointer camera) {
-    mainCamera = camera;
+void Scenegraph::IterateGameObjects(GameObjectIterationCallback callback, GameObjectPredicate predicate) {
+    for(auto& gameObject : gameObjects) {
+        if(predicate(gameObject)) {
+            callback(gameObject);
+        }
+    }
 }
 
+GameObjectHandle Scenegraph::CreateGameObject(IGameObjectFactory& gameObjectFactory, GameObjectPreInitCallback preInit) {
+    return CreateGameObject(gameObjectFactory, preInit, [](const GameObjectHandle& object) {});
+}
+
+GameObjectHandle Scenegraph::CreateGameObject(IGameObjectFactory& gameObjectFactory) {
+    return CreateGameObject(gameObjectFactory, [](const GameObjectHandle& object) {}, [](const GameObjectHandle& object) {});
+}
+
+GameObjectHandle Scenegraph::CreateGameObject(IGameObjectFactory& gameObjectFactory, GameObjectPreInitCallback preInit, GameObjectPostInitCallback postInit) {
+    GameObjectHandle gameObject = gameObjectFactory.Create();
+    preInit(gameObject);
+    gameObject->Init();
+    postInit(gameObject);
+
+    gameObjects.push_back(gameObject);
+
+    return gameObject;
+}
+
+GameObjectHandle Scenegraph::CreateGameObject(const GameObjectFactoryHandle& gameObjectFactory) {
+    return CreateGameObject(*gameObjectFactory);
+}
+
+GameObjectHandle Scenegraph::CreateGameObject(const GameObjectFactoryHandle& gameObjectFactory, GameObjectPreInitCallback preInit) {
+    return CreateGameObject(*gameObjectFactory, preInit);
+}
+
+GameObjectHandle Scenegraph::CreateGameObject(const GameObjectFactoryHandle& gameObjectFactory, GameObjectPreInitCallback preInit, GameObjectPostInitCallback postInit) {
+    return CreateGameObject(*gameObjectFactory, preInit, postInit);
+}
 } /* namespace glove */

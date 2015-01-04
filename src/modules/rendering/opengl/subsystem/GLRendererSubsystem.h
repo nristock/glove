@@ -4,6 +4,7 @@
 #include <core/natex/ISubsystem.h>
 #include <core/rendering/Rendering.h>
 #include <core/rendering/RenderingInterfaces.h>
+#include <modules/rendering/opengl/factories/GLRenderOperationFactory.h>
 
 #include "OpenGLRendererModule.h"
 
@@ -22,8 +23,9 @@ class GLRendererSubsystem : public IRenderSubsystem, public ISubsystem {
     virtual IShaderFactoryPtr GetShaderFactory(const IRendererPtr& owningRenderer);
     virtual IShaderProgramFactoryPtr GetShaderProgramFactory();
     virtual IMaterialFactoryPtr GetMaterialFactory();
+    virtual RenderOperationFactoryHandle GetRenderOperationFactory();
 
-  private:
+private:
     logging::GloveLogger logger;
 
     GloveCorePtr engineCore;
@@ -33,6 +35,7 @@ class GLRendererSubsystem : public IRenderSubsystem, public ISubsystem {
     IShaderFactoryPtr shaderFactory;
     GLMaterialFactoryPtr materialFactory;
     GLShaderProgramFactoryPtr shaderProgramFactory;
+    GLRenderOperationFactoryHandle renderOperationFactory;
 };
 }
 } /* namespace glove */

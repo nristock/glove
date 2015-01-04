@@ -134,6 +134,51 @@ void OpenGLWrapper::DrawElements(GLenum mode, GLsizei count, GLenum type, const 
     sharedWrapper->_glDrawElements(mode, count, type, indices);
 }
 
+void OpenGLWrapper::GenFramebuffers(GLsizei n, GLuint* ids) {
+    sharedWrapper->_glGenFramebuffers(n, ids);
+}
+
+void OpenGLWrapper::GenRenderbuffers(GLsizei n, GLuint* renderbuffers) {
+    sharedWrapper->_glGenRenderbuffers(n, renderbuffers);
+}
+
+void OpenGLWrapper::GenTextures(GLsizei n, GLuint* textures) {
+    sharedWrapper->_glGenTextures(n, textures);
+}
+
+void OpenGLWrapper::BindFramebuffer(GLenum target, GLuint framebuffer) {
+    sharedWrapper->_glBindFramebuffer(target, framebuffer);
+}
+
+void OpenGLWrapper::FramebufferTexture(GLenum target, GLenum attachment, GLuint texture, GLint level) {
+    sharedWrapper->_glFramebufferTexture(target, attachment, texture, level);
+}
+
+void OpenGLWrapper::BindRenderbuffer(GLenum target, GLuint renderbuffer) {
+    sharedWrapper->_glBindRenderbuffer(target, renderbuffer);
+}
+
+void OpenGLWrapper::DrawBuffers(GLsizei n, const GLenum* bufs) {
+    sharedWrapper->_glDrawBuffers(n, bufs);
+}
+
+void OpenGLWrapper::BindTexture(GLenum target, GLuint texture) {
+    sharedWrapper->_glBindTexture(target, texture);
+}
+
+void OpenGLWrapper::TexImage2D(GLenum target, GLint level, GLint internalFormat, GLsizei width, GLsizei height,
+                               GLint border, GLenum format, GLenum type, const GLvoid* data) {
+    sharedWrapper->_glTexImage2D(target, level, internalFormat, width, height, border, format, type, data);
+}
+
+void OpenGLWrapper::TexParameteri(GLenum target, GLenum pname, GLint param) {
+    sharedWrapper->_glTexParameteri(target, pname, param);
+}
+
+void OpenGLWrapper::Viewport(GLint x, GLint y, GLsizei width, GLsizei height) {
+    sharedWrapper->_glViewport(x, y, width, height);
+}
+
 void OpenGLWrapper::_glDeleteVertexArrays(GLsizei n, const GLuint* arrays) {
     glDeleteVertexArrays(n, arrays);
 }
@@ -253,6 +298,51 @@ void OpenGLWrapper::_glDrawArrays(GLenum mode, GLint first, GLsizei count) {
 
 void OpenGLWrapper::_glDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid* indices) {
     glDrawElements(mode, count, type, indices);
+}
+
+void OpenGLWrapper::_glGenFramebuffers(GLsizei n, GLuint* ids) {
+    glGenFramebuffers(n, ids);
+}
+
+void OpenGLWrapper::_glGenRenderbuffers(GLsizei n, GLuint* renderbuffers) {
+    glGenRenderbuffers(n, renderbuffers);
+}
+
+void OpenGLWrapper::_glGenTextures(GLsizei n, GLuint* textures) {
+    glGenTextures(n, textures);
+}
+
+void OpenGLWrapper::_glBindFramebuffer(GLenum target, GLuint framebuffer) {
+    glBindFramebuffer(target, framebuffer);
+}
+
+void OpenGLWrapper::_glFramebufferTexture(GLenum target, GLenum attachment, GLuint texture, GLint level) {
+    glFramebufferTexture(target, attachment, texture, level);
+}
+
+void OpenGLWrapper::_glBindRenderbuffer(GLenum target, GLuint renderbuffer) {
+    glBindRenderbuffer(target, renderbuffer);
+}
+
+void OpenGLWrapper::_glDrawBuffers(GLsizei n, const GLenum* bufs) {
+    glDrawBuffers(n, bufs);
+}
+
+void OpenGLWrapper::_glBindTexture(GLenum target, GLuint texture) {
+    glBindTexture(target, texture);
+}
+
+void OpenGLWrapper::_glTexImage2D(GLenum target, GLint level, GLint internalFormat, GLsizei width, GLsizei height,
+                                  GLint border, GLenum format, GLenum type, const GLvoid* data) {
+    glTexImage2D(target, level, internalFormat, width, height, border, format, type, data);
+}
+
+void OpenGLWrapper::_glTexParameteri(GLenum target, GLenum pname, GLint param) {
+    glTexParameteri(target, pname, param);
+}
+
+void OpenGLWrapper::_glViewport(GLint x, GLint y, GLsizei width, GLsizei height) {
+    glViewport(x, y, width, height);
 }
 }
 }

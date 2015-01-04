@@ -20,19 +20,7 @@
 
 namespace glove {
 
-GLOVE_FWD_DECL(GameObject);
-
-GLOVE_FWD_DECL(Camera);
-
-GLOVE_FWD_DECL(Scenegraph);
-
 GLOVE_FWD_DECL(GloveCore);
-
-GLOVE_FWD_DECL(GameComponent);
-
-GLOVE_FWD_DECL(IGraphNode);
-
-GLOVE_FWD_DECL(IGameComponentFactory);
 
 GLOVE_FWD_DECL_STRUCT(KeyEvent);
 

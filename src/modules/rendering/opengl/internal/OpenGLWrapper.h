@@ -51,6 +51,18 @@ class OpenGLWrapper {
     static GLOVE_INLINE void BufferData(GLenum target, GLsizeiptr size, const GLvoid* data, GLenum usage);
     static GLOVE_INLINE void DrawArrays(GLenum mode, GLint first, GLsizei count);
     static GLOVE_INLINE void DrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid* indices);
+    static GLOVE_INLINE void GenFramebuffers(GLsizei n, GLuint* ids);
+    static GLOVE_INLINE void BindFramebuffer(GLenum target, GLuint framebuffer);
+    static GLOVE_INLINE void FramebufferTexture(GLenum target, GLenum attachment, GLuint texture, GLint level);
+    static GLOVE_INLINE void GenRenderbuffers(GLsizei n, GLuint* renderbuffers);
+    static GLOVE_INLINE void BindRenderbuffer(GLenum target, GLuint renderbuffer);
+    static GLOVE_INLINE void DrawBuffers(GLsizei n, const GLenum* bufs);
+    static GLOVE_INLINE void GenTextures(GLsizei n, GLuint* textures);
+    static GLOVE_INLINE void BindTexture(GLenum target, GLuint texture);
+    static GLOVE_INLINE void TexImage2D(GLenum target, GLint level, GLint internalFormat, GLsizei width, GLsizei height,
+                                        GLint border, GLenum format, GLenum type, const GLvoid* data);
+    static GLOVE_INLINE void TexParameteri(GLenum target, GLenum pname, GLint param);
+    static GLOVE_INLINE void Viewport(GLint x, GLint y, GLsizei width, GLsizei height);
 
   protected:
     virtual GLOVE_INLINE void _glDeleteVertexArrays(GLsizei n, const GLuint* arrays);
@@ -86,6 +98,19 @@ class OpenGLWrapper {
     virtual GLOVE_INLINE void _glBufferData(GLenum target, GLsizeiptr size, const GLvoid* data, GLenum usage);
     virtual GLOVE_INLINE void _glDrawArrays(GLenum mode, GLint first, GLsizei count);
     virtual GLOVE_INLINE void _glDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid* indices);
+    virtual GLOVE_INLINE void _glGenFramebuffers(GLsizei n, GLuint* ids);
+    virtual GLOVE_INLINE void _glBindFramebuffer(GLenum target, GLuint framebuffer);
+    virtual GLOVE_INLINE void _glFramebufferTexture(GLenum target, GLenum attachment, GLuint texture, GLint level);
+    virtual GLOVE_INLINE void _glGenRenderbuffers(GLsizei n, GLuint* renderbuffers);
+    virtual GLOVE_INLINE void _glBindRenderbuffer(GLenum target, GLuint renderbuffer);
+    virtual GLOVE_INLINE void _glDrawBuffers(GLsizei n, const GLenum* bufs);
+    virtual GLOVE_INLINE void _glGenTextures(GLsizei n, GLuint* textures);
+    virtual GLOVE_INLINE void _glBindTexture(GLenum target, GLuint texture);
+    virtual GLOVE_INLINE void _glTexImage2D(GLenum target, GLint level, GLint internalFormat, GLsizei width,
+                                            GLsizei height, GLint border, GLenum format, GLenum type,
+                                            const GLvoid* data);
+    virtual GLOVE_INLINE void _glTexParameteri(GLenum target, GLenum pname, GLint param);
+    virtual GLOVE_INLINE void _glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
 
   private:
     static OpenGLWrapperPtr sharedWrapper;

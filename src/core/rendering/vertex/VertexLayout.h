@@ -22,7 +22,7 @@ class VertexLayout {
 
     /// @brief Adds a VertexAttribute element to the internal list of vertex attributes and recalculates the stride
     ///        for the affected buffer.
-    GLOVE_INLINE void AddElement(const VertexAttribute& element);
+    GLOVE_INLINE void AddAttribute(const VertexAttribute& element);
 
     GLOVE_INLINE std::size_t GetAttributeCount() const;
 

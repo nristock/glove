@@ -10,6 +10,7 @@
 #include "GloveException.h"
 #include "rendering/FrameData.h"
 #include <core/natex/BifrostLoader.h>
+#include <core/graph/Graph.h>
 
 namespace glove {
 
@@ -26,13 +27,9 @@ class GloveCore : public std::enable_shared_from_this<GloveCore> {
     void Init(int argc, const char** argv);
 
     /** Starts the main application loop. Must be called from main thread. */
-    void EnterMainLoop();
+    void EnterMainLoop(ScenegraphHandle scenegraph);
 
     void Update();
-
-    void Render(ScenegraphPointer scenegraph);
-
-    const ScenegraphPtr& GetScenegraph() const { return primaryScenegraph; }
 
     virtual const EventBusPtr& GetEventBus() const { return eventBus; }
 
@@ -55,7 +52,6 @@ class GloveCore : public std::enable_shared_from_this<GloveCore> {
     BifrostLoader bifrostLoader;
 
     EventBusPtr eventBus;
-    ScenegraphPtr primaryScenegraph;
     InputManagerPtr inputManager;
 
     ISubsystemInstanceRegistryPtr subsystemInstanceRegistry;

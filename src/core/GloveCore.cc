@@ -13,9 +13,6 @@
 
 #include <core/GloveEnvironment.h>
 #include <core/GloveException.h>
-#include "graph/Scenegraph.h"
-#include "graph/GameObject.h"
-#include "graph/GameComponent.h"
 #include <boost/python.hpp>
 #include <core/events/EventBus.h>
 #include "input/InputManager.h"
@@ -122,23 +119,28 @@ void GloveCore::Init(int argc, const char** argv) {
     Configuration& config = gEnv->engineConfiguration;
 
     if (config.engine.loadNativeExtensions) {
-        DirectoryExtensionSearcher extensionSearcher("data/natex");
         ISubsystemDefinitionRegistryPtr subsystemDefinitionRegistry =
-            std::make_shared<GloveSubsystemDefinitionRegistry>();
+                std::make_shared<GloveSubsystemDefinitionRegistry>();
 
-        for (auto extension : extensionSearcher.GetExtensions()) {
-            try {
-                PreExtensionLoadEvent preloadEvent;
-                eventBus->Publish(preloadEvent);
+        try {
+            DirectoryExtensionSearcher extensionSearcher("data/natex");
 
-                ISystemExtensionPtr systemExtension = bifrostLoader.LoadSystemExtension(extension);
-                systemExtension->RegisterSubsystems(subsystemDefinitionRegistry);
+            for (auto extension : extensionSearcher.GetExtensions()) {
+                try {
+                    PreExtensionLoadEvent preloadEvent;
+                    eventBus->Publish(preloadEvent);
 
-                NativeExtensionLoadedEvent postloadEvent;
-                eventBus->Publish(postloadEvent);
-            } catch (GloveException& ex) {
-                LOG(logger, error, ex.what());
+                    ISystemExtensionPtr systemExtension = bifrostLoader.LoadSystemExtension(extension);
+                    systemExtension->RegisterSubsystems(subsystemDefinitionRegistry);
+
+                    NativeExtensionLoadedEvent postloadEvent;
+                    eventBus->Publish(postloadEvent);
+                } catch (GloveException& ex) {
+                    LOG(logger, error, ex.what());
+                }
             }
+        } catch (GloveException& ex) {
+            LOG(logger, error, (boost::format("Failed to load native extensions: %1%") % ex.what()).str());
         }
 
         {
@@ -151,16 +153,7 @@ void GloveCore::Init(int argc, const char** argv) {
     }
 
     try {
-        Configuration& engineConfig = gEnv->engineConfiguration;
-
-        auto subsystemInitListBegin = engineConfig.engine.subsystemInitList.begin();
-        auto subsystemInitListEnd = engineConfig.engine.subsystemInitList.end();
-
-        if (std::find(subsystemInitListBegin, subsystemInitListEnd, "rendering") != subsystemInitListEnd) {
-            primaryScenegraph = ScenegraphPtr(new Scenegraph());
-
-            inputManager = InputManagerPtr(new InputManager(eventBus));
-        }
+        inputManager = InputManagerPtr(new InputManager(eventBus));
 
         TimePoint initializationDone = sc::steady_clock::now();
         auto timeSpan = sc::duration_cast<std::chrono::milliseconds>(initializationDone - initializationTime);
@@ -170,7 +163,7 @@ void GloveCore::Init(int argc, const char** argv) {
     }
 }
 
-void GloveCore::EnterMainLoop() {
+void GloveCore::EnterMainLoop(ScenegraphHandle scenegraph) {
     TimePoint start = std::chrono::steady_clock::now();
     TimePoint end = std::chrono::steady_clock::now();
 
@@ -183,7 +176,7 @@ void GloveCore::EnterMainLoop() {
         frameData.deltaTime = lastFrameTime.count();
 
         Update();
-        Render(primaryScenegraph);
+//        Render(scenegraph);
     }
 }
 
@@ -224,30 +217,36 @@ void GloveCore::Update() {
                            inputManager->GetMousePositionRef().y).str());
     }
 
-    primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject) {
-        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) { gameComponent->SyncEarlyUpdate(); });
-
-        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-            try {
-                gameComponent->SyncUpdate();
-            } catch (boost::python::error_already_set) {
-                //                pythonEngine->HandleError();
-            }
-        });
-
-        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) { gameComponent->AsyncUpdate(); });
-
-        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) { gameComponent->SyncLateUpdate(); });
-    });
+//    primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject) {
+//        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
+//            gameComponent->SyncEarlyUpdate();
+//        });
+//
+//        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
+//            try {
+//                gameComponent->SyncUpdate();
+//            } catch (boost::python::error_already_set) {
+//                //                pythonEngine->HandleError();
+//            }
+//        });
+//
+//        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
+//            gameComponent->AsyncUpdate();
+//        });
+//
+//        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
+//            gameComponent->SyncLateUpdate();
+//        });
+//    });
 
     inputManager->SyncUpdate();
 }
 
-void GloveCore::Render(ScenegraphPointer scenegraph) {
+//void GloveCore::Render(ScenegraphPointer scenegraph) {
     //    renderer->ClearBuffers();
     //    renderer->RenderScene(scenegraph, frameData);
     //    renderer->SwapBuffers();
-}
+//}
 
 void GloveCore::LoadConfiguration(const std::string& configPath) {
     using namespace Json;

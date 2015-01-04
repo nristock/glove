@@ -20,7 +20,6 @@ namespace gl {
 
 /// @addtogroup OpenGLRenderer
 /// @{
-class GLBaseMesh;
 class GLGpuBufferFactory;
 class GLMaterial;
 class GLMaterialFactory;
@@ -30,6 +29,8 @@ class GLRenderer;
 class GLRendererFactory;
 class GLRendererSubsystem;
 class GLRendererSubsystemDefinition;
+class GLRenderOperation;
+class GLRenderOperationFactory;
 class GLShader;
 class GLShaderFactory;
 class GLShaderProgram;
@@ -47,7 +48,6 @@ typedef std::shared_ptr<GLShaderProgram> GLShaderProgramPtr;
 typedef std::shared_ptr<GLMaterial> GLMaterialPtr;
 typedef std::weak_ptr<GLMaterial> GLMaterialRef;
 typedef std::shared_ptr<GLShader> GLShaderPtr;
-typedef std::shared_ptr<GLBaseMesh> GLBaseMeshPtr;
 typedef std::shared_ptr<OpenGLWrapper> OpenGLWrapperPtr;
 typedef std::shared_ptr<GLMesh> GLMeshPtr;
 typedef std::shared_ptr<GLRendererSubsystemDefinition> GLRendererSubsystemDefinitionPtr;
@@ -57,6 +57,7 @@ typedef std::shared_ptr<GLShaderFactory> GLShaderFactoryPtr;
 typedef std::shared_ptr<GLMeshFactory> GLMeshFactoryPtr;
 typedef std::shared_ptr<GLMaterialFactory> GLMaterialFactoryPtr;
 typedef std::shared_ptr<GlfwWrapper> GlfwWrapperPtr;
+typedef std::shared_ptr<GLRenderOperationFactory> GLRenderOperationFactoryHandle;
 
 typedef uint16_t ContextId;
 
