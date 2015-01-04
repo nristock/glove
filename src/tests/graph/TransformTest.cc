@@ -138,52 +138,25 @@ TEST_F(TransformTest, UpdatesScaleCorrectly) {
 	ASSERT_EQ(scaleMatrix, transform.GetLocalTransform()) << "Scale setter doesn't update the local matrix.";
 }
 
-TEST_F(TransformTest, CheckPositionOnDemandLocalMatrixUpdate) {
-	transform.SetPosition(position, false);
-	ASSERT_EQ(positionMatrix, transform.GetLocalTransform()) << "Position setter on-demand update failed.";
-}
-
-TEST_F(TransformTest, CheckRotationOnDemandLocalMatrixUpdate) {
-	transform.SetRotation(rotation, false);
-	ASSERT_EQ(rotationMatrix, transform.GetLocalTransform()) << "Rotation setter on-demand update failed.";	
-}
-
-TEST_F(TransformTest, CheckScaleOnDemandLocalMatrixUpdate) {
-	transform.SetScale(scale, false);
-	ASSERT_EQ(scaleMatrix, transform.GetLocalTransform()) << "Scale setter on-demand update failed.";
-}
-
 TEST_F(TransformTest, CheckPositionGetterSetter) {
 	transform.SetPosition(position);
 	ASSERT_EQ(position, transform.GetPosition()) << "SetPosition(void) failed";
-	transform.SetPosition(defaultPosition, false);
-	ASSERT_EQ(defaultPosition, transform.GetPosition()) << "SetPosition(bool=false) failed";
-	transform.SetPosition(position, true);
-	ASSERT_EQ(position, transform.GetPosition()) << "SetPosition(bool=true) failed";
 }
 
 TEST_F(TransformTest, CheckRotationGetterSetter) {
 	transform.SetRotation(rotation);
 	ASSERT_EQ(rotation, transform.GetRotation()) << "SetRotation(void) failed";
-	transform.SetRotation(defaultRotation, false);
-	ASSERT_EQ(defaultRotation, transform.GetRotation()) << "SetRotation(bool=false) failed";
-	transform.SetRotation(rotation, true);
-	ASSERT_EQ(rotation, transform.GetRotation()) << "SetRotation(bool=true) failed";
 }
 
 TEST_F(TransformTest, CheckScaleGetterSetter) {
 	transform.SetScale(scale);
 	ASSERT_EQ(scale, transform.GetScale()) << "SetScale(void) failed";
-	transform.SetScale(defaultScale, false);
-	ASSERT_EQ(defaultScale, transform.GetScale()) << "SetScale(bool=false) failed";
-	transform.SetScale(scale, true);
-	ASSERT_EQ(scale, transform.GetScale()) << "SetScale(bool=true) failed";
 }
 
 TEST_F(TransformTest, CheckGlobalTransformMatrixCalculation) {
-	transform.SetPosition(position, false);
-	transform.SetScale(scale, false);
-	transform.SetRotation(rotation, false);
+	transform.SetPosition(position);
+	transform.SetScale(scale);
+	transform.SetRotation(rotation);
 
 	Transform parentTransform(parentPosition);
 	transform.RecalculateAccumulatedTransform(parentTransform);

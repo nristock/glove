@@ -1,13 +1,14 @@
 #include <vendor/gmock/gmock.h>
 #include <vendor/gtest/gtest.h>
 #include <core/graph/Scenegraph.h>
-#include <core/graph/GameObject.h>
+#include <core/graph/gameobject/GameObject.h>
 #include "tests/graph/mock/GameObjectMock.h"
+#include "tests/graph/mock/MockGameObjectFactory.h"
 
 namespace glove {
 
 class ScenegraphTest : public ::testing::Test {
-protected:
+  protected:
     Scenegraph scenegraph;
 };
 
@@ -16,14 +17,20 @@ TEST_F(ScenegraphTest, InitialScenegraphIsEmpty) {
 }
 
 TEST_F(ScenegraphTest, InitializesCreatedGameObject) {
-    GameObjectMock* goMock = new GameObjectMock;
-    EXPECT_CALL(*goMock, Init()).Times(1);
+    GameObjectHandle goMock = GameObjectHandle(new GameObjectMock);
+    EXPECT_CALL(*(GameObjectMock*)goMock.get(), Init()).Times(1);
 
-    auto gameObject = scenegraph.CreateGameObject<GameObjectMock>(
-            [&]() {
-                return goMock;
-            }
-    );
+    MockGameObjectFactory mockObjectFactory(goMock);
+    auto gameObject = scenegraph.CreateGameObject(mockObjectFactory);
+}
+
+TEST_F(ScenegraphTest, CreateSimpleCreateGameObjectWithoutComponents) {
+    auto gameObject = scenegraph.CreateSimpleGameObject();
+    std::size_t objectComponentCount = 0;
+
+    gameObject->IterateComponents([&](const GameComponentHandle&){++objectComponentCount;});
+
+    EXPECT_EQ(0, objectComponentCount);
 }
 
 TEST_F(ScenegraphTest, AddsCreatedGameObjectsToGraph) {
@@ -33,32 +40,21 @@ TEST_F(ScenegraphTest, AddsCreatedGameObjectsToGraph) {
 }
 
 TEST_F(ScenegraphTest, CanCreateCustomGameObjects) {
-    bool allocatorCalled = false;
     bool preInitCalled = false;
     bool postInitCalled = false;
 
-    auto gameObject = scenegraph.CreateGameObject<GameObject>(
-            [&]() {
-                allocatorCalled = true;
-                return new GameObject();
-            },
-            [&](GameObjectPointer go) {
-                preInitCalled = true;
-            },
-            [&](GameObjectPointer go) {
-                postInitCalled = true;
-            });
+    GameObjectHandle goMock = GameObjectHandle(new GameObjectMock);
+    EXPECT_CALL(*(GameObjectMock*)goMock.get(), Init()).Times(1);
 
-    ASSERT_TRUE(allocatorCalled);
-    ASSERT_TRUE(preInitCalled);
-    ASSERT_TRUE(postInitCalled);
+    MockGameObjectFactory mockObjectFactory(goMock);
+
+    auto gameObject =
+        scenegraph.CreateGameObject(mockObjectFactory, [&](const GameObjectHandle&) { preInitCalled = true; },
+                                    [&](const GameObjectHandle&) { postInitCalled = true; });
+
+    EXPECT_TRUE(preInitCalled);
+    EXPECT_TRUE(postInitCalled);
 }
 
-TEST_F(ScenegraphTest, CanSetMainCamera) {
-    auto camera = scenegraph.CreateCamera();
-    scenegraph.SetActiveCamera(camera);
-
-    ASSERT_EQ(camera, scenegraph.GetMainCamera());
-}
 
 }
