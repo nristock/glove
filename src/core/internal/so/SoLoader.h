@@ -13,9 +13,9 @@ class SoLoader : public ISharedLibraryLoader {
     SoLoader(const std::string& soFilePath);
     virtual ~SoLoader();
 
-    virtual void* LoadSymbol(const std::string& symbolName);
+    virtual void* LoadSymbol(const std::string& symbolName) override;
 
-    virtual void ReloadLibrary();
+    virtual void ReloadLibrary() override;
 
     virtual LoadSystemExtensionLibraryFunc GetLibraryLoaderFunc() override;
 
