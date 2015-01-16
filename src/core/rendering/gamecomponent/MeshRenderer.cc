@@ -1,4 +1,4 @@
-#include <core/rendering/IRenderOperation.h>
+#include "rendering/IRenderOperation.h"
 #include "MeshRenderer.h"
 
 #include "rendering/factories/IRenderOperationFactory.h"

@@ -1,5 +1,7 @@
 #include "GLShaderProgram.h"
 
+#include <boost/format.hpp>
+
 #include <core/GloveException.h>
 #include <utils/ShaderUtils.h>
 
@@ -42,8 +44,7 @@ GLShaderProgram::~GLShaderProgram() {
 GLint GLShaderProgram::GetUniformLocation(const std::string& uniformName) {
     GLint uniformIndex = GL::GetUniformLocation(shaderProgramId, uniformName.c_str());
     if (uniformIndex < 0) {
-        LOG(logger, error, "Unknown material attribute name " << uniformName);
-        return -1;
+        throw GLOVE_EXCEPTION((boost::format("Unknown uniform attribute name %1%") % uniformName).str())
     }
 
     return uniformIndex;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Rendering.h"
+#include "rendering/shader/MaterialAttributeSemantic.h"
 
 namespace glove {
 
@@ -11,5 +12,7 @@ class IMaterial {
 
     virtual IShaderProgramPtr GetShaderProgram() const = 0;
     virtual IMaterialAttributePtr GetMaterialAttribute(const std::string& name) = 0;
+    virtual IMaterialAttributePtr GetMaterialAttribute(const MaterialAttributeSemantic semantic) = 0;
+    virtual void MapAttributeSemantic(const MaterialAttributeSemantic semantic, const std::string& attributeName) = 0;
 };
 }

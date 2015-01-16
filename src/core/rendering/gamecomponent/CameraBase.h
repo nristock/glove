@@ -8,6 +8,7 @@
 namespace glove {
 namespace GameComponents {
 
+/// @ingroup RenderSubsystemInterface
 class CameraBase : public GameComponent {
 public:
     CameraBase() = default;
@@ -15,8 +16,8 @@ public:
 
     virtual void OnAttach(const GameObjectHandle& owner);
 
-    GLOVE_INLINE void SetAspectRatio(float aspectRatio);
-    GLOVE_INLINE const glm::mat4 GetViewProjectionMatrix();
+    virtual GLOVE_INLINE void SetAspectRatio(float aspectRatio);
+    virtual GLOVE_INLINE const glm::mat4 GetViewProjectionMatrix();
 
 protected:
     virtual void RecalculateViewMatrix();

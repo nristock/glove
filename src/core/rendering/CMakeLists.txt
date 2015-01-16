@@ -7,7 +7,19 @@ set(gc_rendering_src
    vertex/VertexAttributeUtils.cc
    vertex/VertexLayout.cc
 
+   gamecomponent/CameraBase.cc
+   gamecomponent/MeshRenderer.cc
+   gamecomponent/OrthoCamera.cc
+
+   gamecomponent/factories/CameraComponentFactory.cc
+
+   target/AbstractRenderTarget.cc
+
+   shader/MaterialAttributeSemantic.cc
+
    WindowConstructionHints.cc
+   RenderState.cc
+   RendererBase.cc
 
    IRenderSubsystem.cc
 )

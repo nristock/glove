@@ -6,10 +6,10 @@
 
 namespace glove {
 
-class Dimensions {
+class ScreenDimensions {
 public:
-    Dimensions(float width, float height);
-    explicit Dimensions(const glm::vec2& other);
+    ScreenDimensions(float width, float height);
+    explicit ScreenDimensions(const glm::vec2& other);
 
     operator glm::vec2();
 

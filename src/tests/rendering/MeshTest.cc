@@ -19,19 +19,4 @@ TEST(MeshTest, ConstructorStoresVertexAndIndexData) {
     EXPECT_EQ(vertexData, mesh.GetVertexData());
 }
 
-TEST(MeshTest, PrepareRenderSetsRequiredFieldsInRenderOperation) {
-    IIndexDataPtr indexData(new MockIndexData());
-    IVertexDataPtr vertexData(new MockVertexData());
-
-    MockMesh mesh(vertexData, indexData);
-
-    RenderOperation renderOp;
-    FrameData frameData;
-
-    mesh.SetupRender(renderOp, frameData);
-
-    EXPECT_EQ(nullptr, renderOp.material);
-    EXPECT_EQ(indexData.get(), renderOp.indexData);
-    EXPECT_EQ(vertexData.get(), renderOp.vertexData);
-}
 }

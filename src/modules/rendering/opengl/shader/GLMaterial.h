@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 
 #include <core/rendering/Rendering.h>
 #include <core/rendering/shader/IMaterial.h>
@@ -19,11 +20,16 @@ class GLMaterial : public IMaterial, public std::enable_shared_from_this<GLMater
 
     virtual IShaderProgramPtr GetShaderProgram() const;
     virtual IMaterialAttributePtr GetMaterialAttribute(const std::string& name);
+    virtual IMaterialAttributePtr GetMaterialAttribute(const MaterialAttributeSemantic semantic);
+    virtual void MapAttributeSemantic(const MaterialAttributeSemantic semantic, const std::string& attributeName);
 
-  private:
+private:
     logging::GloveLogger logger;
 
     GLShaderProgramPtr shader;
+
+    std::map<MaterialAttributeSemantic, IMaterialAttributePtr> attributeSemanticMap;
+    std::map<std::size_t, IMaterialAttributePtr> attributeNameMap;
 };
 }
 } // namespace glove

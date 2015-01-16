@@ -1,20 +1,20 @@
 #pragma once
 
-#include <core/rendering/target/IRenderTarget.h>
+#include <core/rendering/target/AbstractRenderTarget.h>
+#include <core/rendering/Rendering.h>
 
 namespace glove {
 namespace gl {
 
-class GLDefaultRenderTarget : public IRenderTarget {
+class GLDefaultRenderTarget : public AbstractRenderTarget {
   public:
-    GLDefaultRenderTarget(const Dimensions& targetDimensions);
+    GLDefaultRenderTarget(const ScreenDimensions& targetDimensions);
 
-    virtual const Dimensions& GetDimensions() const;
-
+    virtual const ScreenDimensions& GetDimensions() const;
     virtual void Bind();
 
 private:
-    Dimensions targetDimensions;
+    ScreenDimensions targetDimensions;
 };
 
 }

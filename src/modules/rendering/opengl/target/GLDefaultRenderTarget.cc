@@ -4,11 +4,11 @@
 
 namespace glove {
 namespace gl {
-GLDefaultRenderTarget::GLDefaultRenderTarget(const Dimensions& targetDimensions) : targetDimensions(targetDimensions) {
+GLDefaultRenderTarget::GLDefaultRenderTarget(const ScreenDimensions& targetDimensions) : targetDimensions(targetDimensions) {
 
 }
 
-const Dimensions& GLDefaultRenderTarget::GetDimensions() const {
+const ScreenDimensions& GLDefaultRenderTarget::GetDimensions() const {
     return targetDimensions;
 }
 

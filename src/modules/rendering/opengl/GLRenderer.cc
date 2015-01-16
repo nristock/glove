@@ -10,7 +10,7 @@
 #include "core/GloveCore.h"
 #include "core/GloveException.h"
 #include <core/graph/Scenegraph.h>
-#include <core/graph/gamecomponent/CameraBase.h>
+#include <core/rendering/gamecomponent/CameraBase.h>
 
 #include <core/rendering/Rendering.h>
 #include <core/rendering/target/IRenderTarget.h>
@@ -21,6 +21,7 @@
 #include <core/rendering/vertex/IIndexData.h>
 #include <modules/rendering/opengl/target/GLRenderTarget.h>
 #include <modules/rendering/opengl/target/GLDefaultRenderTarget.h>
+#include <core/rendering/RenderState.h>
 
 #include "internal/GlfwWrapper.h"
 #include "internal/OpenGLWrapper.h"
@@ -82,39 +83,15 @@ ContextId GLRenderer::GetContextId() const {
     return contextId;
 }
 
-RenderTargetHandle GLRenderer::CreateRenderTarget() {
-    throw GLOVE_EXCEPTION("Not implemented");
-    //return std::make_shared<GLRenderTarget>()
-}
-
-void GLRenderer::MapCameraToTarget(const CameraBaseHandle& camera, const RenderTargetHandle& renderTarget) {
-    const Dimensions& targetDimensions = renderTarget->GetDimensions();
-    camera->SetAspectRatio(targetDimensions.GetAspectRatio());
-}
-
-void GLRenderer::RenderScene(const ScenegraphHandle& scenegraph) {
-    std::queue<IRenderOperation*> renderQueue;
-
-    scenegraph->IterateGameObjects([&](const GameObjectHandle& gameObject) {
-        gameObject->IterateComponents([&](const GameComponentHandle& component) {
-            component.lock()->QueueRenderOperation(renderQueue);
-        });
-    });
-
-    while(!renderQueue.empty()) {
-        IRenderOperation* renderOp = renderQueue.front();
-        renderQueue.pop();
-
-        renderOp->Execute(shared_from_this());
-        if (renderOp->ShouldDelete()) {
-            delete renderOp;
-        }
-    }
+RenderTargetHandle GLRenderer::CreateRenderTarget(const ScreenDimensions& dimensions) {
+    return std::make_shared<GLRenderTarget>(dimensions);
 }
 
 RenderTargetHandle GLRenderer::GetDefaultRenderTarget() {
     return defaultRenderTarget;
 }
+
+
 }
 } /* namespace glove */
 

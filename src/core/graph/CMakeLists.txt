@@ -8,19 +8,11 @@ set(gc_graph_headers
    gameobject/factories/IGameObjectFactory.h
    gameobject/factories/EmptyGameObjectFactory.h
 
-   gamecomponent/CameraBase.h
-   gamecomponent/OrthoCamera.h
    gamecomponent/GameComponent.h
-   gamecomponent/MeshRenderer.h
-   gamecomponent/factories/CameraComponentFactory.h
 )
 
 set(gc_graph_src
-   gamecomponent/CameraBase.cc
-   gamecomponent/OrthoCamera.cc
    gamecomponent/GameComponent.cc
-   gamecomponent/MeshRenderer.cc
-   gamecomponent/factories/CameraComponentFactory.cc
    gameobject/factories/EmptyGameObjectFactory.cc
    gameobject/GameObject.cc
    GraphNode.cc
