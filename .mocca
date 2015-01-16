@@ -1,0 +1,29 @@
+{
+  "dependencies": [
+    {
+      "url": "git@github.com:Monofraps/glove-deps.git",
+      "path": "deps/linux64",
+      "branch": "linux64",
+      "vcs": "git",
+      "target_os": [
+        "linux:x86_64"
+      ]
+    },
+    {
+      "url": "git@github.com:Monofraps/glove-deps.git",
+      "path": "deps/win64",
+      "branch": "win64",
+      "vcs": "git",
+      "target_os": [
+        "win32:x86_64"
+      ]
+    },
+    {
+      "url": "git@github.com:Monofraps/glove-deps.git",
+      "path": "python",
+      "branch": "python",
+      "vcs": "git",
+      "target_os": []
+    }
+  ]
+}
