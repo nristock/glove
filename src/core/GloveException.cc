@@ -4,11 +4,11 @@
 
 namespace glove {
 
-GloveException::GloveException(std::string message) : message(message), EnableProfilable() {
+GloveException::GloveException(std::string message) : message(message) {
 }
 
 GloveException::GloveException(std::string message, const char* file, int line)
-    : message(message), file(file), line(line), EnableProfilable() {
+    : message(message), file(file), line(line) {
 }
 
 GloveException::~GloveException() {

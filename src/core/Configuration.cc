@@ -7,11 +7,6 @@
 #include <vendor/json/json.h>
 
 namespace glove {
-Configuration::Configuration() : EnableProfilable() {
-}
-
-Configuration::~Configuration() {
-}
 
 void Configuration::LoadFromFile(const std::string& filePath) {
     std::ifstream configFile(filePath);

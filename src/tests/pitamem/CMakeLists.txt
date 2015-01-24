@@ -1,2 +1,0 @@
-add_executable(tests_pitamem MemoryProfilerTest.cc MemoryProfileTest.cc)
-target_link_libraries(tests_pitamem vendor_gmock vendor_gtest_main ${glove_libs})

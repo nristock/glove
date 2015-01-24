@@ -2,15 +2,13 @@
 
 #include <map>
 
-#include <pitamem/MemoryProfile.h>
 #include <log/Log.h>
 
 namespace glove {
 
 class StringIdDatabase : public std::enable_shared_from_this<StringIdDatabase> {
-Profilable();
 public:
-    StringIdDatabase() : EnableProfilable() {
+    StringIdDatabase() {
     }
 
     virtual ~StringIdDatabase() {

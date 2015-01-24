@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <pitamem/MemoryProfile.h>
 
 #include "GloveException.h"
 
@@ -30,12 +29,9 @@ struct EngineConfig {
 }
 
 class Configuration {
-    Profilable();
-
   public:
-    Configuration();
-
-    virtual ~Configuration();
+    Configuration() = default;
+    virtual ~Configuration() = default;
 
     void LoadFromFile(const std::string& filePath);
     void SaveToFile(const std::string& path);

@@ -13,10 +13,8 @@
 
 #include <core/GloveEnvironment.h>
 #include <core/GloveException.h>
-#include <boost/python.hpp>
 #include <core/events/EventBus.h>
 #include "input/InputManager.h"
-#include "pitamem/MemoryProfiler.h"
 #include <core/events/type/CorePreInitEvent.h>
 #include <core/rendering/IRenderer.h>
 
@@ -181,30 +179,6 @@ void GloveCore::EnterMainLoop(ScenegraphHandle scenegraph) {
 }
 
 void GloveCore::Update() {
-    if (inputManager->IsKeyPressed(KC_F5)) {
-        std::stringstream memoryDump;
-        memoryDump << (boost::format("[GLOVE HEAP (P: %1%B, U: %2%B, O: %3%)]\n\n") %
-                       MemoryProfiler::GetProfilerInstance()->GetPeakMemoryUsage() %
-                       MemoryProfiler::GetProfilerInstance()->GetCurrentMemoryUsage() %
-                       MemoryProfiler::GetProfilerInstance()->GetRegisteredObjectCount()).str();
-
-        MemoryProfiler::GetProfilerInstance()->IterateRegisteredObjects([&](MemoryProfile* profilable) {
-            memoryDump << (boost::format("[%1%]\n @+%2% : %3%\n") % profilable->GetTypeName() %
-                           profilable->GetMemoryRoot() % profilable->GetSizeInBytes()).str();
-
-            auto siblingIter = profilable->GetSiblings();
-            while (!siblingIter.IsEnd()) {
-                memoryDump << (boost::format("|--[%1%]: %2%\n") % (*siblingIter)->GetTypeName() %
-                               (*siblingIter)->GetSizeInBytes()).str();
-                ++siblingIter;
-            }
-
-            memoryDump << "\n";
-        });
-
-        LOG(logger, info, memoryDump.str());
-    }
-
     if (inputManager->IsKeyPressed(KC_F6)) {
         LOG(logger, info, (boost::format("Last Update Time: %1%ms") %
                            std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());

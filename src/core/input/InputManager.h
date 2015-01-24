@@ -34,7 +34,7 @@ enum ButtonState {
 };
 
 class InputManager : public std::enable_shared_from_this<InputManager> {
-    Profilable() public : InputManager(EventBusPtr& eventBus);
+    public : InputManager(EventBusPtr& eventBus);
 
     virtual ~InputManager();
 
