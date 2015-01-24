@@ -36,4 +36,4 @@ add_library(glove_core SHARED
     ${core_src}
     ${core_object_libs}
 )
-target_link_libraries(glove_core vendor_jsoncpp dl)
+target_link_libraries(glove_core yaml-cpp dl)

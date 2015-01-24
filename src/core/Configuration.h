@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include <yaml-cpp/yaml.h>
+
 #include "GloveException.h"
 
 namespace glove {
@@ -12,9 +14,13 @@ struct WindowConfig {
     int height;
 };
 
+struct OpenGLVersion {
+    int major;
+    int minor;
+};
+
 struct OpenGLConfig {
-    int versionMajor;
-    int versionMinor;
+    OpenGLVersion version;
 };
 
 struct RenderingConfig {
@@ -24,7 +30,6 @@ struct RenderingConfig {
 
 struct EngineConfig {
     bool loadNativeExtensions;
-    std::vector<std::string> subsystemInitList;
 };
 }
 
@@ -33,12 +38,14 @@ class Configuration {
     Configuration() = default;
     virtual ~Configuration() = default;
 
-    void LoadFromFile(const std::string& filePath);
+    static Configuration LoadFromFile(const std::string& filePath);
     void SaveToFile(const std::string& path);
 
     void LoadDefaults();
 
     configuration::RenderingConfig rendering;
     configuration::EngineConfig engine;
+
+    YAML::Node configurationRoot;
 };
 }
