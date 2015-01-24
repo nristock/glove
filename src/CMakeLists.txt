@@ -99,7 +99,7 @@ if(WIN32)
 	link_directories("${deps_path}/libs/glfw")
 	link_directories("${deps_path}/libs/python")
 else()
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++11 -pthread")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++14 -pthread -fPIC")
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3 -Wall -MMD -MP")
 endif()
 

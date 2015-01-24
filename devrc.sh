@@ -1,3 +1,4 @@
+#!/bin/bash
 # source this file to set up a basic dev environment
 
 SOURCE="${BASH_SOURCE[0]}"
