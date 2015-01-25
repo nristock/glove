@@ -7,9 +7,9 @@
 
 #if defined(__unix__) || defined(__unix)
 #include <core/internal/so/SoLoaderFactory.h>
-#include <core/GloveException.h>
-
 #endif
+
+#include <core/GloveException.h>
 
 namespace glove {
 

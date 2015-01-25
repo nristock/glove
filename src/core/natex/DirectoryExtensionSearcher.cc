@@ -1,9 +1,12 @@
 #include "DirectoryExtensionSearcher.h"
 
 #include <boost/filesystem.hpp>
-#include <dirent.h>
 #include <core/GloveException.h>
 #include <boost/format.hpp>
+
+#if defined(ON_UINX)
+#include <dirent.h>
+#endif
 
 namespace glove {
 
