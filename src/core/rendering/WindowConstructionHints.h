@@ -3,6 +3,7 @@
 #include <string>
 
 #include <core/GloveFwd.h>
+#include <utils/ScreenDimensions.h>
 #include "Rendering.h"
 
 namespace glove {

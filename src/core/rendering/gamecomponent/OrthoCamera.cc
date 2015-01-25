@@ -13,5 +13,10 @@ void OrthoCamera::RecalculateProjectionMatrix() {
     projectionMatrix = glm::ortho(-orthoSize, orthoSize, -orthoSize / aspectRatio, orthoSize / aspectRatio);
 }
 
+void OrthoCamera::SetOrthoSize(float newOrthoSize) {
+    orthoSize = newOrthoSize;
+
+    RecalculateProjectionMatrix();
+}
 }
 }

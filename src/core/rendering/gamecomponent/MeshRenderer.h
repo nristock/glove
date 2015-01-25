@@ -3,11 +3,12 @@
 #include "graph/gamecomponent/GameComponent.h"
 
 #include <queue>
-#include <core/rendering/Rendering.h>
+#include "rendering/Rendering.h"
 
 namespace glove {
 namespace GameComponents {
 
+/// @ingroup RenderSubsystemInterface
 class MeshRenderer : public GameComponent {
 public:
     MeshRenderer(const IMeshPtr& mesh, const RenderOperationFactoryHandle& renderOperationFactory);

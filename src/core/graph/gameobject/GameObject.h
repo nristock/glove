@@ -15,6 +15,7 @@
 
 #include "utils/TypeInfo.h"
 #include "utils/IsA.h"
+#include "utils/BitMask.h"
 
 namespace glove {
 
@@ -22,9 +23,9 @@ class GameObject : public GraphNode {
   public:
     virtual ~GameObject();
 
-    virtual void Init(){}
-    virtual void Destroy(){}
-    virtual void Update(){}
+    virtual void Init() {}
+    virtual void Destroy() {}
+    virtual void Update() {}
 
     /**
     * Adds a component to the game object.
@@ -42,18 +43,20 @@ class GameObject : public GraphNode {
     */
     virtual void IterateComponents(std::function<void(const GameComponentHandle&)> callback);
 
+    LayerMask GetLayer() const;
+
   protected:
     typedef std::lock_guard<std::mutex> Lock;
     typedef std::multimap<TypeInfoRef, GameComponentHandle, TypeInfoComparator> ComponentIndex;
     typedef std::pair<TypeInfoRef, GameComponentHandle> ComponentIndexEntry;
     typedef std::pair<ComponentIndex::iterator, ComponentIndex::iterator> ComponentIndexRange;
 
-    template<class T> void IndexComponentsOfType() {
-      for(const SharedGameComponentHandle& handle : components) {
-        if(IsA<T>(handle)) {
-          componentIndex.insert(ComponentIndexEntry(typeid(T), handle));
+    template <class T> void IndexComponentsOfType() {
+        for (const SharedGameComponentHandle& handle : components) {
+            if (IsA<T>(handle)) {
+                componentIndex.insert(ComponentIndexEntry(typeid(T), handle));
+            }
         }
-      }
     }
 
     void IndexSingleComponent(const SharedGameComponentHandle& gameComponent);
@@ -62,6 +65,7 @@ class GameObject : public GraphNode {
     std::mutex componentIndexSemaphore;
     std::list<SharedGameComponentHandle> components;
     ComponentIndex componentIndex;
+    LayerMask layer;
 };
 
 } /* namespace glove */

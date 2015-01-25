@@ -33,7 +33,7 @@ class GLWindow : public IWindow {
     virtual GLOVE_INLINE glm::mat4 GetProjectionMatrix() const;
 
     virtual GLOVE_INLINE ScreenPoint GetPosition() const;
-    virtual GLOVE_INLINE Dimensions GetDimensions() const;
+    virtual GLOVE_INLINE ScreenDimensions GetDimensions() const;
 
     virtual GLOVE_INLINE void SetPosition(const ScreenPoint& newPosition);
     virtual GLOVE_INLINE void SetDimensions(const ScreenDimensions& newDimensions);

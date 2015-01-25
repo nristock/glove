@@ -1,9 +1,20 @@
 #include "GLMaterial.h"
 
+#include <boost/format.hpp>
+
 #include <glm/gtc/type_ptr.hpp>
+#include <core/GloveException.h>
 
 #include "GLMaterialAttribute.h"
 #include "GLShaderProgram.h"
+
+namespace {
+const std::hash<std::string> g_stringHasher = std::hash<std::string>();
+
+const std::size_t CalculateStringHash(const std::string& str) {
+    return g_stringHasher(str);
+}
+}
 
 namespace glove {
 namespace gl {
@@ -16,7 +27,28 @@ IShaderProgramPtr GLMaterial::GetShaderProgram() const {
 }
 
 IMaterialAttributePtr GLMaterial::GetMaterialAttribute(const std::string& name) {
-    return IMaterialAttributePtr(new GLMaterialAttribute(shader->GetUniformLocation(name), shared_from_this()));
+    const std::size_t nameHash = CalculateStringHash(name);
+
+    if(attributeNameMap.count(nameHash) > 0) {
+        return attributeNameMap[nameHash];
+    }
+
+    auto materialAttribute = IMaterialAttributePtr(new GLMaterialAttribute(shader->GetUniformLocation(name), shared_from_this()));
+    attributeNameMap.emplace(nameHash, materialAttribute);
+
+    return materialAttribute;
+}
+
+IMaterialAttributePtr GLMaterial::GetMaterialAttribute(const MaterialAttributeSemantic semantic) {
+    if(attributeSemanticMap.count(semantic) > 0) {
+        return attributeSemanticMap[semantic];
+    } else {
+        throw GLOVE_EXCEPTION((boost::format("No material attribute mapped for %1%") % semantic).str());
+    }
+}
+
+void GLMaterial::MapAttributeSemantic(const MaterialAttributeSemantic semantic, const std::string& attributeName) {
+    attributeSemanticMap[semantic] = GetMaterialAttribute(attributeName);
 }
 }
 } // namespace glove

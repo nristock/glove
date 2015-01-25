@@ -89,8 +89,6 @@ typedef glm::ivec3 IntVector3;
 typedef IntVector2 IntPoint;
 typedef IntVector2 IntLocation;
 typedef IntVector2 ScreenPoint;
-typedef IntVector2 IntDimensions;
-typedef IntVector2 ScreenDimensions;
 
 /// @}
 
