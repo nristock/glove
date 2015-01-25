@@ -4,7 +4,7 @@
 #include <memory>
 #include <map>
 
-#include <core/Configuration.h>
+#include "core/configuration/Configuration.hpp"
 
 namespace glove {
 

@@ -5,14 +5,11 @@
 
 #include <core/GloveFwd.h>
 #include <core/events/AbstractEvent.h>
-#include <pitamem/MemoryProfile.h>
 
 namespace glove {
 
 /** Class implementing a simple sync Publish-Subscribe event bus */
 class EventBus {
-    Profilable();
-
   public:
     typedef std::function<void(const AbstractEvent* evnt)> GenericEventHandler;
     typedef std::multimap<AbstractEvent::EventTypeId, GenericEventHandler> EventSubscriberList;

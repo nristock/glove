@@ -1,6 +1,5 @@
 #pragma once
 
-#include <core/pitamem/MemoryProfile.h>
 #include "../Rendering.h"
 
 namespace glove {

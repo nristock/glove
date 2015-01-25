@@ -3,24 +3,24 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include <core/rendering/target/IRenderTarget.h>
+#include <core/rendering/Rendering.h>
+#include <core/rendering/target/AbstractRenderTarget.h>
 
 namespace glove {
 namespace gl {
 
-class GLRenderTarget : public IRenderTarget {
+class GLRenderTarget : public AbstractRenderTarget {
   public:
-    GLRenderTarget(const Dimensions& targetDimensions);
+    GLRenderTarget(const ScreenDimensions& targetDimensions);
 
-    virtual const Dimensions& GetDimensions() const;
-
-
+    virtual const ScreenDimensions& GetDimensions() const;
     virtual void Bind();
 
 private:
     GLuint framebufferId;
     GLuint targetTexture;
-    Dimensions targetDimensions;
+    ScreenDimensions targetDimensions;
+
 };
 }
 }

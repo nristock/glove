@@ -37,9 +37,9 @@ configure_file (
 set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, i.e. the directory containing the src dir")
 
 if(WIN32)
-set(DEPS_PREFIX "${PROJECT_ROOT}/../deps/windows" CACHE PATH "Root of the directory containing dependencies")
+set(DEPS_PREFIX "${PROJECT_ROOT}/deps/windows" CACHE PATH "Root of the directory containing dependencies")
 else()
-set(DEPS_PREFIX "/opt" CACHE PATH "Root of the directory containing dependencies")
+set(DEPS_PREFIX "${PROJECT_ROOT}/deps/linux64" CACHE PATH "Root of the directory containing dependencies")
 endif()
 
 # Python 3.x
@@ -69,10 +69,11 @@ set(DEPS_PYTHON_VERSION "${TMP_PYTHON_VERSION}" CACHE STRING "Python version (ma
 
 set(DEPS_PYTHON_LINK_LIBS "python${DEPS_PYTHON_VERSION}${DEPS_PYTHON_ABI}" CACHE STRING "Python library to link against")
 
-
 ######################
 ######################
 link_directories(${DEPS_PYTHON_LIBS})
+
+include_directories(vendor/yaml-cpp/include)
 
 if(WIN32)
 	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/windows")

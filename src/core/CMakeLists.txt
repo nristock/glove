@@ -8,9 +8,10 @@ add_subdirectory(input)
 add_subdirectory(log)
 add_subdirectory(graph)
 add_subdirectory(filesystem)
+add_subdirectory(configuration)
+add_subdirectory(utils)
 
 set(core_src
-    Configuration.cc
     GloveCore.cc
     GloveEnvironment.cc
     GloveException.cc
@@ -21,8 +22,10 @@ set(core_object_libs
     $<TARGET_OBJECTS:gc_natex>
     $<TARGET_OBJECTS:gc_events>
     $<TARGET_OBJECTS:gc_input>
+    $<TARGET_OBJECTS:gc_configuration>
     $<TARGET_OBJECTS:gc_log>
     $<TARGET_OBJECTS:gc_graph>
+    $<TARGET_OBJECTS:gc_utils>
     $<TARGET_OBJECTS:gc_filesystem>
     $<TARGET_OBJECTS:glove_utils>
 )
@@ -38,4 +41,4 @@ add_library(glove_core SHARED
     ${core_src}
     ${core_object_libs}
 )
-target_link_libraries(glove_core vendor_jsoncpp dl)
+target_link_libraries(glove_core yaml-cpp dl)

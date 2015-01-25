@@ -133,11 +133,11 @@ ScreenPoint GLWindow::GetPosition() const {
     return position;
 }
 
-Dimensions GLWindow::GetDimensions() const {
+ScreenDimensions GLWindow::GetDimensions() const {
     int x, y;
     glfwGetWindowSize(glfwWindow, &x, &y);
 
-    return Dimensions(x, y);;
+    return ScreenDimensions(x, y);
 }
 
 void GLWindow::SetPosition(const ScreenPoint& newPosition) {
@@ -145,7 +145,7 @@ void GLWindow::SetPosition(const ScreenPoint& newPosition) {
 }
 
 void GLWindow::SetDimensions(const ScreenDimensions& newDimensions) {
-    glfwSetWindowSize(glfwWindow, newDimensions.x, newDimensions.y);
+    glfwSetWindowSize(glfwWindow, static_cast<int>(newDimensions.GetWidth()), static_cast<int>(newDimensions.GetHeight()));
 }
 
 void GLWindow::PollSystemEvents() {

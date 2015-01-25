@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/GloveFwd.h>
+#include "graph/Graph.h"
 
 namespace glove {
 

@@ -54,13 +54,13 @@ void InitLoggingSystem() {
     sink->locked_backend()->add_stream(clogStream);
 
     sink->set_formatter(
-        expr::stream << L"[" << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%H:%M:%S") << L" "
-                     << expr::attr<SeverityLevel>("Severity") << L" " << expr::attr<blogging::thread_id>("ThreadID")
-                     << L" " << expr::format_named_scope("Scopes", keywords::format = "(%C %F:%l)", keywords::depth = 3)
-                     << L"]" << std::endl << expr::message << std::endl);
+        expr::stream << "[" << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%H:%M:%S") << " "
+                     << expr::attr<SeverityLevel>("Severity") << " " << expr::attr<blogging::thread_id>("ThreadID")
+                     << " " << expr::format_named_scope("Scopes", keywords::format = "(%n %f:%l)")
+                     << "]" << std::endl << expr::message << std::endl);
 
     auto core = blogging::core::get();
-    core->add_global_attribute("Scopes", attr::named_scope());
+    core->add_thread_attribute("Scopes", attr::named_scope());
 
     core->add_sink(sink);
 }

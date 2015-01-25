@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include <queue>
+#include <unordered_set>
 
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -12,7 +13,7 @@
 #include <core/GloveException.h>
 #include <core/GloveFwd.h>
 #include <core/rendering/RenderOperation.h>
-#include <core/rendering/IRenderer.h>
+#include <core/rendering/RendererBase.h>
 #include <core/rendering/Rendering.h>
 #include <core/rendering/FrameData.h>
 #include <core/rendering/vertex/VertexAttributeType.h>
@@ -29,7 +30,7 @@ namespace glove {
 namespace gl {
 
 /// @ingroup OpenGLRenderer
-class GLRenderer : public IRenderer, public std::enable_shared_from_this<GLRenderer> {
+class GLRenderer : public RendererBase {
   public:
     GLRenderer(const EventBusPtr& eventBus, const WindowConstructionHints& windowConstructionHints,
                const ContextId contextId);
@@ -38,19 +39,12 @@ class GLRenderer : public IRenderer, public std::enable_shared_from_this<GLRende
 
     virtual void ClearBuffers();
 
-  virtual RenderTargetHandle CreateRenderTarget();
-
-
-  virtual RenderTargetHandle GetDefaultRenderTarget();
-
-  virtual void MapCameraToTarget(const CameraBaseHandle& camera, const RenderTargetHandle& renderTarget);
-
-  virtual void RenderScene(const ScenegraphHandle& scenegraph);
+    virtual RenderTargetHandle CreateRenderTarget(const ScreenDimensions& dimensions);
+    virtual RenderTargetHandle GetDefaultRenderTarget();
 
     virtual void SwapBuffers();
 
     virtual IWindowPtr GetAssociatedWindow();
-
     ContextId GetContextId() const;
 
   private:
@@ -61,8 +55,6 @@ class GLRenderer : public IRenderer, public std::enable_shared_from_this<GLRende
     ContextId contextId;
 
     GLWindowPtr window;
-
-    std::multimap<RenderTargetHandle, CameraBaseHandle> cameraTargetMapping;
 
     void CreateWindow(const WindowConstructionHints& windowCreationHints);
     void RenderObject(RenderOperation& renderOp, const FrameData& frameData, const GLMeshPtr& baseMesh);

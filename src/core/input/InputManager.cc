@@ -4,7 +4,7 @@
 
 namespace glove {
 
-InputManager::InputManager(EventBusPtr& eventBus) : mousePosition(0, 0), EnableProfilable() {
+InputManager::InputManager(EventBusPtr& eventBus) : mousePosition(0, 0) {
 
     for (int i = 0; i < KC_LAST; i++) {
         keyMap[i] = KS_UP;

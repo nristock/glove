@@ -17,8 +17,9 @@
 #include <core/rendering/vertex/VertexLayouts.h>
 #include <core/graph/Scenegraph.h>
 #include <core/graph/gamecomponent/GameComponent.h>
-#include <core/graph/gamecomponent/OrthoCamera.h>
-#include <core/graph/gamecomponent/MeshRenderer.h>
+#include <core/rendering/gamecomponent/OrthoCamera.h>
+#include <core/rendering/gamecomponent/MeshRenderer.h>
+#include <core/rendering/gamecomponent/factories/CameraComponentFactory.h>
 
 int main(int argc, const char** argv) {
     using namespace glove;
@@ -88,7 +89,7 @@ int main(int argc, const char** argv) {
     ScenegraphHandle graph = std::make_shared<Scenegraph>();
 
     GameObjectHandle cameraObject = graph->CreateSimpleGameObject();
-    CameraBaseHandle camera = std::make_shared<GameComponents::OrthoCamera>(2, 1);
+    CameraBaseHandle camera = glove::ComponentFactories::CameraComponentFactory::CreateOrthographicCamera(2, 1);
     renderer->MapCameraToTarget(camera, renderer->GetDefaultRenderTarget());
     cameraObject->AddComponent(camera);
 
@@ -102,7 +103,7 @@ int main(int argc, const char** argv) {
     while (!renderer->GetAssociatedWindow()->CloseRequested()) {
         renderer->GetAssociatedWindow()->PollSystemEvents();
         renderer->ClearBuffers();
-        renderer->RenderScene(graph);
+        renderer->RenderScene(graph, renderer->GetDefaultRenderTarget());
         renderer->SwapBuffers();
         mvp->Set(modelViewProjection);
     }

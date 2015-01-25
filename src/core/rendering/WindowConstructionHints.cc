@@ -7,11 +7,11 @@ WindowConstructionHints::WindowConstructionHints(const ScreenPoint& position, co
 }
 
 int WindowConstructionHints::GetWidth() const {
-    return size.x;
+    return static_cast<int>(size.GetWidth());
 }
 
 int WindowConstructionHints::GetHeight() const {
-    return size.y;
+    return static_cast<int>(size.GetHeight());
 }
 
 int WindowConstructionHints::GetPositionX() const {

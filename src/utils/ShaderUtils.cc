@@ -12,7 +12,6 @@
 #include <GL/glew.h>
 
 #include "log/Log.h"
-#include "pitamem/MemoryProfile.h"
 
 GLEWContext* glewGetContext();
 

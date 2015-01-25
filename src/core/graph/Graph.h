@@ -20,6 +20,9 @@ typedef std::shared_ptr<IGameComponentFactory> GameComponentFactoryHandle;
 typedef std::shared_ptr<GraphNode> GraphNodeHandle;
 typedef std::shared_ptr<Scenegraph> ScenegraphHandle;
 
+class BitMask;
+typedef BitMask LayerMask;
+
 namespace GameComponents {
 class CameraBase;
 class MeshRenderer;

@@ -4,12 +4,10 @@
 #include "gmock/gmock.h"
 
 int main(int argc, char** argv) {
-    printf("Running main() from gtest_main.cc\n");
+    const char* gloveInitArgs[] = {"", "--no-natex"};
 
-    const char* gloveInitArgs[] = {"", "--init-rendering", "0", "--init-scripting", "0"};
-
-    glove::GloveCorePtr core = glove::GloveCorePtr(new glove::GloveCore(5, gloveInitArgs));
-    core->Init(5, gloveInitArgs);
+    glove::GloveCorePtr core = glove::GloveCorePtr(new glove::GloveCore(2, gloveInitArgs));
+    core->Init(2, gloveInitArgs);
 
     testing::InitGoogleMock(&argc, argv);
     return RUN_ALL_TESTS();
