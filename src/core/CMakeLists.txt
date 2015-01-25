@@ -39,4 +39,9 @@ add_library(glove_core SHARED
     ${core_src}
     ${core_object_libs}
 )
-target_link_libraries(glove_core yaml-cpp dl)
+
+if(ON_UNIX)
+target_link_libraries(glove_core yaml-cpp ${Boost_LIBRARIES} dl)
+else()
+target_link_libraries(glove_core yaml-cpp ${Boost_LIBRARIES})
+endif()

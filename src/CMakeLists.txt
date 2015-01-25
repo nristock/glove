@@ -101,15 +101,15 @@ if(WIN32)
        	set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -MMD -MP")
     endif()
 	
-	include_directories("${deps_path}/include/glew")
-	include_directories("${deps_path}/include/glfw")
-	include_directories("${deps_path}/include/glm")
-	include_directories("${deps_path}/include/python")
-	include_directories("${deps_path}/include/tclap")
+	include_directories("${deps_path}/glew/include")
+	include_directories("${deps_path}/glfw/include")
+	include_directories("${deps_path}/glm/include")
+	include_directories("${deps_path}/python/include")
+	include_directories("${deps_path}/tclap/include")
 
-	link_directories("${deps_path}/libs/glew")
-	link_directories("${deps_path}/libs/glfw")
-	link_directories("${deps_path}/libs/python")
+	link_directories("${deps_path}/glew/libs")
+	link_directories("${deps_path}/glfw/libs")
+	link_directories("${deps_path}/python/libs")
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++11 -pthread")
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3 -Wall -MMD -MP")
@@ -129,8 +129,6 @@ if(WIN32)
 		general glfw3
 		general OpenGL32
 		general GLEWmx
-
-		${Boost_LIBRARIES}
 
 		general glove_core
 	)
