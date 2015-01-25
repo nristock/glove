@@ -4,7 +4,7 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include "GloveException.h"
+#include "core/GloveException.h"
 
 namespace glove {
 

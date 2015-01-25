@@ -1,0 +1,10 @@
+rendering:
+    window:
+        width: 800
+        height: 600
+    opengl:
+        version:
+            major: 3
+            minor: 3
+engine:
+    load-native-extensions: true

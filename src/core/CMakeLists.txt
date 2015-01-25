@@ -7,9 +7,9 @@ add_subdirectory(events)
 add_subdirectory(input)
 add_subdirectory(log)
 add_subdirectory(graph)
+add_subdirectory(configuration)
 
 set(core_src
-    Configuration.cc
     GloveCore.cc
     GloveEnvironment.cc
     GloveException.cc
@@ -20,6 +20,7 @@ set(core_object_libs
     $<TARGET_OBJECTS:gc_natex>
     $<TARGET_OBJECTS:gc_events>
     $<TARGET_OBJECTS:gc_input>
+    $<TARGET_OBJECTS:gc_configuration>
     $<TARGET_OBJECTS:gc_log>
     $<TARGET_OBJECTS:gc_graph>
     $<TARGET_OBJECTS:glove_utils>

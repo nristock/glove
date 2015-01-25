@@ -1,6 +1,7 @@
 #include <yaml-cpp/yaml.h>
 
 #include "core/GloveException.h"
+#include "core/configuration/Configuration.hpp"
 
 namespace YAML {
 template<> struct convert<glove::configuration::WindowConfig> {
