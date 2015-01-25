@@ -1,5 +1,8 @@
 from os import environ, path
 
+if not environ['GLOVE_DEV_ROOT']:
+    raise RuntimeError("GLOVE_DEV_ROOT environment variable is not set")
+
 
 class DevTree:
     dev_root = ''

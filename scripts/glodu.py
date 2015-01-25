@@ -18,14 +18,24 @@ def parse_args():
 
     bootstrap_parser = sub_parsers.add_parser('bootstrap', help="Bootstraps development directory structure")
     bootstrap_parser.set_defaults(func=cmd_bootstrap)
+    bootstrap_parser.add_argument('--cmake_debug', '-d',
+                                  help="Generates debug build files using cmake",
+                                  action='store_const',
+                                  const=True,
+                                  default=False)
+    bootstrap_parser.add_argument('--cmake_release', '-r',
+                                  help="Generates release build files using cmake",
+                                  action='store_const',
+                                  const=True,
+                                  default=False)
 
     format_parser = sub_parsers.add_parser('format', help="Recursively formats sources starting at in cwd")
+    format_parser.set_defaults(func=cmd_format)
     format_parser.add_argument('--list_files', '-l',
                                help="List files to format",
                                action='store_const',
                                const=True,
                                default=False)
-    format_parser.set_defaults(func=cmd_format)
 
     mkuuid_parser = sub_parsers.add_parser('mkuuid', aliases=['uuid'], help="Generated a random UUID")
     mkuuid_parser.set_defaults(func=cmd_mkuuid)
