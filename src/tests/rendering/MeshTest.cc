@@ -18,5 +18,4 @@ TEST(MeshTest, ConstructorStoresVertexAndIndexData) {
     EXPECT_EQ(indexData, mesh.GetIndexData());
     EXPECT_EQ(vertexData, mesh.GetVertexData());
 }
-
 }
