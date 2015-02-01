@@ -21,11 +21,15 @@ public:
     }
 
     GLOVE_INLINE bool Exists() const {
-        return filesystemAccessor->GetFileInfo(filePath.ToString()).GetType() != FileInfo::FileType::NONE;
+        return filesystemAccessor->GetFileInfo(filePath.ToString()).GetType() != FileInfo::FileType::NOT_FOUND;
     }
 
     GLOVE_INLINE const Path& GetPath() const {
         return filePath;
+    }
+
+    GLOVE_INLINE const FilesystemAccessorHandle& GetFilesystem() const {
+        return filesystemAccessor;
     }
 
 private:

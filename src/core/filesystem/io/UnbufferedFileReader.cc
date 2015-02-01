@@ -5,27 +5,20 @@
 
 namespace glove {
 
-UnbufferedFileReader::UnbufferedFileReader(const File& file) {
+UnbufferedFileReader::UnbufferedFileReader(const File& file) : rawStream(file.GetFilesystem()->CreateFileReadStream(file.GetPath())) {
     if(!file.Exists()) {
         GLOVE_THROW(FileNotFoundException, file);
     }
-
-    rawStream.open(file.GetPath().ToString(), std::ifstream::in | std::ifstream::binary);
 }
 
 void UnbufferedFileReader::Read(void* destination, std::size_t size) {
-    if(!rawStream.good()) {
+    if(!rawStream->good()) {
         GLOVE_THROW(StreamErrorException, "Stream error");
     }
 
-    rawStream.read(reinterpret_cast<char*>(destination), size);
-}
-
-void UnbufferedFileReader::Close() {
-    rawStream.close();
+    rawStream->read(reinterpret_cast<char*>(destination), size);
 }
 
 UnbufferedFileReader::~UnbufferedFileReader() {
-    Close();
 }
 }

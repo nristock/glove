@@ -8,7 +8,7 @@ namespace glove {
 class FileInfo {
 public:
     enum class FileType {
-        NONE, REGULAR, DIRECTORY
+        UNKNOWN, NOT_FOUND, REGULAR, DIRECTORY
     };
 
     FileInfo(const FileType& type, const size_t size) : type(type), size(size) {}

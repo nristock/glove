@@ -1,6 +1,6 @@
 #pragma once
 
-#include <fstream>
+#include <istream>
 
 #include "core/filesystem/io/IFileReader.hpp"
 #include "core/filesystem/io/File.hpp"
@@ -13,10 +13,9 @@ public:
     virtual ~UnbufferedFileReader();
 
     virtual void Read(void* destination, std::size_t size);
-    virtual void Close();
 
 private:
-    std::ifstream rawStream;
+    InputStreamHandle rawStream;
 };
 
 } /* namespace glove */
