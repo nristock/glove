@@ -15,6 +15,8 @@ set(core_src
     GloveCore.cc
     GloveEnvironment.cc
     GloveException.cc
+
+    exceptions/OperationNotSupported.cc
 )
 
 set(core_object_libs
@@ -41,4 +43,4 @@ add_library(glove_core SHARED
     ${core_src}
     ${core_object_libs}
 )
-target_link_libraries(glove_core yaml-cpp dl)
+target_link_libraries(glove_core yaml-cpp ${ZLIB_LIBRARY} ${PNG_LIBRARY} ${LIBZIP_LIBRARY} dl)

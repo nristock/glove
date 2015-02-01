@@ -12,14 +12,6 @@ const glove::Path nonExistingPath("testdata/a_not_existing_directory");
 
 namespace glove {
 
-TEST(NativeFilesystemAccessorsTest, SeparatorCharacterIsSetCorrectly) {
-    #if defined(ON_WINDOWS)
-    EXPECT_EQ('\\', NativeFilesystemAccessor::SEPARATOR);
-    #else
-    EXPECT_EQ("/", NativeFilesystemAccessor::SEPARATOR);
-    #endif
-}
-
 TEST(NativeFilesystemAccessorsTest, CanDistinguishBetweenFilesAndDirectories) {
     FilesystemAccessorHandle filesystem(new NativeFilesystemAccessor());
 

@@ -3,8 +3,9 @@ add_executable(tests_filesystem
     UnbufferedFileReaderTest.cc
     PathTest.cc
     FileTest.cc
-
-    mock/MockFilesystemAccessor.cc
+    ZipArchiveTest.cc
+    ZipEntryBufferTest.cc
+    ZipFilesystemTest.cc
 )
 target_link_libraries(tests_filesystem vendor_gmock vendor_gtest_main ${glove_libs})
 

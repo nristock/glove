@@ -36,11 +36,21 @@ configure_file (
 # Dependency Config Options
 set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, i.e. the directory containing the src dir")
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_ROOT}/cmake")
+
 if(WIN32)
 set(DEPS_PREFIX "${PROJECT_ROOT}/deps/windows" CACHE PATH "Root of the directory containing dependencies")
 else()
 set(DEPS_PREFIX "${PROJECT_ROOT}/deps/linux64" CACHE PATH "Root of the directory containing dependencies")
 endif()
+
+find_package(ZLIB 1.2.8 REQUIRED)
+find_package(PNG 1.6 REQUIRED)
+find_package(LibZip 0.11.2 REQUIRED)
+
+include_directories(${ZLIB_INCLUDE_DIR})
+include_directories(${PNG_INCLUDE_DIR})
+include_directories(${LIBZIP_INCLUDE_DIR})
 
 # Python 3.x
 # Use the "standard" $PREFIX/<bin|include|lib> convention on most UNIX systems to find binary, include and lib directories
