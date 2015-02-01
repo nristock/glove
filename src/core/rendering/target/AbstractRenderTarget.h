@@ -1,7 +1,6 @@
 #pragma once
 
 #include <core/rendering/Rendering.h>
-#include <bits/stl_list.h>
 #include "rendering/target/IRenderTarget.h"
 
 namespace glove {

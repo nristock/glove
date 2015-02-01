@@ -1,4 +1,3 @@
-#include <elf.h>
 #include "BitMask.h"
 
 namespace glove {

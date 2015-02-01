@@ -43,4 +43,9 @@ add_library(glove_core SHARED
     ${core_src}
     ${core_object_libs}
 )
-target_link_libraries(glove_core yaml-cpp ${ZLIB_LIBRARY} ${PNG_LIBRARY} ${LIBZIP_LIBRARY} dl)
+
+if(ON_UNIX)
+target_link_libraries(glove_core yaml-cpp ${Boost_LIBRARIES} ${ZLIB_LIBRARY} ${PNG_LIBRARY} ${LIBZIP_LIBRARY} dl)
+else()
+target_link_libraries(glove_core yaml-cpp ${Boost_LIBRARIES} ${ZLIB_LIBRARY} ${PNG_LIBRARY} ${LIBZIP_LIBRARY})
+endif()

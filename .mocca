@@ -12,7 +12,7 @@
     {
       "vcs": "git",
       "target_os": [
-        "win32:x86_64"
+        "win32:AMD64"
       ],
       "branch": "win64",
       "path": "deps/win64",

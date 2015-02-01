@@ -1,9 +1,15 @@
 #include "DirectoryExtensionSearcher.h"
 
 #include <boost/filesystem.hpp>
-#include <dirent.h>
 #include <core/GloveException.h>
 #include <boost/format.hpp>
+
+#if defined(ON_UINX)
+#include <dirent.h>
+#elif defined(ON_WINDOWS)
+#include <windows.h>
+#include <strsafe.h>
+#endif
 
 namespace glove {
 
@@ -15,6 +21,7 @@ bool EndsWith(const std::string& fullString, const std::string& ending) {
     }
 }
 
+#if defined(ON_UNIX)
 DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& searchDirectory) {
     DIR* dir = opendir(searchDirectory.c_str());
 
@@ -25,19 +32,42 @@ DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& search
     dirent* entry = nullptr;
     while ((entry = readdir(dir)) != nullptr) {
         std::string entryName(entry->d_name);
-#if defined(ON_UNIX)
+
         if (EndsWith(entryName, ".so")) {
             extensionFileList.push_back(searchDirectory + "/" + entryName);
         }
-#elif defined(ON_WINDOWS)
-        if (EndsWith(entryName, ".dll")) {
-            extensionFileList.push_back(entryName);
-        }
-#endif
     }
 
     closedir(dir);
 }
+#elif defined(ON_WINDOWS)
+DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& searchDirectory) {
+	TCHAR searchDir[MAX_PATH];
+
+	StringCchCopy(searchDir, MAX_PATH, searchDirectory.c_str());
+	StringCchCat(searchDir, MAX_PATH, TEXT("\\*.dll"));
+
+	WIN32_FIND_DATA fileFindData;
+	HANDLE findHandle = FindFirstFile(searchDir, &fileFindData);
+
+	if (findHandle == INVALID_HANDLE_VALUE) {
+		DWORD winApiError = GetLastError();
+		if (winApiError == ERROR_FILE_NOT_FOUND) {
+			return;
+		}
+
+		throw GLOVE_EXCEPTION((boost::format("Error finding first file in directory %1% (WinApi Error %2%)") % searchDirectory % winApiError).str());
+	}
+
+	do {
+		if (fileFindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+			continue;
+		}
+
+		extensionFileList.push_back(searchDirectory + "\\" + fileFindData.cFileName);
+	} while (FindNextFile(findHandle, &fileFindData) != 0);
+}
+#endif
 
 DirectoryExtensionSearcher::~DirectoryExtensionSearcher() {
 }

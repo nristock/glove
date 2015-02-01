@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.0)
 project(glove)
 
+if(WIN32)
+option (USE_PREBUILT_DEPS "Set up variables to prefer prebuilt dependencies over system libraries" ON)
+else()
+option (USE_PREBUILT_DEPS "Set up variables to prefer prebuilt dependencies over system libraries" OFF)
+endif()
+
 set(GLOVE_VERSION_MAJOR 1)
 set(GLOVE_VERSION_MINOR 0)
 set(GLOVE_VERSION_PATCH 0)
@@ -39,7 +45,7 @@ set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_ROOT}/cmake")
 
 if(WIN32)
-set(DEPS_PREFIX "${PROJECT_ROOT}/deps/windows" CACHE PATH "Root of the directory containing dependencies")
+set(DEPS_PREFIX "${PROJECT_ROOT}/deps/win64" CACHE PATH "Root of the directory containing dependencies")
 else()
 set(DEPS_PREFIX "${PROJECT_ROOT}/deps/linux64" CACHE PATH "Root of the directory containing dependencies")
 endif()
@@ -79,6 +85,13 @@ set(DEPS_PYTHON_VERSION "${TMP_PYTHON_VERSION}" CACHE STRING "Python version (ma
 
 set(DEPS_PYTHON_LINK_LIBS "python${DEPS_PYTHON_VERSION}${DEPS_PYTHON_ABI}" CACHE STRING "Python library to link against")
 
+if(USE_PREBUILT_DEPS)
+set(BOOST_ROOT "${DEPS_PREFIX}/boost" CACHE STRING "Boost root directory")
+endif()
+
+find_package(Boost 1.55 REQUIRED COMPONENTS thread system date_time filesystem log log_setup)
+include_directories(${Boost_INCLUDE_DIRS})
+
 ######################
 ######################
 link_directories(${DEPS_PYTHON_LIBS})
@@ -86,7 +99,7 @@ link_directories(${DEPS_PYTHON_LIBS})
 include_directories(vendor/yaml-cpp/include)
 
 if(WIN32)
-	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/windows")
+	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/win64")
 
 	if(MSVC)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:SSE2 /GR")
@@ -97,18 +110,16 @@ if(WIN32)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++11")
        	set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -MMD -MP")
     endif()
+	
+	include_directories("${deps_path}/glew/include")
+	include_directories("${deps_path}/glfw/include")
+	include_directories("${deps_path}/glm/include")
+	include_directories("${deps_path}/python/include")
+	include_directories("${deps_path}/tclap/include")
 
-	include_directories("${deps_path}/include/boost")
-	include_directories("${deps_path}/include/glew")
-	include_directories("${deps_path}/include/glfw")
-	include_directories("${deps_path}/include/glm")
-	include_directories("${deps_path}/include/python")
-	include_directories("${deps_path}/include/tclap")
-
-	link_directories("${deps_path}/libs/boost")
-	link_directories("${deps_path}/libs/glew")
-	link_directories("${deps_path}/libs/glfw")
-	link_directories("${deps_path}/libs/python")
+	link_directories("${deps_path}/glew/libs")
+	link_directories("${deps_path}/glfw/libs")
+	link_directories("${deps_path}/python/libs")
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -std=c++14 -pthread -fPIC")
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3 -Wall -MMD -MP")
@@ -128,20 +139,6 @@ if(WIN32)
 		general glfw3
 		general OpenGL32
 		general GLEWmx
-
-		optimized boost_thread
-		optimized boost_system
-		optimized boost_date_time
-		optimized boost_filesystem
-		optimized boost_log
-		optimized boost_log_setup
-
-		debug boost_thread-d
-		debug boost_system-d
-		debug boost_date_time-d
-		debug boost_filesystem-d
-		debug boost_log-d
-		debug boost_log_setup-d
 
 		general glove_core
 	)
