@@ -2,8 +2,8 @@
 
 #include <map>
 
-#include <core/rendering/vertex/VertexAttributeSemantic.h>
-#include <core/rendering/vertex/IVertexAttributeMapping.h>
+#include <glove/rendering/vertex/VertexAttributeSemantic.h>
+#include <glove/rendering/vertex/IVertexAttributeMapping.h>
 
 namespace glove {
 namespace gl {

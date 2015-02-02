@@ -1,6 +1,6 @@
-#include <core/natex/ISubsystemDefinition.h>
-
 #pragma once
+
+#include <glove/natex/ISubsystemDefinition.h>
 
 namespace glove {
 namespace gl {

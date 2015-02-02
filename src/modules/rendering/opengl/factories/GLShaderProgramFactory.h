@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/rendering/factories/IShaderProgramFactory.h>
+#include <glove/rendering/factories/IShaderProgramFactory.h>
 
 namespace glove {
 namespace gl {

@@ -130,11 +130,10 @@ else()
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${CMAKE_SOURCE_DIR}/core)
 
 add_subdirectory(vendor)
 
-add_subdirectory(core)
+add_subdirectory(glove)
 add_subdirectory(modules)
 add_subdirectory(utils)
 

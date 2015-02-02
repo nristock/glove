@@ -8,18 +8,18 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <core/log/Log.h>
+#include <glove/log/Log.h>
 
-#include <core/GloveException.h>
-#include <core/GloveFwd.h>
-#include <core/rendering/RenderOperation.h>
-#include <core/rendering/RendererBase.h>
-#include <core/rendering/Rendering.h>
-#include <core/rendering/FrameData.h>
-#include <core/rendering/vertex/VertexAttributeType.h>
-#include <core/natex/Natex.h>
-#include <core/rendering/WindowConstructionHints.h>
-#include <core/graph/Graph.h>
+#include <glove/GloveException.h>
+#include <glove/GloveFwd.hpp>
+#include <glove/rendering/RenderOperation.h>
+#include <glove/rendering/RendererBase.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/FrameData.h>
+#include <glove/rendering/vertex/VertexAttributeType.h>
+#include <glove/natex/Natex.h>
+#include <glove/rendering/WindowConstructionHints.h>
+#include <glove/graph/Graph.h>
 
 #include "subsystem/OpenGLRendererModule.h"
 #include "GLWindow.h"

@@ -1,7 +1,7 @@
 #include "GLMaterialAttribute.h"
 
 #include <glm/gtc/type_ptr.hpp>
-#include <core/GloveException.h>
+#include <glove/GloveException.h>
 
 #include "GLMaterial.h"
 #include "GLShaderProgram.h"

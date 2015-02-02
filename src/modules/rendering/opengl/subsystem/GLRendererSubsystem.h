@@ -1,9 +1,9 @@
 #pragma once
 
-#include <core/log/Log.h>
-#include <core/natex/ISubsystem.h>
-#include <core/rendering/Rendering.h>
-#include <core/rendering/RenderingInterfaces.h>
+#include <glove/log/Log.h>
+#include <glove/natex/ISubsystem.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/RenderingInterfaces.h>
 #include <modules/rendering/opengl/factories/GLRenderOperationFactory.h>
 
 #include "OpenGLRendererModule.h"

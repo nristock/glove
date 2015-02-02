@@ -1,17 +1,15 @@
 #include "GLWindow.h"
 
-#include "core/GloveCore.h"
-
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
-
 #include <boost/format.hpp>
 
-#include <core/events/EventBus.h>
-#include <core/events/type/KeyEvent.h>
-#include <core/events/type/MouseButtonEvent.h>
-#include <core/events/type/MouseMoveEvent.h>
-#include <core/rendering/WindowConstructionHints.h>
+#include <glove/GloveCore.h>
+#include <glove/events/EventBus.h>
+#include <glove/events/type/KeyEvent.h>
+#include <glove/events/type/MouseButtonEvent.h>
+#include <glove/events/type/MouseMoveEvent.h>
+#include <glove/rendering/WindowConstructionHints.h>
 #include <modules/rendering/opengl/internal/GlfwWrapper.h>
 
 namespace {

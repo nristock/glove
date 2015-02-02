@@ -2,7 +2,7 @@
 
 #include <boost/format.hpp>
 
-#include <core/GloveException.h>
+#include <glove/GloveException.h>
 #include <utils/ShaderUtils.h>
 
 #include "GLShader.h"

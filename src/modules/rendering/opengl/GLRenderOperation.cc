@@ -6,8 +6,8 @@
 #include "GLMesh.h"
 #include "internal/OpenGLWrapper.h"
 
-#include <core/rendering/vertex/IIndexData.h>
-#include <core/rendering/vertex/IVertexData.h>
+#include <glove/rendering/vertex/IIndexData.h>
+#include <glove/rendering/vertex/IVertexData.h>
 
 namespace glove {
 namespace gl {

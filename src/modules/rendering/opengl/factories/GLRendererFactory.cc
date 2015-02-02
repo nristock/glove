@@ -1,6 +1,6 @@
 #include "GLRendererFactory.h"
 
-#include <core/GloveCore.h>
+#include <glove/GloveCore.h>
 
 #include "../subsystem/OpenGLRendererModule.h"
 #include "../GLRenderer.h"

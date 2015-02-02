@@ -6,8 +6,8 @@
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
 
-#include <core/log/Log.h>
-#include <core/rendering/Rendering.h>
+#include <glove/log/Log.h>
+#include <glove/rendering/Rendering.h>
 
 #include "../subsystem/OpenGLRendererModule.h"
 

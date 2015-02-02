@@ -2,7 +2,7 @@
 
 #include <boost/format.hpp>
 
-#include <core/GloveCore.h>
+#include <glove/GloveCore.h>
 
 #include "../internal/GlfwWrapper.h"
 

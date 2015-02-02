@@ -1,7 +1,7 @@
 #pragma once
 
-#include <core/GloveFwd.h>
-#include <core/rendering/factories/IRendererFactory.h>
+#include <glove/GloveFwd.hpp>
+#include <glove/rendering/factories/IRendererFactory.h>
 
 #include "../subsystem/OpenGLRendererModule.h"
 

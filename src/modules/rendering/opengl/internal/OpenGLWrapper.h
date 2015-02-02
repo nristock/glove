@@ -4,7 +4,7 @@
 #include <atomic>
 
 #include <GL/glew.h>
-#include <core/GloveFwd.h>
+#include <glove/GloveFwd.hpp>
 
 #include "../subsystem/OpenGLRendererModule.h"
 

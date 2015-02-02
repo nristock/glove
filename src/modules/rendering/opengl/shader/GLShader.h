@@ -2,8 +2,8 @@
 
 #include <GL/glew.h>
 
-#include <core/GloveFwd.h>
-#include <core/rendering/shader/IShader.h>
+#include <glove/GloveFwd.hpp>
+#include <glove/rendering/shader/IShader.h>
 
 namespace glove {
 namespace gl {

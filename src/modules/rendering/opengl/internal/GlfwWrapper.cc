@@ -1,7 +1,7 @@
 #include "GlfwWrapper.h"
 
-#include <core/GloveException.h>
-#include <core/rendering/WindowConstructionHints.h>
+#include <glove/GloveException.h>
+#include <glove/rendering/WindowConstructionHints.h>
 
 #include "../GLWindow.h"
 

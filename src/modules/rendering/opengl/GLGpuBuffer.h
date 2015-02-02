@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include <core/rendering/buffers/IGpuBuffer.h>
+#include <glove/rendering/buffers/IGpuBuffer.h>
 
 namespace glove {
 namespace gl {

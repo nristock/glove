@@ -3,9 +3,9 @@
 #include <string>
 #include <map>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/shader/IMaterial.h>
-#include <core/log/Log.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/shader/IMaterial.h>
+#include <glove/log/Log.h>
 
 #include "../subsystem/OpenGLRendererModule.h"
 

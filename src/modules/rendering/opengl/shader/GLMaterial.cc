@@ -1,9 +1,8 @@
 #include "GLMaterial.h"
 
 #include <boost/format.hpp>
-
 #include <glm/gtc/type_ptr.hpp>
-#include <core/GloveException.h>
+#include <glove/GloveException.h>
 
 #include "GLMaterialAttribute.h"
 #include "GLShaderProgram.h"

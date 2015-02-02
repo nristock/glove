@@ -2,24 +2,22 @@
 #include <vector>
 
 #include <glm/glm.hpp>
-#include <core/GloveEnvironment.h>
-
-#include <core/GloveCore.h>
-#include <core/log/Log.h>
-
-#include <core/natex/Natex.h>
-#include <core/natex/ISubsystem.h>
-#include <core/natex/ISubsystemInstanceRegistry.h>
-#include <core/rendering/Rendering.h>
-#include <core/rendering/RenderingInterfaces.h>
-#include <core/rendering/vertex/DynamicVertexData.h>
-#include <core/rendering/vertex/DynamicIndexData.h>
-#include <core/rendering/vertex/VertexLayouts.h>
-#include <core/graph/Scenegraph.h>
-#include <core/graph/gamecomponent/GameComponent.h>
-#include <core/rendering/gamecomponent/OrthoCamera.h>
-#include <core/rendering/gamecomponent/MeshRenderer.h>
-#include <core/rendering/gamecomponent/factories/CameraComponentFactory.h>
+#include <glove/GloveEnvironment.h>
+#include <glove/GloveCore.h>
+#include <glove/log/Log.h>
+#include <glove/natex/Natex.h>
+#include <glove/natex/ISubsystem.h>
+#include <glove/natex/ISubsystemInstanceRegistry.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/RenderingInterfaces.h>
+#include <glove/rendering/vertex/DynamicVertexData.h>
+#include <glove/rendering/vertex/DynamicIndexData.h>
+#include <glove/rendering/vertex/VertexLayouts.h>
+#include <glove/graph/Scenegraph.h>
+#include <glove/graph/gamecomponent/GameComponent.h>
+#include <glove/rendering/gamecomponent/OrthoCamera.h>
+#include <glove/rendering/gamecomponent/MeshRenderer.h>
+#include <glove/rendering/gamecomponent/factories/CameraComponentFactory.h>
 
 int main(int argc, const char** argv) {
     using namespace glove;

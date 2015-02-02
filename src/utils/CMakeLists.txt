@@ -3,8 +3,6 @@ set(glove_utils_src
    FileUtils.cc
    RuntimePathInfo.cc
    ShaderUtils.cc
-   StringId.cc
-   StringIdDatabase.cc
    ScreenDimensions.cc
 )
 

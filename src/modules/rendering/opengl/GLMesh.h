@@ -1,9 +1,10 @@
 #pragma once
 
-#include <core/rendering/mesh/Mesh.h>
 #include <map>
 #include <GL/glew.h>
-#include <core/rendering/IRenderer.h>
+
+#include <glove/rendering/mesh/Mesh.h>
+#include <glove/rendering/IRenderer.h>
 
 #include "GLRenderer.h"
 

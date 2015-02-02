@@ -3,18 +3,16 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "core/GloveCore.h"
-#include <core/rendering/IRenderer.h>
-#include <core/rendering/vertex/VertexAttributeType.h>
-
-#include <core/rendering/buffers/IGpuBuffer.h>
-
-#include <core/rendering/vertex/VertexLayout.h>
-#include <core/rendering/FrameData.h>
-#include <core/rendering/vertex/IVertexData.h>
-#include <core/rendering/shader/IMaterial.h>
-#include <core/rendering/shader/IShaderProgram.h>
-#include <core/rendering/vertex/IVertexAttributeMapping.h>
+#include <glove/GloveCore.h>
+#include <glove/rendering/IRenderer.h>
+#include <glove/rendering/vertex/VertexAttributeType.h>
+#include <glove/rendering/buffers/IGpuBuffer.h>
+#include <glove/rendering/vertex/VertexLayout.h>
+#include <glove/rendering/FrameData.h>
+#include <glove/rendering/vertex/IVertexData.h>
+#include <glove/rendering/shader/IMaterial.h>
+#include <glove/rendering/shader/IShaderProgram.h>
+#include <glove/rendering/vertex/IVertexAttributeMapping.h>
 
 #include "internal/OpenGLWrapper.h"
 #include "GLRenderer.h"

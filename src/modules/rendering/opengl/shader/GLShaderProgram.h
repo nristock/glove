@@ -3,10 +3,10 @@
 #include <GL/glew.h>
 #include <list>
 
-#include <core/log/Log.h>
-#include <core/rendering/Rendering.h>
-#include <core/rendering/shader/IShaderProgram.h>
-#include <core/rendering/vertex/VertexAttributeSemantic.h>
+#include <glove/log/Log.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/shader/IShaderProgram.h>
+#include <glove/rendering/vertex/VertexAttributeSemantic.h>
 
 #include "../subsystem/OpenGLRendererModule.h"
 

@@ -1,17 +1,10 @@
-/*
- * ShaderUtils.cpp
- *
- *  Created on: Jul 29, 2014
- *      Author: monofraps
- */
-
 #include "ShaderUtils.h"
 
 #include <iostream>
 
 #include <GL/glew.h>
 
-#include "log/Log.h"
+#include "glove/log/Log.h"
 
 GLEWContext* glewGetContext();
 

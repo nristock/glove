@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/rendering/factories/IMeshFactory.h>
+#include <glove/rendering/factories/IMeshFactory.h>
 
 namespace glove {
 namespace gl {

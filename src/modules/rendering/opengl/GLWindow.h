@@ -4,10 +4,10 @@
 #include <GL/gl.h>
 #include <glm/glm.hpp>
 
-#include <core/GloveFwd.h>
+#include <glove/GloveFwd.hpp>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/IWindow.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/IWindow.h>
 
 struct GLFWwindow;
 

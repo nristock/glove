@@ -3,8 +3,8 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/target/AbstractRenderTarget.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/target/AbstractRenderTarget.h>
 
 namespace glove {
 namespace gl {

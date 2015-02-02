@@ -6,7 +6,7 @@
 
 #include <boost/format.hpp>
 
-#include "log/Log.h"
+#include "glove/log/Log.h"
 
 namespace glove {
 // TODO: wchar_t support

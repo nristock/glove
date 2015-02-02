@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-#include <core/rendering/shader/IMaterialAttribute.h>
+#include <glove/rendering/shader/IMaterialAttribute.h>
 
 #include "../subsystem/OpenGLRendererModule.h"
 

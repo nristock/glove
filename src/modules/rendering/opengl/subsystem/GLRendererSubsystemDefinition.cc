@@ -1,6 +1,6 @@
 #include "GLRendererSubsystemDefinition.h"
 
-#include <core/rendering/IRenderSubsystem.h>
+#include <glove/rendering/IRenderSubsystem.h>
 
 #include "../factories/GLRendererSubsystemFactory.h"
 

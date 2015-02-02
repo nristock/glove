@@ -2,7 +2,7 @@
 
 #include <random>
 
-#include "core/utils/BitMask.h"
+#include "glove/utils/BitMask.h"
 
 namespace glove {
 TEST(BitMaskTest, NewBitMaskIsAllZero) {

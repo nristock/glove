@@ -1,7 +1,7 @@
 #pragma once
 
-#include <core/rendering/target/AbstractRenderTarget.h>
-#include <core/rendering/Rendering.h>
+#include <glove/rendering/target/AbstractRenderTarget.h>
+#include <glove/rendering/Rendering.h>
 
 namespace glove {
 namespace gl {

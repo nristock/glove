@@ -1,7 +1,7 @@
 #pragma once
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/factories/IMaterialFactory.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/factories/IMaterialFactory.h>
 
 namespace glove {
 namespace gl {

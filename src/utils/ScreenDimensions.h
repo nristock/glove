@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/GloveFwd.h>
+#include "glove/GloveFwd.hpp"
 
 #include <glm/glm.hpp>
 

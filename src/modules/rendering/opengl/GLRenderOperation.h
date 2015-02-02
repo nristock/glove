@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/rendering/IRenderOperation.h>
+#include <glove/rendering/IRenderOperation.h>
 #include <modules/rendering/opengl/subsystem/OpenGLRendererModule.h>
 
 namespace glove {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/rendering/factories/IGpuBufferFactory.h>
+#include <glove/rendering/factories/IGpuBufferFactory.h>
 
 namespace glove {
 namespace gl {

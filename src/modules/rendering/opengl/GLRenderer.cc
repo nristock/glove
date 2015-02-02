@@ -7,21 +7,21 @@
 
 #include <boost/format.hpp>
 
-#include "core/GloveCore.h"
-#include "core/GloveException.h"
-#include <core/graph/Scenegraph.h>
-#include <core/rendering/gamecomponent/CameraBase.h>
+#include <glove/GloveCore.h>
+#include <glove/GloveException.h>
+#include <glove/graph/Scenegraph.h>
+#include <glove/rendering/gamecomponent/CameraBase.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/target/IRenderTarget.h>
+#include <glove/rendering/buffers/IGpuBuffer.h>
+#include <glove/rendering/mesh/IMesh.h>
+#include <glove/rendering/WindowConstructionHints.h>
+#include <glove/rendering/vertex/IVertexData.h>
+#include <glove/rendering/vertex/IIndexData.h>
+#include <glove/rendering/RenderState.h>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/target/IRenderTarget.h>
-#include <core/rendering/buffers/IGpuBuffer.h>
-#include <core/rendering/mesh/IMesh.h>
-#include <core/rendering/WindowConstructionHints.h>
-#include <core/rendering/vertex/IVertexData.h>
-#include <core/rendering/vertex/IIndexData.h>
 #include <modules/rendering/opengl/target/GLRenderTarget.h>
 #include <modules/rendering/opengl/target/GLDefaultRenderTarget.h>
-#include <core/rendering/RenderState.h>
 
 #include "internal/GlfwWrapper.h"
 #include "internal/OpenGLWrapper.h"
