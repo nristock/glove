@@ -4,7 +4,7 @@
 #include <core/GloveException.h>
 #include <boost/format.hpp>
 
-#if defined(ON_UINX)
+#if defined(ON_UNIX)
 #include <dirent.h>
 #elif defined(ON_WINDOWS)
 #include <windows.h>
@@ -42,30 +42,31 @@ DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& search
 }
 #elif defined(ON_WINDOWS)
 DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& searchDirectory) {
-	TCHAR searchDir[MAX_PATH];
+    TCHAR searchDir[MAX_PATH];
 
-	StringCchCopy(searchDir, MAX_PATH, searchDirectory.c_str());
-	StringCchCat(searchDir, MAX_PATH, TEXT("\\*.dll"));
+    StringCchCopy(searchDir, MAX_PATH, searchDirectory.c_str());
+    StringCchCat(searchDir, MAX_PATH, TEXT("\\*.dll"));
 
-	WIN32_FIND_DATA fileFindData;
-	HANDLE findHandle = FindFirstFile(searchDir, &fileFindData);
+    WIN32_FIND_DATA fileFindData;
+    HANDLE findHandle = FindFirstFile(searchDir, &fileFindData);
 
-	if (findHandle == INVALID_HANDLE_VALUE) {
-		DWORD winApiError = GetLastError();
-		if (winApiError == ERROR_FILE_NOT_FOUND) {
-			return;
-		}
+    if (findHandle == INVALID_HANDLE_VALUE) {
+        DWORD winApiError = GetLastError();
+        if (winApiError == ERROR_FILE_NOT_FOUND) {
+            return;
+        }
 
-		throw GLOVE_EXCEPTION((boost::format("Error finding first file in directory %1% (WinApi Error %2%)") % searchDirectory % winApiError).str());
-	}
+        throw GLOVE_EXCEPTION((boost::format("Error finding first file in directory %1% (WinApi Error %2%)") %
+                               searchDirectory % winApiError).str());
+    }
 
-	do {
-		if (fileFindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-			continue;
-		}
+    do {
+        if (fileFindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+            continue;
+        }
 
-		extensionFileList.push_back(searchDirectory + "\\" + fileFindData.cFileName);
-	} while (FindNextFile(findHandle, &fileFindData) != 0);
+        extensionFileList.push_back(searchDirectory + "\\" + fileFindData.cFileName);
+    } while (FindNextFile(findHandle, &fileFindData) != 0);
 }
 #endif
 

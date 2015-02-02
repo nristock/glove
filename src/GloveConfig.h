@@ -5,5 +5,5 @@
 #define GLOVE_VERSION_STRING #GLOVE_VERSION_MAJOR "." #GLOVE_VERSION_MINOR "." #GLOVE_VERSION_PATCH
 
 #if !defined(ON_UINX)
-#define On_UNIX
+#define ON_UNIX
 #endif

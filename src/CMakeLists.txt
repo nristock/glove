@@ -45,18 +45,10 @@ set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_ROOT}/cmake")
 
 if(WIN32)
-set(DEPS_PREFIX "${PROJECT_ROOT}/deps/win64" CACHE PATH "Root of the directory containing dependencies")
+    set(DEPS_PREFIX "${PROJECT_ROOT}/deps/win64" CACHE PATH "Root of the directory containing dependencies")
 else()
-set(DEPS_PREFIX "${PROJECT_ROOT}/deps/linux64" CACHE PATH "Root of the directory containing dependencies")
+    set(DEPS_PREFIX "${PROJECT_ROOT}/deps/linux64" CACHE PATH "Root of the directory containing dependencies")
 endif()
-
-find_package(ZLIB 1.2.8 REQUIRED)
-find_package(PNG 1.6 REQUIRED)
-find_package(LibZip 0.11.2 REQUIRED)
-
-include_directories(${ZLIB_INCLUDE_DIR})
-include_directories(${PNG_INCLUDE_DIR})
-include_directories(${LIBZIP_INCLUDE_DIR})
 
 # Python 3.x
 # Use the "standard" $PREFIX/<bin|include|lib> convention on most UNIX systems to find binary, include and lib directories
@@ -86,11 +78,23 @@ set(DEPS_PYTHON_VERSION "${TMP_PYTHON_VERSION}" CACHE STRING "Python version (ma
 set(DEPS_PYTHON_LINK_LIBS "python${DEPS_PYTHON_VERSION}${DEPS_PYTHON_ABI}" CACHE STRING "Python library to link against")
 
 if(USE_PREBUILT_DEPS)
-set(BOOST_ROOT "${DEPS_PREFIX}/boost" CACHE STRING "Boost root directory")
+    set(ZLIB_ROOT "${DEPS_PREFIX}/zlib" CACHE STRING "Zlib install directory")
+    set(PNG_ROOT "${DEPS_PREFIX}/png" CACHE STRING "libpng install directory")
+    set(LIBZIP_ROOT "${DEPS_PREFIX}/libzip" CACHE STRING "libzip install directory")
+    set(BOOST_ROOT "${DEPS_PREFIX}/boost" CACHE STRING "Boost install directory")
 endif()
 
 find_package(Boost 1.55 REQUIRED COMPONENTS thread system date_time filesystem log log_setup)
 include_directories(${Boost_INCLUDE_DIRS})
+
+find_package(ZLIB 1.2.8 REQUIRED)
+include_directories(${ZLIB_INCLUDE_DIRS})
+
+find_package(PNG 1.6 REQUIRED)
+include_directories(${PNG_INCLUDE_DIRS})
+
+find_package(LibZip 0.11.2 REQUIRED)
+include_directories(${LIBZIP_INCLUDE_DIR})
 
 ######################
 ######################

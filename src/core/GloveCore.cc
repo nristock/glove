@@ -8,6 +8,7 @@
 
 #include <boost/format.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/version.hpp>
 
 #include "GloveConfig.h"
 
@@ -32,6 +33,9 @@
 #include <core/events/type/SubsystemCreatedEvent.h>
 #include <core/natex/GloveSubsystemInstanceRegistry.h>
 
+#include <zlib.h>
+#include <png.h>
+
 namespace sc = std::chrono;
 
 namespace glove {
@@ -45,6 +49,10 @@ GloveCore::GloveCore(int argc, const char** argv) : frameCounter(0), exitRequest
 
     GetExecutionPathInfo(gEnv->executablePath, gEnv->executableName);
     LOG(logger, info, "Running from " << gEnv->executablePath);
+
+    LOG(logger, info, "Using ZLIB " << ZLIB_VERSION);
+    LOG(logger, info, "Using libPng " << PNG_LIBPNG_VER_STRING);
+    LOG(logger, info, "Using Boost " << (BOOST_VERSION / 100000) << "." << ((BOOST_VERSION / 100) % 1000) << "." << (BOOST_VERSION % 100));
 
     // Command line arguments
     {
