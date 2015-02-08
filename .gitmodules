@@ -1,11 +1,3 @@
 [submodule "tools/mocca"]
 	path = tools/mocca
 	url = git@github.com:Monofraps/Mocca.git
-[submodule "src/vendor/libpng"]
-	path = src/vendor/libpng
-	url = git@github.com:glennrp/libpng.git
-	branch = libpng16
-[submodule "src/vendor/zlib"]
-	path = src/vendor/zlib
-	url = git@github.com:madler/zlib.git
-	branch = master
