@@ -31,7 +31,7 @@ class CMakeGenerator:
 
     def run(self):
         definitions_command_line_args = []
-        for (name, value) in self.definitions:
+        for name, value in self.definitions.items():
             definitions_command_line_args += ['-D{0}={1}'.format(name, value)]
 
         definitions_command_line_args += ['-DCMAKE_BUILD_TYPE={0}'.format(self.build_type)]

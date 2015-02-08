@@ -6,6 +6,7 @@ from lib.utils.Logger import Log
 from lib.commands.format import execute_command as cmd_format
 from lib.commands.bootstrap import execute_command as cmd_bootstrap
 from lib.commands.mkuuid import execute_command as cmd_mkuuid
+from lib.commands.build_deps import execute_command as cmd_build_deps
 
 SCRIPT_DIR = path.dirname(path.realpath(__file__))
 WORKING_DIR = getcwd()
@@ -39,6 +40,9 @@ def parse_args():
 
     mkuuid_parser = sub_parsers.add_parser('mkuuid', aliases=['uuid'], help="Generated a random UUID")
     mkuuid_parser.set_defaults(func=cmd_mkuuid)
+
+    build_deps_parser = sub_parsers.add_parser('build_deps', aliases=['deps'], help="Build Glove engine dependencies")
+    build_deps_parser.set_defaults(func=cmd_build_deps)
 
     argument_parser.add_argument(
         '--verbosity',

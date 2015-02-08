@@ -2,46 +2,39 @@
 # This module defines
 # LIBZIP_LIBRARY
 # LIBZIP_FOUND, if false, do not try to link to libzip 
-# LIBZIP_INCLUDE_DIR, where to find the headers
+# LIBZIP_INCLUDE_DIRS, where to find the headers
 #
 
-find_path(LIBZIP_INCLUDE_DIR zip.h
-    $ENV{LIBZIP_DIR}/include
-    $ENV{LIBZIP_DIR}
-    $ENV{LIBZIP_ROOT}/include
-    $ENV{LIBZIP_ROOT}
-    ${DEPS_PREFIX}/libzip/include
-    ~/Library/Frameworks
-    /Library/Frameworks
-    /usr/local/include
-    /usr/include
-    /opt/include
-    /usr/freeware/include
-)
-
-find_library(LIBZIP_LIBRARY 
-    NAMES libzip zip
+find_path(LIBZIP_INCLUDE_DIRS zip.h
+    PATH_SUFFIXES include
     PATHS
-    $ENV{LIBZIP_DIR}/lib
-    $ENV{LIBZIP_DIR}
-    $ENV{LIBZIP_ROOT}/lib
-    $ENV{LIBZIP_ROOT}
-    ${DEPS_PREFIX}/lib
+    ${LIBZIP_ROOT}
+    ${DEPS_PREFIX}/libzip
     ~/Library/Frameworks
     /Library/Frameworks
-    /usr/local/lib
-    /usr/lib
-    /usr/local/lib64
-    /usr/lib64
-    /sw/lib
-    /opt/local/lib
-    /opt/csw/lib
-    /opt/lib
-    /usr/freeware/lib64
+    /usr/local
+    /usr
+    /opt
+    /usr/freeware
 )
 
-set(LIBZIP_FOUND "NO")
-if(LIBZIP_LIBRARY AND LIBZIP_INCLUDE_DIR)
-    set(LIBZIP_FOUND "YES")
-    message(STATUS "Found LibZip ${LIBZIP_LIBRARY}")
-endif()
+find_library(LIBZIP_LIBRARIES
+    NAMES libzip zip
+    PATH_SUFFIXES lib64 lib
+    PATHS
+    ${LIBZIP_ROOT}
+    ${DEPS_PREFIX}/libzip
+    ~/Library/Frameworks
+    /Library/Frameworks
+    /usr/local
+    /usr
+    /sw
+    /opt/local
+    /opt/csw
+    /opt
+    /usr/freeware
+)
+
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibZip DEFAULT_MSG LIBZIP_INCLUDE_DIRS LIBZIP_LIBRARIES)
+mark_as_advanced(LIBZIP_INCLUDE_DIRS LIBZIP_LIBRARIES)

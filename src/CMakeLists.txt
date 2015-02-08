@@ -1,15 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 project(glove)
 
-if(WIN32)
-option (USE_PREBUILT_DEPS "Set up variables to prefer prebuilt dependencies over system libraries" ON)
-else()
-option (USE_PREBUILT_DEPS "Set up variables to prefer prebuilt dependencies over system libraries" OFF)
-endif()
+set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, i.e. the directory containing the src dir")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_ROOT}/cmake")
 
-set(GLOVE_VERSION_MAJOR 1)
-set(GLOVE_VERSION_MINOR 0)
-set(GLOVE_VERSION_PATCH 0)
+include(GitInfo)
 
 # General Configuration
 if(WIN32)
@@ -19,6 +14,27 @@ else()
 	set(ON_UNIX 1)
 	add_definitions(-DON_UNIX)
 endif()
+
+GetGitInfo(GIT_BRANCH GIT_SHORT_HASH)
+message("On branch ${GIT_BRANCH} @ ${GIT_SHORT_HASH}")
+
+set(GLOVE_VERSION_MAJOR 1)
+set(GLOVE_VERSION_MINOR 0)
+set(GLOVE_VERSION_PATCH 0)
+
+if(WIN32)
+option (USE_PREBUILT_DEPS "Set up variables to prefer prebuilt dependencies over system libraries" ON)
+else()
+option (USE_PREBUILT_DEPS "Set up variables to prefer prebuilt dependencies over system libraries" OFF)
+endif()
+
+# Make sure we're using the correct GloveConfig.h
+include_directories(BEFORE ${CMAKE_BINARY_DIR})
+
+configure_file (
+  "${PROJECT_SOURCE_DIR}/GloveConfig.h.in"
+  "${PROJECT_BINARY_DIR}/GloveConfig.h"
+)
 
 add_definitions(-DBOOST_LOG_DYN_LINK -DGLM_FORCE_RADIANS -DBOOST_ALL_NO_LIB -DGLEW_MX -DBOOST_ALL_DYN_LINK -DHAVE_ROUND)
 
@@ -31,18 +47,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# Make sure we're using the correct GloveConfig.h
-include_directories(BEFORE ${CMAKE_BINARY_DIR})
-
-configure_file (
-  "${PROJECT_SOURCE_DIR}/GloveConfig.h.in"
-  "${PROJECT_BINARY_DIR}/GloveConfig.h"
-)
-
 # Dependency Config Options
-set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, i.e. the directory containing the src dir")
-
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_ROOT}/cmake")
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 
 if(WIN32)
     set(DEPS_PREFIX "${PROJECT_ROOT}/deps/win64" CACHE PATH "Root of the directory containing dependencies")
@@ -50,39 +56,17 @@ else()
     set(DEPS_PREFIX "${PROJECT_ROOT}/deps/linux64" CACHE PATH "Root of the directory containing dependencies")
 endif()
 
-# Python 3.x
-# Use the "standard" $PREFIX/<bin|include|lib> convention on most UNIX systems to find binary, include and lib directories
-# Then use the python executable to build the library name
-# 		python[version.major].[version.minor][abiflags].[so|a]
-set(DEPS_PYTHON_PATH "${DEPS_PREFIX}/python3" CACHE PATH "Root of a python 3.x installation")
-set(DEPS_PYHTON_BIN "${DEPS_PYTHON_PATH}/bin" CACHE PATH "Directory containing python binary")
-set(DEPS_PYTHON_INC "${DEPS_PYTHON_PATH}/include" CACHE PATH "Python include directory")
-set(DEPS_PYTHON_LIBS "${DEPS_PYTHON_PATH}/lib" CACHE PATH "Python library directory")
-
-set(DEPS_PYTHON_EXECUTABLE "${DEPS_PYHTON_BIN}/python" CACHE STRING "Python executable")
-
-execute_process(
-	COMMAND ${DEPS_PYTHON_EXECUTABLE} -c "import sys; print(sys.abiflags)"
-	OUTPUT_VARIABLE TMP_PYTHON_ABI_TAG
-	OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-set(DEPS_PYTHON_ABI "${TMP_PYTHON_ABI_TAG}" CACHE STRING "Python build abi information")
-
-execute_process(
-	COMMAND ${DEPS_PYTHON_EXECUTABLE} -c "import sys; print('{0}.{1}'.format(sys.version_info.major, sys.version_info.minor))"
-	OUTPUT_VARIABLE TMP_PYTHON_VERSION
-	OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-set(DEPS_PYTHON_VERSION "${TMP_PYTHON_VERSION}" CACHE STRING "Python version (major.minor)")
-
-set(DEPS_PYTHON_LINK_LIBS "python${DEPS_PYTHON_VERSION}${DEPS_PYTHON_ABI}" CACHE STRING "Python library to link against")
-
 if(USE_PREBUILT_DEPS)
     set(ZLIB_ROOT "${DEPS_PREFIX}/zlib" CACHE STRING "Zlib install directory")
     set(PNG_ROOT "${DEPS_PREFIX}/png" CACHE STRING "libpng install directory")
     set(LIBZIP_ROOT "${DEPS_PREFIX}/libzip" CACHE STRING "libzip install directory")
     set(BOOST_ROOT "${DEPS_PREFIX}/boost" CACHE STRING "Boost install directory")
+    set(PYTHON_ROOT "${DEPS_PREFIX}/python" CACHE STRING "Python install directory")
+    set(TCLAP_ROOT "${DEPS_PREFIX}/tclap" CACHE STRING "Tclap install directory")
+    set(YAMLCPP_ROOT "${DEPS_PREFIX}/yaml-cpp" CACHE STRING "Yaml-cpp install directory")
 endif()
+
+find_package(Threads REQUIRED)
 
 find_package(Boost 1.55 REQUIRED COMPONENTS thread system date_time filesystem log log_setup)
 include_directories(${Boost_INCLUDE_DIRS})
@@ -94,14 +78,19 @@ find_package(PNG 1.6 REQUIRED)
 include_directories(${PNG_INCLUDE_DIRS})
 
 find_package(LibZip 0.11.2 REQUIRED)
-include_directories(${LIBZIP_INCLUDE_DIR})
+include_directories(${LIBZIP_INCLUDE_DIRS})
+
+find_package(PythonLibs 3.4 REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+
+find_package(TCLAP 1.2.1 REQUIRED)
+include_directories(${TCLAP_INCLUDE_DIRS})
+
+find_package(YamlCpp 0.5.1 REQUIRED)
+include_directories(${YAMLCPP_INCLUDE_DIRS})
 
 ######################
 ######################
-link_directories(${DEPS_PYTHON_LIBS})
-
-include_directories(vendor/yaml-cpp/include)
-
 if(WIN32)
 	set(deps_path "${CMAKE_SOURCE_DIR}/../deps/win64")
 
@@ -132,7 +121,6 @@ endif()
 include_directories(${CMAKE_SOURCE_DIR})
 
 add_subdirectory(vendor)
-
 add_subdirectory(glove)
 add_subdirectory(modules)
 add_subdirectory(utils)
@@ -147,40 +135,28 @@ if(WIN32)
 	)
 else()
 	set(glove_libs
-		pthread
+		${CMAKE_THREAD_LIBS_INIT}
 		glfw
 		GL
 		GLEWmx
 		GLU
-		boost_thread
-		boost_system
-		boost_date_time
-		boost_filesystem
-		boost_log
-		boost_log_setup
+		${BOOST_LIBRARIES}
+		${ZLIB_LIBRARIES}
+		${PNG_LIBRARIES}
+		${LIBZIP_LIBRARIES}
+		${PYTHON_LIBRARIES}
+		${YAMLCPP_LIBRARIES}
+
 		glove_core
 	)
 endif()
 
+option(BUILD_TESTS "Whether to build tests or not" ON)
+
+if(BUILD_TESTS)
 add_subdirectory(tests)
-add_subdirectory(cellulose)
-
-# Fix source tree representation in Visual Studio
-if(MSVC)
-	macro(GroupSources curdir)
-		file(GLOB children RELATIVE ${PROJECT_SOURCE_DIR}/${curdir} ${PROJECT_SOURCE_DIR}/${curdir}/*)
-
-	    foreach(child ${children})
-			if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/${curdir}/${child})
-	        	GroupSources(${curdir}/${child})
-	        else()
-	            string(REPLACE "/" "\\" groupname ${curdir})
-	            string(REPLACE "." "src" groupname ${groupname})
-
-	            source_group(${groupname} FILES ${PROJECT_SOURCE_DIR}/${curdir}/${child})
-	        endif()
-	    endforeach()
-	endmacro()
-
-	GroupSources(.)
 endif()
+
+#add_subdirectory(cellulose)
+
+include(MsvcFiletree)

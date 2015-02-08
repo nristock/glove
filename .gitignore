@@ -82,5 +82,4 @@ python
 docs/doxygen/
 docs/site
 
-# Vendor mocca dependencies
-src/vendor/yaml-cpp
+atlassian-ide-plugin.xml
