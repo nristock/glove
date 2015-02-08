@@ -1,11 +1,10 @@
-#include "GLMaterial.h"
-
 #include <boost/format.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glove/GloveException.h>
 
-#include "GLMaterialAttribute.h"
-#include "GLShaderProgram.h"
+#include "shader/GLMaterial.h"
+#include "shader/GLMaterialAttribute.h"
+#include "shader/GLShaderProgram.h"
 
 namespace {
 const std::hash<std::string> g_stringHasher = std::hash<std::string>();

@@ -1,13 +1,12 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "GLRenderOperation.h"
-
-#include "GLMesh.h"
-#include "internal/OpenGLWrapper.h"
-
 #include <glove/rendering/vertex/IIndexData.h>
 #include <glove/rendering/vertex/IVertexData.h>
+
+#include "GLRenderOperation.h"
+#include "GLMesh.h"
+#include "internal/OpenGLWrapper.h"
 
 namespace glove {
 namespace gl {

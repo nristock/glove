@@ -1,8 +1,7 @@
-#include "GLMaterialFactory.h"
-
-#include "../subsystem/OpenGLRendererModule.h"
-#include "../shader/GLMaterial.h"
-#include "../shader/GLShaderProgram.h"
+#include "factories/GLMaterialFactory.h"
+#include "subsystem/OpenGLRendererModule.h"
+#include "shader/GLMaterial.h"
+#include "shader/GLShaderProgram.h"
 
 namespace glove {
 namespace gl {

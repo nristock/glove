@@ -4,7 +4,7 @@
 
 #include <glove/rendering/shader/IMaterialAttribute.h>
 
-#include "../subsystem/OpenGLRendererModule.h"
+#include "subsystem/OpenGLRendererModule.h"
 
 namespace glove {
 namespace gl {

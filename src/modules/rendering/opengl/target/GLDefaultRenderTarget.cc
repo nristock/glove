@@ -1,6 +1,5 @@
-#include "GLDefaultRenderTarget.h"
-
-#include "../internal/OpenGLWrapper.h"
+#include "target/GLDefaultRenderTarget.h"
+#include "internal/OpenGLWrapper.h"
 
 namespace glove {
 namespace gl {

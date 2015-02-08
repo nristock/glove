@@ -1,13 +1,12 @@
-#include "GLShaderProgram.h"
-
 #include <boost/format.hpp>
 
 #include <glove/GloveException.h>
 #include <glove/utils/ShaderUtils.h>
 
-#include "GLShader.h"
-#include "GLVertexAttributeMapping.h"
-#include "../internal/OpenGLWrapper.h"
+#include "shader/GLShaderProgram.h"
+#include "shader/GLShader.h"
+#include "shader/GLVertexAttributeMapping.h"
+#include "internal/OpenGLWrapper.h"
 
 namespace glove {
 namespace gl {

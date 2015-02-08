@@ -21,8 +21,8 @@
 #include <glove/rendering/WindowConstructionHints.h>
 #include <glove/graph/Graph.h>
 
-#include "subsystem/OpenGLRendererModule.h"
 #include "GLWindow.h"
+#include "subsystem/OpenGLRendererModule.h"
 
 struct GLFWwindow;
 

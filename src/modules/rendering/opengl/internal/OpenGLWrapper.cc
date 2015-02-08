@@ -1,8 +1,8 @@
-#include "OpenGLWrapper.h"
-
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glext.h>
+
+#include "internal/OpenGLWrapper.h"
 
 namespace glove {
 namespace gl {

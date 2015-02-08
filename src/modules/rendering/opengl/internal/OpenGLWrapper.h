@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 #include <glove/GloveFwd.hpp>
 
-#include "../subsystem/OpenGLRendererModule.h"
+#include "subsystem/OpenGLRendererModule.h"
 
 namespace glove {
 namespace gl {

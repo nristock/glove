@@ -6,7 +6,7 @@
 #include <glove/rendering/RenderingInterfaces.h>
 #include <modules/rendering/opengl/factories/GLRenderOperationFactory.h>
 
-#include "OpenGLRendererModule.h"
+#include "subsystem/OpenGLRendererModule.h"
 
 namespace glove {
 namespace gl {

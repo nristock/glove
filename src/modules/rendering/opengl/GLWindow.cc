@@ -1,5 +1,5 @@
-#include "GLWindow.h"
-
+#include <GL/glew.h>
+#include <GL/gl.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <boost/format.hpp>
@@ -10,7 +10,9 @@
 #include <glove/events/type/MouseButtonEvent.h>
 #include <glove/events/type/MouseMoveEvent.h>
 #include <glove/rendering/WindowConstructionHints.h>
-#include <modules/rendering/opengl/internal/GlfwWrapper.h>
+
+#include "GLWindow.h"
+#include "internal/GlfwWrapper.h"
 
 namespace {
 

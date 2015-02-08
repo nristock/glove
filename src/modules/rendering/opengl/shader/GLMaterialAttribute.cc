@@ -1,11 +1,10 @@
-#include "GLMaterialAttribute.h"
-
 #include <glm/gtc/type_ptr.hpp>
 #include <glove/GloveException.h>
 
-#include "GLMaterial.h"
-#include "GLShaderProgram.h"
-#include "../internal/OpenGLWrapper.h"
+#include "shader/GLMaterialAttribute.h"
+#include "shader/GLMaterial.h"
+#include "shader/GLShaderProgram.h"
+#include "internal/OpenGLWrapper.h"
 
 namespace glove {
 namespace gl {

@@ -9,7 +9,7 @@
 #include <glove/log/Log.h>
 #include <glove/rendering/Rendering.h>
 
-#include "../subsystem/OpenGLRendererModule.h"
+#include "subsystem/OpenGLRendererModule.h"
 
 namespace glove {
 namespace gl {

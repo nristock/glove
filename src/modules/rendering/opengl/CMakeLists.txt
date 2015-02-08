@@ -32,6 +32,9 @@ set(opengl_renderer_src
     subsystem/GLRendererSubsystem.cc
 )
 
+include_directories(.)
+include_directories(${CMAKE_SOURCE_DIR})
+
 add_library(mod_glrenderer SHARED ${opengl_renderer_src})
 
 install(TARGETS mod_glrenderer EXPORT GloveModuleTargets

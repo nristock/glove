@@ -1,5 +1,3 @@
-#include "GLMesh.h"
-
 #include <GL/glew.h>
 #include <GL/gl.h>
 
@@ -14,8 +12,9 @@
 #include <glove/rendering/shader/IShaderProgram.h>
 #include <glove/rendering/vertex/IVertexAttributeMapping.h>
 
-#include "internal/OpenGLWrapper.h"
+#include "GLMesh.h"
 #include "GLRenderer.h"
+#include "internal/OpenGLWrapper.h"
 
 namespace {
 

@@ -1,5 +1,3 @@
-#include "GLRenderer.h"
-
 #include <sstream>
 
 #include <GL/glew.h>
@@ -20,13 +18,13 @@
 #include <glove/rendering/vertex/IIndexData.h>
 #include <glove/rendering/RenderState.h>
 
-#include <modules/rendering/opengl/target/GLRenderTarget.h>
-#include <modules/rendering/opengl/target/GLDefaultRenderTarget.h>
-
-#include "internal/GlfwWrapper.h"
-#include "internal/OpenGLWrapper.h"
+#include "GLRenderer.h"
 #include "GLMesh.h"
 #include "GLRenderOperation.h"
+#include "internal/OpenGLWrapper.h"
+#include "internal/GlfwWrapper.h"
+#include "target/GLRenderTarget.h"
+#include "target/GLDefaultRenderTarget.h"
 
 GLEWContext* glewGetContext();
 

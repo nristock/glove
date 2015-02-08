@@ -1,6 +1,6 @@
-#include "GLRenderOperationFactory.h"
 #include <glove/rendering/IRenderOperation.h>
-#include "../GLRenderOperation.h"
+#include "factories/GLRenderOperationFactory.h"
+#include "GLRenderOperation.h"
 
 namespace glove {
 namespace gl {

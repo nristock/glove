@@ -1,6 +1,6 @@
-#include "GLRendererExtension.h"
-
 #include <glove/natex/ISubsystemDefinitionRegistry.h>
+
+#include "subsystem/GLRendererExtension.h"
 
 namespace glove {
 namespace gl {

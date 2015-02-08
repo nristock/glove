@@ -1,6 +1,6 @@
-#include "GLVertexAttributeMapping.h"
-
 #include <glove/GloveException.h>
+
+#include "shader/GLVertexAttributeMapping.h"
 
 namespace glove {
 namespace gl {

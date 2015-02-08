@@ -8,7 +8,7 @@
 #include <glove/rendering/shader/IShaderProgram.h>
 #include <glove/rendering/vertex/VertexAttributeSemantic.h>
 
-#include "../subsystem/OpenGLRendererModule.h"
+#include "subsystem/OpenGLRendererModule.h"
 
 namespace glove {
 namespace gl {

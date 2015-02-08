@@ -7,7 +7,7 @@
 #include <glove/rendering/shader/IMaterial.h>
 #include <glove/log/Log.h>
 
-#include "../subsystem/OpenGLRendererModule.h"
+#include "subsystem/OpenGLRendererModule.h"
 
 namespace glove {
 namespace gl {

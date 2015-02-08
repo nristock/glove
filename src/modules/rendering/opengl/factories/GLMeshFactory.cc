@@ -1,7 +1,6 @@
-#include "GLMeshFactory.h"
-
-#include "../subsystem/OpenGLRendererModule.h"
-#include "../GLMesh.h"
+#include "factories/GLMeshFactory.h"
+#include "subsystem/OpenGLRendererModule.h"
+#include "GLMesh.h"
 
 namespace glove {
 namespace gl {

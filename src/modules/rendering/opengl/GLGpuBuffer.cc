@@ -1,5 +1,4 @@
 #include "GLGpuBuffer.h"
-
 #include "internal/OpenGLWrapper.h"
 
 namespace glove {

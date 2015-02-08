@@ -3,8 +3,8 @@
 #include <glove/GloveFwd.hpp>
 #include <glove/natex/ISystemExtension.h>
 
-#include "OpenGLRendererModule.h"
-#include "GLRendererSubsystemDefinition.h"
+#include "subsystem/OpenGLRendererModule.h"
+#include "subsystem/GLRendererSubsystemDefinition.h"
 
 namespace glove {
 namespace gl {

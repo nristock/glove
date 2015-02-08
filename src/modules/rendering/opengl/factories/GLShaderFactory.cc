@@ -1,10 +1,9 @@
-#include "GLShaderFactory.h"
-
-#include <glove/utils/FileUtils.h>
 #include <GL/glew.h>
+#include <glove/utils/FileUtils.h>
 
-#include "../subsystem/OpenGLRendererModule.h"
-#include "../shader/GLShader.h"
+#include "factories/GLShaderFactory.h"
+#include "subsystem/OpenGLRendererModule.h"
+#include "shader/GLShader.h"
 
 namespace glove {
 namespace gl {
