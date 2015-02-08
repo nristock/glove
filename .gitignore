@@ -73,7 +73,8 @@ __pycache__
 *.pyc
 
 # Dependencies
-deps
+deps/*
+!deps/.mocca
 python
 
 # CLion
