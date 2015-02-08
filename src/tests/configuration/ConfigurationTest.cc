@@ -4,8 +4,8 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include "core/configuration/Configuration.hpp"
-#include "core/configuration/ConfigurationConverters.hpp"
+#include <glove/configuration/Configuration.hpp>
+#include <glove/configuration/ConfigurationConverters.hpp>
 
 using ::glove::configuration::WindowConfig;
 using ::glove::configuration::OpenGLVersion;

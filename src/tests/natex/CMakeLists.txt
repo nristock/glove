@@ -1,5 +1,5 @@
 add_executable(tests_natex DirectoryExtensionSearcherTests.cc ExtensionDependencyGraphTests.cc)
-target_link_libraries(tests_natex vendor_gmock vendor_gtest_main ${glove_libs})
+target_link_libraries(tests_natex vendor_gmock vendor_gtest_main glove)
 
 add_custom_command(TARGET tests_natex POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory

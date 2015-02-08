@@ -1,4 +1,4 @@
-#include <core/natex/Natex.h>
+#include <glove/natex/Natex.h>
 
 extern "C" {
 int TestLibFunction(int param) {

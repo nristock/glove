@@ -1,8 +1,8 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/vertex/VertexLayout.h>
-#include <core/rendering/vertex/IVertexData.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/vertex/VertexLayout.h>
+#include <glove/rendering/vertex/IVertexData.h>
 
 namespace glove {
 class MockVertexData : public IVertexData {

@@ -1,2 +1,2 @@
 add_executable(tests_configuration ConfigurationTest.cc)
-target_link_libraries(tests_configuration vendor_gmock vendor_gtest_main ${glove_libs})
+target_link_libraries(tests_configuration vendor_gmock vendor_gtest_main glove)

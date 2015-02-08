@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/mesh/Mesh.h>
-#include <core/rendering/RenderOperation.h>
+#include <glove/rendering/mesh/Mesh.h>
+#include <glove/rendering/RenderOperation.h>
 
 #include "mock/MockVertexData.h"
 #include "mock/MockIndexData.h"

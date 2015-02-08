@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/natex/Natex.h>
-#include <core/rendering/IRenderSubsystem.h>
+#include <glove/natex/Natex.h>
+#include <glove/rendering/IRenderSubsystem.h>
 
 #include <subsystem/GLRendererExtension.h>
 

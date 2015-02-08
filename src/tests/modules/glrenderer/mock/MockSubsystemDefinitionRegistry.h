@@ -2,7 +2,7 @@
 
 #include <vendor/gmock/gmock.h>
 
-#include <core/natex/ISubsystemDefinitionRegistry.h>
+#include <glove/natex/ISubsystemDefinitionRegistry.h>
 
 namespace glove {
 

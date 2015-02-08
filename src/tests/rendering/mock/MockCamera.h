@@ -1,6 +1,6 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/gamecomponent/CameraBase.h>
+#include <glove/rendering/gamecomponent/CameraBase.h>
 
 namespace glove {
 class MockCamera : public GameComponents::CameraBase {

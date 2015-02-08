@@ -7,7 +7,7 @@ add_executable(tests_filesystem
     ZipEntryBufferTest.cc
     ZipFilesystemTest.cc
 )
-target_link_libraries(tests_filesystem vendor_gmock vendor_gtest_main ${glove_libs})
+target_link_libraries(tests_filesystem vendor_gmock vendor_gtest_main glove)
 
 add_custom_command(TARGET tests_filesystem POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory

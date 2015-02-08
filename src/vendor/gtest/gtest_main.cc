@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include <core/GloveCore.h>
+#include <glove/GloveCore.h>
 #include "gmock/gmock.h"
 
 int main(int argc, char** argv) {

@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/buffers/IGpuBuffer.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/buffers/IGpuBuffer.h>
 
 namespace glove {
 class MockGpuBuffer : public IGpuBuffer {

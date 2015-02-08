@@ -5,9 +5,9 @@
 #include <istream>
 #include <ostream>
 
-#include "core/filesystem/FileInfo.hpp"
-#include "core/filesystem/IFilesystem.hpp"
-#include "core/filesystem/Path.hpp"
+#include <glove/filesystem/FileInfo.hpp>
+#include <glove/filesystem/IFilesystem.hpp>
+#include <glove/filesystem/Path.hpp>
 
 namespace glove {
 

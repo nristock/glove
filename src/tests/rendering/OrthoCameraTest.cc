@@ -5,9 +5,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <core/rendering/gamecomponent/OrthoCamera.h>
-#include <core/graph/gameobject/factories/EmptyGameObjectFactory.h>
-#include <core/graph/gameobject/GameObject.h>
+#include <glove/rendering/gamecomponent/OrthoCamera.h>
+#include <glove/graph/gameobject/factories/EmptyGameObjectFactory.h>
+#include <glove/graph/gameobject/GameObject.h>
 
 #include "mock/MockVertexData.h"
 #include "mock/MockIndexData.h"

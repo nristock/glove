@@ -3,9 +3,9 @@
 
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/vertex/StaticVertexData.h>
-#include <core/rendering/vertex/DynamicVertexData.h>
-#include <core/rendering/vertex/VertexLayouts.h>
+#include <glove/rendering/vertex/StaticVertexData.h>
+#include <glove/rendering/vertex/DynamicVertexData.h>
+#include <glove/rendering/vertex/VertexLayouts.h>
 
 #include "mock/MockGpuBuffer.h"
 #include "mock/MockVertexData.h"

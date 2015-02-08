@@ -1,6 +1,6 @@
 #include <vendor/gtest/gtest.h>
 
-#include <core/rendering/vertex/VertexAttributeUtils.h>
+#include <glove/rendering/vertex/VertexAttributeUtils.h>
 
 namespace glove {
 TEST(VertexAttributeUtilsTypeSizeTests, SizeOfFloat3) {

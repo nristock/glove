@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/mesh/Mesh.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/mesh/Mesh.h>
 
 namespace glove {
 class MockMesh : public Mesh {

@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/GloveFwd.h>
-#include <core/events/EventBus.h>
+#include <glove/GloveFwd.hpp>
+#include <glove/events/EventBus.h>
 
 namespace glove {
 class MockEventBus : public EventBus {

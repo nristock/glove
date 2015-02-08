@@ -1,8 +1,8 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/GloveFwd.h>
-#include <core/rendering/Rendering.h>
-#include <core/rendering/IRenderer.h>
+#include <glove/GloveFwd.hpp>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/IRenderer.h>
 
 namespace glove {
 class MockRenderer : public IRenderer {

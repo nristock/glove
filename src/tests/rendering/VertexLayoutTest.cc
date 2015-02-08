@@ -3,7 +3,7 @@
 
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/vertex/VertexLayout.h>
+#include <glove/rendering/vertex/VertexLayout.h>
 
 namespace glove {
 TEST(VertexLayoutTest, NewVertexLayoutHasNoElements) {

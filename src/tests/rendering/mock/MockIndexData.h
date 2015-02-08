@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/vertex/IIndexData.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/vertex/IIndexData.h>
 
 namespace glove {
 class MockIndexData : public IIndexData {

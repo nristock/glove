@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "glove/rendering/Rendering.h"
-#include "utils/ScreenDimensions.h"
+#include "glove/utils/ScreenDimensions.h"
 
 namespace glove {
 

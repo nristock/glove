@@ -5,7 +5,7 @@
 #include "glove/rendering/FrameData.h"
 #include "glove/rendering/buffers/BufferUsage.h"
 #include "glove/graph/Graph.h"
-#include "utils/ScreenDimensions.h"
+#include "glove/utils/ScreenDimensions.h"
 
 namespace glove {
 

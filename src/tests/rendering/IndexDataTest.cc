@@ -3,8 +3,8 @@
 
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/vertex/StaticIndexData.h>
-#include <core/rendering/vertex/DynamicIndexData.h>
+#include <glove/rendering/vertex/StaticIndexData.h>
+#include <glove/rendering/vertex/DynamicIndexData.h>
 
 #include "mock/MockGpuBuffer.h"
 #include "mock/MockVertexData.h"

@@ -5,4 +5,4 @@ add_executable(tests_mod_glrenderer
     GLRendererSubsystemTest.cc
     GLRendererExtensionTest.cc
 )
-target_link_libraries(tests_mod_glrenderer vendor_gmock vendor_gtest_main ${glove_libs} mod_glrenderer)
+target_link_libraries(tests_mod_glrenderer vendor_gmock vendor_gtest_main glove mod_glrenderer)

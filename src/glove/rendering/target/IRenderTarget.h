@@ -3,7 +3,7 @@
 #include <list>
 #include <memory>
 
-#include "utils/ScreenDimensions.h"
+#include "glove/utils/ScreenDimensions.h"
 
 namespace glove {
 

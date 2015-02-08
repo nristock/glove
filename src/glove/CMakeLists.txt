@@ -39,13 +39,26 @@ if(ON_UNIX)
     )
 endif()
 
-add_library(glove_core SHARED
+add_library(glove SHARED
     ${core_src}
     ${core_object_libs}
 )
 
 if(ON_UNIX)
-target_link_libraries(glove_core yaml-cpp ${Boost_LIBRARIES} ${ZLIB_LIBRARY} ${PNG_LIBRARY} ${LIBZIP_LIBRARY} dl)
+target_link_libraries(glove ${glove_libs} dl)
 else()
-target_link_libraries(glove_core yaml-cpp ${Boost_LIBRARIES} ${ZLIB_LIBRARY} ${PNG_LIBRARY} ${LIBZIP_LIBRARY})
+target_link_libraries(glove ${glove_libs})
 endif()
+
+install(TARGETS glove EXPORT GloveTargets
+        LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+)
+
+install(DIRECTORY .
+        DESTINATION ${INCLUDE_INSTALL_DIR}/glove
+        FILES_MATCHING PATTERN "*.hpp"
+)
+install(DIRECTORY .
+        DESTINATION ${INCLUDE_INSTALL_DIR}/glove
+        FILES_MATCHING PATTERN "*.h"
+)

@@ -1,8 +1,8 @@
 #include <vendor/gtest/gtest.h>
 
-#include <core/filesystem/Filesystem.hpp>
-#include <core/filesystem/Path.hpp>
-#include <core/filesystem/io/File.hpp>
+#include <glove/filesystem/Filesystem.hpp>
+#include <glove/filesystem/Path.hpp>
+#include <glove/filesystem/io/File.hpp>
 
 namespace {
 const glove::Path directoryPath("testdata/a_directory");

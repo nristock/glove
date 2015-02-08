@@ -10,4 +10,4 @@ add_executable(tests_gc_rendering
     OrthoCameraTest.cc
     CameraBaseTest.cc
 )
-target_link_libraries(tests_gc_rendering vendor_gmock vendor_gtest_main ${glove_libs})
+target_link_libraries(tests_gc_rendering vendor_gmock vendor_gtest_main glove)

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <core/graph/gameobject/factories/IGameObjectFactory.h>
-#include <core/graph/Graph.h>
+#include <glove/graph/gameobject/factories/IGameObjectFactory.h>
+#include <glove/graph/Graph.h>
 
 namespace glove {
 class MockGameObjectFactory : public IGameObjectFactory{

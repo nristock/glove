@@ -1,7 +1,7 @@
-#include <core/natex/DirectoryExtensionSearcher.h>
-
 #include <vendor/gtest/gtest.h>
-#include <core/GloveException.h>
+
+#include <glove/natex/DirectoryExtensionSearcher.h>
+#include <glove/GloveException.h>
 
 namespace glove {
 

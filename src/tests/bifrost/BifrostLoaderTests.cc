@@ -1,6 +1,6 @@
-#include <core/natex/BifrostLoader.h>
-
 #include <vendor/gtest/gtest.h>
+
+#include <glove/natex/BifrostLoader.h>
 
 #include "testlib/TestExtensionUuid.h"
 

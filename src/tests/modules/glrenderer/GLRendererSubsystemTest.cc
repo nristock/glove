@@ -1,6 +1,6 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/IRenderSubsystem.h>
+#include <glove/rendering/IRenderSubsystem.h>
 
 #include <subsystem/GLRendererSubsystem.h>
 #include <factories/GLGpuBufferFactory.h>

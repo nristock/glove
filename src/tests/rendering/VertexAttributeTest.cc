@@ -1,7 +1,7 @@
 #include <vendor/gtest/gtest.h>
 
-#include <core/rendering/vertex/VertexAttribute.h>
-#include <core/rendering/vertex/VertexAttributeUtils.h>
+#include <glove/rendering/vertex/VertexAttribute.h>
+#include <glove/rendering/vertex/VertexAttributeUtils.h>
 
 namespace glove {
 TEST(VertexAttributeTest, ConstructorStoresBufferIndexOffsetDataTypeAndSemantic) {

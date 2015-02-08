@@ -4,23 +4,8 @@ project(glove)
 set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, i.e. the directory containing the src dir")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_ROOT}/cmake")
 
-include(GitInfo)
-
-# General Configuration
-if(WIN32)
-	set(ON_WINDOWS 1)
-	add_definitions(-DON_WINDOWS)
-else()
-	set(ON_UNIX 1)
-	add_definitions(-DON_UNIX)
-endif()
-
-GetGitInfo(GIT_BRANCH GIT_SHORT_HASH)
-message("On branch ${GIT_BRANCH} @ ${GIT_SHORT_HASH}")
-
-set(GLOVE_VERSION_MAJOR 1)
-set(GLOVE_VERSION_MINOR 0)
-set(GLOVE_VERSION_PATCH 0)
+include(GenerateExportHeader)
+include(BuildSetup)
 
 if(WIN32)
 option (USE_PREBUILT_DEPS "Set up variables to prefer prebuilt dependencies over system libraries" ON)
@@ -120,18 +105,11 @@ endif()
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-add_subdirectory(vendor)
-add_subdirectory(glove)
-add_subdirectory(modules)
-add_subdirectory(utils)
-
 if(WIN32)
 	set(glove_libs
 		general glfw3
 		general OpenGL32
 		general GLEWmx
-
-		general glove_core
 	)
 else()
 	set(glove_libs
@@ -140,23 +118,63 @@ else()
 		GL
 		GLEWmx
 		GLU
-		${BOOST_LIBRARIES}
+		${Boost_LIBRARIES}
 		${ZLIB_LIBRARIES}
 		${PNG_LIBRARIES}
 		${LIBZIP_LIBRARIES}
 		${PYTHON_LIBRARIES}
 		${YAMLCPP_LIBRARIES}
-
-		glove_core
 	)
 endif()
 
-option(BUILD_TESTS "Whether to build tests or not" ON)
+set(INCLUDE_INSTALL_DIR include)
+set(LIB_INSTALL_DIR lib64)
+set(MODULE_INSTALL_DIR share/glove/modules)
+set(CONFIG_PACKAGE_DIR share/glove/cmake)
 
+add_subdirectory(vendor)
+add_subdirectory(glove)
+add_subdirectory(modules)
+add_subdirectory(utils)
+
+option(BUILD_TESTS "Whether to build tests or not" ON)
 if(BUILD_TESTS)
 add_subdirectory(tests)
 endif()
 
-#add_subdirectory(cellulose)
-
 include(MsvcFiletree)
+
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  "${CMAKE_CURRENT_BINARY_DIR}/glove/GloveVersion.cmake"
+  VERSION ${GLOVE_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
+
+export(EXPORT GloveTargets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/glove/GloveTargets.cmake"
+  NAMESPACE Glove::
+)
+
+configure_package_config_file(
+    "${PROJECT_ROOT}/cmake/GloveConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/glove/GloveConfig.cmake"
+    INSTALL_DESTINATION ${CONFIG_PACKAGE_DIR}
+    PATH_VARS INCLUDE_INSTALL_DIR LIB_INSTALL_DIR MODULE_INSTALL_DIR
+)
+
+install(EXPORT GloveTargets
+  FILE
+    GloveTargets.cmake
+  NAMESPACE
+    Glove::
+  DESTINATION
+    ${CONFIG_PACKAGE_DIR}
+)
+install(
+  FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/glove/GloveConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/glove/GloveVersion.cmake"
+  DESTINATION
+    ${CONFIG_PACKAGE_DIR}
+)

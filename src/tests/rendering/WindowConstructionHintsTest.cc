@@ -3,7 +3,7 @@
 
 #include <vendor/gtest/gtest.h>
 
-#include <core/rendering/WindowConstructionHints.h>
+#include <glove/rendering/WindowConstructionHints.h>
 
 namespace glove {
 TEST(WindowConstructionHintsTest, ConstructorSotresLocationTitleAndPosition) {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <core/GloveFwd.h>
-#include <core/natex/ISystemExtension.h>
+#include <glove/GloveFwd.hpp>
+#include <glove/natex/ISystemExtension.h>
 
 namespace glove {
 

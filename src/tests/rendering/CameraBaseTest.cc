@@ -5,9 +5,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <core/graph/gameobject/factories/EmptyGameObjectFactory.h>
-#include <core/graph/gameobject/GameObject.h>
-#include <core/graph/Transform.h>
+#include <glove/graph/gameobject/factories/EmptyGameObjectFactory.h>
+#include <glove/graph/gameobject/GameObject.h>
+#include <glove/graph/Transform.h>
 
 #include "mock/MockCamera.h"
 

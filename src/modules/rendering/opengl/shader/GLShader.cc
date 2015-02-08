@@ -1,5 +1,5 @@
 #include <glove/GloveException.h>
-#include <utils/ShaderUtils.h>
+#include <glove/utils/ShaderUtils.h>
 
 #include "GLShader.h"
 #include "../internal/OpenGLWrapper.h"

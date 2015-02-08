@@ -33,3 +33,7 @@ set(opengl_renderer_src
 )
 
 add_library(mod_glrenderer SHARED ${opengl_renderer_src})
+
+install(TARGETS mod_glrenderer EXPORT GloveModuleTargets
+        LIBRARY DESTINATION ${MODULE_INSTALL_DIR}
+)

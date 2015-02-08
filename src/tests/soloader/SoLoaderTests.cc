@@ -1,8 +1,8 @@
-#include <core/internal/so/SoLoader.h>
-
 #include <vendor/gtest/gtest.h>
-#include <core/GloveException.h>
+
 #include <dlfcn.h>
+#include <glove/internal/so/SoLoader.h>
+#include <glove/GloveException.h>
 
 namespace glove {
 

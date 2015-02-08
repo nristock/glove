@@ -1,6 +1,6 @@
 #include <vendor/gtest/gtest.h>
 
-#include <core/filesystem/Path.hpp>
+#include <glove/filesystem/Path.hpp>
 
 #include "mock/MockFilesystemAccessor.hpp"
 

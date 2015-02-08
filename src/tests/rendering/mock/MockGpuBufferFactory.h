@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/Rendering.h>
-#include <core/rendering/factories/IGpuBufferFactory.h>
+#include <glove/rendering/Rendering.h>
+#include <glove/rendering/factories/IGpuBufferFactory.h>
 
 namespace glove {
 class MockGpuBufferFactory : public IGpuBufferFactory {

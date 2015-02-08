@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/GloveFwd.h>
-#include <core/GloveCore.h>
+#include <glove/GloveFwd.hpp>
+#include <glove/GloveCore.h>
 
 namespace glove {
 class MockGloveCore : public GloveCore {

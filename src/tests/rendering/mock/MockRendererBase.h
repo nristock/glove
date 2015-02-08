@@ -1,6 +1,6 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/RendererBase.h>
+#include <glove/rendering/RendererBase.h>
 
 namespace glove {
 class MockRendererBase : public RendererBase {

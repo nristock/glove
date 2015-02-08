@@ -1,6 +1,6 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/rendering/target/IRenderTarget.h>
+#include <glove/rendering/target/IRenderTarget.h>
 
 namespace glove {
 class MockRenderTarget : public IRenderTarget {

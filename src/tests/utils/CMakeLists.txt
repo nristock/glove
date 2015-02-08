@@ -1,2 +1,2 @@
 add_executable(tests_utils BitMaskTest.cc)
-target_link_libraries(tests_utils vendor_gmock vendor_gtest_main ${glove_libs})
+target_link_libraries(tests_utils vendor_gmock vendor_gtest_main glove)

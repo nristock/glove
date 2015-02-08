@@ -1,7 +1,7 @@
-#include <core/internal/so/SoLoaderFactory.h>
-
 #include <vendor/gtest/gtest.h>
+
 #include <dlfcn.h>
+#include <glove/internal/so/SoLoaderFactory.h>
 
 namespace glove {
 

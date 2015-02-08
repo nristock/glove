@@ -1,9 +1,9 @@
 #include <vendor/gtest/gtest.h>
 
-#include <core/filesystem/Path.hpp>
-#include <core/filesystem/compression/ZipArchive.hpp>
-#include <core/GloveException.h>
-#include <core/filesystem/compression/ZipEntryBuffer.hpp>
+#include <glove/filesystem/Path.hpp>
+#include <glove/filesystem/compression/ZipArchive.hpp>
+#include <glove/GloveException.h>
+#include <glove/filesystem/compression/ZipEntryBuffer.hpp>
 
 namespace {
 const glove::Path zipFile("testdata/testzip.zip");

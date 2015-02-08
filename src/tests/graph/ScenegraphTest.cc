@@ -1,7 +1,6 @@
 #include <vendor/gmock/gmock.h>
-#include <vendor/gtest/gtest.h>
-#include <core/graph/Scenegraph.h>
-#include <core/graph/gameobject/GameObject.h>
+#include <glove/graph/Scenegraph.h>
+#include <glove/graph/gameobject/GameObject.h>
 #include "tests/graph/mock/GameObjectMock.h"
 #include "tests/graph/mock/MockGameObjectFactory.h"
 

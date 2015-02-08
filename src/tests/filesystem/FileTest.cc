@@ -1,7 +1,7 @@
 #include <vendor/gmock/gmock.h>
 
-#include <core/filesystem/Path.hpp>
-#include <core/filesystem/io/File.hpp>
+#include <glove/filesystem/Path.hpp>
+#include <glove/filesystem/io/File.hpp>
 
 #include "mock/MockFilesystemAccessor.hpp"
 
