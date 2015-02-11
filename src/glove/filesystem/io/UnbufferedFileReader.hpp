@@ -7,7 +7,7 @@
 
 namespace glove {
 
-class UnbufferedFileReader : public IFileReader {
+class GLOVE_API_EXPORT UnbufferedFileReader : public IFileReader {
 public:
     UnbufferedFileReader(const File& file);
     virtual ~UnbufferedFileReader();

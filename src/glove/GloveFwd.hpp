@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "glove/GloveApi.hpp"
 
 #define GLOVE_MAKE_SHARED(type_) typedef std::shared_ptr<type_>
 #define GLOVE_FWD_DECL(type_)                                                                                          \

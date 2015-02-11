@@ -2,9 +2,11 @@
 
 #include <vector>
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
 
-class IExtensionSearcher {
+class GLOVE_API_EXPORT IExtensionSearcher {
   public:
     typedef std::vector<std::string> ExtensionFileList;
 

@@ -6,7 +6,7 @@ namespace glove {
 
 /// @brief Data structure representing the current frame state.
 /// @ingroup RenderSubsystemInterface
-struct FrameData {
+struct GLOVE_API_EXPORT FrameData {
   public:
     FrameData() : frameId(0), viewProjectionMatrix(glm::mat4()), deltaTime(0) {}
 

@@ -3,7 +3,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IShader {
+class GLOVE_API_EXPORT IShader {
   public:
     virtual ~IShader() = default;
 };

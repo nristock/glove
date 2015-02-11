@@ -6,7 +6,7 @@
 
 namespace glove {
 
-struct AbstractEvent {
+struct GLOVE_API_EXPORT AbstractEvent {
   public:
     typedef boost::uuids::uuid EventTypeId;
 

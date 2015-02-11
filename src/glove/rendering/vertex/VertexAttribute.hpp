@@ -10,7 +10,7 @@ namespace glove {
 
 /// @brief Holds all vital information about a single VertexAttribute in a VertexLayout.
 /// @ingroup RenderSubsystemInterface
-class VertexAttribute {
+class GLOVE_API_EXPORT VertexAttribute {
   public:
     /// @param [in] binding The buffer index this attribute belongs to (relates to the buffer index in VertexData)
     /// @param [in] offset The attribute's offset in bytes.

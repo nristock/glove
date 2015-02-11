@@ -8,7 +8,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IRenderTarget {
+class GLOVE_API_EXPORT IRenderTarget {
 public:
     virtual ~IRenderTarget() = default;
 

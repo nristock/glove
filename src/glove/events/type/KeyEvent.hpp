@@ -5,7 +5,7 @@
 namespace glove {
 
 /** Key code enum - values are mostly take from GLFW mappings */
-enum KeyCode {
+enum GLOVE_API_EXPORT KeyCode {
     KC_UNKNOWN = 0,
 
     KC_SPACE = 32,
@@ -151,9 +151,9 @@ enum KeyCode {
     KC_LAST = KC_MENU
 };
 
-enum KeyAction { KA_PRESS, KA_RELEASE, KA_REPEAT };
+enum GLOVE_API_EXPORT KeyAction { KA_PRESS, KA_RELEASE, KA_REPEAT };
 
-struct KeyEvent : AbstractEvent {
+struct GLOVE_API_EXPORT KeyEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
 
     KeyEvent(KeyCode keyCode, KeyAction action);

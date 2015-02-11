@@ -8,7 +8,7 @@
 
 namespace glove {
 
-class GameComponent {
+class GLOVE_API_EXPORT GameComponent {
   public:
     GameComponent() = default;
     virtual ~GameComponent() = default;

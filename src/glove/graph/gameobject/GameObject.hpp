@@ -17,7 +17,7 @@
 
 namespace glove {
 
-class GameObject : public GraphNode {
+class GLOVE_API_EXPORT GameObject : public GraphNode {
   public:
     virtual ~GameObject();
 

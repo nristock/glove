@@ -2,11 +2,12 @@
 
 #include <functional>
 
+#include "glove/GloveApi.hpp"
 #include "glove/rendering/Rendering.hpp"
 
 namespace glove {
 
-class IRenderOperation {
+class GLOVE_API_EXPORT IRenderOperation {
 public:
     typedef std::function<void(const glm::mat4&)> PreRenderCallback;
     typedef std::function<void(void)> PostRenderCallback;

@@ -2,10 +2,12 @@
 
 #include <ostream>
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-enum class MaterialAttributeSemantic {
+enum class GLOVE_API_EXPORT MaterialAttributeSemantic {
     MVP_MAT
 };
 

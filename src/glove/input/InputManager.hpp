@@ -11,7 +11,7 @@
 
 namespace glove {
 
-enum KeyState {
+enum GLOVE_API_EXPORT KeyState {
     /** The key is up */
     KS_UP,
     /** The key is down */
@@ -22,7 +22,7 @@ enum KeyState {
     KS_RELEASED
 };
 
-enum ButtonState {
+enum GLOVE_API_EXPORT ButtonState {
     /** The key is up */
     BS_UP,
     /** The key is down */
@@ -33,7 +33,7 @@ enum ButtonState {
     BS_RELEASED
 };
 
-class InputManager : public std::enable_shared_from_this<InputManager> {
+class GLOVE_API_EXPORT InputManager : public std::enable_shared_from_this<InputManager> {
     public : InputManager(EventBusPtr& eventBus);
 
     virtual ~InputManager();

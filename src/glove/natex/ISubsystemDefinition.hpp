@@ -11,7 +11,7 @@
 namespace glove {
 
 /// @brief Interface for subsystem definitions
-class ISubsystemDefinition {
+class GLOVE_API_EXPORT ISubsystemDefinition {
   public:
     virtual ~ISubsystemDefinition(){};
 

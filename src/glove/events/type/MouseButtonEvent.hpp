@@ -5,7 +5,7 @@
 
 namespace glove {
 
-enum MouseButton {
+enum GLOVE_API_EXPORT MouseButton {
     MBTN_1 = 0,
     MBTN_2,
     MBTN_3,
@@ -22,9 +22,9 @@ enum MouseButton {
     MB_LAST = MBTN_8
 };
 
-enum ButtonAction { BA_PRESS, BA_RELEASE };
+enum GLOVE_API_EXPORT ButtonAction { BA_PRESS, BA_RELEASE };
 
-struct MouseButtonEvent : AbstractEvent {
+struct GLOVE_API_EXPORT MouseButtonEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
 
     MouseButtonEvent(MouseButton button, ButtonAction buttonAction);

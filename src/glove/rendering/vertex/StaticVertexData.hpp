@@ -14,7 +14,7 @@ namespace glove {
 ///
 /// While it is still possible to modify a buffer's data by invoking the buffer API directly it is *not* possible to
 /// change StaticVertexData::vertexCount once created. See DynamicVertexData if you need to modify your data.
-class StaticVertexData : public IVertexData {
+class GLOVE_API_EXPORT StaticVertexData : public IVertexData {
   public:
     /// @param [in] vertexLayout The vertex layout to use. This will be copy-constructed to
     ///                          StaticVertexData::vertexLayout.

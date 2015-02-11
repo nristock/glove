@@ -1,11 +1,12 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
 #include "glove/rendering/Rendering.hpp"
 
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IMeshFactory {
+class GLOVE_API_EXPORT IMeshFactory {
   public:
     virtual ~IMeshFactory(){};
 

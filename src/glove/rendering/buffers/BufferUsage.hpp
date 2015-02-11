@@ -1,11 +1,13 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
 
 /// @brief BufferUsage is a hint to the implementing render system at how the buffer will be used and accessed allowing
 ///        it to optimize the data stores. It does not constrain the usage of a buffer in any way.
 /// @ingroup RenderSubsystemInterface
-enum class BufferUsage {
+enum class GLOVE_API_EXPORT BufferUsage {
     /// @brief Written once by the application - read often by the rendering implementation (e.g. OpenGL, DirectX)
     STATIC = 0,
 

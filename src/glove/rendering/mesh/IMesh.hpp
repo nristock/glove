@@ -5,7 +5,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IMesh {
+class GLOVE_API_EXPORT IMesh {
   public:
     virtual ~IMesh() = default;
 

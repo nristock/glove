@@ -4,11 +4,12 @@
 #include <memory>
 #include <map>
 
+#include "glove/GloveApi.hpp"
 #include "glove/configuration/Configuration.hpp"
 
 namespace glove {
 
-struct GloveEnvironment {
+struct GLOVE_API_EXPORT GloveEnvironment {
     std::string executablePath;
     std::string executableName;
 
@@ -19,5 +20,5 @@ struct GloveEnvironment {
 
 typedef std::shared_ptr<GloveEnvironment> GloveEnvironmentPtr;
 
-extern GloveEnvironmentPtr gEnv;
+extern GLOVE_API_EXPORT GloveEnvironmentPtr gEnv;
 }

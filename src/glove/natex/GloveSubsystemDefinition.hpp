@@ -6,7 +6,7 @@
 namespace glove {
 
 /// @brief Default implementation of ISubsystemDefinition which can be used by native extensions for convenience.
-class GloveSubsystemDefinition : public ISubsystemDefinition {
+class GLOVE_API_EXPORT GloveSubsystemDefinition : public ISubsystemDefinition {
   public:
     GloveSubsystemDefinition(const std::string& name, const SubsystemUuid& uuid, const SubsystemType& type,
                              const SubsystemTypeList& dependencies, const ISubsystemFactoryPtr& subsystemFactory);

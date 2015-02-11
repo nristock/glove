@@ -4,7 +4,7 @@
 
 namespace glove {
 
-class ISubsystemFactory {
+class GLOVE_API_EXPORT ISubsystemFactory {
   public:
     virtual ~ISubsystemFactory(){};
 

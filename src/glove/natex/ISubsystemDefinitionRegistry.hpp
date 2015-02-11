@@ -1,5 +1,6 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
 #include "glove/natex/Natex.hpp"
 
 namespace glove {
@@ -9,7 +10,7 @@ namespace glove {
 /// A subsystem registry is responsible for maintaining a list of all available subsystem types and implementations
 /// provided. It furthermore is responsible for maintaining the mapping between system types and selected
 /// implementations. The registry is also used to create and initialize subsystem implementations.
-class ISubsystemDefinitionRegistry {
+class GLOVE_API_EXPORT ISubsystemDefinitionRegistry {
   public:
     virtual ~ISubsystemDefinitionRegistry() {}
 

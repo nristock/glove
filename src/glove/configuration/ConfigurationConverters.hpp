@@ -6,7 +6,7 @@
 #include "glove/configuration/Configuration.hpp"
 
 namespace YAML {
-template<> struct convert<glove::configuration::WindowConfig> {
+template<> struct GLOVE_API_EXPORT convert<glove::configuration::WindowConfig> {
     static Node encode(const glove::configuration::WindowConfig& config) {
         Node node;
         node["width"] = config.width;
@@ -35,7 +35,7 @@ template<> struct convert<glove::configuration::WindowConfig> {
     }
 };
 
-template<> struct convert<glove::configuration::OpenGLVersion> {
+template<> struct GLOVE_API_EXPORT convert<glove::configuration::OpenGLVersion> {
     static Node encode(const glove::configuration::OpenGLVersion& config) {
         Node node;
         node["major"] = config.major;
@@ -64,7 +64,7 @@ template<> struct convert<glove::configuration::OpenGLVersion> {
     }
 };
 
-template<> struct convert<glove::configuration::OpenGLConfig> {
+template<> struct GLOVE_API_EXPORT convert<glove::configuration::OpenGLConfig> {
     static Node encode(const glove::configuration::OpenGLConfig& config) {
         Node node;
         node["version"] = config.version;
@@ -87,7 +87,7 @@ template<> struct convert<glove::configuration::OpenGLConfig> {
     }
 };
 
-template<> struct convert<glove::configuration::RenderingConfig> {
+template<> struct GLOVE_API_EXPORT convert<glove::configuration::RenderingConfig> {
     static Node encode(const glove::configuration::RenderingConfig& config) {
         Node node;
         node["window"] = config.window;
@@ -116,7 +116,7 @@ template<> struct convert<glove::configuration::RenderingConfig> {
     }
 };
 
-template<> struct convert<glove::configuration::EngineConfig> {
+template<> struct GLOVE_API_EXPORT convert<glove::configuration::EngineConfig> {
     static Node encode(const glove::configuration::EngineConfig& config) {
         Node node;
         node["load-native-extensions"] = config.loadNativeExtensions;
@@ -139,7 +139,7 @@ template<> struct convert<glove::configuration::EngineConfig> {
     }
 };
 
-template<> struct convert<glove::Configuration> {
+template<> struct GLOVE_API_EXPORT convert<glove::Configuration> {
     static Node encode(const glove::Configuration& config) {
         Node node;
         node["rendering"] = config.rendering;

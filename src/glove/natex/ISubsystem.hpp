@@ -2,7 +2,7 @@
 
 namespace glove {
 
-class ISubsystem {
+class GLOVE_API_EXPORT ISubsystem {
   public:
     virtual ~ISubsystem() = default;
 };

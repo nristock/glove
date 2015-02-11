@@ -6,7 +6,7 @@
 
 namespace glove {
 
-class File {
+class GLOVE_API_EXPORT File {
 public:
     File(const Path& filePath);
     File(const Path& filePath, const FilesystemAccessorHandle& filesystemAccessor);

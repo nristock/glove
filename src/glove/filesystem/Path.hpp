@@ -6,7 +6,7 @@
 
 namespace glove {
 
-class Path {
+class GLOVE_API_EXPORT Path {
   private:
     static std::string StringJoin(const Path& prefix, const Path& suffix);
     static std::string StringJoin(const Path& prefix, const std::string& suffix);

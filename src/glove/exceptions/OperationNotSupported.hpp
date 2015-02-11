@@ -5,7 +5,7 @@
 #include "glove/GloveException.hpp"
 
 namespace glove {
-class OperationNotSupportedException : public GloveException {
+class GLOVE_API_EXPORT OperationNotSupportedException : public GloveException {
   public:
     OperationNotSupportedException(const std::string& operationName, const std::string& implementationName,
                                    char const* file, int line);

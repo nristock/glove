@@ -12,7 +12,7 @@
 
 namespace glove {
 
-class GloveCore : public std::enable_shared_from_this<GloveCore> {
+class GLOVE_API_EXPORT GloveCore : public std::enable_shared_from_this<GloveCore> {
   public:
     GloveCore(int argc, const char** argv);
 

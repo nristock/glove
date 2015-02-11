@@ -5,7 +5,7 @@
 
 namespace glove {
 
-struct NativeExtensionsLoadedEvent : AbstractEvent {
+struct GLOVE_API_EXPORT NativeExtensionsLoadedEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
 
     virtual const EventTypeId& GetEventType() const;

@@ -9,7 +9,7 @@
 namespace glove {
 
 /** Class implementing a simple sync Publish-Subscribe event bus */
-class EventBus {
+class GLOVE_API_EXPORT EventBus {
   public:
     typedef std::function<void(const AbstractEvent* evnt)> GenericEventHandler;
     typedef std::multimap<AbstractEvent::EventTypeId, GenericEventHandler> EventSubscriberList;

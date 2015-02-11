@@ -7,7 +7,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class RendererBase : public IRenderer, public std::enable_shared_from_this<RendererBase> {
+class GLOVE_API_EXPORT RendererBase : public IRenderer, public std::enable_shared_from_this<RendererBase> {
 public:
     virtual ~RendererBase() = default;
 

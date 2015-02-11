@@ -18,7 +18,7 @@ typedef std::function<bool(const GameObjectHandle&)> GameObjectPredicate;
 typedef std::function<void(const GameObjectHandle&)> GameObjectPreInitCallback;
 typedef std::function<void(const GameObjectHandle&)> GameObjectPostInitCallback;
 
-class Scenegraph {
+class GLOVE_API_EXPORT Scenegraph {
   public:
     struct LayerPredicate {
         static GameObjectPredicate IsOnLayer(LayerMask layerMask) {

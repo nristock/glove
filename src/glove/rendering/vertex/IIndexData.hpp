@@ -2,12 +2,13 @@
 
 #include <cstddef>
 
+#include "glove/GloveApi.hpp"
 #include "glove/rendering/Rendering.hpp"
 
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IIndexData {
+class GLOVE_API_EXPORT IIndexData {
   public:
     virtual ~IIndexData() = default;
 

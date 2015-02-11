@@ -5,7 +5,7 @@
 
 namespace glove {
 
-class FileInfoQueryException : public GloveException {
+class GLOVE_API_EXPORT FileInfoQueryException : public GloveException {
 public:
     FileInfoQueryException(const Path& path, const std::string& message, char const* source, int line);
 };

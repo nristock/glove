@@ -1,11 +1,12 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
 #include "glove/natex/Natex.hpp"
 
 namespace glove {
 
 /// @brief Interface for shared library loder factories.
-class ISharedLibraryLoaderFactory {
+class GLOVE_API_EXPORT ISharedLibraryLoaderFactory {
   public:
     virtual ~ISharedLibraryLoaderFactory(){};
 

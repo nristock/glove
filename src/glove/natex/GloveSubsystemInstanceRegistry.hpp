@@ -9,7 +9,7 @@
 
 namespace glove {
 
-class GloveSubsystemInstanceRegistry : public ISubsystemInstanceRegistry {
+class GLOVE_API_EXPORT GloveSubsystemInstanceRegistry : public ISubsystemInstanceRegistry {
   public:
     GloveSubsystemInstanceRegistry(const EventBusPtr& eventBus, const GloveCorePtr& engineCore);
 

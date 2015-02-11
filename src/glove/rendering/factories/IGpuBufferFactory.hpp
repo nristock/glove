@@ -6,7 +6,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IGpuBufferFactory {
+class GLOVE_API_EXPORT IGpuBufferFactory {
   public:
     virtual ~IGpuBufferFactory(){};
 

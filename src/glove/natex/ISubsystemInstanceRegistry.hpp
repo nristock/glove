@@ -6,7 +6,7 @@
 
 namespace glove {
 
-class ISubsystemInstanceRegistry {
+class GLOVE_API_EXPORT ISubsystemInstanceRegistry {
   public:
     virtual ~ISubsystemInstanceRegistry() {}
     virtual void InstantiateDefinitionRegistry(const ISubsystemDefinitionRegistryPtr& definitionRegistry) = 0;

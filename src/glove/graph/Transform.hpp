@@ -14,7 +14,7 @@ namespace glove {
 * Position and scale are represented as glm::vec3. Rotation is represented as glm::quat.
 * TODO: Implement defered update
 */
-struct Transform {
+struct GLOVE_API_EXPORT Transform {
     Transform();
     Transform(glm::vec3 position);
     Transform(glm::vec3 position, glm::quat rotation);

@@ -1,10 +1,11 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
 #include "glove/graph/Graph.hpp"
 
 namespace glove {
 
-class IGameObjectFactory {
+class GLOVE_API_EXPORT IGameObjectFactory {
 public:
     virtual ~IGameObjectFactory() = default;
 

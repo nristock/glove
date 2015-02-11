@@ -9,7 +9,7 @@ namespace glove {
 namespace GameComponents {
 
 /// @ingroup RenderSubsystemInterface
-class MeshRenderer : public GameComponent {
+class GLOVE_API_EXPORT MeshRenderer : public GameComponent {
 public:
     MeshRenderer(const IMeshPtr& mesh, const RenderOperationFactoryHandle& renderOperationFactory);
 

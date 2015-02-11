@@ -7,7 +7,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IVertexData {
+class GLOVE_API_EXPORT IVertexData {
   public:
     virtual ~IVertexData(){};
 

@@ -18,7 +18,7 @@ namespace glove {
 ///
 /// This class has a backing std::vector keeping vertex data in RAM for easy read-back. It does also allow to modify
 /// the data and upload it to the GPU. DynamicVertexData only supports a single IGpuBuffer at the moment. (todo)
-template <class VertexDataType> class DynamicVertexData : public IVertexData {
+template <class VertexDataType> class GLOVE_API_EXPORT DynamicVertexData : public IVertexData {
   public:
     typedef std::vector<VertexDataType> VertexList;
 

@@ -6,7 +6,7 @@ namespace glove {
 namespace GameComponents {
 
 /// @ingroup RenderSubsystemInterface
-class OrthoCamera : public CameraBase {
+class GLOVE_API_EXPORT OrthoCamera : public CameraBase {
 public:
     OrthoCamera(float orthoSize, float aspectRatio);
 

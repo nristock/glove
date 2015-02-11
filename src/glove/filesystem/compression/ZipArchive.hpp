@@ -8,7 +8,7 @@
 #include "glove/filesystem/compression/ZipEntry.hpp"
 
 namespace glove {
-class ZipArchive {
+class GLOVE_API_EXPORT ZipArchive {
   public:
     ZipArchive(const Path& path);
     ZipArchive(const Path& path, bool checkConsistency);

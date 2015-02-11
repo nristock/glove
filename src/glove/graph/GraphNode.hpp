@@ -8,7 +8,7 @@
 
 namespace glove {
 
-class GraphNode : public std::enable_shared_from_this<GraphNode> {
+class GLOVE_API_EXPORT GraphNode : public std::enable_shared_from_this<GraphNode> {
   public:
     typedef std::list<GraphNodeHandle> GraphNodeList;
     typedef GraphNodeList::iterator GraphNodeListIterator;

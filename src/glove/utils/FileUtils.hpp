@@ -2,8 +2,10 @@
 
 #include <string>
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
 
-std::string ReadFileToString(std::string filePath);
+std::string GLOVE_API_EXPORT ReadFileToString(std::string filePath);
 
 } // namespace glove

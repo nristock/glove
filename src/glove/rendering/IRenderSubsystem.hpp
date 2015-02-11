@@ -1,12 +1,13 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
 #include "glove/natex/Natex.hpp"
 #include "glove/rendering/Rendering.hpp"
 
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IRenderSubsystem {
+class GLOVE_API_EXPORT IRenderSubsystem {
   public:
     /// @brief Subsystem type for rendering systems.
     static const SubsystemType subsystemType;

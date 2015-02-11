@@ -5,7 +5,7 @@
 
 namespace glove {
 
-struct MouseMoveEvent : AbstractEvent {
+struct GLOVE_API_EXPORT MouseMoveEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
 
     MouseMoveEvent(double x, double y);

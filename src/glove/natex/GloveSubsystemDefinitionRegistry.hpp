@@ -10,7 +10,7 @@
 namespace glove {
 
 /// @brief Default implementation for subsystem registry
-class GloveSubsystemDefinitionRegistry : public ISubsystemDefinitionRegistry {
+class GLOVE_API_EXPORT GloveSubsystemDefinitionRegistry : public ISubsystemDefinitionRegistry {
   public:
     GloveSubsystemDefinitionRegistry();
     virtual ~GloveSubsystemDefinitionRegistry();

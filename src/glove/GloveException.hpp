@@ -3,6 +3,8 @@
 #include <exception>
 #include <string>
 
+#include "glove/GloveApi.hpp"
+
 /// @brief Creates a GloveException with the _msg message specified and file and line number information.
 #define GLOVE_EXCEPTION(_msg) ::glove::GloveException(_msg, __FILE__, __LINE__);
 
@@ -12,7 +14,7 @@
 namespace glove {
 
 /** Basic engine exception. Should be used for all exceptions thrown during engine operation. */
-class GloveException : public std::exception {
+class GLOVE_API_EXPORT GloveException : public std::exception {
   public:
     /** Create an exception with the provided message but without file and line information. */
     GloveException(std::string message);

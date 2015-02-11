@@ -5,12 +5,13 @@
 
 #include <glm/glm.hpp>
 
+#include "glove/GloveApi.hpp"
 #include "glove/rendering/Rendering.hpp"
 
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class RenderState {
+class GLOVE_API_EXPORT RenderState {
 public:
     typedef std::queue<IRenderOperation*> RenderQueue;
 

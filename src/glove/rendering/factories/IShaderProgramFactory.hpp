@@ -2,12 +2,13 @@
 
 #include <list>
 
+#include "glove/GloveApi.hpp"
 #include "glove/rendering/Rendering.hpp"
 
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IShaderProgramFactory {
+class GLOVE_API_EXPORT IShaderProgramFactory {
   public:
     virtual ~IShaderProgramFactory() = default;
 

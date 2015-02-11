@@ -4,14 +4,16 @@
 #include <boost/log/sources/severity_logger.hpp>
 #include <boost/log/attributes/named_scope.hpp>
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
 namespace logging {
-enum SeverityLevel { debug, info, warning, error, fatal };
+enum GLOVE_API_EXPORT SeverityLevel { debug, info, warning, error, fatal };
 
-std::ostream& operator<<(std::ostream& strm, SeverityLevel level);
+std::ostream& GLOVE_API_EXPORT operator<<(std::ostream& strm, SeverityLevel level);
 
 typedef boost::log::sources::wseverity_logger<SeverityLevel> GloveLogger;
-extern GloveLogger globalLogger;
+extern GLOVE_API_EXPORT GloveLogger globalLogger;
 
 void InitLoggingSystem();
 }

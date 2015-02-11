@@ -1,8 +1,10 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
 
-class IFileReader {
+class GLOVE_API_EXPORT IFileReader {
 public:
     virtual ~IFileReader() = default;
 

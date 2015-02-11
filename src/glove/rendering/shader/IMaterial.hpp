@@ -6,7 +6,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IMaterial {
+class GLOVE_API_EXPORT IMaterial {
   public:
     virtual ~IMaterial() = default;
 

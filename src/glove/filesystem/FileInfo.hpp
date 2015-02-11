@@ -4,7 +4,7 @@
 
 namespace glove {
 
-class FileInfo {
+class GLOVE_API_EXPORT FileInfo {
 public:
     enum class FileType {
         UNKNOWN, NOT_FOUND, REGULAR, DIRECTORY

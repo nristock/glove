@@ -6,7 +6,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class EmptyGameObjectFactory : public IGameObjectFactory {
+class GLOVE_API_EXPORT EmptyGameObjectFactory : public IGameObjectFactory {
 public:
     virtual GameObjectHandle Create();
 

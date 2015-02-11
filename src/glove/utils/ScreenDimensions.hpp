@@ -2,11 +2,11 @@
 
 #include <glm/glm.hpp>
 
-#include "glove/GloveFwd.hpp"
+#include "glove/GloveApi.hpp"
 
 namespace glove {
 
-class ScreenDimensions {
+class GLOVE_API_EXPORT ScreenDimensions {
 public:
     ScreenDimensions(float width, float height);
     explicit ScreenDimensions(const glm::vec2& other);

@@ -1,11 +1,12 @@
 #pragma once
 
 #include <string>
-
 #include <zip.h>
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
-class ZipEntry {
+class GLOVE_API_EXPORT ZipEntry {
   public:
     ZipEntry(const struct zip_stat& stat);
 

@@ -18,7 +18,7 @@ namespace VertexLayouts {
 /// @ingroup VertexLayouts
 ///
 /// This layout consists of a single float[3] (glm::vec3) for position data
-struct Position {
+struct GLOVE_API_EXPORT Position {
     glm::vec3 position;
 
     static VertexLayout GetLayout(size_t bufferIndex) {

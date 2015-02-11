@@ -3,11 +3,12 @@
 #include <streambuf>
 #include <vector>
 
+#include "glove/GloveApi.hpp"
 #include "glove/filesystem/compression/ZipEntry.hpp"
 #include "glove/filesystem/compression/Compression.hpp"
 
 namespace glove {
-class ZipEntryBuffer : public std::streambuf {
+class GLOVE_API_EXPORT ZipEntryBuffer : public std::streambuf {
 public:
     ZipEntryBuffer(const ZipEntry& zipEntry, const ZipArchiveHandle& zipArchive);
     ZipEntryBuffer(const ZipEntry& zipEntry, const ZipArchiveHandle& zipArchive, std::size_t bufferSize);

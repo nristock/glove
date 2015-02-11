@@ -5,7 +5,7 @@
 
 namespace glove {
 
-struct PreSubsystemCreateEvent : AbstractEvent {
+struct GLOVE_API_EXPORT PreSubsystemCreateEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
 
     virtual const EventTypeId& GetEventType() const;

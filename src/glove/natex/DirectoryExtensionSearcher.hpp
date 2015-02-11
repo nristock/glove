@@ -6,7 +6,7 @@
 
 namespace glove {
 
-class DirectoryExtensionSearcher : public IExtensionSearcher {
+class GLOVE_API_EXPORT DirectoryExtensionSearcher : public IExtensionSearcher {
   public:
     DirectoryExtensionSearcher(const std::string& searchDirectory);
     virtual ~DirectoryExtensionSearcher();

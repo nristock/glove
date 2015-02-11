@@ -3,7 +3,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-enum class VertexAttributeSemantic {
+enum class GLOVE_API_EXPORT VertexAttributeSemantic {
     POSITION = 0,
     COLOR = 1,
     NORMAL = 2,

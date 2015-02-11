@@ -15,7 +15,7 @@ namespace glove {
 ///
 /// This class has a backing std::vector keeping indices in RAM for easy read-back. It does also allow to modify the
 /// data and upload it to the GPU.
-template <typename IndexDataType> class DynamicIndexData : public IIndexData {
+template <typename IndexDataType> class GLOVE_API_EXPORT DynamicIndexData : public IIndexData {
   public:
     typedef std::vector<IndexDataType> IndexList;
 

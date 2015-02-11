@@ -2,6 +2,7 @@
 
 #include <string>
 
+#include "glove/GloveApi.hpp"
 #include "glove/natex/Natex.hpp"
 
 namespace glove {
@@ -10,7 +11,7 @@ namespace glove {
 ///
 /// A shared library loader is an object bound to a specific shared library file (.so, .dll) and will be used as an
 /// interface to load symbols (primarily the LoadExtension and UnloadExtension functions) from the library.
-class ISharedLibraryLoader {
+class GLOVE_API_EXPORT ISharedLibraryLoader {
   public:
     virtual ~ISharedLibraryLoader(){};
 

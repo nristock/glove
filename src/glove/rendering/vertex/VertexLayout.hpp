@@ -15,7 +15,7 @@ namespace glove {
 ///
 /// A vertex layout is a collection of VertexAttributes. This class does also automatically calculate the stride
 /// (the bytes between two elements) per buffer.
-class VertexLayout {
+class GLOVE_API_EXPORT VertexLayout {
   public:
     VertexLayout() = default;
 

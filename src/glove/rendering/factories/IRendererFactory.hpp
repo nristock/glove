@@ -5,7 +5,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IRendererFactory {
+class GLOVE_API_EXPORT IRendererFactory {
   public:
     virtual ~IRendererFactory(){};
 

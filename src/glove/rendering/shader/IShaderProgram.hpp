@@ -1,12 +1,13 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
 #include "glove/rendering/Rendering.hpp"
 
 namespace glove {
 
 /// @brief A shader program is a collection of individual shaders linked together.
 /// @ingroup RenderSubsystemInterface
-class IShaderProgram {
+class GLOVE_API_EXPORT IShaderProgram {
   public:
     virtual ~IShaderProgram() = default;
 

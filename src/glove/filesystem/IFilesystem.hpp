@@ -7,7 +7,7 @@
 
 namespace glove {
 
-class IFilesystem {
+class GLOVE_API_EXPORT IFilesystem {
 public:
     virtual ~IFilesystem() = default;
 

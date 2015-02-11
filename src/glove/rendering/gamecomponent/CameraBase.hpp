@@ -9,7 +9,7 @@ namespace glove {
 namespace GameComponents {
 
 /// @ingroup RenderSubsystemInterface
-class CameraBase : public GameComponent {
+class GLOVE_API_EXPORT CameraBase : public GameComponent {
 public:
     CameraBase() = default;
     virtual ~CameraBase() = default;

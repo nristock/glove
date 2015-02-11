@@ -5,7 +5,7 @@
 
 namespace glove {
 
-struct CorePreInitEvent : AbstractEvent {
+struct GLOVE_API_EXPORT CorePreInitEvent : AbstractEvent {
     static const AbstractEvent::EventTypeId eventTypeId;
 
     virtual const EventTypeId& GetEventType() const;

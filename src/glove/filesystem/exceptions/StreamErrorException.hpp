@@ -4,7 +4,7 @@
 
 namespace glove {
 
-class StreamErrorException : public GloveException {
+class GLOVE_API_EXPORT StreamErrorException : public GloveException {
 
 public:
     StreamErrorException(std::string message, char const* file, int line);

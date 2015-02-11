@@ -4,7 +4,7 @@
 
 namespace glove {
 
-class IRenderOperationFactory {
+class GLOVE_API_EXPORT IRenderOperationFactory {
 public:
     virtual ~IRenderOperationFactory() = default;
 

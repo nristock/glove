@@ -6,7 +6,7 @@ namespace glove {
 
 /// @brief Represents a mutable attribute bound to a material.
 /// @ingroup RenderSubsystemInterface
-class IMaterialAttribute {
+class GLOVE_API_EXPORT IMaterialAttribute {
   public:
     virtual ~IMaterialAttribute() = default;
 

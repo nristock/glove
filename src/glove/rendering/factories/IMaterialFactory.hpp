@@ -1,11 +1,12 @@
 #pragma once
 
+#include "glove/GloveApi.hpp"
 #include "glove/rendering/Rendering.hpp"
 
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IMaterialFactory {
+class GLOVE_API_EXPORT IMaterialFactory {
   public:
     virtual ~IMaterialFactory() = default;
 

@@ -5,7 +5,7 @@
 
 namespace glove {
 
-class FileNotFoundException : public GloveException {
+class GLOVE_API_EXPORT FileNotFoundException : public GloveException {
 public:
     FileNotFoundException(const File& file, char const* source, int line);
 };

@@ -7,7 +7,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IVertexAttributeMapping {
+class GLOVE_API_EXPORT IVertexAttributeMapping {
   public:
     virtual ~IVertexAttributeMapping() = default;
 

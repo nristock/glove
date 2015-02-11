@@ -10,7 +10,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IRenderer {
+class GLOVE_API_EXPORT IRenderer {
   public:
     virtual ~IRenderer() {}
 

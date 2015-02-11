@@ -8,7 +8,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class IWindow {
+class GLOVE_API_EXPORT IWindow {
   public:
     virtual ~IWindow() {}
 

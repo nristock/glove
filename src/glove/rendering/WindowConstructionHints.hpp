@@ -9,7 +9,7 @@
 namespace glove {
 
 /// @ingroup RenderSubsystemInterface
-class WindowConstructionHints {
+class GLOVE_API_EXPORT WindowConstructionHints {
   public:
     WindowConstructionHints(const ScreenPoint& position, const ScreenDimensions& size, const std::string& title);
 

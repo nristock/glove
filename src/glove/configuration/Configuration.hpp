@@ -4,34 +4,36 @@
 
 #include <yaml-cpp/yaml.h>
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
 
 namespace configuration {
-struct WindowConfig {
+struct GLOVE_API_EXPORT WindowConfig {
     int width;
     int height;
 };
 
-struct OpenGLVersion {
+struct GLOVE_API_EXPORT OpenGLVersion {
     int major;
     int minor;
 };
 
-struct OpenGLConfig {
+struct GLOVE_API_EXPORT OpenGLConfig {
     OpenGLVersion version;
 };
 
-struct RenderingConfig {
+struct GLOVE_API_EXPORT RenderingConfig {
     WindowConfig window;
     OpenGLConfig opengl;
 };
 
-struct EngineConfig {
+struct GLOVE_API_EXPORT EngineConfig {
     bool loadNativeExtensions;
 };
 }
 
-class Configuration {
+class GLOVE_API_EXPORT Configuration {
   public:
     Configuration() = default;
     virtual ~Configuration() = default;

@@ -2,12 +2,13 @@
 
 #include <list>
 
+#include "glove/GloveApi.hpp"
 #include "glove/log/Log.hpp"
 #include "glove/natex/Natex.hpp"
 
 namespace glove {
 
-class ExtensionDependencyGraph {
+class GLOVE_API_EXPORT ExtensionDependencyGraph {
   public:
     ExtensionDependencyGraph(SubsystemDefinitionList& unsortedSubsystemDefinitions);
     virtual ~ExtensionDependencyGraph();
