@@ -15,10 +15,10 @@ class StaticIndexData : public IIndexData {
     StaticIndexData(const IGpuBufferPtr& indexBuffer, std::size_t numIndices);
     virtual ~StaticIndexData() = default;
 
-    virtual GLOVE_INLINE const std::size_t GetIndexCount() const;
-    virtual GLOVE_INLINE const IGpuBufferPtr& GetGpuBuffer() const;
+    virtual const std::size_t GetIndexCount() const;
+    virtual const IGpuBufferPtr& GetGpuBuffer() const;
 
-    virtual GLOVE_INLINE void BindBuffer();
+    virtual void BindBuffer();
 
   protected:
     IGpuBufferPtr indexBuffer;

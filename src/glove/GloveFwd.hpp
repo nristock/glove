@@ -12,12 +12,6 @@
     GLOVE_MAKE_SHARED(type_) type_##Pointer;                                                                           \
     GLOVE_MAKE_SHARED(type_) type_##Ptr;
 
-#if defined(DEBUG)
-#define GLOVE_INLINE
-#else
-#define GLOVE_INLINE inline
-#endif
-
 namespace glove {
 
 GLOVE_FWD_DECL(GloveCore);

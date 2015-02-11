@@ -51,15 +51,15 @@ template <class VertexDataType> class DynamicVertexData : public IVertexData {
 
     virtual ~DynamicVertexData() = default;
 
-    virtual GLOVE_INLINE VertexList& GetVertices() { return vertices; }
+    virtual VertexList& GetVertices() { return vertices; }
 
     /// @brief Sets the internal list of vertices. This does not automatically sync the GPU buffer (See FlushBuffer())
-    virtual GLOVE_INLINE void SetVertices(const VertexList& vertexList) { vertices = vertexList; }
+    virtual void SetVertices(const VertexList& vertexList) { vertices = vertexList; }
 
-    virtual GLOVE_INLINE const std::size_t GetVertexCount() const { return vertices.size(); }
-    virtual GLOVE_INLINE const std::size_t GetGpuBufferCount() const { return 1; }
+    virtual const std::size_t GetVertexCount() const { return vertices.size(); }
+    virtual const std::size_t GetGpuBufferCount() const { return 1; }
 
-    virtual GLOVE_INLINE const IGpuBufferPtr& GetGpuBuffer(std::size_t bufferIndex) const {
+    virtual const IGpuBufferPtr& GetGpuBuffer(std::size_t bufferIndex) const {
         // todo allow more than 1 gpu buffer
         if (bufferIndex != 0) {
             throw GLOVE_EXCEPTION("Buffer index out of range.");
@@ -67,14 +67,14 @@ template <class VertexDataType> class DynamicVertexData : public IVertexData {
         return vertexBuffer;
     }
 
-    virtual GLOVE_INLINE const VertexLayout& GetVertexLayout() const { return vertexLayout; }
+    virtual const VertexLayout& GetVertexLayout() const { return vertexLayout; }
 
     /// @brief Uploads the backing data from RAM to the GPU.
-    virtual GLOVE_INLINE void FlushBuffer() {
+    virtual void FlushBuffer() {
         vertexBuffer->WriteData(sizeof(VertexDataType) * GetVertexCount(), &vertices[0]);
     }
 
-    virtual GLOVE_INLINE void BindAllBuffers() { vertexBuffer->Bind(); }
+    virtual void BindAllBuffers() { vertexBuffer->Bind(); }
 
   protected:
     IGpuBufferPtr vertexBuffer;
@@ -84,7 +84,7 @@ template <class VertexDataType> class DynamicVertexData : public IVertexData {
 
     /// @brief DynamicVertexData<T> currently only supports a single GPU buffer so make sure the provided vertex layout
     ///        doesn't specify more than one (i.e. the highest GPU buffer index is 0)
-    void GLOVE_INLINE CheckVertexLayoutConsistency() const {
+    void CheckVertexLayoutConsistency() const {
         for (std::size_t i = 0; i < vertexLayout.GetAttributeCount(); ++i) {
             const VertexAttribute& attribute = vertexLayout.GetAttribute(i);
             if (attribute.GetBufferIndex() > 0) {

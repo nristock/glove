@@ -16,7 +16,7 @@ class GLShader : public IShader {
     GLShader(const GLShader&) = delete;
     GLShader& operator=(const GLShader&) = delete;
 
-    GLOVE_INLINE const GLuint GetGLShaderId() const;
+    const GLuint GetGLShaderId() const;
 
   private:
     GLuint shaderName;

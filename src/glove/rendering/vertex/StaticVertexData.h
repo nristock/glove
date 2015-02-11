@@ -23,10 +23,10 @@ class StaticVertexData : public IVertexData {
     StaticVertexData(const VertexLayout& vertexLayout, const VertexBufferBindingMap& buffers, std::size_t numVertices);
     virtual ~StaticVertexData() = default;
 
-    virtual GLOVE_INLINE const std::size_t GetGpuBufferCount() const;
-    virtual GLOVE_INLINE const IGpuBufferPtr& GetGpuBuffer(std::size_t index) const;
-    virtual GLOVE_INLINE const VertexLayout& GetVertexLayout() const;
-    virtual GLOVE_INLINE const std::size_t GetVertexCount() const;
+    virtual const std::size_t GetGpuBufferCount() const;
+    virtual const IGpuBufferPtr& GetGpuBuffer(std::size_t index) const;
+    virtual const VertexLayout& GetVertexLayout() const;
+    virtual const std::size_t GetVertexCount() const;
 
     virtual void BindAllBuffers();
 

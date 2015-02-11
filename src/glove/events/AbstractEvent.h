@@ -11,7 +11,7 @@ struct AbstractEvent {
     typedef boost::uuids::uuid EventTypeId;
 
     virtual ~AbstractEvent(){};
-    virtual GLOVE_INLINE const EventTypeId& GetEventType() const = 0;
+    virtual const EventTypeId& GetEventType() const = 0;
 };
 
 } /* namespace glove */

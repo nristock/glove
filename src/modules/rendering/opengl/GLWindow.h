@@ -23,24 +23,24 @@ class GLWindow : public IWindow {
 
     virtual ~GLWindow();
 
-    virtual GLOVE_INLINE void MakeCurrent();
+    virtual void MakeCurrent();
 
-    virtual GLOVE_INLINE void SetFramebufferSize(int newWidth, int newHeight);
+    virtual void SetFramebufferSize(int newWidth, int newHeight);
 
-    virtual GLOVE_INLINE void SwapBuffers();
-    virtual GLOVE_INLINE bool CloseRequested() const;
-    virtual GLOVE_INLINE std::string GetContextVersion() const;
-    virtual GLOVE_INLINE glm::mat4 GetProjectionMatrix() const;
+    virtual void SwapBuffers();
+    virtual bool CloseRequested() const;
+    virtual std::string GetContextVersion() const;
+    virtual glm::mat4 GetProjectionMatrix() const;
 
-    virtual GLOVE_INLINE ScreenPoint GetPosition() const;
-    virtual GLOVE_INLINE ScreenDimensions GetDimensions() const;
+    virtual ScreenPoint GetPosition() const;
+    virtual ScreenDimensions GetDimensions() const;
 
-    virtual GLOVE_INLINE void SetPosition(const ScreenPoint& newPosition);
-    virtual GLOVE_INLINE void SetDimensions(const ScreenDimensions& newDimensions);
-    virtual GLOVE_INLINE void PollSystemEvents();
+    virtual void SetPosition(const ScreenPoint& newPosition);
+    virtual void SetDimensions(const ScreenDimensions& newDimensions);
+    virtual void PollSystemEvents();
 
-    GLOVE_INLINE GLFWwindow* GetGlfwWindow() const;
-    GLOVE_INLINE GLEWContext* GetGlewContext() const;
+    GLFWwindow* GetGlfwWindow() const;
+    GLEWContext* GetGlewContext() const;
 
   private:
     GLFWwindow* glfwWindow;

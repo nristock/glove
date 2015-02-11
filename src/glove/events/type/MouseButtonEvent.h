@@ -33,7 +33,7 @@ struct MouseButtonEvent : AbstractEvent {
 
     virtual ~MouseButtonEvent();
 
-    virtual GLOVE_INLINE const EventTypeId& GetEventType() const;
+    virtual const EventTypeId& GetEventType() const;
 
     MouseButton button;
     ButtonAction action;

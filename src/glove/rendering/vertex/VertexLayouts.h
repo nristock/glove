@@ -30,7 +30,7 @@ struct Position {
 
     static VertexLayout GetLayout() { return GetLayout(0); }
 
-    GLOVE_INLINE bool operator==(const Position& other) const { return position == other.position; }
+    bool operator==(const Position& other) const { return position == other.position; }
 };
 
 /// @brief Position+Normal vertex layout.
@@ -52,7 +52,7 @@ struct PositionNormal {
 
     static VertexLayout GetLayout() { return GetLayout(0); }
 
-    GLOVE_INLINE bool operator==(const PositionNormal& other) const {
+    bool operator==(const PositionNormal& other) const {
         return position == other.position && normal == other.normal;
     }
 };
@@ -76,7 +76,7 @@ struct PositionColor {
 
     static VertexLayout GetLayout() { return GetLayout(0); }
 
-    GLOVE_INLINE bool operator==(const PositionColor& other) const {
+    bool operator==(const PositionColor& other) const {
         return position == other.position && color == other.color;
     }
 };

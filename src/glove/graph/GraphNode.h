@@ -19,7 +19,7 @@ class GraphNode : public std::enable_shared_from_this<GraphNode> {
     virtual void AttachChild(const GraphNodeHandle& child);
     virtual void RemoveChild(const GraphNodeHandle& child);
 
-    GLOVE_INLINE Transform& GetTransform();
+    Transform& GetTransform();
 
   protected:
     GraphNodeHandle parent;

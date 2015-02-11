@@ -21,16 +21,13 @@ class VertexLayout {
 
     /// @brief Adds a VertexAttribute element to the internal list of vertex attributes and recalculates the stride
     ///        for the affected buffer.
-    GLOVE_INLINE void AddAttribute(const VertexAttribute& element);
-
-    GLOVE_INLINE std::size_t GetAttributeCount() const;
-
-    GLOVE_INLINE const VertexAttribute& GetAttribute(std::size_t index) const;
-
-    GLOVE_INLINE const std::size_t GetStrideForBufferIndex(std::size_t bufferIndex);
+    void AddAttribute(const VertexAttribute& element);
+    std::size_t GetAttributeCount() const;
+    const VertexAttribute& GetAttribute(std::size_t index) const;
+    const std::size_t GetStrideForBufferIndex(std::size_t bufferIndex);
 
     /// @brief Equality is determined by the equality of the underlying VertexAttributeList (VertexLayout::attributes)
-    GLOVE_INLINE bool operator==(const VertexLayout& other) const;
+    bool operator==(const VertexLayout& other) const;
 
   private:
     typedef std::list<VertexAttribute> VertexAttributeList;

@@ -13,9 +13,9 @@ public:
 
     operator glm::vec2();
 
-    GLOVE_INLINE float GetWidth() const;
-    GLOVE_INLINE float GetHeight() const;
-    GLOVE_INLINE float GetAspectRatio() const;
+    float GetWidth() const;
+    float GetHeight() const;
+    float GetAspectRatio() const;
 
 private:
     float width;

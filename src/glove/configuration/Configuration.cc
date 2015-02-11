@@ -1,10 +1,9 @@
-#include "Configuration.hpp"
-
 #include <fstream>
 
 #include <boost/format.hpp>
 
 #include "glove/GloveException.h"
+#include "glove/configuration/Configuration.hpp"
 #include "glove/configuration/ConfigurationConverters.hpp"
 
 namespace glove {

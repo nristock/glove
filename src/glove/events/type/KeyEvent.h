@@ -161,7 +161,7 @@ struct KeyEvent : AbstractEvent {
 
     virtual ~KeyEvent();
 
-    virtual GLOVE_INLINE const EventTypeId& GetEventType() const;
+    virtual const EventTypeId& GetEventType() const;
 
     KeyCode keyCode;
     KeyAction action;

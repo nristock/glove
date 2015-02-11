@@ -12,7 +12,7 @@ struct MouseMoveEvent : AbstractEvent {
 
     virtual ~MouseMoveEvent();
 
-    virtual GLOVE_INLINE const EventTypeId& GetEventType() const;
+    virtual const EventTypeId& GetEventType() const;
 
     double x;
     double y;

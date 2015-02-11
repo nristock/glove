@@ -1,5 +1,3 @@
-#include "GloveCore.h"
-
 #include <chrono>
 #include <fstream>
 #include <cstring>
@@ -15,6 +13,7 @@
 
 #include "GloveConfig.h"
 
+#include "glove/GloveCore.h"
 #include "glove/GloveEnvironment.h"
 #include "glove/GloveException.h"
 #include "glove/events/EventBus.h"

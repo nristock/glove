@@ -17,18 +17,16 @@ class VertexAttribute {
     VertexAttribute(std::size_t bufferIndex, std::size_t offset, VertexAttributeType dataType,
                     VertexAttributeSemantic semantic);
 
-    GLOVE_INLINE std::size_t GetBufferIndex() const;
-    GLOVE_INLINE std::size_t GetByteOffset() const;
-    GLOVE_INLINE VertexAttributeType GetType() const;
-    GLOVE_INLINE VertexAttributeSemantic GetSemantic() const;
+    std::size_t GetBufferIndex() const;
+    std::size_t GetByteOffset() const;
+    VertexAttributeType GetType() const;
+    VertexAttributeSemantic GetSemantic() const;
 
     /// @brief Returns the number of individual components - e.g. FLOAT3 has 3 float components.
     ///        The number of components is determined using VertexAttributeUtils.
-    GLOVE_INLINE std::size_t GetNumberOfComponents() const;
-
-    GLOVE_INLINE std::size_t GetSizeInBytes() const;
-
-    GLOVE_INLINE bool operator==(const VertexAttribute& other) const;
+    std::size_t GetNumberOfComponents() const;
+    std::size_t GetSizeInBytes() const;
+    bool operator==(const VertexAttribute& other) const;
 
   private:
     /// @brief The buffer index (also called buffer binding slot)

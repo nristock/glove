@@ -16,8 +16,8 @@ public:
 
     virtual void OnAttach(const GameObjectHandle& owner);
 
-    virtual GLOVE_INLINE void SetAspectRatio(float aspectRatio);
-    virtual GLOVE_INLINE const glm::mat4 GetViewProjectionMatrix();
+    virtual void SetAspectRatio(float aspectRatio);
+    virtual const glm::mat4 GetViewProjectionMatrix();
 
 protected:
     virtual void RecalculateViewMatrix();

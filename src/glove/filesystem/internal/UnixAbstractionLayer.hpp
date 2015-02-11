@@ -25,9 +25,9 @@ public:
     UnixAbstractionLayer(const std::string& nativeRoot);
 
     /// Translates \p path to the corresponding native filesystem path
-    GLOVE_INLINE Path MakePathNativeAbsolute(const Path& path);
+    Path MakePathNativeAbsolute(const Path& path);
 
-    GLOVE_INLINE const FileInfo GetFileInfo(const Path& path) override;
+    const FileInfo GetFileInfo(const Path& path) override;
     virtual std::istream* CreateFileReadStream(const Path& path) override;
     virtual std::ostream* CreateFileWriteStream(const Path& path) override;
 

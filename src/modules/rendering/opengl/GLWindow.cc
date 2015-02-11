@@ -16,23 +16,23 @@
 
 namespace {
 
-bool GLOVE_INLINE IsModifierKeyDown(int modsFlag, int keyToCheck) {
+bool inline IsModifierKeyDown(int modsFlag, int keyToCheck) {
     return (modsFlag & keyToCheck) != 0;
 }
 
-bool GLOVE_INLINE IsAltKeyDown(int modsFlag) {
+bool inline IsAltKeyDown(int modsFlag) {
     return IsModifierKeyDown(modsFlag, GLFW_MOD_ALT);
 }
 
-bool GLOVE_INLINE IsCtrlKeyDown(int modsFlag) {
+bool inline IsCtrlKeyDown(int modsFlag) {
     return IsModifierKeyDown(modsFlag, GLFW_MOD_CONTROL);
 }
 
-bool GLOVE_INLINE IsShiftKeyDown(int modsFlag) {
+bool inline IsShiftKeyDown(int modsFlag) {
     return IsModifierKeyDown(modsFlag, GLFW_MOD_SHIFT);
 }
 
-bool GLOVE_INLINE IsSuperKeyDown(int modsFlag) {
+bool inline IsSuperKeyDown(int modsFlag) {
     return IsModifierKeyDown(modsFlag, GLFW_MOD_SUPER);
 }
 }

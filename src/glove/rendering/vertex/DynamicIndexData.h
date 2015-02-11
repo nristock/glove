@@ -26,17 +26,17 @@ template <typename IndexDataType> class DynamicIndexData : public IIndexData {
 
     virtual ~DynamicIndexData() = default;
 
-    virtual GLOVE_INLINE IndexList& GetIndices() { return indices; }
+    virtual IndexList& GetIndices() { return indices; }
 
     /// @brief Sets the backing list of indices. This does not automatically sync the GPU buffer (See FlushBuffer())
-    virtual GLOVE_INLINE void SetIndices(const IndexList& indexList) { indices = indexList; }
+    virtual void SetIndices(const IndexList& indexList) { indices = indexList; }
 
-    virtual GLOVE_INLINE const size_t GetIndexCount() const { return indices.size(); }
-    virtual GLOVE_INLINE const IGpuBufferPtr& GetGpuBuffer() const { return indexBuffer; }
-    virtual GLOVE_INLINE void BindBuffer() { indexBuffer->Bind(); }
+    virtual const size_t GetIndexCount() const { return indices.size(); }
+    virtual const IGpuBufferPtr& GetGpuBuffer() const { return indexBuffer; }
+    virtual void BindBuffer() { indexBuffer->Bind(); }
 
     /// @brief Uploads the backing data from RAM to the GPU.
-    virtual GLOVE_INLINE void FlushBuffer() const {
+    virtual void FlushBuffer() const {
         indexBuffer->WriteData(GetIndexCount() * sizeof(unsigned int), &indices[0]);
     }
 

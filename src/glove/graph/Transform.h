@@ -40,7 +40,7 @@ struct Transform {
     * Recalculates the local transform matrix if isDirty has been set and returns the 4x4 matrix.
     * @return localTransform
     */
-    GLOVE_INLINE const glm::mat4& GetLocalTransform();
+    const glm::mat4& GetLocalTransform();
 
     /**
     * Returns the accumulated tranform matrix (parent's accumulated matrix * localTransform)
