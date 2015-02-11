@@ -7,6 +7,7 @@ from lib.commands.format import execute_command as cmd_format
 from lib.commands.bootstrap import execute_command as cmd_bootstrap
 from lib.commands.mkuuid import execute_command as cmd_mkuuid
 from lib.commands.build_deps import execute_command as cmd_build_deps
+from lib.commands.make import execute_command as cmd_make
 
 SCRIPT_DIR = path.dirname(path.realpath(__file__))
 WORKING_DIR = getcwd()
@@ -43,6 +44,12 @@ def parse_args():
 
     build_deps_parser = sub_parsers.add_parser('build_deps', aliases=['deps'], help="Build Glove engine dependencies")
     build_deps_parser.set_defaults(func=cmd_build_deps)
+
+    make_parser = sub_parsers.add_parser('make', aliases=['build'], help="Builds Glove")
+    make_parser.set_defaults(func=cmd_make)
+    make_parser.add_argument('type', choices=['dbg', 'opt'], help="The build type")
+    make_parser.add_argument('target', nargs='?', type=str, default='all', help="Build target")
+    make_parser.add_argument('--install', '-i', action='store_const', const=True, default=False, help='Install Glove')
 
     argument_parser.add_argument(
         '--verbosity',
