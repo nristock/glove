@@ -1,4 +1,4 @@
-#include <vendor/gtest/gtest.h>
+#include <gtest/gtest.hpp>
 
 #include <glove/filesystem/Path.hpp>
 #include <glove/filesystem/io/File.hpp>

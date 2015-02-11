@@ -1,8 +1,7 @@
-#include "ZipEntryBuffer.hpp"
-
 #include <algorithm>
 #include <cstring>
 
+#include "glove/filesystem/compression/ZipEntryBuffer.hpp"
 #include "glove/filesystem/compression/ZipArchive.hpp"
 
 namespace glove {

@@ -1,10 +1,9 @@
-#include "RendererBase.h"
-
-#include "glove/graph/Scenegraph.h"
-#include "glove/rendering/gamecomponent/CameraBase.h"
-#include "glove/rendering/target/IRenderTarget.h"
-#include "glove/rendering/RenderState.h"
-#include "glove/rendering/IRenderOperation.h"
+#include "glove/rendering/RendererBase.hpp"
+#include "glove/graph/Scenegraph.hpp"
+#include "glove/rendering/gamecomponent/CameraBase.hpp"
+#include "glove/rendering/target/IRenderTarget.hpp"
+#include "glove/rendering/RenderState.hpp"
+#include "glove/rendering/IRenderOperation.hpp"
 
 namespace glove {
 void RendererBase::MapCameraToTarget(const CameraBaseHandle& camera, const RenderTargetHandle& renderTarget) {

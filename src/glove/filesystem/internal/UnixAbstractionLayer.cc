@@ -4,8 +4,8 @@
 
 #include <boost/format.hpp>
 
-#include "utils/RuntimePathInfo.h"
-#include "glove/GloveException.h"
+#include "glove/GloveException.hpp"
+#include "glove/utils/RuntimePathInfo.hpp"
 #include "glove/filesystem/exceptions/FileInfoQueryException.hpp"
 
 namespace glove {

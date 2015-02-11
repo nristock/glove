@@ -1,3 +1,42 @@
+set(gc_rendering_headers
+    buffers/BufferUsage.hpp
+    buffers/IGpuBuffer.hpp
+
+    factories/IGpuBufferFactory.hpp
+    factories/IMaterialFactory.hpp
+    factories/IMeshFactory.hpp
+    factories/IRendererFactory.hpp
+    factories/IRenderOperationFactory.hpp
+    factories/IShaderFactory.hpp
+    factories/IShaderProgramFactory.hpp
+
+    mesh/IMesh.hpp
+
+    shader/IMaterial.hpp
+    shader/IMaterialAttribute.hpp
+    shader/IShader.hpp
+    shader/IShaderProgram.hpp
+
+    target/IRenderTarget.hpp
+
+    vertex/DynamicIndexData.hpp
+    vertex/DynamicVertexData.hpp
+    vertex/IIndexData.hpp
+    vertex/IVertexAttributeMapping.hpp
+    vertex/IVertexData.hpp
+    vertex/VertexAttributeSemantic.hpp
+    vertex/VertexAttributeType.hpp
+    vertex/VertexLayouts.hpp
+
+    FrameData.hpp
+    IRenderer.hpp
+    IRenderOperation.hpp
+    IWindow.hpp
+    Rendering.hpp
+    RenderingInterfaces.hpp
+    RenderOperation.hpp
+)
+
 set(gc_rendering_src
    mesh/Mesh.cc
 
@@ -24,4 +63,4 @@ set(gc_rendering_src
    IRenderSubsystem.cc
 )
 
-add_library(gc_rendering OBJECT ${gc_rendering_src})
+add_library(gc_rendering OBJECT ${gc_rendering_src} ${gc_rendering_headers})

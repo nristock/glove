@@ -1,4 +1,4 @@
-#include "AbstractRenderTarget.h"
+#include "glove/rendering/target/AbstractRenderTarget.hpp"
 
 namespace glove {
 

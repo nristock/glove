@@ -1,5 +1,3 @@
-#include "Log.h"
-
 #include <fstream>
 #include <iomanip>
 
@@ -26,6 +24,8 @@
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/sinks/sync_frontend.hpp>
 #include <boost/log/sinks/text_ostream_backend.hpp>
+
+#include "glove/log/Log.hpp"
 
 namespace blogging = boost::log;
 namespace src = boost::log::sources;

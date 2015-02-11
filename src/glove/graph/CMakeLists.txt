@@ -1,14 +1,7 @@
 set(gc_graph_headers
-   Graph.h
-   GraphNode.h
-   Scenegraph.h
-   Transform.h
+   gameobject/factories/IGameObjectFactory.hpp
 
-   gameobject/GameObject.h
-   gameobject/factories/IGameObjectFactory.h
-   gameobject/factories/EmptyGameObjectFactory.h
-
-   gamecomponent/GameComponent.h
+   Graph.hpp
 )
 
 set(gc_graph_src

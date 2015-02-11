@@ -1,11 +1,11 @@
-#include <vendor/gtest/gtest.h>
+#include <gtest/gtest.hpp>
 
 #include <random>
 
-#include <glove/natex/internal/ExtensionDependencyGraph.h>
-#include <glove/GloveException.h>
-#include <glove/natex/Natex.h>
-#include <glove/natex/ISubsystemDefinition.h>
+#include <glove/natex/Natex.hpp>
+#include <glove/natex/ISubsystemDefinition.hpp>
+#include <glove/GloveException.hpp>
+#include <glove/natex/internal/ExtensionDependencyGraph.hpp>
 
 namespace glove {
 

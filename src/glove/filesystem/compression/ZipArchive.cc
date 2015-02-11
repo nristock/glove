@@ -1,8 +1,7 @@
-#include "ZipArchive.hpp"
-
 #include <boost/format.hpp>
 
-#include "glove/GloveException.h"
+#include "glove/filesystem/compression/ZipArchive.hpp"
+#include "glove/GloveException.hpp"
 
 namespace glove {
 

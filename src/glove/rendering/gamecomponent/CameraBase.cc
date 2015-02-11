@@ -1,6 +1,5 @@
-#include "CameraBase.h"
-
-#include "glove/graph/gameobject/GameObject.h"
+#include "glove/rendering/gamecomponent/CameraBase.hpp"
+#include "glove/graph/gameobject/GameObject.hpp"
 
 namespace glove {
 namespace GameComponents {

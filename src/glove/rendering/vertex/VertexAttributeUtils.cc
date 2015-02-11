@@ -1,4 +1,4 @@
-#include "VertexAttributeUtils.h"
+#include "glove/rendering/vertex/VertexAttributeUtils.hpp"
 
 namespace glove {
 

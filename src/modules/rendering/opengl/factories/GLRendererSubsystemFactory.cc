@@ -1,6 +1,6 @@
-#include "factories/GLRendererSubsystemFactory.h"
-#include "subsystem/GLRendererSubsystem.h"
-#include "subsystem/OpenGLRendererModule.h"
+#include "factories/GLRendererSubsystemFactory.hpp"
+#include "subsystem/GLRendererSubsystem.hpp"
+#include "subsystem/OpenGLRendererModule.hpp"
 
 namespace glove {
 namespace gl {

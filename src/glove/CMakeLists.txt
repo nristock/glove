@@ -1,4 +1,4 @@
-include_directories(${CMAKE_CURRENT_LIST_DIR})
+include_directories("${PROJECT_ROOT}/src")
 
 add_subdirectory(internal)
 add_subdirectory(rendering)

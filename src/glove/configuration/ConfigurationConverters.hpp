@@ -2,7 +2,7 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include "glove/GloveException.h"
+#include "glove/GloveException.hpp"
 #include "glove/configuration/Configuration.hpp"
 
 namespace YAML {

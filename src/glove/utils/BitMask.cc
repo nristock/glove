@@ -1,4 +1,4 @@
-#include "BitMask.h"
+#include "glove/utils/BitMask.hpp"
 
 namespace glove {
 const std::uint8_t BitMask::MAX_INDEX = 31;

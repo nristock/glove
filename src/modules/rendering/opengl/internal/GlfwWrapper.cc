@@ -1,8 +1,8 @@
-#include <glove/GloveException.h>
-#include <glove/rendering/WindowConstructionHints.h>
+#include <glove/GloveException.hpp>
+#include <glove/rendering/WindowConstructionHints.hpp>
 
-#include "internal/GlfwWrapper.h"
-#include "GLWindow.h"
+#include "internal/GlfwWrapper.hpp"
+#include "GLWindow.hpp"
 
 namespace glove {
 namespace gl {

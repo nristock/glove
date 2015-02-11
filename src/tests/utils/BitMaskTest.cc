@@ -1,8 +1,8 @@
-#include <vendor/gtest/gtest.h>
+#include <gtest/gtest.hpp>
 
 #include <random>
 
-#include "glove/utils/BitMask.h"
+#include <glove/utils/BitMask.hpp>
 
 namespace glove {
 TEST(BitMaskTest, NewBitMaskIsAllZero) {

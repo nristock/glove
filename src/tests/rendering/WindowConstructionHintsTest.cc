@@ -1,9 +1,9 @@
 #include <random>
 #include <chrono>
 
-#include <vendor/gtest/gtest.h>
+#include <gmock/gmock.hpp>
 
-#include <glove/rendering/WindowConstructionHints.h>
+#include <glove/rendering/WindowConstructionHints.hpp>
 
 namespace glove {
 TEST(WindowConstructionHintsTest, ConstructorSotresLocationTitleAndPosition) {

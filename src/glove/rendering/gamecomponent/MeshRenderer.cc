@@ -1,7 +1,7 @@
-#include "MeshRenderer.h"
+#include "MeshRenderer.hpp"
 
-#include "glove/rendering/IRenderOperation.h"
-#include "glove/rendering/factories/IRenderOperationFactory.h"
+#include "glove/rendering/IRenderOperation.hpp"
+#include "glove/rendering/factories/IRenderOperationFactory.hpp"
 
 namespace glove {
 namespace GameComponents {

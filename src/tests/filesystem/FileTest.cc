@@ -1,4 +1,4 @@
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
 #include <glove/filesystem/Path.hpp>
 #include <glove/filesystem/io/File.hpp>

@@ -1,5 +1,3 @@
-#include "DirectoryExtensionSearcher.h"
-
 #include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 
@@ -10,7 +8,8 @@
 #include <strsafe.h>
 #endif
 
-#include "glove/GloveException.h"
+#include "glove/natex/DirectoryExtensionSearcher.hpp"
+#include "glove/GloveException.hpp"
 
 namespace glove {
 

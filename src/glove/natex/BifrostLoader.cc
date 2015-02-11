@@ -1,14 +1,13 @@
-#include "BifrostLoader.h"
-
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/format.hpp>
 
-#include "glove/natex/ISharedLibraryLoader.h"
-#include "glove/log/Log.h"
-#include "glove/GloveException.h"
+#include "glove/natex/BifrostLoader.hpp"
+#include "glove/natex/ISharedLibraryLoader.hpp"
+#include "glove/log/Log.hpp"
+#include "glove/GloveException.hpp"
 
 #if defined(__unix__) || defined(__unix)
-#include "glove/internal/so/SoLoaderFactory.h"
+#include "glove/internal/so/SoLoaderFactory.hpp"
 #endif
 
 namespace glove {

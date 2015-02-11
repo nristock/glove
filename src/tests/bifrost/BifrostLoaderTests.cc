@@ -1,8 +1,7 @@
-#include <vendor/gtest/gtest.h>
+#include <gtest/gtest.hpp>
+#include <glove/natex/BifrostLoader.hpp>
 
-#include <glove/natex/BifrostLoader.h>
-
-#include "testlib/TestExtensionUuid.h"
+#include "tests/bifrost/testlib/TestExtensionUuid.hpp"
 
 namespace glove {
 
@@ -13,7 +12,7 @@ class BifrostLoaderTests : public ::testing::Test {
 
 const char* BifrostLoaderTests::extensionName = "../lib/libtests_bifrost_testlib.so";
 
-TEST_F(BifrostLoaderTests, CanConstructLoader) { ASSERT_NO_THROW(BifrostLoader loader()); }
+TEST_F(BifrostLoaderTests, CanConstructLoader) { ASSERT_NO_THROW(BifrostLoader loader); }
 
 TEST_F(BifrostLoaderTests, CanLoadAndUnloadExtensionModule) {
     BifrostLoader* loader;

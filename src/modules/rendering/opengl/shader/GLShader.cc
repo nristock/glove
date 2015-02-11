@@ -1,8 +1,8 @@
-#include <glove/GloveException.h>
-#include <glove/utils/ShaderUtils.h>
+#include <glove/GloveException.hpp>
+#include <glove/utils/ShaderUtils.hpp>
 
-#include "shader/GLShader.h"
-#include "internal/OpenGLWrapper.h"
+#include "shader/GLShader.hpp"
+#include "internal/OpenGLWrapper.hpp"
 
 namespace glove {
 namespace gl {

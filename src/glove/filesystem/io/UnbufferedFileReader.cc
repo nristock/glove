@@ -1,5 +1,5 @@
-#include "UnbufferedFileReader.hpp"
-#include "glove/GloveException.h"
+#include "glove/filesystem/io/UnbufferedFileReader.hpp"
+#include "glove/GloveException.hpp"
 #include "glove/filesystem/exceptions/FileNotFoundException.hpp"
 #include "glove/filesystem/exceptions/StreamErrorException.hpp"
 

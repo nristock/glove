@@ -1,6 +1,6 @@
-#include "OrthoCamera.h"
-
 #include <glm/gtc/matrix_transform.hpp>
+
+#include "glove/rendering/gamecomponent/OrthoCamera.hpp"
 
 namespace glove {
 namespace GameComponents {

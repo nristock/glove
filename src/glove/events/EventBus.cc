@@ -1,4 +1,4 @@
-#include "EventBus.h"
+#include "glove/events/EventBus.hpp"
 
 namespace glove {
 

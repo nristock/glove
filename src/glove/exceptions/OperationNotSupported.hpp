@@ -2,7 +2,7 @@
 
 #include <boost/format.hpp>
 
-#include "glove/GloveException.h"
+#include "glove/GloveException.hpp"
 
 namespace glove {
 class OperationNotSupportedException : public GloveException {

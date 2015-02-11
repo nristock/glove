@@ -1,6 +1,6 @@
-#include "GloveException.h"
-
 #include <boost/format.hpp>
+
+#include "glove/GloveException.hpp"
 
 namespace glove {
 

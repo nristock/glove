@@ -1,13 +1,12 @@
-#include "GloveSubsystemInstanceRegistry.h"
-
-#include "glove/GloveException.h"
-#include "glove/events/EventBus.h"
-#include "glove/events/type/PreSubsystemCreateEvent.h"
-#include "glove/events/type/SubsystemCreatedEvent.h"
-#include "glove/natex/ISubsystemDefinition.h"
-#include "glove/natex/ISubsystemDefinitionRegistry.h"
-#include "glove/natex/ISubsystemFactory.h"
-#include "glove/natex/ISubsystem.h"
+#include "glove/natex/GloveSubsystemInstanceRegistry.hpp"
+#include "glove/GloveException.hpp"
+#include "glove/events/EventBus.hpp"
+#include "glove/events/type/PreSubsystemCreateEvent.hpp"
+#include "glove/events/type/SubsystemCreatedEvent.hpp"
+#include "glove/natex/ISubsystemDefinition.hpp"
+#include "glove/natex/ISubsystemDefinitionRegistry.hpp"
+#include "glove/natex/ISubsystemFactory.hpp"
+#include "glove/natex/ISubsystem.hpp"
 
 namespace glove {
 

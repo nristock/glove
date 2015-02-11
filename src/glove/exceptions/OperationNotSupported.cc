@@ -1,4 +1,4 @@
-#include "OperationNotSupported.hpp"
+#include "glove/exceptions/OperationNotSupported.hpp"
 
 namespace glove {
 

@@ -1,6 +1,5 @@
-#include "EmptyGameObjectFactory.h"
-
-#include "glove/graph/gameobject/GameObject.h"
+#include "glove/graph/gameobject/factories/EmptyGameObjectFactory.hpp"
+#include "glove/graph/gameobject/GameObject.hpp"
 
 namespace glove {
 

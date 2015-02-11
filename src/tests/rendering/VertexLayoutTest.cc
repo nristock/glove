@@ -1,9 +1,9 @@
 #include <random>
 #include <chrono>
 
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
-#include <glove/rendering/vertex/VertexLayout.h>
+#include <glove/rendering/vertex/VertexLayout.hpp>
 
 namespace glove {
 TEST(VertexLayoutTest, NewVertexLayoutHasNoElements) {

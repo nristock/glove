@@ -1,18 +1,18 @@
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
-#include <glove/rendering/IRenderSubsystem.h>
+#include <glove/rendering/IRenderSubsystem.hpp>
 
-#include <subsystem/GLRendererSubsystem.h>
-#include <factories/GLGpuBufferFactory.h>
-#include <factories/GLMeshFactory.h>
-#include <factories/GLRendererFactory.h>
-#include <factories/GLShaderFactory.h>
-#include <factories/GLShaderProgramFactory.h>
-#include <factories/GLMaterialFactory.h>
+#include <modules/rendering/opengl/subsystem/GLRendererSubsystem.hpp>
+#include <modules/rendering/opengl/factories/GLGpuBufferFactory.hpp>
+#include <modules/rendering/opengl/factories/GLMeshFactory.hpp>
+#include <modules/rendering/opengl/factories/GLRendererFactory.hpp>
+#include <modules/rendering/opengl/factories/GLShaderFactory.hpp>
+#include <modules/rendering/opengl/factories/GLShaderProgramFactory.hpp>
+#include <modules/rendering/opengl/factories/GLMaterialFactory.hpp>
 
-#include "mock/MockRenderer.h"
-#include "mock/MockGloveCore.h"
-#include "mock/MockEventBus.h"
+#include "tests/modules/glrenderer/mock/MockRenderer.hpp"
+#include "tests/modules/glrenderer/mock/MockGloveCore.hpp"
+#include "tests/modules/glrenderer/mock/MockEventBus.hpp"
 
 using ::testing::AtLeast;
 using ::testing::Return;

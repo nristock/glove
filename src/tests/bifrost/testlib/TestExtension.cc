@@ -1,5 +1,5 @@
-#include "TestExtension.h"
-#include "TestExtensionUuid.h"
+#include "TestExtension.hpp"
+#include "TestExtensionUuid.hpp"
 
 namespace glove {
 

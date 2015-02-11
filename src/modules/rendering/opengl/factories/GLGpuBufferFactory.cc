@@ -1,5 +1,5 @@
-#include "factories/GLGpuBufferFactory.h"
-#include "GLGpuBuffer.h"
+#include "factories/GLGpuBufferFactory.hpp"
+#include "GLGpuBuffer.hpp"
 
 namespace glove {
 namespace gl {

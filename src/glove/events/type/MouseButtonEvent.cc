@@ -1,4 +1,4 @@
-#include "MouseButtonEvent.h"
+#include "glove/events/type/MouseButtonEvent.hpp"
 
 namespace glove {
 

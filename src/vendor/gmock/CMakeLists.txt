@@ -1,1 +1,1 @@
-add_library(vendor_gmock STATIC gmock.h gmock-gtest-all.cc)
+add_library(vendor_gmock STATIC gmock.hpp gmock-gtest-all.cc)

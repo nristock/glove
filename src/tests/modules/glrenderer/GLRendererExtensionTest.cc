@@ -1,11 +1,10 @@
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
-#include <glove/natex/Natex.h>
-#include <glove/rendering/IRenderSubsystem.h>
+#include <glove/natex/Natex.hpp>
+#include <glove/rendering/IRenderSubsystem.hpp>
+#include <modules/rendering/opengl/subsystem/GLRendererExtension.hpp>
 
-#include <subsystem/GLRendererExtension.h>
-
-#include "mock/MockSubsystemDefinitionRegistry.h"
+#include "tests/modules/glrenderer/mock/MockSubsystemDefinitionRegistry.hpp"
 
 using ::testing::_;
 

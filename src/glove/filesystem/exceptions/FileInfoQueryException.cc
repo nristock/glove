@@ -1,6 +1,6 @@
-#include "FileInfoQueryException.hpp"
-
 #include <boost/format.hpp>
+
+#include "glove/filesystem/exceptions/FileInfoQueryException.hpp"
 
 namespace glove {
 

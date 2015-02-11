@@ -1,4 +1,4 @@
-#include "CorePreInitEvent.h"
+#include "glove/events/type/CorePreInitEvent.hpp"
 
 namespace glove {
 const AbstractEvent::EventTypeId CorePreInitEvent::eventTypeId = {0x1c, 0x23, 0x4f, 0x26, 0xaf, 0x21, 0x47, 0x1f,

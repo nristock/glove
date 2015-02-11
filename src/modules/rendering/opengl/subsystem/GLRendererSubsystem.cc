@@ -1,15 +1,15 @@
 #include <boost/format.hpp>
 
-#include <glove/GloveCore.h>
+#include <glove/GloveCore.hpp>
 
-#include "subsystem/GLRendererSubsystem.h"
-#include "internal/GlfwWrapper.h"
-#include "factories/GLGpuBufferFactory.h"
-#include "factories/GLMeshFactory.h"
-#include "factories/GLRendererFactory.h"
-#include "factories/GLShaderFactory.h"
-#include "factories/GLShaderProgramFactory.h"
-#include "factories/GLMaterialFactory.h"
+#include "subsystem/GLRendererSubsystem.hpp"
+#include "internal/GlfwWrapper.hpp"
+#include "factories/GLGpuBufferFactory.hpp"
+#include "factories/GLMeshFactory.hpp"
+#include "factories/GLRendererFactory.hpp"
+#include "factories/GLShaderFactory.hpp"
+#include "factories/GLShaderProgramFactory.hpp"
+#include "factories/GLMaterialFactory.hpp"
 
 namespace glove {
 namespace gl {

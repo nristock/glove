@@ -1,8 +1,7 @@
+#include <glove/natex/ISystemExtension.hpp>
 
-#include <glove/natex/ISystemExtension.h>
-
-#include "subsystem/GLRendererExtension.h"
-#include "internal/GlfwWrapper.h"
+#include "subsystem/GLRendererExtension.hpp"
+#include "internal/GlfwWrapper.hpp"
 
 extern "C" {
 

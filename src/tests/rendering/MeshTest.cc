@@ -1,11 +1,11 @@
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
-#include <glove/rendering/mesh/Mesh.h>
-#include <glove/rendering/RenderOperation.h>
+#include <glove/rendering/mesh/Mesh.hpp>
+#include <glove/rendering/RenderOperation.hpp>
 
-#include "mock/MockVertexData.h"
-#include "mock/MockIndexData.h"
-#include "mock/MockMesh.h"
+#include "tests/rendering/mock/MockVertexData.hpp"
+#include "tests/rendering/mock/MockIndexData.hpp"
+#include "tests/rendering/mock/MockMesh.hpp"
 
 namespace glove {
 TEST(MeshTest, ConstructorStoresVertexAndIndexData) {

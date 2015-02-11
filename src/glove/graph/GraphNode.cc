@@ -1,4 +1,4 @@
-#include "GraphNode.h"
+#include "glove/graph/GraphNode.hpp"
 
 namespace glove {
 

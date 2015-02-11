@@ -1,6 +1,6 @@
-#include "Mesh.h"
+#include "Mesh.hpp"
 
-#include "glove/rendering/RenderOperation.h"
+#include "glove/rendering/RenderOperation.hpp"
 
 namespace glove {
 

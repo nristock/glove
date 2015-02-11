@@ -1,7 +1,5 @@
-#include "GameObject.h"
-
-#include "glove/graph/gamecomponent/GameComponent.h"
-#include "glove/utils/IsA.h"
+#include "glove/graph/gameobject/GameObject.hpp"
+#include "glove/graph/gamecomponent/GameComponent.hpp"
 
 namespace glove {
 

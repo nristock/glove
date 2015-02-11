@@ -1,6 +1,6 @@
-#include "GloveEnvironment.h"
-
 #include <boost/format.hpp>
+
+#include "glove/GloveEnvironment.hpp"
 
 namespace glove {
 

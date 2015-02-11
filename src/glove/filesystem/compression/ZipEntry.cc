@@ -1,4 +1,4 @@
-#include "ZipEntry.hpp"
+#include "glove/filesystem/compression/ZipEntry.hpp"
 
 namespace {
 const std::string g_directorySeparator("/");

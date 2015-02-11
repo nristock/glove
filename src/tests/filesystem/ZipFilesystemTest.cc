@@ -1,8 +1,8 @@
-#include <vendor/gtest/gtest.h>
+#include <gtest/gtest.hpp>
 
 #include <glove/filesystem/Path.hpp>
 #include <glove/filesystem/compression/ZipArchive.hpp>
-#include <glove/GloveException.h>
+#include <glove/GloveException.hpp>
 #include <glove/filesystem/compression/ZipFilesystem.hpp>
 #include <glove/filesystem/Filesystem.hpp>
 #include <glove/exceptions/OperationNotSupported.hpp>

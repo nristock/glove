@@ -1,11 +1,10 @@
-#include "GloveSubsystemDefinitionRegistry.h"
-
 #include <boost/format.hpp>
 #include <boost/uuid/uuid_io.hpp>
 
-#include "glove/GloveException.h"
-#include "glove/natex/internal/ExtensionDependencyGraph.h"
-#include "glove/natex/ISubsystemDefinition.h"
+#include "glove/natex/GloveSubsystemDefinitionRegistry.hpp"
+#include "glove/GloveException.hpp"
+#include "glove/natex/internal/ExtensionDependencyGraph.hpp"
+#include "glove/natex/ISubsystemDefinition.hpp"
 
 namespace glove {
 GloveSubsystemDefinitionRegistry::GloveSubsystemDefinitionRegistry() {

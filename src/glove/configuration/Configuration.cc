@@ -2,7 +2,7 @@
 
 #include <boost/format.hpp>
 
-#include "glove/GloveException.h"
+#include "glove/GloveException.hpp"
 #include "glove/configuration/Configuration.hpp"
 #include "glove/configuration/ConfigurationConverters.hpp"
 

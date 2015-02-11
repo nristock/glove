@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glove/GloveException.h"
+#include "glove/GloveException.hpp"
 
 namespace glove {
 

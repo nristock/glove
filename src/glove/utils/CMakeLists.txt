@@ -1,7 +1,6 @@
 set(gc_utils_headers
-   IsA.h
-   TypeInfo.h
-   BitMask.h
+   IsA.hpp
+   TypeInfo.hpp
 )
 
 set(gc_utils_src

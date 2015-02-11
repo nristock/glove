@@ -1,4 +1,4 @@
-#include "StreamErrorException.hpp"
+#include "glove/filesystem/exceptions/StreamErrorException.hpp"
 
 namespace glove {
 

@@ -1,4 +1,4 @@
-#include "MaterialAttributeSemantic.h"
+#include "glove/rendering/shader/MaterialAttributeSemantic.hpp"
 
 namespace glove {
 std::ostream& operator<< (std::ostream& os, MaterialAttributeSemantic attributeSemantic) {

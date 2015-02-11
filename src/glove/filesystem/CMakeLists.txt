@@ -18,23 +18,13 @@ set(gc_filesystem_src
 )
 
 set(gc_filesystem_headers
-   Filesystem.hpp
-   Path.hpp
-   FileInfo.hpp
-   IFilesystem.hpp
+   compression/Compression.hpp
 
-   io/File.hpp
    io/IFileReader.hpp
-   io/UnbufferedFileReader.hpp
 
-   compression/ZipArchive.hpp
-
-   exceptions/FileNotFoundException.hpp
-   exceptions/InvalidFileTypeException.hpp
-   exceptions/StreamErrorException.hpp
-
-   internal/UnixAbstractionLayer.hpp
-   internal/WindowsAbstraction.hpp
+   FileInfo.hpp
+   Filesystem.hpp
+   IFilesystem.hpp
 )
 
 

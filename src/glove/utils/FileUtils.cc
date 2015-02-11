@@ -1,12 +1,11 @@
-#include "FileUtils.h"
-
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
 #include <boost/format.hpp>
 
-#include "glove/log/Log.h"
+#include "glove/utils/FileUtils.hpp"
+#include "glove/log/Log.hpp"
 
 namespace glove {
 // TODO: wchar_t support

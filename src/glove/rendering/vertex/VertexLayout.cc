@@ -1,4 +1,4 @@
-#include "VertexLayout.h"
+#include "glove/rendering/vertex/VertexLayout.hpp"
 
 namespace glove {
 

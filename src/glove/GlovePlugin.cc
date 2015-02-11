@@ -1,9 +1,8 @@
-#include "GlovePlugin.h"
-
 #include <boost/format.hpp>
 
-#include "glove/GloveException.h"
-#include "glove/GloveCore.h"
+#include "glove/GlovePlugin.hpp"
+#include "glove/GloveException.hpp"
+#include "glove/GloveCore.hpp"
 #include "scripting/GlovePythonEngine.h"
 #include "scripting/PythonPlugin.h"
 #include "GloveEnvironment.h"

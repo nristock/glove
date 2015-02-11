@@ -1,9 +1,9 @@
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
-#include "mock/MockCamera.h"
-#include "mock/MockRendererBase.h"
-#include "mock/MockRenderTarget.h"
-#include "../graph/mock/GameObjectMock.h"
+#include "tests/rendering/mock/MockCamera.hpp"
+#include "tests/rendering/mock/MockRendererBase.hpp"
+#include "tests/rendering/mock/MockRenderTarget.hpp"
+#include "tests/graph/mock/GameObjectMock.hpp"
 
 using ::testing::ReturnRef;
 using ::testing::_;

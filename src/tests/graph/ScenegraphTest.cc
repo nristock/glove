@@ -1,8 +1,10 @@
-#include <vendor/gmock/gmock.h>
-#include <glove/graph/Scenegraph.h>
-#include <glove/graph/gameobject/GameObject.h>
-#include "tests/graph/mock/GameObjectMock.h"
-#include "tests/graph/mock/MockGameObjectFactory.h"
+#include <gmock/gmock.hpp>
+#include <glove/graph/Graph.hpp>
+#include <glove/graph/gameobject/GameObject.hpp>
+#include <glove/graph/Scenegraph.hpp>
+
+#include "tests/graph/mock/GameObjectMock.hpp"
+#include "tests/graph/mock/MockGameObjectFactory.hpp"
 
 namespace glove {
 

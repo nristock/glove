@@ -1,14 +1,14 @@
 #include <random>
 #include <chrono>
 
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
-#include <glove/rendering/vertex/StaticIndexData.h>
-#include <glove/rendering/vertex/DynamicIndexData.h>
+#include <glove/rendering/vertex/StaticIndexData.hpp>
+#include <glove/rendering/vertex/DynamicIndexData.hpp>
 
-#include "mock/MockGpuBuffer.h"
-#include "mock/MockVertexData.h"
-#include "mock/MockGpuBufferFactory.h"
+#include "tests/rendering/mock/MockGpuBuffer.hpp"
+#include "tests/rendering/mock/MockVertexData.hpp"
+#include "tests/rendering/mock/MockGpuBufferFactory.hpp"
 
 using ::testing::Return;
 using ::testing::_;

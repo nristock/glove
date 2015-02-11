@@ -1,8 +1,7 @@
-#include "ExtensionDependencyGraph.h"
-
 #include <queue>
 
-#include "glove/natex/ISubsystemDefinition.h"
+#include "glove/natex/internal/ExtensionDependencyGraph.hpp"
+#include "glove/natex/ISubsystemDefinition.hpp"
 
 namespace glove {
 

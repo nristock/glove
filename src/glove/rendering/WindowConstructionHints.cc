@@ -1,4 +1,4 @@
-#include "WindowConstructionHints.h"
+#include "glove/rendering/WindowConstructionHints.hpp"
 
 namespace glove {
 WindowConstructionHints::WindowConstructionHints(const ScreenPoint& position, const ScreenDimensions& size,

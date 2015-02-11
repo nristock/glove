@@ -1,6 +1,6 @@
-#include "TestExtension.h"
+#include <glove/natex/Natex.hpp>
 
-#include <glove/natex/Natex.h>
+#include "TestExtension.hpp"
 
 extern "C" {
 glove::ISystemExtensionPtr LoadExtension() {

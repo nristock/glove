@@ -1,7 +1,6 @@
+#include <gtest/gtest.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
-#include <glove/graph/Transform.h>
-#include <vendor/gtest/gtest.h>
+#include <glove/graph/Transform.hpp>
 
 namespace glove {
 

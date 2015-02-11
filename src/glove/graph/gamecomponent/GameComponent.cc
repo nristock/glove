@@ -1,4 +1,4 @@
-#include "GameComponent.h"
+#include "glove/graph/gamecomponent/GameComponent.hpp"
 
 namespace glove {
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include <glove/GloveCore.h>
-#include "gmock/gmock.h"
+#include <glove/GloveCore.hpp>
+#include "gmock/gmock.hpp"
 
 int main(int argc, char** argv) {
     const char* gloveInitArgs[] = {"", "--no-natex"};

@@ -4,15 +4,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <boost/format.hpp>
 
-#include <glove/GloveCore.h>
-#include <glove/events/EventBus.h>
-#include <glove/events/type/KeyEvent.h>
-#include <glove/events/type/MouseButtonEvent.h>
-#include <glove/events/type/MouseMoveEvent.h>
-#include <glove/rendering/WindowConstructionHints.h>
+#include <glove/rendering/WindowConstructionHints.hpp>
+#include <glove/events/type/KeyEvent.hpp>
+#include <glove/events/type/MouseMoveEvent.hpp>
+#include <glove/events/type/MouseButtonEvent.hpp>
+#include <glove/events/EventBus.hpp>
 
-#include "GLWindow.h"
-#include "internal/GlfwWrapper.h"
+#include "GLWindow.hpp"
+#include "internal/GlfwWrapper.hpp"
 
 namespace {
 

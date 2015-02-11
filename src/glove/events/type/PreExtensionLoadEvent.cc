@@ -1,4 +1,4 @@
-#include "PreExtensionLoadEvent.h"
+#include "glove/events/type/PreExtensionLoadEvent.hpp"
 
 namespace glove {
 const AbstractEvent::EventTypeId PreExtensionLoadEvent::eventTypeId = {0x41, 0xb1, 0x65, 0x32, 0x94, 0x95, 0x47, 0xc8,

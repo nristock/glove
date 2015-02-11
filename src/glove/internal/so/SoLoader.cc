@@ -1,12 +1,11 @@
 #if defined(ON_UNIX)
 
-#include "SoLoader.h"
-
 #include <dlfcn.h>
 
 #include <boost/format.hpp>
 
-#include "glove/GloveException.h"
+#include "glove/internal/so/SoLoader.hpp"
+#include "glove/GloveException.hpp"
 
 namespace glove {
 SoLoader::SoLoader(const std::string& soFilePath) : libraryFile(soFilePath) {

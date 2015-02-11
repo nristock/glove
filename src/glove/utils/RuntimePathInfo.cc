@@ -1,11 +1,11 @@
-#include "RuntimePathInfo.h"
-
 #if defined(_WIN32) || defined(WIN32)
 #include <Windows.h>
 #elif defined(__unix__) || defined(__unix)
 #include <unistd.h>
 #include <cstdlib>
 #endif
+
+#include "glove/utils/RuntimePathInfo.hpp"
 
 namespace glove {
 

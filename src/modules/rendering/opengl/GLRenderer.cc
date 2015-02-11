@@ -5,26 +5,26 @@
 
 #include <boost/format.hpp>
 
-#include <glove/GloveCore.h>
-#include <glove/GloveException.h>
-#include <glove/graph/Scenegraph.h>
-#include <glove/rendering/gamecomponent/CameraBase.h>
-#include <glove/rendering/Rendering.h>
-#include <glove/rendering/target/IRenderTarget.h>
-#include <glove/rendering/buffers/IGpuBuffer.h>
-#include <glove/rendering/mesh/IMesh.h>
-#include <glove/rendering/WindowConstructionHints.h>
-#include <glove/rendering/vertex/IVertexData.h>
-#include <glove/rendering/vertex/IIndexData.h>
-#include <glove/rendering/RenderState.h>
+#include "glove/GloveCore.hpp"
+#include "glove/GloveException.hpp"
+#include "glove/graph/Scenegraph.hpp"
+#include "glove/rendering/gamecomponent/CameraBase.hpp"
+#include "glove/rendering/Rendering.hpp"
+#include "glove/rendering/target/IRenderTarget.hpp"
+#include "glove/rendering/buffers/IGpuBuffer.hpp"
+#include "glove/rendering/mesh/IMesh.hpp"
+#include "glove/rendering/WindowConstructionHints.hpp"
+#include "glove/rendering/vertex/IVertexData.hpp"
+#include "glove/rendering/vertex/IIndexData.hpp"
+#include "glove/rendering/RenderState.hpp"
 
-#include "GLRenderer.h"
-#include "GLMesh.h"
-#include "GLRenderOperation.h"
-#include "internal/OpenGLWrapper.h"
-#include "internal/GlfwWrapper.h"
-#include "target/GLRenderTarget.h"
-#include "target/GLDefaultRenderTarget.h"
+#include "GLRenderer.hpp"
+#include "GLMesh.hpp"
+#include "GLRenderOperation.hpp"
+#include "internal/OpenGLWrapper.hpp"
+#include "internal/GlfwWrapper.hpp"
+#include "target/GLRenderTarget.hpp"
+#include "target/GLDefaultRenderTarget.hpp"
 
 GLEWContext* glewGetContext();
 

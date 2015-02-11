@@ -1,6 +1,5 @@
-#include "CameraComponentFactory.h"
-
-#include "glove/rendering/gamecomponent/OrthoCamera.h"
+#include "glove/rendering/gamecomponent/factories/CameraComponentFactory.hpp"
+#include "glove/rendering/gamecomponent/OrthoCamera.hpp"
 
 namespace glove {
 namespace ComponentFactories {

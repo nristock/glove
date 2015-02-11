@@ -1,6 +1,5 @@
-#include "ZipFilesystem.hpp"
-
-#include "glove/GloveException.h"
+#include "glove/filesystem/compression/ZipFilesystem.hpp"
+#include "glove/GloveException.hpp"
 #include "glove/exceptions/OperationNotSupported.hpp"
 #include "glove/filesystem/compression/ZipArchive.hpp"
 #include "glove/filesystem/compression/ZipEntryBuffer.hpp"

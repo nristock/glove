@@ -1,4 +1,4 @@
-#include "Demangle.h"
+#include "Demangle.hpp"
 
 // include a std header here so we can get std lib defines
 #include <string>

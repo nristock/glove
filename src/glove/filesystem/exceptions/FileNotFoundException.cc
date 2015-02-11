@@ -1,6 +1,6 @@
-#include "FileNotFoundException.hpp"
-
 #include <boost/format.hpp>
+
+#include "glove/filesystem/exceptions/FileNotFoundException.hpp"
 
 namespace glove {
 

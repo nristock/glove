@@ -1,20 +1,21 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include <glove/GloveCore.h>
-#include <glove/rendering/IRenderer.h>
-#include <glove/rendering/vertex/VertexAttributeType.h>
-#include <glove/rendering/buffers/IGpuBuffer.h>
-#include <glove/rendering/vertex/VertexLayout.h>
-#include <glove/rendering/FrameData.h>
-#include <glove/rendering/vertex/IVertexData.h>
-#include <glove/rendering/shader/IMaterial.h>
-#include <glove/rendering/shader/IShaderProgram.h>
-#include <glove/rendering/vertex/IVertexAttributeMapping.h>
+#include <glove/GloveCore.hpp>
+#include <glove/rendering/IRenderer.hpp>
+#include <glove/rendering/vertex/VertexAttributeType.hpp>
+#include <glove/rendering/buffers/IGpuBuffer.hpp>
+#include <glove/rendering/vertex/VertexLayout.hpp>
+#include <glove/rendering/FrameData.hpp>
+#include <glove/rendering/vertex/IVertexData.hpp>
+#include <glove/rendering/shader/IMaterial.hpp>
+#include <glove/rendering/shader/IShaderProgram.hpp>
+#include <glove/rendering/vertex/IVertexAttributeMapping.hpp>
+#include <glove/rendering/vertex/VertexAttribute.hpp>
 
-#include "GLMesh.h"
-#include "GLRenderer.h"
-#include "internal/OpenGLWrapper.h"
+#include "GLMesh.hpp"
+#include "GLRenderer.hpp"
+#include "internal/OpenGLWrapper.hpp"
 
 namespace {
 

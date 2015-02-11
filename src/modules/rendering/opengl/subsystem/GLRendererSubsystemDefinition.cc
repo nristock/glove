@@ -1,7 +1,7 @@
-#include <glove/rendering/IRenderSubsystem.h>
+#include <glove/rendering/IRenderSubsystem.hpp>
 
-#include "subsystem/GLRendererSubsystemDefinition.h"
-#include "factories/GLRendererSubsystemFactory.h"
+#include "subsystem/GLRendererSubsystemDefinition.hpp"
+#include "factories/GLRendererSubsystemFactory.hpp"
 
 namespace glove {
 namespace gl {

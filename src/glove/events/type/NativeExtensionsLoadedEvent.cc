@@ -1,4 +1,4 @@
-#include "NativeExtensionsLoadedEvent.h"
+#include "glove/events/type/NativeExtensionsLoadedEvent.hpp"
 
 namespace glove {
 const AbstractEvent::EventTypeId NativeExtensionsLoadedEvent::eventTypeId = {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 #include <string>
 #include <istream>
 #include <ostream>

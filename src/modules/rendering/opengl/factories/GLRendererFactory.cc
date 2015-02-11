@@ -1,8 +1,8 @@
-#include <glove/GloveCore.h>
+#include <glove/GloveCore.hpp>
 
-#include "factories/GLRendererFactory.h"
-#include "subsystem/OpenGLRendererModule.h"
-#include "GLRenderer.h"
+#include "factories/GLRendererFactory.hpp"
+#include "subsystem/OpenGLRendererModule.hpp"
+#include "GLRenderer.hpp"
 
 namespace glove {
 namespace gl {

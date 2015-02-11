@@ -17,7 +17,7 @@ class Path {
 
   public:
     static Path Join(const Path& prefix, const Path& suffix);
-    template <typename... Paths> static GLOVE_INLINE Path Join(const Paths&... paths) {
+    template <typename... Paths> static Path Join(const Paths&... paths) {
         // Use Path joining functions returning strings instead of paths to prevent creating unnecessary intermediate
         // Path objects.
         return Path(StringJoin(paths...));

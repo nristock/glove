@@ -1,17 +1,17 @@
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
 #include <random>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <glove/rendering/gamecomponent/OrthoCamera.h>
-#include <glove/graph/gameobject/factories/EmptyGameObjectFactory.h>
-#include <glove/graph/gameobject/GameObject.h>
+#include <glove/rendering/gamecomponent/OrthoCamera.hpp>
+#include <glove/graph/gameobject/factories/EmptyGameObjectFactory.hpp>
+#include <glove/graph/gameobject/GameObject.hpp>
 
-#include "mock/MockVertexData.h"
-#include "mock/MockIndexData.h"
-#include "mock/MockMesh.h"
+#include "tests/rendering/mock/MockVertexData.hpp"
+#include "tests/rendering/mock/MockIndexData.hpp"
+#include "tests/rendering/mock/MockMesh.hpp"
 
 namespace glove {
 TEST(OrthoCameraTest, CalculatesOrthoMatrix) {

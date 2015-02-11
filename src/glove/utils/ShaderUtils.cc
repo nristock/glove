@@ -1,10 +1,9 @@
-#include "ShaderUtils.h"
-
 #include <iostream>
 
 #include <GL/glew.h>
 
-#include "glove/log/Log.h"
+#include "glove/utils/ShaderUtils.hpp"
+#include "glove/log/Log.hpp"
 
 GLEWContext* glewGetContext();
 

@@ -1,6 +1,5 @@
-#include "StaticIndexData.h"
-
-#include "glove/rendering/buffers/IGpuBuffer.h"
+#include "glove/rendering/vertex/StaticIndexData.hpp"
+#include "glove/rendering/buffers/IGpuBuffer.hpp"
 
 namespace glove {
 

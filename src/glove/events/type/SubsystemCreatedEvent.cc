@@ -1,4 +1,4 @@
-#include "SubsystemCreatedEvent.h"
+#include "glove/events/type/SubsystemCreatedEvent.hpp"
 
 namespace glove {
 const AbstractEvent::EventTypeId SubsystemCreatedEvent::eventTypeId = {0x5f, 0x32, 0xd6, 0x73, 0x23, 0x38, 0x43, 0x42,

@@ -36,7 +36,7 @@
 
 // This line ensures that gtest.h can be compiled on its own, even
 // when it's fused.
-#include "gtest/gtest.h"
+#include "gtest/gtest.hpp"
 
 // The following lines pull in the real gtest *.cc files.
 // Copyright 2005, Google Inc.
@@ -9629,7 +9629,7 @@ const char* TypedTestCasePState::VerifyRegisteredTestNames(
 
 // This line ensures that gmock.h can be compiled on its own, even
 // when it's fused.
-#include "gmock.h"
+#include "gmock.hpp"
 
 // The following lines pull in the real gmock *.cc files.
 // Copyright 2007, Google Inc.

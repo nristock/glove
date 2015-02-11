@@ -1,4 +1,4 @@
-#include "IRenderSubsystem.h"
+#include "glove/rendering/IRenderSubsystem.hpp"
 
 namespace glove {
 

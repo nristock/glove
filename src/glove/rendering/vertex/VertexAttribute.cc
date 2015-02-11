@@ -1,7 +1,5 @@
-#include "VertexAttribute.h"
-
-#include "glove/GloveException.h"
-#include "glove/rendering/vertex/VertexAttributeUtils.h"
+#include "glove/rendering/vertex/VertexAttribute.hpp"
+#include "glove/rendering/vertex/VertexAttributeUtils.hpp"
 
 namespace glove {
 

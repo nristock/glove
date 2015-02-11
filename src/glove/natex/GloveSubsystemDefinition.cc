@@ -1,4 +1,4 @@
-#include "GloveSubsystemDefinition.h"
+#include "glove/natex/GloveSubsystemDefinition.hpp"
 
 namespace glove {
 

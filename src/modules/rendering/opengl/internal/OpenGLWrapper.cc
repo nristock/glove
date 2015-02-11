@@ -2,7 +2,7 @@
 #include <GL/gl.h>
 #include <GL/glext.h>
 
-#include "internal/OpenGLWrapper.h"
+#include "internal/OpenGLWrapper.hpp"
 
 namespace glove {
 namespace gl {

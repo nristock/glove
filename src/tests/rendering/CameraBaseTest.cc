@@ -1,15 +1,15 @@
-#include <vendor/gmock/gmock.h>
+#include <gmock/gmock.hpp>
 
 #include <random>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <glove/graph/gameobject/factories/EmptyGameObjectFactory.h>
-#include <glove/graph/gameobject/GameObject.h>
-#include <glove/graph/Transform.h>
+#include <glove/graph/gameobject/factories/EmptyGameObjectFactory.hpp>
+#include <glove/graph/gameobject/GameObject.hpp>
+#include <glove/graph/Transform.hpp>
 
-#include "mock/MockCamera.h"
+#include "tests/rendering/mock/MockCamera.hpp"
 
 using testing::_;
 using testing::Invoke;

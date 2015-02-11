@@ -1,4 +1,4 @@
-#include "ScreenDimensions.h"
+#include "glove/utils/ScreenDimensions.hpp"
 
 namespace glove {
 ScreenDimensions::ScreenDimensions(float width, float height) : width(width), height(height) {

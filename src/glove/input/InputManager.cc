@@ -1,6 +1,6 @@
-#include "InputManager.h"
-
 #include <boost/format.hpp>
+
+#include "glove/input/InputManager.hpp"
 
 namespace glove {
 
