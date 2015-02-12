@@ -6,6 +6,8 @@ add_executable(tests_filesystem
     ZipArchiveTest.cc
     ZipEntryBufferTest.cc
     ZipFilesystemTest.cc
+    InMemoryFilesystemTest.cc
+    MountAwareFilesystemTest.cc
 )
 target_link_libraries(tests_filesystem vendor_gmock vendor_gtest_main glove)
 

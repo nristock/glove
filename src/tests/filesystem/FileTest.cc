@@ -22,14 +22,14 @@ using ::testing::Return;
 namespace glove {
 
 TEST(FileTest, CanConstructFromPath) {
-    FilesystemAccessorHandle filesystem(new FilesystemAccessorMock());
+    FilesystemHandle filesystem(new FilesystemAccessorMock());
 
     File file(::directoryPath, filesystem);
     EXPECT_EQ(::directoryPath, file.GetPath());
 }
 
 TEST(FileTest, CanDistinguishBetweenFilesAndDirectories) {
-    FilesystemAccessorHandle filesystem(new testing::NiceMock<FilesystemAccessorMock>());
+    FilesystemHandle filesystem(new testing::NiceMock<FilesystemAccessorMock>());
     ON_CALL(*dynamic_cast<FilesystemAccessorMock*>(filesystem.get()), GetFileInfo(directoryPath)).WillByDefault(Return(existingDirectory));
     ON_CALL(*dynamic_cast<FilesystemAccessorMock*>(filesystem.get()), GetFileInfo(filePath)).WillByDefault(Return(existingFile));
     ON_CALL(*dynamic_cast<FilesystemAccessorMock*>(filesystem.get()), GetFileInfo(nonExistingPath)).WillByDefault(Return(nonExistingFile));
@@ -45,7 +45,7 @@ TEST(FileTest, CanDistinguishBetweenFilesAndDirectories) {
 }
 
 TEST(FileTest, CanCheckExistance) {
-    FilesystemAccessorHandle filesystem(new testing::NiceMock<FilesystemAccessorMock>());
+    FilesystemHandle filesystem(new testing::NiceMock<FilesystemAccessorMock>());
     ON_CALL(*dynamic_cast<FilesystemAccessorMock*>(filesystem.get()), GetFileInfo(directoryPath)).WillByDefault(Return(existingDirectory));
     ON_CALL(*dynamic_cast<FilesystemAccessorMock*>(filesystem.get()), GetFileInfo(filePath)).WillByDefault(Return(existingFile));
     ON_CALL(*dynamic_cast<FilesystemAccessorMock*>(filesystem.get()), GetFileInfo(nonExistingPath)).WillByDefault(Return(nonExistingFile));

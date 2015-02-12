@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "glove/GloveApi.hpp"
+
 namespace glove {
 
 class GLOVE_API_EXPORT FileInfo {
@@ -20,9 +22,12 @@ public:
         return size;
     }
 
+    bool operator==(const FileInfo& other) const {
+        return size == other.size && type == other.type;
+    }
+
 private:
     const FileType type;
     const std::size_t size;
 };
-
 } /* namespace glove */

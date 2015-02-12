@@ -74,6 +74,10 @@ std::string Path::GetFilename() const {
         return std::string();
     }
 
+    if(path.back() == '/') {
+        return std::string(".");
+    }
+
     std::size_t lastPathSeparator = path.rfind('/');
     if (lastPathSeparator == std::string::npos) {
         return path;
@@ -118,6 +122,10 @@ Path Path::GetParentPath() const {
     return path.substr(0, lastSlash + 1);
 }
 
+Path Path::GetCommonPrefix(const Path& other) const {
+    return Path(std::string(path.begin(), std::mismatch(path.begin(), path.end(), other.path.begin(), other.path.end()).first));
+}
+
 template <> bool Path::operator==(const Path& other) const {
     return path == other.path;
 }
@@ -138,6 +146,10 @@ Path& Path::operator+=(Path const& other) {
     }
 
     return *this;
+}
+
+bool Path::operator<(const Path& other) const {
+    return path < other.path;
 }
 
 Path::operator std::string() const {

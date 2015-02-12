@@ -5,7 +5,7 @@
 namespace glove {
 
 class IFilesystem;
-typedef std::shared_ptr<IFilesystem> FilesystemAccessorHandle;
+typedef std::shared_ptr<IFilesystem> FilesystemHandle;
 
 typedef std::unique_ptr<std::istream> InputStreamHandle;
 typedef std::unique_ptr<std::ostream> OutputStreamHandle;
@@ -15,14 +15,14 @@ typedef std::unique_ptr<std::ostream> OutputStreamHandle;
 class WindowsAbstractionLayer;
 typedef WindowsAbstractionLayer NativeFilesystemAccessor;
 #elif defined(ON_UNIX)
-class UnixAbstractionLayer;
-typedef UnixAbstractionLayer NativeFilesystemAccessor;
+class UnixNativeFilesystem;
+typedef UnixNativeFilesystem NativeFilesystemAccessor;
 #endif
 
 } /* namespace glove */
 
 #if defined(ON_WINDOWS)
-#include "glove/filesystem/internal/WindowsAbstractionLayer.hpp"
+#include "glove/filesystem/internal/WindowsNativeFilesystem.hpp"
 #elif defined(ON_UNIX)
-#include "glove/filesystem/internal/UnixAbstractionLayer.hpp"
+#include "glove/filesystem/internal/UnixNativeFilesystem.hpp"
 #endif

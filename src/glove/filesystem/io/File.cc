@@ -3,28 +3,28 @@
 
 namespace glove {
 
-File::File(const Path& filePath)  : filePath(filePath), filesystemAccessor(new NativeFilesystemAccessor()) {}
+File::File(const Path& filePath)  : filePath(filePath), filesystem(new NativeFilesystemAccessor()) {}
 
-File::File(const Path& filePath, const FilesystemAccessorHandle& filesystemAccessor)
-        : filePath(filePath), filesystemAccessor(filesystemAccessor) {}
+File::File(const Path& filePath, const FilesystemHandle& filesystemAccessor)
+        : filePath(filePath), filesystem(filesystemAccessor) {}
 
 bool File::IsDirectory() const {
-    return filesystemAccessor->GetFileInfo(filePath.ToString()).GetType() == FileInfo::FileType::DIRECTORY;
+    return filesystem->GetFileInfo(filePath.ToString()).GetType() == FileInfo::FileType::DIRECTORY;
 }
 
 bool File::IsRegularFile() const {
-    return filesystemAccessor->GetFileInfo(filePath.ToString()).GetType() == FileInfo::FileType::REGULAR;
+    return filesystem->GetFileInfo(filePath.ToString()).GetType() == FileInfo::FileType::REGULAR;
 }
 
 bool File::Exists() const {
-    return filesystemAccessor->GetFileInfo(filePath.ToString()).GetType() != FileInfo::FileType::NOT_FOUND;
+    return filesystem->GetFileInfo(filePath.ToString()).GetType() != FileInfo::FileType::NOT_FOUND;
 }
 
 const Path& File::GetPath() const {
     return filePath;
 }
 
-const FilesystemAccessorHandle& File::GetFilesystem() const {
-    return filesystemAccessor;
+const FilesystemHandle& File::GetFilesystem() const {
+    return filesystem;
 }
 }

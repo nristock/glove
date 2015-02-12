@@ -19,7 +19,7 @@ TEST(ZipFilesystemTest, CanConstructFromZipArchive) {
 }
 
 TEST(ZipFilesystemTest, CanConstructFromZipPathAndFilesystem) {
-    ZipFilesystem zipFs(zipFile, FilesystemAccessorHandle(new NativeFilesystemAccessor()));
+    ZipFilesystem zipFs(zipFile, FilesystemHandle(new NativeFilesystemAccessor()));
 }
 
 TEST(ZipFilesystemTest, CanQueryFileInformation) {

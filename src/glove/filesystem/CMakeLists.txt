@@ -1,7 +1,10 @@
 set(gc_filesystem_src
    Path.cc
+   MountAwareFilesystem.cc
 
-   internal/UnixAbstractionLayer.cc
+   internal/UnixNativeFilesystem.cc
+
+   inmemory/InMemoryFilesystem.cc
 
    io/File.cc
    io/UnbufferedFileReader.cc
@@ -15,6 +18,8 @@ set(gc_filesystem_src
    exceptions/InvalidFileTypeException.cc
    exceptions/StreamErrorException.cc
    exceptions/FileInfoQueryException.cc
+   exceptions/MountError.cc
+   exceptions/MountLocationAlreadyOccupied.cc
 )
 
 set(gc_filesystem_headers
@@ -25,6 +30,7 @@ set(gc_filesystem_headers
    FileInfo.hpp
    Filesystem.hpp
    IFilesystem.hpp
+   MountInfo.hpp
 )
 
 

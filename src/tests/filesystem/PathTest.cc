@@ -58,7 +58,7 @@ TEST(PathTest, CanExtractFilename) {
     EXPECT_EQ("foo", Path("foo").GetFilename());
     EXPECT_EQ("foo.ext", Path("/root/path/foo.ext").GetFilename());
     EXPECT_EQ("foo.ext", Path("relative/path/foo.ext").GetFilename());
-    EXPECT_EQ("", Path("relative/path/foo/").GetFilename());
+    EXPECT_EQ(".", Path("relative/path/foo/").GetFilename());
     EXPECT_EQ(".", Path(".").GetFilename());
     EXPECT_EQ("..", Path("..").GetFilename());
 }
@@ -69,7 +69,7 @@ TEST(PathTest, CanExtractFilenameWithoutExtension) {
     EXPECT_EQ("foo", Path("foo").GetFilenameWithoutExtension());
     EXPECT_EQ("foo", Path("/root/path/foo.ext").GetFilenameWithoutExtension());
     EXPECT_EQ("foo", Path("relative/path/foo.ext").GetFilenameWithoutExtension());
-    EXPECT_EQ("", Path("relative/path/foo/").GetFilenameWithoutExtension());
+    EXPECT_EQ(".", Path("relative/path/foo/").GetFilenameWithoutExtension());
     EXPECT_EQ(".", Path(".").GetFilenameWithoutExtension());
     EXPECT_EQ("..", Path("..").GetFilenameWithoutExtension());
 }
@@ -108,6 +108,10 @@ TEST(PathTest, CanIdentifyRelativePaths) {
     EXPECT_TRUE(Path(".").IsRelative());
     EXPECT_TRUE(Path("..").IsRelative());
     EXPECT_FALSE(Path("/").IsRelative());
+}
+
+TEST(PathTest, CanFindCommonPrefix) {
+    EXPECT_EQ(Path("/this/is/a/common/prefix/"), Path("/this/is/a/common/prefix/with/some/more/stuff").GetCommonPrefix(Path("/this/is/a/common/prefix/and/even/more")));
 }
 
 TEST(PathTest, CanExtractExtension) {

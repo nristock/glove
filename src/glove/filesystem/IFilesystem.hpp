@@ -3,6 +3,8 @@
 #include <istream>
 #include <ostream>
 
+#include "glove/GloveApi.hpp"
+#include "glove/filesystem/FileInfo.hpp"
 #include "glove/filesystem/Path.hpp"
 
 namespace glove {

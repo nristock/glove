@@ -12,7 +12,7 @@ class GLOVE_API_EXPORT ZipFilesystem : public IFilesystem {
     ZipFilesystem(const ZipArchiveHandle& zipArchive);
 
     template <class FilesystemAccessorType = NativeFilesystemAccessor>
-    ZipFilesystem(const Path& path, const FilesystemAccessorHandle& filesystem) {
+    ZipFilesystem(const Path& path, const FilesystemHandle& filesystem) {
         // A little bit of hacking is required here since libzip doesn't allow to read zip files from memory.
         archive = ZipArchiveHandle(new ZipArchive(dynamic_cast<FilesystemAccessorType*>(filesystem.get())->MakePathNativeAbsolute(path)));
     }

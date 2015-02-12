@@ -9,18 +9,18 @@ namespace glove {
 class GLOVE_API_EXPORT File {
 public:
     File(const Path& filePath);
-    File(const Path& filePath, const FilesystemAccessorHandle& filesystemAccessor);
+    File(const Path& filePath, const FilesystemHandle& filesystemAccessor);
 
     bool IsDirectory() const;
     bool IsRegularFile() const;
     bool Exists() const;
 
     const Path& GetPath() const;
-    const FilesystemAccessorHandle& GetFilesystem() const;
+    const FilesystemHandle& GetFilesystem() const;
 
 private:
     const Path filePath;
-    const FilesystemAccessorHandle filesystemAccessor;
+    const FilesystemHandle filesystem;
 };
 
 } /* namespace glove */

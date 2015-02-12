@@ -42,6 +42,7 @@ class GLOVE_API_EXPORT Path {
     std::string GetFilename() const;
     std::string GetFilenameWithoutExtension() const;
     Path GetParentPath() const;
+    Path GetCommonPrefix(const Path& other) const;
 
     friend bool operator==(const std::string& lhs, const glove::Path& rhs);
     friend bool operator!=(const std::string& lhs, const glove::Path& rhs);
@@ -55,6 +56,8 @@ class GLOVE_API_EXPORT Path {
 
     Path operator+(const Path& other) const;
     Path& operator+=(const Path& other);
+
+    bool operator<(const Path& other) const;
 
     std::string ToString() const;
     explicit operator std::string() const;

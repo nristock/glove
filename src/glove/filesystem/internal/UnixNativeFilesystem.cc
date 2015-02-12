@@ -1,27 +1,26 @@
-#include "UnixAbstractionLayer.hpp"
-
 #include <fstream>
 
 #include <boost/format.hpp>
 
+#include "glove/filesystem/internal/UnixNativeFilesystem.hpp"
 #include "glove/GloveException.hpp"
 #include "glove/utils/RuntimePathInfo.hpp"
 #include "glove/filesystem/exceptions/FileInfoQueryException.hpp"
 
 namespace glove {
-UnixAbstractionLayer::UnixAbstractionLayer() {
+UnixNativeFilesystem::UnixNativeFilesystem() {
     std::string executableName;
 
     GetExecutionPathInfo(this->nativeRoot, executableName);
 }
 
-UnixAbstractionLayer::UnixAbstractionLayer(const std::string& nativeRoot) {
+UnixNativeFilesystem::UnixNativeFilesystem(const std::string& nativeRoot) {
     if(nativeRoot.back() == '/') {
         this->nativeRoot = nativeRoot.substr(0, nativeRoot.length() - 2);
     }
 }
 
-const FileInfo UnixAbstractionLayer::GetFileInfo(const Path& path) {
+const FileInfo UnixNativeFilesystem::GetFileInfo(const Path& path) {
     struct stat unixFileInfo;
     if(stat(MakePathNativeAbsolute(path).ToString().c_str(), &unixFileInfo) == -1) {
         switch (errno) {
@@ -60,15 +59,15 @@ const FileInfo UnixAbstractionLayer::GetFileInfo(const Path& path) {
     }
 }
 
-std::istream* UnixAbstractionLayer::CreateFileReadStream(const Path& path) {
+std::istream* UnixNativeFilesystem::CreateFileReadStream(const Path& path) {
     return new std::ifstream(path.ToString(), std::ios::in | std::ios::binary);
 }
 
-std::ostream* UnixAbstractionLayer::CreateFileWriteStream(const Path& path) {
+std::ostream* UnixNativeFilesystem::CreateFileWriteStream(const Path& path) {
     return new std::ofstream(path.ToString(), std::ios::out | std::ios::binary);
 }
 
-Path UnixAbstractionLayer::MakePathNativeAbsolute(const Path& path) {
+Path UnixNativeFilesystem::MakePathNativeAbsolute(const Path& path) {
     if(path.IsAbsolute()) {
         return Path(nativeRoot + path.ToString());
     }

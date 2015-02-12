@@ -13,7 +13,7 @@ const glove::Path nonExistingPath("testdata/a_not_existing_directory");
 namespace glove {
 
 TEST(NativeFilesystemAccessorsTest, CanDistinguishBetweenFilesAndDirectories) {
-    FilesystemAccessorHandle filesystem(new NativeFilesystemAccessor());
+    FilesystemHandle filesystem(new NativeFilesystemAccessor());
 
     File directoryFile(::directoryPath, filesystem);
     EXPECT_TRUE(directoryFile.IsDirectory());
@@ -25,7 +25,7 @@ TEST(NativeFilesystemAccessorsTest, CanDistinguishBetweenFilesAndDirectories) {
 }
 
 TEST(NativeFilesystemAccessorsTest, CanCheckExistance) {
-    FilesystemAccessorHandle filesystem(new NativeFilesystemAccessor());
+    FilesystemHandle filesystem(new NativeFilesystemAccessor());
 
     EXPECT_TRUE(File(::directoryPath, filesystem).Exists());
     EXPECT_TRUE(File(::filePath, filesystem).Exists());

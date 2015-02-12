@@ -14,20 +14,20 @@ namespace glove {
 /// A UNIX/POSIX native filsystem abstraction layer with the ability to be rooted to a specific directory.
 /// The root directory path will be prepended to all filesystem queries.
 /// E.g.: \code{.cpp}
-/// UnixAbstractionLayer filesystem("/opt/install")
+/// UnixNativeFilesystem filesystem("/opt/install")
 /// Path aPath("/somefile");
 /// filesystem.GetFileInfo(aPath); // Will actually be executed on "/opt/install/somefile"
 /// \endcode
 /// The filesystem root defaults to the executable's directory.
-class UnixAbstractionLayer : public IFilesystem {
+class UnixNativeFilesystem : public IFilesystem {
 public:
-    UnixAbstractionLayer();
-    UnixAbstractionLayer(const std::string& nativeRoot);
+    UnixNativeFilesystem();
+    UnixNativeFilesystem(const std::string& nativeRoot);
 
     /// Translates \p path to the corresponding native filesystem path
     Path MakePathNativeAbsolute(const Path& path);
 
-    const FileInfo GetFileInfo(const Path& path) override;
+    virtual const FileInfo GetFileInfo(const Path& path) override;
     virtual std::istream* CreateFileReadStream(const Path& path) override;
     virtual std::ostream* CreateFileWriteStream(const Path& path) override;
 
