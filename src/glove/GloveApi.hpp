@@ -6,6 +6,6 @@
 #else
 #define GLOVE_API_EXPORT __declspec(dllimport)
 #endif // defined(GLOVE_EXPORTS)
-#elif defined(ON_UNIX)
+#else
 #define GLOVE_API_EXPORT
 #endif
