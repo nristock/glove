@@ -10,6 +10,7 @@ add_subdirectory(graph)
 add_subdirectory(filesystem)
 add_subdirectory(configuration)
 add_subdirectory(utils)
+add_subdirectory(resources)
 
 set(core_src
     GloveCore.cc
@@ -29,6 +30,7 @@ set(core_object_libs
     $<TARGET_OBJECTS:gc_graph>
     $<TARGET_OBJECTS:gc_utils>
     $<TARGET_OBJECTS:gc_filesystem>
+    $<TARGET_OBJECTS:gc_resources>
     $<TARGET_OBJECTS:glove_utils>
 )
 

@@ -12,7 +12,7 @@ public:
     UnbufferedFileReader(const File& file);
     virtual ~UnbufferedFileReader();
 
-    virtual void Read(void* destination, std::size_t size);
+    virtual void Read(void* destination, std::size_t size) override;
 
 private:
     InputStreamHandle rawStream;

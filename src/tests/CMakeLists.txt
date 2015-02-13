@@ -11,5 +11,6 @@ add_subdirectory(natex)
 add_subdirectory(filesystem)
 add_subdirectory(modules/glrenderer)
 add_subdirectory(configuration)
+add_subdirectory(resources)
 
-add_custom_target(tests_all DEPENDS tests_soloader tests_graph tests_gc_rendering tests_utils tests_bifrost tests_natex tests_configuration tests_filesystem)
+add_custom_target(tests_unit DEPENDS tests_soloader tests_graph tests_gc_rendering tests_utils tests_bifrost tests_natex tests_configuration tests_filesystem tests_resources)

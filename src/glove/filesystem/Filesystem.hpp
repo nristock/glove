@@ -10,6 +10,9 @@ typedef std::shared_ptr<IFilesystem> FilesystemHandle;
 typedef std::unique_ptr<std::istream> InputStreamHandle;
 typedef std::unique_ptr<std::ostream> OutputStreamHandle;
 
+class IFileReader;
+typedef std::shared_ptr<IFileReader> FileReaderHandle;
+
 
 #if defined(ON_WINDOWS)
 class WindowsAbstractionLayer;

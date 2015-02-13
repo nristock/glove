@@ -2,6 +2,8 @@ set(GLOVE_VERSION_MAJOR 1)
 set(GLOVE_VERSION_MINOR 0)
 set(GLOVE_VERSION_PATCH 0)
 
+option(GLOVE_BUILD_TESTS "Whether to build tests or not" ON)
+option(GLOVE_BUILD_MODULES "Whether to build modules or not" ON)
 
 ##############################################
 ##############################################

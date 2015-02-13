@@ -63,14 +63,16 @@ endif()
 
 add_subdirectory(vendor)
 add_subdirectory(glove)
-add_subdirectory(modules)
 add_subdirectory(utils)
 
-option(BUILD_TESTS "Whether to build tests or not" ON)
-if(BUILD_TESTS)
-add_subdirectory(tests)
+if(GLOVE_BUILD_MODULES)
+    add_subdirectory(modules)
+endif()
+
+if(GLOVE_BUILD_TESTS)
+    add_subdirectory(tests)
+    add_subdirectory(integration)
 endif()
 
 include(MsvcFiletree)
-
 include(Install)
