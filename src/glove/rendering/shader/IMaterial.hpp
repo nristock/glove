@@ -14,5 +14,8 @@ class GLOVE_API_EXPORT IMaterial {
     virtual IMaterialAttributePtr GetMaterialAttribute(const std::string& name) = 0;
     virtual IMaterialAttributePtr GetMaterialAttribute(const MaterialAttributeSemantic semantic) = 0;
     virtual void MapAttributeSemantic(const MaterialAttributeSemantic semantic, const std::string& attributeName) = 0;
+    virtual MaterialTextureAttributeHandle GetTextureAttribute(const std::string& name) = 0;
+
+    virtual void Enable() = 0;
 };
 }

@@ -8,6 +8,8 @@ set(opengl_renderer_src
     internal/GlfwWrapper.cc
     internal/OpenGLWrapper.cc
 
+    texture/GLTexture.cc
+
     target/GLRenderTarget.cc
     target/GLDefaultRenderTarget.cc
 
@@ -16,6 +18,7 @@ set(opengl_renderer_src
     shader/GLShader.cc
     shader/GLShaderProgram.cc
     shader/GLVertexAttributeMapping.cc
+    shader/GLMaterialTextureAttribute.cc
 
     factories/GLRendererFactory.cc
     factories/GLRendererSubsystemFactory.cc
@@ -25,6 +28,7 @@ set(opengl_renderer_src
     factories/GLShaderProgramFactory.cc
     factories/GLMaterialFactory.cc
     factories/GLRenderOperationFactory.cc
+    factories/GLTextureFactory.cc
 
     subsystem/OpenGLRendererModule.cc
     subsystem/GLRendererExtension.cc

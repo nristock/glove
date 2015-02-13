@@ -44,7 +44,11 @@ class IShader;
 class IShaderProgram;
 class IMesh;
 class IMaterialAttribute;
+class MaterialTextureAttribute;
 class IRenderTarget;
+
+class Texture;
+class TextureFactory;
 
 typedef std::shared_ptr<IGpuBufferFactory> IGpuBufferFactoryPtr;
 typedef std::shared_ptr<IGpuBuffer> IGpuBufferPtr;
@@ -69,11 +73,15 @@ typedef std::shared_ptr<IShader> IShaderPtr;
 typedef std::shared_ptr<IShaderProgram> IShaderProgramPtr;
 typedef std::shared_ptr<IMesh> IMeshPtr;
 typedef std::shared_ptr<IMaterialAttribute> IMaterialAttributePtr;
+typedef std::shared_ptr<MaterialTextureAttribute> MaterialTextureAttributeHandle;
 typedef std::shared_ptr<IRenderSubsystem> IRenderSubsystemPtr;
 typedef std::shared_ptr<IShaderProgramFactory> IShaderProgramFactoryPtr;
 typedef std::shared_ptr<IMaterialFactory> IMaterialFactoryPtr;
 
 typedef std::shared_ptr<IRenderOperationFactory> RenderOperationFactoryHandle;
+
+typedef std::shared_ptr<Texture> TextureHandle;
+typedef std::shared_ptr<TextureFactory> TextureFactoryHandle;
 
 /// @brief The type of the buffer binding map (slot <-> buffer)
 typedef std::map<std::size_t, IGpuBufferPtr> VertexBufferBindingMap;

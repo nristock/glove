@@ -8,7 +8,7 @@ namespace glove {
 
 class GLOVE_API_EXPORT ResourceLoader {
   public:
-    static ImageHandle LoadPngImage(IFileReader& reader);
+    static ImageHandle LoadPngImage(const Path& filePath);
 };
 
 } /* namespace glove */

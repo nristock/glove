@@ -8,7 +8,9 @@ namespace {
 
 namespace glove {
 
-ImageHandle ResourceLoader::LoadPngImage(IFileReader& reader) {
+ImageHandle ResourceLoader::LoadPngImage(const Path& filePath) {
+    File file(filePath);
+    UnbufferedFileReader reader(file);
     return PngImage::Load(reader);
 }
 }

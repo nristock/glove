@@ -2,6 +2,7 @@
 
 #include <string>
 #include <map>
+#include <unordered_set>
 
 #include <glove/rendering/Rendering.hpp>
 #include <glove/rendering/shader/IMaterial.hpp>
@@ -23,13 +24,21 @@ class GLMaterial : public IMaterial, public std::enable_shared_from_this<GLMater
     virtual IMaterialAttributePtr GetMaterialAttribute(const MaterialAttributeSemantic semantic);
     virtual void MapAttributeSemantic(const MaterialAttributeSemantic semantic, const std::string& attributeName);
 
-private:
+
+    virtual void Enable();
+
+    //todo: multi texture support by using texture units
+    virtual MaterialTextureAttributeHandle GetTextureAttribute(const std::string& name);
+
+  private:
     logging::GloveLogger logger;
 
     GLShaderProgramPtr shader;
 
     std::map<MaterialAttributeSemantic, IMaterialAttributePtr> attributeSemanticMap;
     std::map<std::size_t, IMaterialAttributePtr> attributeNameMap;
+
+    std::unordered_set<GLMaterialTextureAttributeHandle> textureAttributes;
 };
 }
 } // namespace glove

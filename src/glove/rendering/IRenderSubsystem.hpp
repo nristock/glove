@@ -21,6 +21,7 @@ class GLOVE_API_EXPORT IRenderSubsystem {
     virtual IShaderProgramFactoryPtr GetShaderProgramFactory() = 0;
     virtual IMaterialFactoryPtr GetMaterialFactory() = 0;
     virtual RenderOperationFactoryHandle GetRenderOperationFactory() = 0;
+    virtual TextureFactoryHandle GetTextureFactory() = 0;
 };
 
 } /* namespace glove */

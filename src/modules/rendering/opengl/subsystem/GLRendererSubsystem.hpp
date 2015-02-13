@@ -24,8 +24,9 @@ class GLRendererSubsystem : public IRenderSubsystem, public ISubsystem {
     virtual IShaderProgramFactoryPtr GetShaderProgramFactory();
     virtual IMaterialFactoryPtr GetMaterialFactory();
     virtual RenderOperationFactoryHandle GetRenderOperationFactory();
+    virtual TextureFactoryHandle GetTextureFactory();
 
-private:
+  private:
     logging::GloveLogger logger;
 
     GloveCorePtr engineCore;
@@ -36,6 +37,7 @@ private:
     GLMaterialFactoryPtr materialFactory;
     GLShaderProgramFactoryPtr shaderProgramFactory;
     GLRenderOperationFactoryHandle renderOperationFactory;
+    GLTextureFactoryHandle textureFactory;
 };
 }
 } /* namespace glove */

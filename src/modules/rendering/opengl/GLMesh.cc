@@ -21,6 +21,7 @@ namespace {
 
 GLenum TranslateVertexAttributeType(glove::VertexAttributeType attribType) {
     switch (attribType) {
+    case glove::VertexAttributeType::FLOAT2:
     case glove::VertexAttributeType::FLOAT3:
     case glove::VertexAttributeType::FLOAT4:
         return GL_FLOAT;
@@ -88,7 +89,7 @@ void GLMesh::SetupVertexAttribute(const IVertexAttributeMappingPtr& shaderProgra
 
 void GLMesh::CreateVertexArrayObjectForContext(ContextId contextId) {
     if (vertexArrayIds.count(contextId)) {
-    throw GLOVE_EXCEPTION("Cannot create multiple vertex array objects per mesh per context.")
+        throw GLOVE_EXCEPTION("Cannot create multiple vertex array objects per mesh per context.")
     }
 
     GLuint temporaryId;
@@ -109,6 +110,5 @@ void GLMesh::EnsureVertexArrayObjectExistsForContext(ContextId contextId) {
     CreateVertexArrayObjectForContext(contextId);
     InitVertexAttributeObjectStateForContext(contextId);
 }
-
 }
 } // namespace glove

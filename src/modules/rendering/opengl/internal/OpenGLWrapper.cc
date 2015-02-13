@@ -1,6 +1,5 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glext.h>
 
 #include "internal/OpenGLWrapper.hpp"
 
@@ -179,6 +178,10 @@ void OpenGLWrapper::Viewport(GLint x, GLint y, GLsizei width, GLsizei height) {
     sharedWrapper->_glViewport(x, y, width, height);
 }
 
+void OpenGLWrapper::ActiveTexture(GLenum texture) {
+    sharedWrapper->_glActiveTexture(texture);
+}
+
 void OpenGLWrapper::_glDeleteVertexArrays(GLsizei n, const GLuint* arrays) {
     glDeleteVertexArrays(n, arrays);
 }
@@ -343,6 +346,18 @@ void OpenGLWrapper::_glTexParameteri(GLenum target, GLenum pname, GLint param) {
 
 void OpenGLWrapper::_glViewport(GLint x, GLint y, GLsizei width, GLsizei height) {
     glViewport(x, y, width, height);
+}
+
+void OpenGLWrapper::_glActiveTexture(GLenum texture) {
+    glActiveTexture(texture);
+}
+
+void OpenGLWrapper::Uniform1i(GLint location, GLint value) {
+    sharedWrapper->_glUniform1i(location, value);
+}
+
+void OpenGLWrapper::_glUniform1i(GLint location, GLint value) {
+    glUniform1i(location, value);
 }
 }
 }

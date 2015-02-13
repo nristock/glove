@@ -9,6 +9,7 @@ set(gc_rendering_headers
     factories/IRenderOperationFactory.hpp
     factories/IShaderFactory.hpp
     factories/IShaderProgramFactory.hpp
+    factories/TextureFactory.hpp
 
     mesh/IMesh.hpp
 
@@ -16,6 +17,7 @@ set(gc_rendering_headers
     shader/IMaterialAttribute.hpp
     shader/IShader.hpp
     shader/IShaderProgram.hpp
+    shader/MaterialTextureAttribute.hpp
 
     target/IRenderTarget.hpp
 
@@ -27,6 +29,8 @@ set(gc_rendering_headers
     vertex/VertexAttributeSemantic.hpp
     vertex/VertexAttributeType.hpp
     vertex/VertexLayouts.hpp
+
+    texture/Texture.cc
 
     FrameData.hpp
     IRenderer.hpp

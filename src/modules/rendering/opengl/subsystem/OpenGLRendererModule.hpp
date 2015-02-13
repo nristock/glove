@@ -36,6 +36,9 @@ class GLShaderFactory;
 class GLShaderProgram;
 class GLShaderProgramFactory;
 class GLWindow;
+class GLTexture;
+class GLTextureFactory;
+class GLMaterialTextureAttribute;
 
 class OpenGLWrapper;
 class GlfwWrapper;
@@ -58,6 +61,9 @@ typedef std::shared_ptr<GLMeshFactory> GLMeshFactoryPtr;
 typedef std::shared_ptr<GLMaterialFactory> GLMaterialFactoryPtr;
 typedef std::shared_ptr<GlfwWrapper> GlfwWrapperPtr;
 typedef std::shared_ptr<GLRenderOperationFactory> GLRenderOperationFactoryHandle;
+typedef std::shared_ptr<GLTexture> GLTextureHandle;
+typedef std::shared_ptr<GLTextureFactory> GLTextureFactoryHandle;
+typedef std::shared_ptr<GLMaterialTextureAttribute> GLMaterialTextureAttributeHandle;
 
 typedef uint16_t ContextId;
 

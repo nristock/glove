@@ -10,6 +10,7 @@
 #include "factories/GLShaderFactory.hpp"
 #include "factories/GLShaderProgramFactory.hpp"
 #include "factories/GLMaterialFactory.hpp"
+#include "factories/GLTextureFactory.hpp"
 
 namespace glove {
 namespace gl {
@@ -22,6 +23,7 @@ GLRendererSubsystem::GLRendererSubsystem(const GloveCorePtr& engineCore) {
     shaderProgramFactory = GLShaderProgramFactoryPtr(new GLShaderProgramFactory());
     materialFactory = GLMaterialFactoryPtr(new GLMaterialFactory());
     renderOperationFactory = GLRenderOperationFactoryHandle(new GLRenderOperationFactory());
+    textureFactory = GLTextureFactoryHandle(new GLTextureFactory());
 
     LOG(logger, info,
         (boost::format("Create OpenGL rendering subsystem (GLFW: %1%)") % GlfwWrapper::GetGlfwVersion()).str());
@@ -53,6 +55,10 @@ IMaterialFactoryPtr GLRendererSubsystem::GetMaterialFactory() {
 
 RenderOperationFactoryHandle GLRendererSubsystem::GetRenderOperationFactory() {
     return renderOperationFactory;
+}
+
+TextureFactoryHandle GLRendererSubsystem::GetTextureFactory() {
+    return textureFactory;
 }
 }
 }

@@ -10,6 +10,8 @@ VertexAttribute::VertexAttribute(std::size_t bufferIndex, std::size_t offset, Ve
 
 std::size_t VertexAttribute::GetSizeInBytes() const {
     switch (dataType) {
+    case VertexAttributeType::FLOAT2:
+        return VertexAttributeUtils<VertexAttributeType::FLOAT2>::GetTypeSize();
     case VertexAttributeType::FLOAT3:
         return VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize();
     case VertexAttributeType::FLOAT4:
@@ -35,6 +37,8 @@ std::size_t VertexAttribute::GetBufferIndex() const {
 
 std::size_t VertexAttribute::GetNumberOfComponents() const {
     switch (dataType) {
+    case VertexAttributeType::FLOAT2:
+        return VertexAttributeUtils<VertexAttributeType::FLOAT2>::GetComponentCount();
     case VertexAttributeType::FLOAT3:
         return VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetComponentCount();
     case VertexAttributeType::FLOAT4:

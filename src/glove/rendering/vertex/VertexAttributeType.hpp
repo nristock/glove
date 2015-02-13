@@ -4,8 +4,9 @@ namespace glove {
 
 /// @ingroup RenderSubsystemInterface
 enum class GLOVE_API_EXPORT VertexAttributeType {
-    FLOAT3 = 0,
-    FLOAT4 = 1,
+    FLOAT2 = 0,
+    FLOAT3 = 1,
+    FLOAT4 = 2,
 };
 
 } // namespace glove

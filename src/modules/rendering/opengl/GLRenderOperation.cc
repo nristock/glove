@@ -3,6 +3,7 @@
 
 #include <glove/rendering/vertex/IIndexData.hpp>
 #include <glove/rendering/vertex/IVertexData.hpp>
+#include <glove/rendering/shader/IMaterial.hpp>
 
 #include "GLRenderOperation.hpp"
 #include "GLMesh.hpp"
@@ -24,6 +25,8 @@ void GLRenderOperation::Execute(const IRendererPtr& renderer) {
 
     glMesh->EnsureVertexArrayObjectExistsForContext(contextId);
     GL::BindVertexArray(glMesh->GetVertexArrayId(contextId));
+
+    glMesh->GetMaterial()->Enable();
 
     const IIndexDataPtr& indexData = glMesh->GetIndexData();
     const IVertexDataPtr& vertexData = glMesh->GetVertexData();

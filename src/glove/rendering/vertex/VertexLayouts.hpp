@@ -80,5 +80,29 @@ struct PositionColor {
         return position == other.position && color == other.color;
     }
 };
+
+/// @brief Position+UV vertex layout.
+/// @ingroup VertexLayouts
+///
+/// This layout consists of a single float[3] (glm::vec3) for position and a float[2] (glm::vec2) for UV data
+struct PositionUV {
+    glm::vec3 position;
+    glm::vec2 uv;
+
+    static VertexLayout GetLayout(size_t bufferIndex) {
+        VertexLayout layout;
+        layout.AddAttribute({bufferIndex, 0, VertexAttributeType::FLOAT3, VertexAttributeSemantic::POSITION});
+        layout.AddAttribute({bufferIndex, VertexAttributeUtils<VertexAttributeType::FLOAT3>::GetTypeSize(),
+                VertexAttributeType::FLOAT2, VertexAttributeSemantic::UV});
+
+        return layout;
+    }
+
+    static VertexLayout GetLayout() { return GetLayout(0); }
+
+    bool operator==(const PositionUV& other) const {
+        return position == other.position && uv == other.uv;
+    }
+};
 }
 } /* namespace glove */

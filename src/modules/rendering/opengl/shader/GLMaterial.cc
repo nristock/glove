@@ -4,6 +4,7 @@
 
 #include "shader/GLMaterial.hpp"
 #include "shader/GLMaterialAttribute.hpp"
+#include "shader/GLMaterialTextureAttribute.hpp"
 #include "shader/GLShaderProgram.hpp"
 
 namespace {
@@ -47,6 +48,24 @@ IMaterialAttributePtr GLMaterial::GetMaterialAttribute(const MaterialAttributeSe
 
 void GLMaterial::MapAttributeSemantic(const MaterialAttributeSemantic semantic, const std::string& attributeName) {
     attributeSemanticMap[semantic] = GetMaterialAttribute(attributeName);
+}
+
+MaterialTextureAttributeHandle GLMaterial::GetTextureAttribute(const std::string& name) {
+    GLint samplerLocation = shader->GetUniformLocation(name);
+
+    // todo: statically use texture unit 0 for now but implement dynamic allocation later on
+    GLMaterialTextureAttributeHandle textureAttribute(new GLMaterialTextureAttribute(samplerLocation, shared_from_this(), 0));
+    textureAttributes.emplace(textureAttribute);
+
+    return textureAttribute;
+}
+
+void GLMaterial::Enable() {
+    shader->Enable();
+
+    for(const GLMaterialTextureAttributeHandle& textureAttribute : textureAttributes) {
+        textureAttribute->BindTexture();
+    }
 }
 }
 } // namespace glove

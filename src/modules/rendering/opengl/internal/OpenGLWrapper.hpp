@@ -63,6 +63,8 @@ class OpenGLWrapper {
                                         GLint border, GLenum format, GLenum type, const GLvoid* data);
     static void TexParameteri(GLenum target, GLenum pname, GLint param);
     static void Viewport(GLint x, GLint y, GLsizei width, GLsizei height);
+    static void ActiveTexture(GLenum texture);
+    static void Uniform1i(GLint location, GLint value);
 
   protected:
     virtual void _glDeleteVertexArrays(GLsizei n, const GLuint* arrays);
@@ -111,6 +113,8 @@ class OpenGLWrapper {
                                             const GLvoid* data);
     virtual void _glTexParameteri(GLenum target, GLenum pname, GLint param);
     virtual void _glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
+    virtual void _glActiveTexture(GLenum texture);
+    virtual void _glUniform1i(GLint location, GLint value);
 
   private:
     static OpenGLWrapperPtr sharedWrapper;
