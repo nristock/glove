@@ -9,7 +9,7 @@ namespace gl {
 /// @ingroup Factories
 class GLRendererSubsystemFactory : public ISubsystemFactory {
   public:
-    virtual ISubsystemPtr CreateSubsystem(const GloveCorePtr& engineCore);
+    virtual ISubsystemPtr CreateSubsystem(const ISubsystemInstanceRegistryPtr& subsystemInstanceRegistry, const EventBusPtr& eventBus);
 };
 }
 } /* namespace glove */

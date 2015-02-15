@@ -2,6 +2,7 @@
 
 #include <list>
 
+#include "glove/GloveApi.hpp"
 #include "glove/natex/Natex.hpp"
 
 namespace glove {

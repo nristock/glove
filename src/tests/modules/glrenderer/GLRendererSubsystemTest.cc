@@ -27,11 +27,9 @@ class GLRendererSubsystemTest : public ::testing::Test {
     GLRendererSubsystemPtr testSubsystem;
 
     GLRendererSubsystemTest() : renderer(new MockRenderer()) {
-        GloveCorePtr gloveCore(new MockGloveCore());
         EventBusPtr eventBus(new MockEventBus());
-        EXPECT_CALL(*(MockGloveCore*)gloveCore.get(), GetEventBus()).WillRepeatedly(ReturnRef(eventBus));
 
-        testSubsystem = GLRendererSubsystemPtr(new GLRendererSubsystem(gloveCore));
+        testSubsystem = GLRendererSubsystemPtr(new GLRendererSubsystem(eventBus));
     }
 };
 

@@ -15,10 +15,10 @@
 namespace glove {
 namespace gl {
 
-GLRendererSubsystem::GLRendererSubsystem(const GloveCorePtr& engineCore) {
+GLRendererSubsystem::GLRendererSubsystem(const EventBusPtr& eventBus) {
     gpuBufferFactory = GLGpuBufferFactoryPtr(new GLGpuBufferFactory());
     meshFactory = GLMeshFactoryPtr(new GLMeshFactory());
-    rendererFactory = GLRendererFactoryPtr(new GLRendererFactory(engineCore->GetEventBus()));
+    rendererFactory = GLRendererFactoryPtr(new GLRendererFactory(eventBus));
     shaderFactory = GLShaderFactoryPtr(new GLShaderFactory());
     shaderProgramFactory = GLShaderProgramFactoryPtr(new GLShaderProgramFactory());
     materialFactory = GLMaterialFactoryPtr(new GLMaterialFactory());

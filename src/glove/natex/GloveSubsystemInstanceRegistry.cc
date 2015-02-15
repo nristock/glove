@@ -10,9 +10,8 @@
 
 namespace glove {
 
-GloveSubsystemInstanceRegistry::GloveSubsystemInstanceRegistry(const EventBusPtr& eventBus,
-                                                               const GloveCorePtr& engineCore)
-    : eventBus(eventBus), engineCore(engineCore) {
+GloveSubsystemInstanceRegistry::GloveSubsystemInstanceRegistry(const EventBusPtr& eventBus)
+    : eventBus(eventBus) {
 }
 
 void GloveSubsystemInstanceRegistry::InstantiateDefinitionRegistry(
@@ -23,7 +22,7 @@ void GloveSubsystemInstanceRegistry::InstantiateDefinitionRegistry(
             EmitPreCreateEvent();
 
             ISubsystemFactoryPtr subsystemFactory = subsystemDefinition->GetSystemFactory();
-            ISubsystemPtr subsystemInstance = subsystemFactory->CreateSubsystem(engineCore);
+            ISubsystemPtr subsystemInstance = subsystemFactory->CreateSubsystem(shared_from_this(), eventBus);
 
             subsystemInstances.insert(
                 std::pair<SubsystemType, ISubsystemPtr>(subsystemDefinition->GetSystemType(), subsystemInstance));

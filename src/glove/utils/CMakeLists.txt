@@ -9,6 +9,9 @@ set(gc_utils_src
    RuntimePathInfo.cc
    ScreenDimensions.cc
    ShaderUtils.cc
+
+   builder/CoreBuilder.cc
+   builder/RendererBuilder.cc
 )
 
 add_library(gc_utils OBJECT ${gc_utils_src} ${gc_utils_headers})

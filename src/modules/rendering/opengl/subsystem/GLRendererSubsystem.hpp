@@ -14,7 +14,7 @@ namespace gl {
 /// @ingroup OpenGLRenderer
 class GLRendererSubsystem : public IRenderSubsystem, public ISubsystem {
   public:
-    GLRendererSubsystem(const GloveCorePtr& engineCore);
+    GLRendererSubsystem(const EventBusPtr& eventBus);
     virtual ~GLRendererSubsystem() = default;
 
     virtual IGpuBufferFactoryPtr GetGpuBufferFactory(const IRendererPtr& owningRenderer);
@@ -29,7 +29,6 @@ class GLRendererSubsystem : public IRenderSubsystem, public ISubsystem {
   private:
     logging::GloveLogger logger;
 
-    GloveCorePtr engineCore;
     IGpuBufferFactoryPtr gpuBufferFactory;
     IMeshFactoryPtr meshFactory;
     GLRendererFactoryPtr rendererFactory;

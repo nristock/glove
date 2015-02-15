@@ -9,9 +9,9 @@
 
 namespace glove {
 
-class GLOVE_API_EXPORT GloveSubsystemInstanceRegistry : public ISubsystemInstanceRegistry {
+class GLOVE_API_EXPORT GloveSubsystemInstanceRegistry : public ISubsystemInstanceRegistry, public std::enable_shared_from_this<ISubsystemInstanceRegistry> {
   public:
-    GloveSubsystemInstanceRegistry(const EventBusPtr& eventBus, const GloveCorePtr& engineCore);
+    GloveSubsystemInstanceRegistry(const EventBusPtr& eventBus);
 
     virtual void InstantiateDefinitionRegistry(const ISubsystemDefinitionRegistryPtr& definitionRegistry);
     virtual SubsystemInstanceList GetSubsystemsOfType(const SubsystemType& subsystemType);
@@ -22,7 +22,6 @@ class GLOVE_API_EXPORT GloveSubsystemInstanceRegistry : public ISubsystemInstanc
 
     logging::GloveLogger logger;
     EventBusPtr eventBus;
-    GloveCorePtr engineCore;
     SubsystemInstanceMap subsystemInstances;
 
     void EmitPreCreateEvent();

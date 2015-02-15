@@ -2,7 +2,7 @@
 
 #include <boost/uuid/uuid.hpp>
 
-#include "glove/GloveFwd.hpp"
+#include "glove/GloveApi.hpp"
 #include "glove/natex/Natex.hpp"
 
 namespace glove {

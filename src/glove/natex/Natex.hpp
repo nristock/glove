@@ -38,6 +38,7 @@ typedef std::shared_ptr<ISystemExtension> ISystemExtensionPtr;
 typedef std::shared_ptr<ISubsystemDefinitionRegistry> ISubsystemDefinitionRegistryPtr;
 typedef std::shared_ptr<ISubsystemInstanceRegistry> ISubsystemInstanceRegistryPtr;
 typedef std::shared_ptr<ISubsystem> ISubsystemPtr;
+typedef std::shared_ptr<ISystemExtensionLoader> ISystemExtensionLoaderHandle;
 
 typedef std::list<ISubsystemDefinitionPtr> SubsystemDefinitionList;
 typedef std::list<ISubsystemPtr> SubsystemInstanceList;

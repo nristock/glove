@@ -14,7 +14,6 @@ add_subdirectory(resources)
 
 set(core_src
     GloveCore.cc
-    GloveEnvironment.cc
     GloveException.cc
 
     exceptions/OperationNotSupported.cc
