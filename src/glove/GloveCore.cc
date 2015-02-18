@@ -11,7 +11,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/version.hpp>
 
-#include "GloveConfig.h"
+#include "glove/GloveConfig.hpp"
 
 #include "glove/GloveCore.hpp"
 #include "glove/GloveException.hpp"

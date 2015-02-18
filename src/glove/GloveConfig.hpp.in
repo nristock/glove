@@ -15,3 +15,17 @@
 #if !defined(ON_UNIX)
 #cmakedefine ON_UNIX
 #endif
+
+#if !defined(GLOVE_DEBUG_BUILD)
+#cmakedefine GLOVE_DEBUG_BUILD
+#endif
+
+#define GLOVE_SERVICES_EXPECTED_SERVICE_COUNT @GLOVE_SERVICES_EXPECTED_SERVICE_COUNT@
+
+#if !defined(GLOVE_DEBUG_BREAK)
+#cmakedefine GLOVE_DEBUG_BREAK
+#endif
+
+#if !defined(GLOVE_TREAT_CHECK_AS_ASSERTION)
+#cmakedefine GLOVE_TREAT_CHECK_AS_ASSERTION
+#endif

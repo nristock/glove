@@ -17,7 +17,7 @@ class GLOVE_API_EXPORT ISystemExtension {
 
     /// @brief Registers all subsystems the extension module provides.
     ///
-    /// @param engineCore [in] A shared_ptr to the subsystem registry.
+    /// @param subsystemRegistry [in] A shared_ptr to the subsystem registry.
     virtual void RegisterSubsystems(const ISubsystemDefinitionRegistryPtr& subsystemRegistry) = 0;
 
     virtual const ExtensionUuid GetExtensionUuid() const = 0;
