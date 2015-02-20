@@ -8,6 +8,9 @@
 /// @defgroup RenderSubsystemInterface
 /// Rendering Subsystem Interface
 
+/// @defgroup RenderServices
+/// Services a rendering implementation module has to implement
+
 namespace glove {
 
 /// @addtogroup RenderSubsystemInterface
@@ -20,7 +23,6 @@ class IMeshFactory;
 
 class IRendererFactory;
 class IRenderer;
-class IRenderSubsystem;
 class IRenderable;
 
 class IRenderOperation;
@@ -74,7 +76,6 @@ typedef std::shared_ptr<IShaderProgram> IShaderProgramPtr;
 typedef std::shared_ptr<IMesh> IMeshPtr;
 typedef std::shared_ptr<IMaterialAttribute> IMaterialAttributePtr;
 typedef std::shared_ptr<MaterialTextureAttribute> MaterialTextureAttributeHandle;
-typedef std::shared_ptr<IRenderSubsystem> IRenderSubsystemPtr;
 typedef std::shared_ptr<IShaderProgramFactory> IShaderProgramFactoryPtr;
 typedef std::shared_ptr<IMaterialFactory> IMaterialFactoryPtr;
 

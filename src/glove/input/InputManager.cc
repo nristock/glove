@@ -4,7 +4,9 @@
 
 namespace glove {
 
-InputManager::InputManager(EventBusPtr& eventBus) : mousePosition(0, 0) {
+ServiceType InputManager::serviceType = {0xb5, 0xf3, 0x62, 0x7d, 0xec, 0x2e, 0x45, 0x25, 0xaf, 0x63, 0xe6, 0x23, 0x89, 0x7f, 0x82, 0x7b};
+
+InputManager::InputManager(EventBusPtr &eventBus) : BasicService(serviceType), mousePosition(0, 0) {
 
     for (int i = 0; i < KC_LAST; i++) {
         keyMap[i] = KS_UP;
@@ -14,17 +16,23 @@ InputManager::InputManager(EventBusPtr& eventBus) : mousePosition(0, 0) {
         mouseButtonMap[i] = BS_UP;
     }
 
-    eventBus->Subscribe<KeyEvent>(KeyEvent::eventTypeId, [this](const KeyEvent& evnt) { this->OnKeyEvent(evnt); });
+    eventBus->Subscribe<KeyEvent>(KeyEvent::eventTypeId, [this](const KeyEvent &evnt) {
+        this->OnKeyEvent(evnt);
+    });
     eventBus->Subscribe<MouseButtonEvent>(MouseButtonEvent::eventTypeId,
-                                          [this](const MouseButtonEvent& evnt) { this->OnMouseButtonEvent(evnt); });
+            [this](const MouseButtonEvent &evnt) {
+                this->OnMouseButtonEvent(evnt);
+            });
     eventBus->Subscribe<MouseMoveEvent>(MouseMoveEvent::eventTypeId,
-                                        [this](const MouseMoveEvent& evnt) { this->OnMouseMoveEvent(evnt); });
+            [this](const MouseMoveEvent &evnt) {
+                this->OnMouseMoveEvent(evnt);
+            });
 }
 
 InputManager::~InputManager() {
 }
 
-void InputManager::OnKeyEvent(const KeyEvent& evnt) {
+void InputManager::OnKeyEvent(const KeyEvent &evnt) {
     if (evnt.keyCode >= KC_LAST) {
         LOG(logger, error, (boost::format("KeyCode %1% of event is out of %2% range") % evnt.keyCode % KC_LAST).str());
         return;
@@ -53,10 +61,10 @@ void InputManager::OnKeyEvent(const KeyEvent& evnt) {
     }
 }
 
-void InputManager::OnMouseButtonEvent(const MouseButtonEvent& evnt) {
+void InputManager::OnMouseButtonEvent(const MouseButtonEvent &evnt) {
     if (evnt.button >= MB_LAST) {
         LOG(logger, error,
-            (boost::format("MouseButton code %1% of event is out of %2% range") % evnt.button % MB_LAST).str());
+                (boost::format("MouseButton code %1% of event is out of %2% range") % evnt.button % MB_LAST).str());
         return;
     }
 
@@ -83,7 +91,7 @@ void InputManager::OnMouseButtonEvent(const MouseButtonEvent& evnt) {
     }
 }
 
-void InputManager::OnMouseMoveEvent(const MouseMoveEvent& evnt) {
+void InputManager::OnMouseMoveEvent(const MouseMoveEvent &evnt) {
     mousePosition.x = evnt.x;
     mousePosition.y = evnt.y;
 }

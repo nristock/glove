@@ -7,42 +7,25 @@
 
 namespace glove {
 
-typedef boost::uuids::uuid ExtensionUuid;
+template <class T> using Handle = std::shared_ptr<T>;
 
-typedef boost::uuids::uuid SubsystemType;
-typedef boost::uuids::uuid SubsystemUuid;
+class ExtensionSearcher;
+using ExtensionSearcherHandle = Handle<ExtensionSearcher>;
 
-typedef std::list<SubsystemType> SubsystemTypeList;
+class ModuleLoader;
+using ModuleLoaderHandle = Handle<ModuleLoader>;
 
-class IExtensionSearcher;
+class Module;
+using ModuleHandle = Handle<Module>;
+typedef std::unique_ptr<Module> (*ModuleCreateFunc)();
 
-class ISharedLibraryLoader;
-class ISharedLibraryLoaderFactory;
-
-class ISubsystem;
-class ISubsystemDefinition;
-class ISubsystemFactory;
-
-class ISystemExtension;
-class ISystemExtensionLoader;
-
-class ISubsystemDefinitionRegistry;
-class ISubsystemInstanceRegistry;
-
-typedef std::shared_ptr<IExtensionSearcher> IExtensionSearcherPtr;
-typedef std::shared_ptr<ISharedLibraryLoader> ISharedLibraryLoaderPtr;
-typedef std::shared_ptr<ISharedLibraryLoaderFactory> ISharedLibraryLoaderFactoryPtr;
-typedef std::shared_ptr<ISubsystemDefinition> ISubsystemDefinitionPtr;
-typedef std::shared_ptr<ISubsystemFactory> ISubsystemFactoryPtr;
-typedef std::shared_ptr<ISystemExtension> ISystemExtensionPtr;
-typedef std::shared_ptr<ISubsystemDefinitionRegistry> ISubsystemDefinitionRegistryPtr;
-typedef std::shared_ptr<ISubsystemInstanceRegistry> ISubsystemInstanceRegistryPtr;
-typedef std::shared_ptr<ISubsystem> ISubsystemPtr;
-typedef std::shared_ptr<ISystemExtensionLoader> ISystemExtensionLoaderHandle;
-
-typedef std::list<ISubsystemDefinitionPtr> SubsystemDefinitionList;
-typedef std::list<ISubsystemPtr> SubsystemInstanceList;
-
-typedef ISystemExtensionPtr (*LoadSystemExtensionLibraryFunc)();
-typedef void (*UnloadSystemExtensionLibraryFunc)();
 } /* namespace glove */
+
+#if !defined(GLOVE_NATEX_FWD_ONLY)
+#include "glove/natex/Module.hpp"
+#include "glove/natex/ModuleLoader.hpp"
+#include "glove/natex/SharedLibrary.hpp"
+#include "glove/natex/SharedLibraryLoader.hpp"
+#include "glove/natex/ExtensionSearcher.hpp"
+#include "glove/natex/DirectoryExtensionSearcher.hpp"
+#endif

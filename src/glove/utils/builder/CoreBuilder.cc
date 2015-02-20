@@ -3,41 +3,39 @@
 #include <boost/format.hpp>
 #include <tclap/CmdLine.h>
 
-#include "GloveConfig.h"
+#include "glove/GloveConfig.hpp"
 #include "glove/GloveCore.hpp"
-#include "glove/natex/DirectoryExtensionSearcher.hpp"
+#include "glove/natex/Natex.hpp"
 #include "glove/events/type/PreExtensionLoadEvent.hpp"
 #include "glove/events/type/NativeExtensionLoadedEvent.hpp"
 #include "glove/events/EventBus.hpp"
-#include "glove/natex/GloveSubsystemDefinitionRegistry.hpp"
-#include "glove/natex/GloveSubsystemInstanceRegistry.hpp"
-#include "glove/natex/IExtensionSearcher.hpp"
 #include "glove/GloveException.hpp"
 #include "glove/log/Log.hpp"
 #include "glove/utils/builder/CoreBuilder.hpp"
-#include "glove/input/InputManager.hpp"
+#include "glove/services/impl/GloveServiceRegistry.hpp"
 
 namespace glove {
 
-CoreBuilder::CoreBuilder() : skipNatex(false), subsystemInstantiated(false) {
+CoreBuilder::CoreBuilder() : skipNatex(false) {
+    loadedModules.reserve(20);
     engineConfig.LoadDefaults();
     configPath = "data/glove.yaml";
 }
 
-CoreBuilder& CoreBuilder::ParseCommandLineArgs(int argc, const char** argv) {
+CoreBuilder &CoreBuilder::ParseCommandLineArgs(int argc, const char **argv) {
     using namespace TCLAP;
 
     try {
         CmdLine cmd("Glove Engine", ' ', GLOVE_VERSION_STRING);
 
         ValueArg<std::string> configFile("c", "config", "Path to engine configuration", false,
-                                         "data/glove.yaml", "path", cmd);
+                "data/glove.yaml", "path", cmd);
         SwitchArg skipNatexLoading("", "no-natex", "Skip native extension loading", cmd);
         cmd.parse(argc, argv);
 
         skipNatex = skipNatexLoading.isSet();
         configPath = configFile.getValue();
-    } catch (ArgException& ex) {
+    } catch (ArgException &ex) {
         // Failing to parse the command line is a recoverable error so don't bubble up the exception and continue as
         // usual
         LOG(logger, error, (boost::format("Failed to parse command line: %1%") % ex.error()).str());
@@ -46,11 +44,11 @@ CoreBuilder& CoreBuilder::ParseCommandLineArgs(int argc, const char** argv) {
     return *this;
 }
 
-CoreBuilder& CoreBuilder::LoadConfigurationFile() {
+CoreBuilder &CoreBuilder::LoadConfigurationFile() {
     return LoadConfigurationFile(configPath);
 }
 
-CoreBuilder& CoreBuilder::LoadConfigurationFile(const std::string& filePath) {
+CoreBuilder &CoreBuilder::LoadConfigurationFile(const std::string &filePath) {
     if (!boost::filesystem::exists(filePath)) {
         engineConfig.SaveToFile(filePath);
         return *this;
@@ -58,7 +56,7 @@ CoreBuilder& CoreBuilder::LoadConfigurationFile(const std::string& filePath) {
 
     try {
         engineConfig.LoadFromFile(filePath);
-    } catch (GloveException& ex) {
+    } catch (GloveException &ex) {
         LOG(logger, error, (boost::format("Failed to load glove.yaml: \n%1%") % ex.what()).str());
     }
 
@@ -68,170 +66,132 @@ CoreBuilder& CoreBuilder::LoadConfigurationFile(const std::string& filePath) {
 }
 
 void CoreBuilder::ApplyCommandLineArgumentsToConfig() {
-    if(skipNatex) {
+    if (skipNatex) {
         engineConfig.engine.loadNativeExtensions = false;
     }
 }
 
 GloveCorePtr CoreBuilder::Finalize() {
-    EnsureEventBus();
-    EnsureInputManager();
-    EnsureSystemExtensionLoader();
-    EnsureSubsystemInstanceRegistry();
+    EnsureServiceRegistry();
 
-    if(!subsystemInstantiated) {
-        InstantiateSubsystems();
-    }
-
-    return std::make_shared<GloveCore>(engineConfig, eventBus, inputManager, subsystemInstanceRegistry, systemExtensionLoader);
+    return std::make_shared<GloveCore>(engineConfig, serviceRegistry, loadedModules);
 }
 
-CoreBuilder& CoreBuilder::SetSubsystemDefinitionRegistry(const ISubsystemDefinitionRegistryPtr& registry) {
-    if(subsystemDefinitionRegistry) {
+CoreBuilder &CoreBuilder::SetEventBus(const EventBusPtr &eventBus) {
+    EnsureServiceRegistry();
+
+    if (serviceRegistry->ProvidesService(EventBus::serviceType)) {
         //todo: throw
     }
 
-    subsystemDefinitionRegistry = registry;
+    serviceRegistry->RegisterService(eventBus);
     return *this;
 }
 
-CoreBuilder& CoreBuilder::SetSubsystemInstanceRegistry(const ISubsystemInstanceRegistryPtr& registry) {
-    if(subsystemInstanceRegistry) {
-        //todo: throw
-    }
-
-    subsystemInstanceRegistry = registry;
-    return *this;
-}
-
-CoreBuilder& CoreBuilder::SetEventBus(const EventBusPtr& eventBus) {
-    if(this->eventBus) {
-        //todo: throw
-    }
-
-    this->eventBus = eventBus;
-    return *this;
-}
-
-CoreBuilder& CoreBuilder::LoadNativeExtensions(const IExtensionSearcherPtr& searcher) {
-    if(!engineConfig.engine.loadNativeExtensions) {
+CoreBuilder &CoreBuilder::LoadNativeModules(ExtensionSearcher &searcher) {
+    if (!engineConfig.engine.loadNativeExtensions || skipNatex) {
         return *this;
     }
 
+    EnsureServiceRegistry();
     EnsureEventBus();
-    EnsureSystemExtensionLoader();
-    EnsureSubsystemDefinitionRegistry();
+    EnsureModuleLoader();
+
+    std::function<void()> raisePreloadEvent = [&]() {};
+    std::function<void()> raisePostloadEvent = [&]() {};
+
+    if (serviceRegistry->ProvidesInitializedService(EventBus::serviceType)) {
+        auto eventBus = std::dynamic_pointer_cast<EventBus>(serviceRegistry->GetService(EventBus::serviceType));
+
+        raisePreloadEvent = [&]() {
+            PreExtensionLoadEvent preloadEvent;
+            eventBus->Publish(preloadEvent);
+        };
+
+        raisePostloadEvent = [&]() {
+            NativeExtensionLoadedEvent postloadEvent;
+            eventBus->Publish(postloadEvent);
+        };
+    };
 
     try {
-        for (auto extension : searcher->GetExtensions()) {
+        for (auto extension : searcher.GetExtensions()) {
             try {
-                PreExtensionLoadEvent preloadEvent;
-                eventBus->Publish(preloadEvent);
+                raisePreloadEvent();
 
-                ISystemExtensionPtr systemExtension = systemExtensionLoader->LoadSystemExtension(extension);
-                systemExtension->RegisterSubsystems(subsystemDefinitionRegistry);
+                auto module = moduleLoader->LoadModule(extension);
+                module->Load();`
 
-                NativeExtensionLoadedEvent postloadEvent;
-                eventBus->Publish(postloadEvent);
-            } catch (GloveException& ex) {
+                raisePostloadEvent();
+            } catch (GloveException &ex) {
                 LOG(logger, error, ex.what());
             }
         }
-    } catch (GloveException& ex) {
+    } catch (GloveException &ex) {
         LOG(logger, error, (boost::format("Failed to load native extensions: %1%") % ex.what()).str());
     }
 
     return *this;
 }
 
-CoreBuilder& CoreBuilder::InstantiateSubsystems() {
-    EnsureSubsystemDefinitionRegistry();
-    EnsureSubsystemInstanceRegistry();
-
-    subsystemInstanceRegistry->InstantiateDefinitionRegistry(subsystemDefinitionRegistry);
-    subsystemInstantiated = true;
-
-    return *this;
-}
-
-CoreBuilder& CoreBuilder::SetInputManager(const InputManagerPtr& inputManager) {
-    if(this->inputManager) {
+CoreBuilder &CoreBuilder::SetModuleLoader(ModuleLoaderHandle loader) {
+    if (moduleLoader) {
         //todo: throw
     }
 
-    this->inputManager = inputManager;
+    moduleLoader = loader;
     return *this;
-}
-
-CoreBuilder& CoreBuilder::SetSystemExtensionLoader(const ISystemExtensionLoaderHandle& loader) {
-    if(systemExtensionLoader) {
-        //todo: throw
-    }
-
-    systemExtensionLoader = loader;
-    return *this;
-}
-
-void CoreBuilder::SetDefaultSubsystemDefinitionRegistry() {
-    SetSubsystemDefinitionRegistry(std::make_shared<GloveSubsystemDefinitionRegistry>());
-}
-
-void CoreBuilder::SetDefaultSubsystemInstanceRegistry() {
-    EnsureEventBus();
-
-    SetSubsystemInstanceRegistry(std::make_shared<GloveSubsystemInstanceRegistry>(eventBus));
 }
 
 void CoreBuilder::SetDefaultEventBus() {
     SetEventBus(std::make_shared<EventBus>());
 }
 
-void CoreBuilder::SetDefaultInputManager() {
-    EnsureEventBus();
-
-    SetInputManager(std::make_shared<InputManager>(eventBus));
-}
-
 void CoreBuilder::EnsureEventBus() {
-    if(!eventBus) {
+    EnsureServiceRegistry();
+
+    if (!serviceRegistry->ProvidesService(EventBus::serviceType)) {
         SetDefaultEventBus();
     }
 }
 
-void CoreBuilder::EnsureInputManager() {
-    if(!inputManager) {
-        SetDefaultInputManager();
+void CoreBuilder::EnsureModuleLoader() {
+    if (!moduleLoader) {
+        SetDefaultModuleLoader();
     }
 }
 
-void CoreBuilder::EnsureSubsystemDefinitionRegistry() {
-    if(!subsystemDefinitionRegistry) {
-        SetDefaultSubsystemDefinitionRegistry();
-    }
+CoreBuilder &CoreBuilder::LoadNativeModules() {
+    auto extensionSearcher = DirectoryExtensionSearcher("data/natex");
+    return LoadNativeModules(extensionSearcher);
 }
 
-void CoreBuilder::EnsureSubsystemInstanceRegistry() {
-    if(!subsystemInstanceRegistry) {
-        SetDefaultSubsystemInstanceRegistry();
-    }
+void CoreBuilder::SetDefaultModuleLoader() {
+    SetModuleLoader(std::make_shared<BifrostLoader>());
 }
 
-void CoreBuilder::EnsureSystemExtensionLoader() {
-    if(!systemExtensionLoader) {
-        SetDefaultSystemExtensionLoader();
-    }
-}
-
-CoreBuilder& CoreBuilder::LoadNativeExtensions() {
-    return LoadNativeExtensions(std::make_shared<DirectoryExtensionSearcher>("data/natex"));
-}
-
-void CoreBuilder::SetDefaultSystemExtensionLoader() {
-    SetSystemExtensionLoader(std::make_shared<BifrostLoader>());
-}
-
-CoreBuilder& CoreBuilder::SkipSubsystemInstantiation() {
-    subsystemInstantiated = true;
+CoreBuilder &CoreBuilder::SkipModuleLoading() {
+    skipNatex = true;
     return *this;
+}
+
+CoreBuilder &CoreBuilder::SetServiceRegistry(ServiceRegistryHandle serviceRegistry) {
+    if (this->serviceRegistry) {
+        //todo throw
+    }
+
+    this->serviceRegistry = serviceRegistry;
+
+    return *this;
+}
+
+void CoreBuilder::SetDefaultServiceRegistry() {
+    SetServiceRegistry(std::make_shared<GloveServiceRegistry>());
+}
+
+void CoreBuilder::EnsureServiceRegistry() {
+    if (!serviceRegistry) {
+        SetDefaultServiceRegistry();
+    }
 }
 }

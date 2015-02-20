@@ -49,7 +49,7 @@ class GLOVE_API_EXPORT GloveServiceRegistry : public ServiceRegistry {
 
         /// \brief Calls the service's Init method iff service is a valid handle.
         /// Note: This function does not prevent double-init, it does however do a debug check.
-        inline bool TryInit(const ServiceRegistry& serviceRegistry) {
+        inline bool TryInit(ServiceRegistry& serviceRegistry) {
             Check(!isInitialized);
             Check(IsValid());
 

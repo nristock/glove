@@ -9,7 +9,7 @@ class GLOVE_API_EXPORT Service {
   public:
     virtual ~Service() = default;
 
-    virtual bool Init(const ServiceRegistry& serviceRegistry) = 0;
+    virtual bool Init(ServiceRegistry& serviceRegistry) = 0;
     virtual ServiceType GetType() = 0;
 };
 

@@ -3,12 +3,16 @@
 #include <string>
 
 #include "glove/rendering/Rendering.hpp"
+#include "glove/services/Services.hpp"
 
 namespace glove {
 
-/// @ingroup RenderSubsystemInterface
-class GLOVE_API_EXPORT IShaderFactory {
+/// @ingroup RenderServices
+class GLOVE_API_EXPORT IShaderFactory : public BasicService {
   public:
+    static ServiceType serviceType;
+
+    IShaderFactory() : BasicService(serviceType) {}
     virtual ~IShaderFactory(){};
 
     /// @brief Creates a vertex shader by loading it from the provided fileName.

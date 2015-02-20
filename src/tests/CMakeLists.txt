@@ -2,7 +2,6 @@ include_directories(${CMAKE_SOURCE_DIR}/vendor ${CMAKE_SOURCE_DIR})
 
 add_definitions(-DGLOVE_TESTS)
 
-add_subdirectory(soloader)
 add_subdirectory(bifrost)
 add_subdirectory(graph)
 add_subdirectory(rendering)
@@ -14,4 +13,4 @@ add_subdirectory(configuration)
 add_subdirectory(resources)
 add_subdirectory(services)
 
-add_custom_target(tests_unit DEPENDS tests_services tests_soloader tests_graph tests_gc_rendering tests_utils tests_bifrost tests_natex tests_configuration tests_filesystem tests_resources)
+add_custom_target(tests_unit DEPENDS tests_services tests_graph tests_gc_rendering tests_utils tests_bifrost tests_natex tests_configuration tests_filesystem tests_resources)

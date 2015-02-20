@@ -19,4 +19,7 @@ using ServiceType = boost::uuids::uuid;
 #if !defined(GLOVE_SERVICES_FWD_ONLY)
 #include "glove/services/Service.hpp"
 #include "glove/services/ServiceRegistry.hpp"
+#include "glove/services/BasicService.hpp"
+#include "glove/services/exceptions/ServiceNotFound.hpp"
+#include "glove/services/exceptions/ServiceNotInitialized.hpp"
 #endif

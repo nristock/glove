@@ -9,6 +9,8 @@ set(gc_services_headers
 )
 
 set(gc_services_src
+    BasicService.cc
+
     impl/GloveServiceRegistry.cc
 )
 

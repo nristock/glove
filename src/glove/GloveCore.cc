@@ -20,28 +20,21 @@
 #include "glove/events/type/CorePreInitEvent.hpp"
 #include "glove/rendering/IRenderer.hpp"
 #include "glove/utils/RuntimePathInfo.hpp"
-#include "glove/natex/IExtensionSearcher.hpp"
-#include "glove/natex/ISubsystemDefinition.hpp"
-#include "glove/natex/ISubsystemFactory.hpp"
+#include "glove/natex/ExtensionSearcher.hpp"
 #include "glove/natex/DirectoryExtensionSearcher.hpp"
-#include "glove/natex/GloveSubsystemDefinitionRegistry.hpp"
 #include "glove/events/type/PreExtensionLoadEvent.hpp"
 #include "glove/events/type/NativeExtensionLoadedEvent.hpp"
 #include "glove/events/type/NativeExtensionsLoadedEvent.hpp"
 #include "glove/events/type/PreSubsystemCreateEvent.hpp"
 #include "glove/events/type/SubsystemCreatedEvent.hpp"
-#include "glove/natex/GloveSubsystemInstanceRegistry.hpp"
 
 namespace sc = std::chrono;
 
 namespace glove {
 
-GloveCore::GloveCore(const Configuration& engineConfig, const EventBusPtr& eventBus,
-                     const InputManagerPtr& inputManager,
-                     const ISubsystemInstanceRegistryPtr& subsystemInstanceRegistry,
-                     const ISystemExtensionLoaderHandle& systemExtensionLoader)
-    : engineConfiguration(engineConfig), eventBus(eventBus), inputManager(inputManager),
-      subsystemInstanceRegistry(subsystemInstanceRegistry), systemExtensionLoader(systemExtensionLoader) {
+GloveCore::GloveCore(const Configuration& engineConfig, const ServiceRegistryHandle& serviceRegistry,
+                     const std::vector<std::shared_ptr<Module>>& loadedModules)
+    : engineConfiguration(engineConfig), serviceRegistry(serviceRegistry), loadedModules(loadedModules) {
     LOG(logger, info, (boost::format("Creating GloveCore version %1%") % GLOVE_VERSION_STRING).str());
 
     LOG(logger, info, "Using ZLIB " << ZLIB_VERSION);
@@ -65,50 +58,50 @@ GloveCore::GloveCore(const Configuration& engineConfig, const EventBusPtr& event
 //        Update();
 //        //        Render(scenegraph);
 //    }
-//}
-
 //void GloveCore::Update() {
-    //    if (inputManager->IsKeyPressed(KC_F6)) {
-    //        LOG(logger, info, (boost::format("Last Update Time: %1%ms") %
-    //                           std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());
-    //    }
-    //
-    //    if (inputManager->IsKeyPressed(KC_F7)) {
-    //        LOG(logger, info, (boost::format("Shift: %1%\nAlt: %2%\nControl: %3%\nX: %4%\nY: %5%") %
-    //                           inputManager->IsKeyDown(KC_LEFT_SHIFT) % inputManager->IsKeyDown(KC_LEFT_ALT) %
-    //                           inputManager->IsKeyDown(KC_LEFT_CONTROL) % inputManager->GetMousePositionRef().x %
-    //                           inputManager->GetMousePositionRef().y).str());
-    //    }
-
-    //    primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject) {
-    //        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-    //            gameComponent->SyncEarlyUpdate();
-    //        });
-    //
-    //        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-    //            try {
-    //                gameComponent->SyncUpdate();
-    //            } catch (boost::python::error_already_set) {
-    //                //                pythonEngine->HandleError();
-    //            }
-    //        });
-    //
-    //        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-    //            gameComponent->AsyncUpdate();
-    //        });
-    //
-    //        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
-    //            gameComponent->SyncLateUpdate();
-    //        });
-    //    });
-
-    //    inputManager->SyncUpdate();
-//}
-
+//    if (inputManager->IsKeyPressed(KC_F6)) {
+//        LOG(logger, info, (boost::format("Last Update Time: %1%ms") %
+//                           std::chrono::duration_cast<std::chrono::milliseconds>(lastFrameTime).count()).str());
+//    }
+//
+//    if (inputManager->IsKeyPressed(KC_F7)) {
+//        LOG(logger, info, (boost::format("Shift: %1%\nAlt: %2%\nControl: %3%\nX: %4%\nY: %5%") %
+//                           inputManager->IsKeyDown(KC_LEFT_SHIFT) % inputManager->IsKeyDown(KC_LEFT_ALT) %
+//                           inputManager->IsKeyDown(KC_LEFT_CONTROL) % inputManager->GetMousePositionRef().x %
+//                           inputManager->GetMousePositionRef().y).str());
+//    primaryScenegraph->IterateGameObjects([&](GameObjectPtr gameObject) {
+//        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
+//            gameComponent->SyncEarlyUpdate();
+//        });
+//
+//        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
+//            try {
+//                gameComponent->SyncUpdate();
+//            } catch (boost::python::error_already_set) {
+//                //                pythonEngine->HandleError();
+//            }
+//        });
+//
+//        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
+//            gameComponent->AsyncUpdate();
+//        });
+//
+//        gameObject->IterateComponents([&](const GameComponentPtr& gameComponent) {
+//            gameComponent->SyncLateUpdate();
+//        });
+//    inputManager->SyncUpdate();
 // void GloveCore::Render(ScenegraphPointer scenegraph) {
 //    renderer->ClearBuffers();
 //    renderer->RenderScene(scenegraph, frameData);
 //    renderer->SwapBuffers();
+
 //}
 
+    //    }
+
+    //    });
+
+//}
+
+//}
 } /* namespace glove */

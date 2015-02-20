@@ -73,7 +73,7 @@ DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& search
 DirectoryExtensionSearcher::~DirectoryExtensionSearcher() {
 }
 
-IExtensionSearcher::ExtensionFileList const& DirectoryExtensionSearcher::GetExtensions() const {
+ExtensionSearcher::ExtensionFileList const& DirectoryExtensionSearcher::GetExtensions() const {
     return extensionFileList;
 }
 }

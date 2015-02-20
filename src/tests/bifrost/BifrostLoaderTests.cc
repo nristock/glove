@@ -19,12 +19,12 @@ TEST_F(BifrostLoaderTests, CanLoadAndUnloadExtensionModule) {
 
     ASSERT_NO_THROW(loader = new BifrostLoader());
 
-    ISystemExtensionPtr sysExtension = loader->LoadSystemExtension(extensionName);
+    auto module = loader->LoadModule(extensionName);
 
-    ASSERT_NE(nullptr, sysExtension.get());
+    ASSERT_NE(nullptr, module.get());
 
-    ExtensionUuid uuid = TEST_EXTENSION_UUID;
-    ASSERT_EQ(uuid, sysExtension->GetExtensionUuid());
+    auto moduleName = TEST_MODULE_NAME;
+    ASSERT_EQ(moduleName, sysExtension->GetExtensionUuid());
     ASSERT_EQ(std::string(TEST_EXTENSION_NAME), sysExtension->GetExtensionName());
 
     ASSERT_NO_THROW(loader->UnloadSystemExtension(sysExtension));

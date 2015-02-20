@@ -2,11 +2,11 @@
 
 #include <string>
 
-#include "glove/natex/IExtensionSearcher.hpp"
+#include "glove/natex/ExtensionSearcher.hpp"
 
 namespace glove {
 
-class GLOVE_API_EXPORT DirectoryExtensionSearcher : public IExtensionSearcher {
+class GLOVE_API_EXPORT DirectoryExtensionSearcher : public ExtensionSearcher {
   public:
     DirectoryExtensionSearcher(const std::string& searchDirectory);
     virtual ~DirectoryExtensionSearcher();

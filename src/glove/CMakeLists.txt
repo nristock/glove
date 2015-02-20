@@ -1,6 +1,5 @@
 include_directories("${PROJECT_ROOT}/src")
 
-add_subdirectory(internal)
 add_subdirectory(rendering)
 add_subdirectory(natex)
 add_subdirectory(events)
@@ -34,13 +33,6 @@ set(core_object_libs
     $<TARGET_OBJECTS:gc_services>
     $<TARGET_OBJECTS:glove_utils>
 )
-
-if(ON_UNIX)
-    set(core_object_libs
-        ${core_object_libs}
-        $<TARGET_OBJECTS:gc_loaders_so>
-    )
-endif()
 
 add_library(glove SHARED
     ${core_src}
