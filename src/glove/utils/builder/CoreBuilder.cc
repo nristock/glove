@@ -120,7 +120,7 @@ CoreBuilder &CoreBuilder::LoadNativeModules(ExtensionSearcher &searcher) {
                 raisePreloadEvent();
 
                 auto module = moduleLoader->LoadModule(extension);
-                module->Load();`
+                module->Load();
 
                 raisePostloadEvent();
             } catch (GloveException &ex) {
