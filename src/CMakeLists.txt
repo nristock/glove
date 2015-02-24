@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(glove)
+enable_testing()
 
 set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, i.e. the directory containing the src dir")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_ROOT}/cmake")

@@ -1,22 +1,17 @@
 #pragma once
 
-#include <chrono>
 #include <list>
 
 #include "glove/GloveFwd.hpp"
 #include "glove/log/Log.hpp"
 #include "glove/configuration/Configuration.hpp"
-#include "glove/GloveException.hpp"
-#include "glove/rendering/FrameData.hpp"
-#include "glove/natex/BifrostLoader.hpp"
-#include "glove/graph/Graph.hpp"
-#include "glove/services/ServiceRegistry.hpp"
+#include "glove/natex/Natex.hpp"
 
 namespace glove {
 
 class GLOVE_API_EXPORT GloveCore : public std::enable_shared_from_this<GloveCore> {
   public:
-    GloveCore(const Configuration& engineConfig, const ServiceRegistryHandle& serviceRegistry, const std::vector<std::shared_ptr<Module>>& loadedModules);
+    GloveCore(const Configuration& engineConfig, const ServiceRegistryHandle& serviceRegistry, const std::vector<ModuleHandle>& loadedModules);
     virtual ~GloveCore() = default;
 
     GloveCore(const GloveCore&) = delete;
@@ -26,8 +21,6 @@ class GLOVE_API_EXPORT GloveCore : public std::enable_shared_from_this<GloveCore
     const ServiceRegistryHandle& GetServiceRegistry() const {return serviceRegistry; }
 
   private:
-    typedef std::chrono::steady_clock::time_point TimePoint;
-
     Configuration engineConfiguration;
     ServiceRegistryHandle serviceRegistry;
     std::vector<std::shared_ptr<Module>> loadedModules;

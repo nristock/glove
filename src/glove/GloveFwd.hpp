@@ -16,14 +16,4 @@
 namespace glove {
 
 GLOVE_FWD_DECL(GloveCore);
-
-GLOVE_FWD_DECL_STRUCT(KeyEvent);
-
-GLOVE_FWD_DECL(EventBus);
-
-GLOVE_FWD_DECL(InputManager);
-
-GLOVE_FWD_DECL(StringIdDatabase);
-
-GLOVE_FWD_DECL(MemoryProfile);
 }

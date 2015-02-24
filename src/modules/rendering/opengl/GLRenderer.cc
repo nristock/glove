@@ -5,7 +5,6 @@
 
 #include <boost/format.hpp>
 
-#include "glove/GloveCore.hpp"
 #include "glove/GloveException.hpp"
 #include "glove/graph/Scenegraph.hpp"
 #include "glove/rendering/gamecomponent/CameraBase.hpp"
@@ -31,9 +30,9 @@ GLEWContext* glewGetContext();
 namespace glove {
 namespace gl {
 
-GLRenderer::GLRenderer(const EventBusPtr& eventBus, const WindowConstructionHints& windowCreationHints,
+GLRenderer::GLRenderer(const WindowConstructionHints& windowCreationHints,
                        const ContextId contextId)
-    : eventBus(eventBus), contextId(contextId) {
+    : contextId(contextId) {
     CreateWindow(windowCreationHints);
     defaultRenderTarget = std::make_shared<GLDefaultRenderTarget>(window->GetDimensions());
 }
@@ -60,7 +59,7 @@ void GLRenderer::SwapBuffers() {
 }
 
 void GLRenderer::CreateWindow(const WindowConstructionHints& windowCreationHints) {
-    window = std::make_shared<GLWindow>(eventBus, windowCreationHints);
+    window = std::make_shared<GLWindow>(windowCreationHints);
 
     window->MakeCurrent();
 
@@ -88,7 +87,6 @@ RenderTargetHandle GLRenderer::CreateRenderTarget(const ScreenDimensions& dimens
 RenderTargetHandle GLRenderer::GetDefaultRenderTarget() {
     return defaultRenderTarget;
 }
-
 
 }
 } /* namespace glove */

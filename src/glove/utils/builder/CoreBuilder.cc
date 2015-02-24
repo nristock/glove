@@ -6,9 +6,6 @@
 #include "glove/GloveConfig.hpp"
 #include "glove/GloveCore.hpp"
 #include "glove/natex/Natex.hpp"
-#include "glove/events/type/PreExtensionLoadEvent.hpp"
-#include "glove/events/type/NativeExtensionLoadedEvent.hpp"
-#include "glove/events/EventBus.hpp"
 #include "glove/GloveException.hpp"
 #include "glove/log/Log.hpp"
 #include "glove/utils/builder/CoreBuilder.hpp"
@@ -77,52 +74,19 @@ GloveCorePtr CoreBuilder::Finalize() {
     return std::make_shared<GloveCore>(engineConfig, serviceRegistry, loadedModules);
 }
 
-CoreBuilder &CoreBuilder::SetEventBus(const EventBusPtr &eventBus) {
-    EnsureServiceRegistry();
-
-    if (serviceRegistry->ProvidesService(EventBus::serviceType)) {
-        //todo: throw
-    }
-
-    serviceRegistry->RegisterService(eventBus);
-    return *this;
-}
-
 CoreBuilder &CoreBuilder::LoadNativeModules(ExtensionSearcher &searcher) {
     if (!engineConfig.engine.loadNativeExtensions || skipNatex) {
         return *this;
     }
 
     EnsureServiceRegistry();
-    EnsureEventBus();
     EnsureModuleLoader();
-
-    std::function<void()> raisePreloadEvent = [&]() {};
-    std::function<void()> raisePostloadEvent = [&]() {};
-
-    if (serviceRegistry->ProvidesInitializedService(EventBus::serviceType)) {
-        auto eventBus = std::dynamic_pointer_cast<EventBus>(serviceRegistry->GetService(EventBus::serviceType));
-
-        raisePreloadEvent = [&]() {
-            PreExtensionLoadEvent preloadEvent;
-            eventBus->Publish(preloadEvent);
-        };
-
-        raisePostloadEvent = [&]() {
-            NativeExtensionLoadedEvent postloadEvent;
-            eventBus->Publish(postloadEvent);
-        };
-    };
 
     try {
         for (auto extension : searcher.GetExtensions()) {
             try {
-                raisePreloadEvent();
-
                 auto module = moduleLoader->LoadModule(extension);
                 module->Load();
-
-                raisePostloadEvent();
             } catch (GloveException &ex) {
                 LOG(logger, error, ex.what());
             }
@@ -141,18 +105,6 @@ CoreBuilder &CoreBuilder::SetModuleLoader(ModuleLoaderHandle loader) {
 
     moduleLoader = loader;
     return *this;
-}
-
-void CoreBuilder::SetDefaultEventBus() {
-    SetEventBus(std::make_shared<EventBus>());
-}
-
-void CoreBuilder::EnsureEventBus() {
-    EnsureServiceRegistry();
-
-    if (!serviceRegistry->ProvidesService(EventBus::serviceType)) {
-        SetDefaultEventBus();
-    }
 }
 
 void CoreBuilder::EnsureModuleLoader() {

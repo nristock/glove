@@ -28,4 +28,5 @@ typedef std::unique_ptr<Module> (*ModuleCreateFunc)();
 #include "glove/natex/SharedLibraryLoader.hpp"
 #include "glove/natex/ExtensionSearcher.hpp"
 #include "glove/natex/DirectoryExtensionSearcher.hpp"
+#include "glove/natex/BifrostLoader.hpp"
 #endif

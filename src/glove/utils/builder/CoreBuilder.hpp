@@ -14,7 +14,6 @@ class GLOVE_API_EXPORT CoreBuilder {
     CoreBuilder& ParseCommandLineArgs(int argc, const char** argv);
     CoreBuilder& LoadConfigurationFile();
     CoreBuilder& LoadConfigurationFile(const std::string& filePath);
-    CoreBuilder& SetEventBus(const EventBusPtr& eventBus);
     CoreBuilder& LoadNativeModules();
     CoreBuilder& LoadNativeModules(ExtensionSearcher& extensionSearcher);
     CoreBuilder& SetModuleLoader(ModuleLoaderHandle loader);
@@ -35,11 +34,9 @@ class GLOVE_API_EXPORT CoreBuilder {
   protected:
     void ApplyCommandLineArgumentsToConfig();
 
-    void SetDefaultEventBus();
     void SetDefaultModuleLoader();
     void SetDefaultServiceRegistry();
 
-    void EnsureEventBus();
     void EnsureModuleLoader();
     void EnsureServiceRegistry();
 

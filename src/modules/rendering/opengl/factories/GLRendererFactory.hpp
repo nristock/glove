@@ -15,10 +15,8 @@ class GLRendererFactory : public IRendererFactory {
     GLRendererFactory();
 
     virtual IRendererPtr CreateRenderer(const WindowConstructionHints& windowDescription);
-    virtual bool Init(ServiceRegistry &serviceRegistry) override;
 
   private:
-    EventBusPtr eventBus;
     ContextId nextContextId;
 };
 }
