@@ -14,3 +14,8 @@ alias mocca 2>/dev/null >/dev/null && alias mocca="python3 $DIR/tools/mocca/mocc
 alias glodu="python3 $DIR/scripts/glodu.py $@"
 alias gmd="glodu make dbg"
 alias gmo="glodu make opt"
+
+SYS_CONFIG=linux64
+DEPS_DIR=$DIR/deps/$SYS_CONFIG
+
+export CMAKE_PREFIX_PATH=/usr:/opt:$DEPS_DIR/zlib:$DEPS_DIR/libpng:$DEPS_DIR/tclap:$DEPS_DIR/libzip:$DEPS_DIR/yaml-cpp

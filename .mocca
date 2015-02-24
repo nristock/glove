@@ -24,13 +24,6 @@
       "branch": "python",
       "path": "python",
       "url": "git@github.com:Monofraps/glove-deps.git"
-    },
-    {
-      "vcs": "hg",
-      "target_os": [],
-      "branch": "default",
-      "path": "src/vendor/yaml-cpp",
-      "url": "https://code.google.com/p/yaml-cpp/"
     }
   ]
 }
