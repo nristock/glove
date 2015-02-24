@@ -67,7 +67,7 @@ def execute_command(args):
     yamlcpp_install = path.join(DevTree.deps_install_dir, 'yaml-cpp')
     ensure_exists(yamlcpp_build)
     ensure_exists(yamlcpp_install)
-    yamlcpp_cmake = CMakeGenerator(yamlcpp_source, yamlcpp_build, {'CMAKE_INSTALL_PREFIX': yamlcpp_install}, None,
+    yamlcpp_cmake = CMakeGenerator(yamlcpp_source, yamlcpp_build, {'CMAKE_INSTALL_PREFIX': yamlcpp_install, 'CMAKE_POSITION_INDEPENDENT_CODE': 'True'}, None,
                                    'Release')
     yamlcpp_cmake.run()
 

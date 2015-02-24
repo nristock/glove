@@ -8,6 +8,9 @@ from lib.commands.bootstrap import execute_command as cmd_bootstrap
 from lib.commands.mkuuid import execute_command as cmd_mkuuid
 from lib.commands.build_deps import execute_command as cmd_build_deps
 from lib.commands.make import execute_command as cmd_make
+from lib.commands.gen_keys import execute_command as cmd_gen_keys
+
+from lib.utils.DevTreeUtils import DevTree
 
 SCRIPT_DIR = path.dirname(path.realpath(__file__))
 WORKING_DIR = getcwd()
@@ -50,6 +53,11 @@ def parse_args():
     make_parser.add_argument('type', choices=['dbg', 'opt'], help="The build type")
     make_parser.add_argument('target', nargs='?', type=str, default='all', help="Build target")
     make_parser.add_argument('--install', '-i', action='store_const', const=True, default=False, help='Install Glove')
+
+    gen_keys_parser = sub_parsers.add_parser('keys', help="Generates the input keys")
+    gen_keys_parser.set_defaults(func=cmd_gen_keys)
+    gen_keys_parser.add_argument('--header', type=str, default=path.join(DevTree.source_dir, 'glove/input/Keys.hpp'), help="The header to genereate the key declarations into")
+    gen_keys_parser.add_argument('--implementation', '--impl', type=str, default=path.join(DevTree.source_dir, 'glove/input/Keys.cc'), help="The source file to generate the key definitions into")
 
     argument_parser.add_argument(
         '--verbosity',

@@ -7,13 +7,16 @@
 #include "glove/rendering/Rendering.hpp"
 #include "glove/configuration/Configuration.hpp"
 #include "glove/utils/ScreenDimensions.hpp"
+#include "glove/services/Services.hpp"
 
 namespace glove {
 
 class GLOVE_API_EXPORT RendererBuilder {
   public:
-    RendererBuilder(const IRenderSubsystemPtr& renderSubsystem);
-    RendererBuilder(const IRenderSubsystemPtr& renderSubsystem, const Configuration& configuration);
+    RendererBuilder(const ServiceHandle& rendererFactory);
+    RendererBuilder(const IRendererFactoryPtr& rendererFactory);
+    RendererBuilder(const ServiceHandle& rendererFactory, const Configuration& configuration);
+    RendererBuilder(const IRendererFactoryPtr& rendererFactory, const Configuration& configuration);
     RendererBuilder(const GloveCorePtr& core);
 
     RendererBuilder& SetWindowTitle(const std::string& title);
@@ -28,7 +31,7 @@ class GLOVE_API_EXPORT RendererBuilder {
     std::string windowTitle;
     ScreenDimensions windowSize;
     ScreenPoint windowPosition;
-    IRenderSubsystemPtr renderSubsystem;
+    IRendererFactoryPtr rendererFactory;
 };
 
 } /* namespace glove */

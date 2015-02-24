@@ -5,33 +5,29 @@
 
 #include "glove/GloveFwd.hpp"
 #include "glove/natex/Natex.hpp"
-#include "glove/natex/ISharedLibraryLoaderFactory.hpp"
-#include "glove/natex/ISystemExtensionLoader.hpp"
-#include "glove/natex/ISystemExtension.hpp"
+#include "glove/natex/SharedLibraryLoader.hpp"
+#include "glove/natex/ModuleLoader.hpp"
+#include "glove/natex/Module.hpp"
 #include "glove/log/Log.hpp"
 
 namespace glove {
 
-/// @brief The Bifrost loader is the default system extension loader.
-class GLOVE_API_EXPORT BifrostLoader : public ISystemExtensionLoader {
+/// @brief The default native extension module loader.
+class GLOVE_API_EXPORT BifrostLoader : public ModuleLoader {
   public:
-    typedef std::pair<ISharedLibraryLoaderPtr, ISystemExtensionPtr> SystemExtensionAndLoader;
-    typedef std::map<ExtensionUuid, SystemExtensionAndLoader> SystemExtensionMap;
-
     BifrostLoader();
-    BifrostLoader(const ISharedLibraryLoaderFactoryPtr& sharedLibraryLoaderFactory);
+
+    template <class T>
+    BifrostLoader(std::unique_ptr<T> sharedLibraryLoader)
+        : libraryLoader(std::move(sharedLibraryLoader)) {}
     virtual ~BifrostLoader() {}
 
-    virtual ISystemExtensionPtr LoadSystemExtension(const std::string& extensionFile);
-    virtual void UnloadSystemExtension(ISystemExtensionPtr& systemExtension);
+    virtual std::unique_ptr<Module> LoadModule(const std::string &extensionFile);
 
   private:
+    ModuleCreateFunc GetModuleCreateFunc(SharedLibrary& library) const;
+
     logging::GloveLogger logger;
-
-    SystemExtensionMap loadedExtensions;
-
-    ISharedLibraryLoaderFactoryPtr loaderFactory;
-
-    ISharedLibraryLoaderPtr CreateLibraryLoader(const std::string& libraryFilePath);
+    std::unique_ptr<SharedLibraryLoader> libraryLoader;
 };
 } /* namespace glove */

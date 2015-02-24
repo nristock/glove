@@ -10,6 +10,7 @@ set(gc_rendering_headers
     factories/IShaderFactory.hpp
     factories/IShaderProgramFactory.hpp
     factories/TextureFactory.hpp
+    factories/Services.cc
 
     mesh/IMesh.hpp
 
@@ -63,8 +64,6 @@ set(gc_rendering_src
    WindowConstructionHints.cc
    RenderState.cc
    RendererBase.cc
-
-   IRenderSubsystem.cc
 )
 
 add_library(gc_rendering OBJECT ${gc_rendering_src} ${gc_rendering_headers})

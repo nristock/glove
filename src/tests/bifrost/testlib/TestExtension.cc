@@ -8,7 +8,7 @@ void TestExtension::RegisterSubsystems(const GloveCorePtr& engineCore) {
 }
 
 const ExtensionUuid TestExtension::GetExtensionUuid() const {
-    return TEST_EXTENSION_UUID;
+    return TEST_MODULE_NAME;
 }
 
 const std::string& TestExtension::GetExtensionName() const {

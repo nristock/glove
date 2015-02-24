@@ -1,6 +1,5 @@
 include_directories("${PROJECT_ROOT}/src")
 
-add_subdirectory(internal)
 add_subdirectory(rendering)
 add_subdirectory(natex)
 add_subdirectory(events)
@@ -11,6 +10,7 @@ add_subdirectory(filesystem)
 add_subdirectory(configuration)
 add_subdirectory(utils)
 add_subdirectory(resources)
+add_subdirectory(services)
 
 set(core_src
     GloveCore.cc
@@ -30,15 +30,9 @@ set(core_object_libs
     $<TARGET_OBJECTS:gc_utils>
     $<TARGET_OBJECTS:gc_filesystem>
     $<TARGET_OBJECTS:gc_resources>
+    $<TARGET_OBJECTS:gc_services>
     $<TARGET_OBJECTS:glove_utils>
 )
-
-if(ON_UNIX)
-    set(core_object_libs
-        ${core_object_libs}
-        $<TARGET_OBJECTS:gc_loaders_so>
-    )
-endif()
 
 add_library(glove SHARED
     ${core_src}
@@ -62,4 +56,8 @@ install(DIRECTORY .
 install(DIRECTORY .
         DESTINATION ${INCLUDE_INSTALL_DIR}/glove
         FILES_MATCHING PATTERN "*.h"
+)
+install(DIRECTORY ..
+        DESTINATION ${INCLUDE_INSTALL_DIR}/glove
+        FILES_MATCHING PATTERN "GloveConfig.hpp"
 )

@@ -18,7 +18,7 @@ class GLWindow : public IWindow {
     friend class GlfwWrapper;
 
   public:
-    GLWindow(const EventBusPtr& eventBus, const WindowConstructionHints& creationHints);
+    GLWindow(const WindowConstructionHints& creationHints);
 
     virtual ~GLWindow();
 
@@ -44,8 +44,6 @@ class GLWindow : public IWindow {
   private:
     GLFWwindow* glfwWindow;
     GLEWContext* glewContext;
-
-    EventBusPtr eventBus;
 
     int viewportWidth, viewportHeight;
     float aspectRatio;

@@ -8,6 +8,7 @@
 
 #include <glove/log/Log.hpp>
 #include <glove/rendering/Rendering.hpp>
+#include <glove/input/Keys.hpp>
 
 #include "subsystem/OpenGLRendererModule.hpp"
 
@@ -28,6 +29,8 @@ class GlfwWrapper {
     static const std::string GetGlfwVersion();
     static GLFWwindow* CreateGlfwWindow(const WindowConstructionHints& creationHints, GLWindow* glWindow);
     static GLWindow* GetCurrentGLWindow();
+
+    static const Key& ConvertKeyCode(int glfwKeyCode);
 
     static void InitWrapper();
 

@@ -14,32 +14,31 @@ class GLOVE_API_EXPORT CoreBuilder {
     CoreBuilder& ParseCommandLineArgs(int argc, const char** argv);
     CoreBuilder& LoadConfigurationFile();
     CoreBuilder& LoadConfigurationFile(const std::string& filePath);
-    CoreBuilder& SetSubsystemDefinitionRegistry(const ISubsystemDefinitionRegistryPtr& registry);
-    CoreBuilder& SetSubsystemInstanceRegistry(const ISubsystemInstanceRegistryPtr& registry);
-    CoreBuilder& SetEventBus(const EventBusPtr& eventBus);
-    CoreBuilder& LoadNativeExtensions();
-    CoreBuilder& LoadNativeExtensions(const IExtensionSearcherPtr& searcher);
-    CoreBuilder& SetSystemExtensionLoader(const ISystemExtensionLoaderHandle& loader);
-    CoreBuilder& InstantiateSubsystems();
-    CoreBuilder& SetInputManager(const InputManagerPtr& inputManager);
-    CoreBuilder& SkipSubsystemInstantiation();
+    CoreBuilder& LoadNativeModules();
+    CoreBuilder& LoadNativeModules(ExtensionSearcher& extensionSearcher);
+    CoreBuilder& SetModuleLoader(ModuleLoaderHandle loader);
+    CoreBuilder& SetServiceRegistry(ServiceRegistryHandle serviceRegistry);
+    CoreBuilder& SkipModuleLoading();
+
+    template<class T>
+    CoreBuilder& RegisterService(std::shared_ptr<T> service) {
+        EnsureServiceRegistry();
+
+        serviceRegistry->RegisterService(std::move(service));
+
+        return *this;
+    }
 
     GloveCorePtr Finalize();
 
   protected:
     void ApplyCommandLineArgumentsToConfig();
 
-    void SetDefaultInputManager();
-    void SetDefaultEventBus();
-    void SetDefaultSubsystemDefinitionRegistry();
-    void SetDefaultSubsystemInstanceRegistry();
-    void SetDefaultSystemExtensionLoader();
+    void SetDefaultModuleLoader();
+    void SetDefaultServiceRegistry();
 
-    void EnsureEventBus();
-    void EnsureSubsystemDefinitionRegistry();
-    void EnsureSubsystemInstanceRegistry();
-    void EnsureInputManager();
-    void EnsureSystemExtensionLoader();
+    void EnsureModuleLoader();
+    void EnsureServiceRegistry();
 
     logging::GloveLogger logger;
 
@@ -49,14 +48,11 @@ class GLOVE_API_EXPORT CoreBuilder {
     bool skipNatex;
     std::string configPath;
 
-    EventBusPtr eventBus;
-    InputManagerPtr inputManager;
+    ServiceRegistryHandle serviceRegistry;
 
     // Natex
-    bool subsystemInstantiated;
-    ISubsystemDefinitionRegistryPtr subsystemDefinitionRegistry;
-    ISubsystemInstanceRegistryPtr subsystemInstanceRegistry;
-    ISystemExtensionLoaderHandle systemExtensionLoader;
+    std::vector<std::shared_ptr<Module>> loadedModules;
+    ModuleLoaderHandle  moduleLoader;
 };
 
 } /* namespace glove */

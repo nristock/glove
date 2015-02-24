@@ -5,42 +5,15 @@
 #include <boost/format.hpp>
 
 #include <glove/rendering/WindowConstructionHints.hpp>
-#include <glove/events/type/KeyEvent.hpp>
-#include <glove/events/type/MouseMoveEvent.hpp>
-#include <glove/events/type/MouseButtonEvent.hpp>
-#include <glove/events/EventBus.hpp>
 
 #include "GLWindow.hpp"
 #include "internal/GlfwWrapper.hpp"
 
-namespace {
-
-bool inline IsModifierKeyDown(int modsFlag, int keyToCheck) {
-    return (modsFlag & keyToCheck) != 0;
-}
-
-bool inline IsAltKeyDown(int modsFlag) {
-    return IsModifierKeyDown(modsFlag, GLFW_MOD_ALT);
-}
-
-bool inline IsCtrlKeyDown(int modsFlag) {
-    return IsModifierKeyDown(modsFlag, GLFW_MOD_CONTROL);
-}
-
-bool inline IsShiftKeyDown(int modsFlag) {
-    return IsModifierKeyDown(modsFlag, GLFW_MOD_SHIFT);
-}
-
-bool inline IsSuperKeyDown(int modsFlag) {
-    return IsModifierKeyDown(modsFlag, GLFW_MOD_SUPER);
-}
-}
-
 namespace glove {
 namespace gl {
 
-GLWindow::GLWindow(const EventBusPtr& eventBus, const WindowConstructionHints& creationHints)
-    : eventBus(eventBus), viewportWidth(0), viewportHeight(0), aspectRatio(0), orthoSize(10) {
+GLWindow::GLWindow(const WindowConstructionHints& creationHints)
+    : viewportWidth(0), viewportHeight(0), aspectRatio(0), orthoSize(10) {
     glfwWindow = GlfwWrapper::CreateGlfwWindow(creationHints, this);
     glewContext = new GLEWContext();
 
@@ -89,22 +62,35 @@ void GLWindow::SwapBuffers() {
 }
 
 void GLWindow::OnKeyEvent(int key, int scancode, int action, int mods) {
-    KeyAction keyAction = (action == GLFW_PRESS) ? KA_PRESS : ((action == GLFW_RELEASE) ? KA_RELEASE : KA_REPEAT);
-    KeyEvent keyEvent((KeyCode)key, keyAction, IsAltKeyDown(mods), IsCtrlKeyDown(mods), IsShiftKeyDown(mods),
-                      IsSuperKeyDown(mods));
-    eventBus->Publish(keyEvent);
+    const Key& gloveKey = GlfwWrapper::ConvertKeyCode(key);
+    KeyState newState(action == GLFW_PRESS);
+
+    gloveKey.UpdateState(newState);
 }
 
 void GLWindow::OnMouseMove(double x, double y) {
-    MouseMoveEvent moveEvent(x, y);
-    eventBus->Publish(moveEvent);
+    static double oldX = x;
+    static double oldY = y;
+
+    double deltaX = x - oldX;
+    double deltaY = y - oldY;
+
+    if(std::abs(deltaX) > 0.01f) {
+        KeyState newState(static_cast<float>(x));
+        Keys::MouseX.UpdateState(newState);
+    }
+
+    if(std::abs(deltaY) > 0.01f) {
+        KeyState newState(static_cast<float>(y));
+        Keys::MouseY.UpdateState(newState);
+    }
 }
 
 void GLWindow::OnMouseButton(int button, int action, int mods) {
-    ButtonAction buttonAction = (action == GLFW_PRESS) ? BA_PRESS : BA_RELEASE;
-    MouseButtonEvent buttonEvent((MouseButton)button, buttonAction, IsAltKeyDown(mods), IsCtrlKeyDown(mods),
-                                 IsShiftKeyDown(mods), IsSuperKeyDown(mods));
-    eventBus->Publish(buttonEvent);
+    const Key& gloveKey = GlfwWrapper::ConvertKeyCode(button);
+    KeyState newState(action == GLFW_PRESS);
+
+    gloveKey.UpdateState(newState);
 }
 
 std::string GLWindow::GetContextVersion() const {

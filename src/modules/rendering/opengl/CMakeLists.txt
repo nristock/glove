@@ -21,7 +21,6 @@ set(opengl_renderer_src
     shader/GLMaterialTextureAttribute.cc
 
     factories/GLRendererFactory.cc
-    factories/GLRendererSubsystemFactory.cc
     factories/GLGpuBufferFactory.cc
     factories/GLMeshFactory.cc
     factories/GLShaderFactory.cc
@@ -31,9 +30,7 @@ set(opengl_renderer_src
     factories/GLTextureFactory.cc
 
     subsystem/OpenGLRendererModule.cc
-    subsystem/GLRendererExtension.cc
-    subsystem/GLRendererSubsystemDefinition.cc
-    subsystem/GLRendererSubsystem.cc
+    subsystem/GLRenderingModule.cc
 )
 
 include_directories(.)

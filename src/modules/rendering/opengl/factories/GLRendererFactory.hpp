@@ -2,6 +2,7 @@
 
 #include <glove/GloveFwd.hpp>
 #include <glove/rendering/factories/IRendererFactory.hpp>
+#include <glove/services/Services.hpp>
 
 #include "subsystem/OpenGLRendererModule.hpp"
 
@@ -11,12 +12,11 @@ namespace gl {
 /// @ingroup Factories
 class GLRendererFactory : public IRendererFactory {
   public:
-    GLRendererFactory(const EventBusPtr& eventBus);
+    GLRendererFactory();
 
     virtual IRendererPtr CreateRenderer(const WindowConstructionHints& windowDescription);
 
   private:
-    EventBusPtr eventBus;
     ContextId nextContextId;
 };
 }

@@ -1,7 +1,6 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include <glove/GloveCore.hpp>
 #include <glove/rendering/IRenderer.hpp>
 #include <glove/rendering/vertex/VertexAttributeType.hpp>
 #include <glove/rendering/buffers/IGpuBuffer.hpp>

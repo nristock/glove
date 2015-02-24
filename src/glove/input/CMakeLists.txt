@@ -1,5 +1,9 @@
-set(gc_input_src
-   InputManager.cc
+set(gc_input_headers
+    events/KeyStateChanged.hpp
 )
 
-add_library(gc_input OBJECT ${gc_input_src})
+set(gc_input_src
+   Keys.cc
+)
+
+add_library(gc_input OBJECT ${gc_input_src} ${gc_input_headers})

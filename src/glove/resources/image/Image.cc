@@ -18,7 +18,7 @@ unsigned int Image::GetWidth() const {
     return width;
 }
 
-Image::ImageFormat Image::GetImageFormat() const const {
+Image::ImageFormat Image::GetImageFormat() const {
     return format;
 }
 

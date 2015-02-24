@@ -7,7 +7,7 @@ namespace gl {
 
 /// @ingroup Factories
 class GLGpuBufferFactory : public IGpuBufferFactory {
-  private:
+  public:
     virtual IGpuBufferPtr CreateVertexBuffer(BufferUsage bufferUsage) const;
     virtual IGpuBufferPtr CreateIndexBuffer() const;
 };

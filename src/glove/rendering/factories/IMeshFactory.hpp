@@ -2,12 +2,16 @@
 
 #include "glove/GloveApi.hpp"
 #include "glove/rendering/Rendering.hpp"
+#include "glove/services/Services.hpp"
 
 namespace glove {
 
-/// @ingroup RenderSubsystemInterface
-class GLOVE_API_EXPORT IMeshFactory {
+/// @ingroup RenderServices
+class GLOVE_API_EXPORT IMeshFactory : public BasicService {
   public:
+    static ServiceType serviceType;
+
+    IMeshFactory() : BasicService(serviceType) {}
     virtual ~IMeshFactory(){};
 
     virtual IMeshPtr CreatedIndexedMesh(const IMaterialPtr& material, const IVertexDataPtr& vertexData,

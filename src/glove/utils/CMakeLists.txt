@@ -1,6 +1,7 @@
 set(gc_utils_headers
    IsA.hpp
    TypeInfo.hpp
+   DebugUtils.hpp
 )
 
 set(gc_utils_src

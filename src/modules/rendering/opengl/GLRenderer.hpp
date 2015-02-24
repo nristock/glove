@@ -32,7 +32,7 @@ namespace gl {
 /// @ingroup OpenGLRenderer
 class GLRenderer : public RendererBase {
   public:
-    GLRenderer(const EventBusPtr& eventBus, const WindowConstructionHints& windowConstructionHints,
+    GLRenderer(const WindowConstructionHints& windowConstructionHints,
                const ContextId contextId);
 
     virtual ~GLRenderer() = default;
@@ -51,7 +51,6 @@ class GLRenderer : public RendererBase {
     RenderTargetHandle defaultRenderTarget;
 
     logging::GloveLogger logger;
-    EventBusPtr eventBus;
     ContextId contextId;
 
     GLWindowPtr window;
