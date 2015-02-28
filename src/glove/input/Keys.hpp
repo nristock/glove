@@ -82,6 +82,10 @@ class GLOVE_API_EXPORT Key {
         return technicalName;
     }
 
+    std::size_t GetId() const {
+        return nameHash;
+    }
+
   private:
     const std::string technicalName;
     const std::size_t nameHash;

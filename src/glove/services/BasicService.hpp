@@ -8,6 +8,7 @@ class GLOVE_API_EXPORT BasicService : public Service {
   public:
     BasicService(const ServiceType& serviceType);
 
+    virtual bool NeedsInitialization();
     virtual bool Init(ServiceRegistry& serviceRegistry);
     virtual ServiceType GetType();
 

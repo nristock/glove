@@ -29,6 +29,7 @@ TEST_F(GloveServiceRegistryTest, CanRegisterService) {
 
     std::shared_ptr<NiceMock<ServiceMock>> mockService = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService, NeedsInitialization()).WillByDefault(Return(true));
 
     serviceRegistry.RegisterService(mockService);
 
@@ -39,6 +40,7 @@ TEST_F(GloveServiceRegistryTest, CanRegisterService) {
 TEST_F(GloveServiceRegistryTest, RegisterInitializesServices) {
     std::shared_ptr<NiceMock<ServiceMock>> mockService = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockService, Init(_)).Times(1).WillOnce(Return(true));
 
     serviceRegistry.RegisterService(mockService);
@@ -47,10 +49,12 @@ TEST_F(GloveServiceRegistryTest, RegisterInitializesServices) {
 TEST_F(GloveServiceRegistryTest, RegisterPreventsDoubleInit) {
     std::shared_ptr<NiceMock<ServiceMock>> mockService1 = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService1, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService1, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockService1, Init(_)).Times(1).WillOnce(Return(true));
 
     std::shared_ptr<NiceMock<ServiceMock>> mockService2 = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService2, GetType()).WillByDefault(Return(mockServiceType2));
+    ON_CALL(*mockService2, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockService2, Init(_)).Times(1).WillOnce(Return(true));
 
     serviceRegistry.RegisterService(mockService1);
@@ -60,10 +64,12 @@ TEST_F(GloveServiceRegistryTest, RegisterPreventsDoubleInit) {
 TEST_F(GloveServiceRegistryTest, RegisterDoesntOverrideAlreadyRegisteredTypes) {
     std::shared_ptr<NiceMock<ServiceMock>> mockService1 = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService1, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService1, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockService1, Init(_)).Times(1).WillOnce(Return(true));
 
     std::shared_ptr<NiceMock<ServiceMock>> mockService2 = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService2, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService2, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockService2, Init(_)).Times(0);
 
     serviceRegistry.RegisterService(mockService1);
@@ -80,6 +86,7 @@ TEST_F(GloveServiceRegistryTest, FindServiceReturnsEmptySharedPtrIfServiceCouldN
 TEST_F(GloveServiceRegistryTest, GetServiceReturnsQueriedService) {
     std::shared_ptr<NiceMock<ServiceMock>> mockService = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockService, Init(_)).Times(1).WillOnce(Return(true));
 
     serviceRegistry.RegisterService(mockService);
@@ -96,6 +103,7 @@ TEST_F(GloveServiceRegistryTest, GetServiceThrowsServiceNotInitializedIfTypeOfUn
 
     std::shared_ptr<NiceMock<ServiceMock>> mockService = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService, NeedsInitialization()).WillByDefault(Return(true));
 
     serviceRegistry.RegisterService(mockService);
 
@@ -107,6 +115,7 @@ TEST_F(GloveServiceRegistryTest, ProvidesInitializedService) {
 
     std::shared_ptr<NiceMock<ServiceMock>> mockService = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockService, Init(_)).Times(1).WillOnce(Return(true));
 
     serviceRegistry.RegisterService(mockService);
@@ -121,6 +130,7 @@ TEST_F(GloveServiceRegistryTest, RegisterDoesNotInitializeServiceIfInitializatio
 
     std::shared_ptr<NiceMock<ServiceMock>> mockService = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockService, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockService, Init(_)).Times(0);
 
     serviceRegistry.RegisterService(mockService);
@@ -133,14 +143,26 @@ TEST_F(GloveServiceRegistryTest, InitAllServicesInitializesAllServices) {
 
     std::shared_ptr<NiceMock<ServiceMock>> mockServicePass1 = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockServicePass1, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockServicePass1, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockServicePass1, Init(_)).Times(1).WillOnce(Return(true));
 
     std::shared_ptr<NiceMock<ServiceMock>> mockServicePass2 = std::make_shared<NiceMock<ServiceMock>>();
     ON_CALL(*mockServicePass2, GetType()).WillByDefault(Return(mockServiceType2));
+    ON_CALL(*mockServicePass2, NeedsInitialization()).WillByDefault(Return(true));
     EXPECT_CALL(*mockServicePass2, Init(_)).Times(2).WillOnce(Return(false)).WillOnce(Return(true));
 
     serviceRegistry.RegisterService(mockServicePass2);
     serviceRegistry.RegisterService(mockServicePass1);
+
+    serviceRegistry.InitAllServices();
+}
+
+TEST_F(GloveServiceRegistryTest, RecognizesServicesWhichDontNeedInitialization) {
+    std::shared_ptr<NiceMock<ServiceMock>> mockService = std::make_shared<NiceMock<ServiceMock>>();
+    ON_CALL(*mockService, GetType()).WillByDefault(Return(mockServiceType));
+    ON_CALL(*mockService, NeedsInitialization()).WillByDefault(Return(false));
+
+    serviceRegistry.RegisterService(mockService);
 
     serviceRegistry.InitAllServices();
 }

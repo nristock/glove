@@ -40,7 +40,7 @@ class GLOVE_API_EXPORT GloveServiceRegistry : public ServiceRegistry {
     /// \brief This structure combines a service's init-state with its handle.
     struct ServiceAndState {
         ServiceAndState() : isInitialized(false), service() {}
-        ServiceAndState(ServiceHandle service) : isInitialized(false), service(std::move(service)) {};
+        ServiceAndState(ServiceHandle service) : isInitialized(!service->NeedsInitialization()), service(std::move(service)) {};
         ServiceAndState(const ServiceAndState& other) : isInitialized(other.isInitialized), service(other.service) {}
         ServiceAndState(ServiceAndState&& other) : isInitialized(std::move(other.isInitialized)), service(std::move(other.service)) {}
 

@@ -28,4 +28,10 @@ TEST(BasicServiceTest, InitReturnsTrue) {
 
     EXPECT_TRUE(service.Init(mockRegistry));
 }
+
+TEST(BasicServiceTest, NeedsInitializationReturnsFalse) {
+    BasicService service(::serviceType);
+
+    EXPECT_FALSE(service.NeedsInitialization());
+}
 }
