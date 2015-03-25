@@ -1,13 +1,15 @@
+import re
+from os import path
+
 from lib.utils.DevTreeUtils import DevTree
 from lib.utils.Logger import Log
-from lib.utils.ProcessUtils import ExecutableRunner
-import re
 
 
 KT_AXIS = "FLOAT_AXIS"
 KT_BUTTON = "BUTTON"
 
 key_class = "Key"
+
 
 class Key:
     def __init__(self, technical_name, type):
@@ -22,7 +24,8 @@ class Key:
     def ToDefinition(self):
         if not self.technical_name:
             return "\n"
-        return "const {0} {1}({2});\n".format(key_class, self.technical_name, "\"{0}\", Key::Type::{1}".format(self.technical_name, self.type))
+        return "const {0} {1}({2});\n".format(key_class, self.technical_name,
+                                              "\"{0}\", Key::Type::{1}".format(self.technical_name, self.type))
 
     def IsBlank(self):
         return not bool(self.technical_name)
@@ -225,3 +228,12 @@ def execute_command(args):
         cc_file.write(new_cc_content)
 
     Log.info("Generated {0} input keys".format(num_keys))
+
+
+def setup_args(parser):
+    parser.add_argument('--header', type=str, default=path.join(DevTree.source_dir, 'glove/input/Keys.hpp'),
+                        help="The header to generate the key declarations into")
+    parser.add_argument('--implementation', '--impl', type=str,
+                        default=path.join(DevTree.source_dir, 'glove/input/Keys.cc'),
+                        help="The source file to generate the key definitions into")
+

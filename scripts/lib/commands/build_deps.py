@@ -92,4 +92,3 @@ def execute_command(args):
     Log.info("libZip make...")
     libzip_make = ExecutableRunner('make', ['-j8', 'clean', 'all', 'install'], libzip_build)
     libzip_make.run()
-

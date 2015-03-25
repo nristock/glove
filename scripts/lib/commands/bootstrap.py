@@ -15,3 +15,17 @@ def execute_command(args):
     if args.cmake_release:
         opt_generator = CMakeGenerator(DevTree.source_dir, DevTree.opt_build_dir, None, None, 'Release')
         opt_generator.run()
+
+
+def setup_args(parser):
+    parser.add_argument('--cmake_debug', '-d',
+                        help="Generates debug build files using cmake",
+                        action='store_const',
+                        const=True,
+                        default=False)
+    parser.add_argument('--cmake_release', '-r',
+                        help="Generates release build files using cmake",
+                        action='store_const',
+                        const=True,
+                        default=False)
+

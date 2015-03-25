@@ -22,3 +22,10 @@ def execute_command(args):
         install_process = ExecutableRunner('sudo', ['make', 'install'], build_dir, lambda: Log.info(
             'Installed {0} Glove'.format(args.type)), lambda: Log.error('Install failed'))
         install_process.run()
+
+
+def setup_args(parser):
+    parser.add_argument('type', choices=['dbg', 'opt'], help="The build type")
+    parser.add_argument('target', nargs='?', type=str, default='all', help="Build target")
+    parser.add_argument('--install', '-i', action='store_const', const=True, default=False, help='Install Glove')
+
