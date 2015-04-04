@@ -8,6 +8,8 @@
 #define GLOVE_GIT_SHORT_HASH "b10902b"
 #define GLOVE_GIT "master (b10902b)"
 
+#define GLOVE_POOL_WORKER_WAIT_TIMEOUT 500
+
 #if !defined(ON_WINDOWS)
 /* #undef ON_WINDOWS */
 #endif
