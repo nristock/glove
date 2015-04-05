@@ -1,8 +1,9 @@
+from os import getcwd, path
+
 from lib.utils.DevTreeUtils import DevTree
 from lib.utils.Logger import Log
 from lib.utils.SourceUtils import iterate_sources
 from lib.utils.ProcessUtils import ExecutableRunner
-from os import getcwd, path
 
 
 def execute_command(args):
@@ -30,3 +31,11 @@ def execute_command(args):
     clang_format_runner.run()
 
     Log.info("Done.")
+
+
+def setup_args(parser):
+    parser.add_argument('--list_files', '-l',
+                        help="List files to format",
+                        action='store_const',
+                        const=True,
+                        default=False)
