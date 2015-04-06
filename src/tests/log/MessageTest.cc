@@ -2,9 +2,6 @@
 
 #include <glove/log/Message.hpp>
 
-#include <glove/log/MessageProcessors.hpp>
-#include <glove/log/Logger.hpp>
-
 namespace glove {
 TEST(MessageTest, CanCreateFromLogLevelAndString) {
     const LogLevel expectedLogLevel = LogLevel::Info;
@@ -37,18 +34,6 @@ TEST(MessageTest, CanCreateFromLogLevelAndException) {
     EXPECT_EQ(expectedLogLevel, message.GetLogLevel());
     EXPECT_EQ(expectedException.what(), message.GetMessage());
     EXPECT_TRUE(message.IsExceptionMessage());
-    EXPECT_EQ(std::this_thread::get_id(), message.GetThreadId());
-}
-
-TEST(MessageTest, CanCreateFromLogLevelAndStreamMessage) {
-    const LogLevel expectedLogLevel = LogLevel::Info;
-    const std::string expectedMessage = "My awesome message";
-
-    auto message = Message{expectedLogLevel, StreamMessage() << expectedMessage};
-
-    EXPECT_EQ(expectedLogLevel, message.GetLogLevel());
-    EXPECT_EQ(expectedMessage, message.GetMessage());
-    EXPECT_FALSE(message.IsExceptionMessage());
     EXPECT_EQ(std::this_thread::get_id(), message.GetThreadId());
 }
 

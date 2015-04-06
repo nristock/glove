@@ -3,42 +3,19 @@
 #include <unordered_map>
 #include <thread>
 #include <chrono>
-#include <sstream>
 
 #include "glove/GloveApi.hpp"
 #include "glove/CommonTypes.hpp"
 
 namespace glove {
 enum class LogLevel:int { Error = 0, Warning = 1, Info = 2, Debug = 3, Trace = 4};
-
-std::ostream& operator<<(std::ostream& stream, const LogLevel& logLevel) {
-    const char* logLevels[] = {
-            "Error", " Warn", " Info", "Debug", "Trace"
-    };
-
-    stream << logLevels[static_cast<int>(logLevel)];
-    return stream;
-}
-
-struct GLOVE_API_EXPORT StreamMessage {
-  public:
-    template <typename T> StreamMessage& operator<<(const T& obj) {
-        message << obj;
-        return *this;
-    }
-
-    std::string Finalize() const { return message.str(); }
-
-  private:
-    std::stringstream message;
-};
+std::ostream& operator<<(std::ostream& stream, const LogLevel& logLevel);
 
 struct GLOVE_API_EXPORT Message {
   public:
     Message(LogLevel logLevel, const std::string& message, bool isExceptionMessage)
         : logLevel(logLevel), message(message), isExceptionMessage(isExceptionMessage) {}
     Message(LogLevel logLevel, const std::string& message) : Message(logLevel, message, false) {}
-    Message(LogLevel logLevel, const StreamMessage& streamMessage) : Message(logLevel, streamMessage.Finalize()) {}
     Message(LogLevel logLevel, const std::exception& exception) : Message(logLevel, exception.what(), true) {}
 
     LogLevel GetLogLevel() const { return logLevel; }

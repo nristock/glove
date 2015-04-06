@@ -10,6 +10,11 @@
 namespace glove {
 struct Message;
 
+/**
+* Queues incoming messages for processing on another thread.
+*
+* This processor should be the first in a non-blocking log pipeline. (Non-blocking from the log source point of view.)
+*/
 class GLOVE_API_EXPORT AsyncProcessor : public MessageProcessor {
   public:
     AsyncProcessor(MessageProcessor::Handle nextProcessor) : processingPool(1), nextProcessor(nextProcessor) {}
@@ -21,11 +26,10 @@ class GLOVE_API_EXPORT AsyncProcessor : public MessageProcessor {
   private:
     class ProcessMessageTask : public Task {
       public:
-        ProcessMessageTask(MessageProcessor::Handle processor, Message message) : processor(std::move(processor)), message(std::move(message)) {}
+        ProcessMessageTask(MessageProcessor::Handle processor, Message message)
+            : processor(std::move(processor)), message(std::move(message)) {}
 
-        virtual void Execute() {
-            processor->Process(message);
-        }
+        virtual void Execute() { processor->Process(message); }
 
       private:
         MessageProcessor::Handle processor;

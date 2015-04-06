@@ -10,13 +10,31 @@
 namespace glove {
 struct Message;
 
+/**
+* The default message formatter create message text of the format:
+*   Year-Month-Day Hour-Minute-Second.Milli [LEVEL] TID : Message
+*   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^  ^^^   ^^^^^^
+*   |- ISO8601 Date and Time                 |      |     |- Event message
+*      YYYY-MM-DD hh:mm:ss.sss               |      |- Thread ID
+*                                            |- 5-character Log level
+*
+*/
 class GLOVE_API_EXPORT DefaultFormatterProcessor : public MessageProcessor {
   public:
     DefaultFormatterProcessor(MessageProcessor::Handle nextProcessor) : nextProcessor(std::move(nextProcessor)) {}
 
     virtual void Process(const Message& message) {
-        std::stringstream messageText;
+        message.SetText(FormatMessage(message));
+        nextProcessor->Process(message);
+    }
 
+  protected:
+    virtual std::string FormatMessage(const Message& message) {
+        message.SetText(fmt::format("{0} [{1}] {2} : {3}", FormatTimestamp(message), message.GetLogLevel(),
+                                    message.GetThreadId(), message.GetMessage()));
+    }
+
+    virtual std::string FormatTimestamp(const Message& message) {
         using std::chrono::duration_cast;
 
         auto messageTimeSinceEpoch = message.GetTimestamp().time_since_epoch();
@@ -34,19 +52,9 @@ class GLOVE_API_EXPORT DefaultFormatterProcessor : public MessageProcessor {
         auto nowCTime = std::chrono::high_resolution_clock::to_time_t(message.GetTimestamp());
         auto nowLocalCTime = std::localtime(&nowCTime);
 
-        messageText << "[" << 1900 + nowLocalCTime->tm_year << "-" << nowLocalCTime->tm_mon + 1 << "-" << nowLocalCTime->tm_mday << " "
-                << nowLocalCTime->tm_hour << ":" << minutes.count() << ":" << seconds.count() << "." << millis.count()
-                << " {" << message.GetThreadId() << "}] ["
-                    << message.GetLogLevel() << "]";
-
-        if(!message.GetProperty("__FUNCTION__").empty()) {
-            messageText << " [" << message.GetProperty("__FUNCTION__") << " @ " << message.GetProperty("__FILE__") << ":" << message.GetProperty("__LINE__") << "]";
-        }
-        messageText << ": " << message.GetMessage();
-
-        message.SetText(messageText.str());
-
-        nextProcessor->Process(message);
+        return fmt::format("[{0}-{1}-{2} {3}:{4}:{5}.{6}]", 1900 + nowLocalCTime->tm_year, nowLocalCTime->tm_mon + 1,
+                           nowLocalCTime->tm_mday, nowLocalCTime->tm_hour, minutes.count(), seconds.count(),
+                           millis.count());
     }
 
   private:

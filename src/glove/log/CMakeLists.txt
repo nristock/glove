@@ -1,10 +1,12 @@
 set(gc_log_src
-   Log.cc
    Logger.cc
+   Message.cc
+   format.cc
 )
 
 set(gc_log_headers
-    Message.hpp
+    Log.hpp
+
     MessageProcessor.hpp
     MessageProcessors.hpp
 
