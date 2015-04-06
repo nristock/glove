@@ -17,6 +17,8 @@ void GloveServiceRegistry::RegisterService(const ServiceHandle& service) {
     if(Check(!ProvidesService(service->GetType()))) {
         services.emplace_back(service);
 
+        L_INFO(fmt::format("Registered service: {0}", service->GetType()));
+
         if(service->NeedsInitialization() && !deferServiceInitialization) {
             RunServiceInitPass();
         }
