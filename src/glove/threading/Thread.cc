@@ -2,7 +2,7 @@
 
 namespace glove {
 
-Thread::Thread(RunnableHandle runnable) : runnable(std::move(runnable)) {
+Thread::Thread(Runnable::Handle runnable) : runnable(std::move(runnable)) {
     interruptFlag.store(false, std::memory_order_release);
     executionFinished.store(false, std::memory_order_release);
 }
@@ -54,7 +54,7 @@ void Thread::Run() {
     runnable->Run(*this);
 }
 
-std::shared_ptr<Thread> Thread::CreateThread(RunnableHandle runnable) {
-    return std::shared_ptr<Thread>(new Thread(std::move(runnable)));
+Thread::Handle Thread::CreateThread(Runnable::Handle runnable) {
+    return Thread::Handle(new Thread(std::move(runnable)));
 }
 }

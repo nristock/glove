@@ -12,12 +12,12 @@ class Thread;
 
 struct GLOVE_API_EXPORT Runnable {
   public:
+    using Handle = std::shared_ptr<Runnable>;
+
     virtual ~Runnable() = default;
 
     virtual void Run(const Thread& thread) = 0;
 };
-
-using RunnableHandle = std::shared_ptr<Runnable>;
 
 /**
 * A Thread executes a Runnable implementation on a different system thread.
@@ -29,6 +29,8 @@ using RunnableHandle = std::shared_ptr<Runnable>;
 */
 class GLOVE_API_EXPORT Thread {
   public:
+    using Handle = std::shared_ptr<Thread>;
+
     ~Thread();
 
     /// Thread is not copyable
@@ -61,10 +63,11 @@ class GLOVE_API_EXPORT Thread {
     /// Returns the state of the interrupt flag.
     bool InterruptRequested() const;
 
-    static std::shared_ptr<Thread> CreateThread(RunnableHandle runnable);
+    /// Creates a thread handle from a runnable handle
+    static Thread::Handle CreateThread(Runnable::Handle runnable);
 
   protected:
-    Thread(RunnableHandle runnable);
+    Thread(Runnable::Handle runnable);
 
     /// Run invokes runnable's Runnable::Run method and sets the executionFinished flag once Runnable::Run returns.
     void Run();
@@ -74,7 +77,7 @@ class GLOVE_API_EXPORT Thread {
     std::atomic_bool interruptFlag;
     std::atomic_bool executionFinished;
 
-    RunnableHandle runnable;
+    Runnable::Handle runnable;
 };
 
 } // namespace glove
