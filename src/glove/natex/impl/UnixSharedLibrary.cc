@@ -40,7 +40,7 @@ void UnixSharedLibrary::UnloadDso() {
 
     int closeResult = dlclose(libraryHandle);
     if (closeResult != 0) {
-        LOG(logger, error, (boost::format("Failed to unload SO library %1%: %2%") % libraryHandle % dlerror()).str());
+        logger.Error(fmt::format("Failed to unload SO library {0}: {1}", libraryHandle, dlerror()), M_TAG);
     }
 }
 }

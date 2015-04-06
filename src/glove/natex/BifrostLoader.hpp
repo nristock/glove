@@ -27,7 +27,7 @@ class GLOVE_API_EXPORT BifrostLoader : public ModuleLoader {
   private:
     ModuleCreateFunc GetModuleCreateFunc(SharedLibrary& library) const;
 
-    logging::GloveLogger logger;
+    Logger logger;
     std::unique_ptr<SharedLibraryLoader> libraryLoader;
 };
 } /* namespace glove */

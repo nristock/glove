@@ -13,7 +13,7 @@ class GLOVE_API_EXPORT ModuleLoader {
     /// @brief Loads a system extension.
     ///
     /// @param extensionName [in] The extension's file path.
-    virtual std::unique_ptr<glove::Module> LoadModule(const std::string &extensionName) = 0;
+    virtual std::unique_ptr<glove::Module> LoadModule(const std::string& extensionName) = 0;
 };
 
 } /* namespace glove */

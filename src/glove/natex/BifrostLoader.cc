@@ -12,28 +12,28 @@ namespace glove {
 
 BifrostLoader::BifrostLoader() : BifrostLoader(std::make_unique<GloveSharedLibraryLoader>()) {
 #if defined(ON_UNIX)
-    LOG(logger, info, "Initializing Bifrost loader with default SoLoaderFactory (UNIX, .so)");
+    logger.Info("Initializing Bifrost loader with default SoLoaderFactory (UNIX, .so)");
 #elif defined(ON_WINDOWS)
-    LOG(logger, info, "Initializing Bifrost loader with default DllLoaderFactory (WINDOWS, .dll)");
+    logger.Info("Initializing Bifrost loader with default DllLoaderFactory (WINDOWS, .dll)");
 #else
-    LOG(logger, warning, "Initializing Bifrost loader without a default SharedLibraryLoaderFactory!");
+    logger.Warning("Initializing Bifrost loader without a default SharedLibraryLoaderFactory!");
 #pragma warning("Bifrost loader will not initialize a default shared library loader for the target platform")
 #endif
 }
 
 std::unique_ptr<Module> BifrostLoader::LoadModule(const std::string& extensionFile) {
-    LOG(logger, info, (boost::format("Loading DSO %1%...") % extensionFile).str());
+    logger.Info(fmt::format("Loading DSO {0}...", extensionFile), M_TAG);
 
     auto sharedLibrary = libraryLoader->LoadLibrary(extensionFile);
     auto moduleCreateFunc = GetModuleCreateFunc(*sharedLibrary);
 
-    LOG(logger, info, (boost::format("Invoking module creation function for %1%...") % extensionFile).str());
+    logger.Info(fmt::format("Invoking module creation function for {0}...", extensionFile), M_TAG);
 
     auto module = moduleCreateFunc();
-    auto sharedLibModule = std::make_unique<SharedLibraryModule>(std::move(module), std::move(sharedLibrary));
+    std::unique_ptr<Module> sharedLibModule = std::make_unique<SharedLibraryModule>(std::move(module), std::move(sharedLibrary));
 
-    LOG(logger, info, (boost::format("Module %1% (%2%) has been created.") % module->GetName() % module->GetVersion().ToString()).str());
-    return module;
+    logger.Info(fmt::format("Module {0} ({1}) has been created.", sharedLibModule->GetName(), sharedLibModule->GetVersion().ToString()), M_TAG);
+    return sharedLibModule;
 }
 
 ModuleCreateFunc BifrostLoader::GetModuleCreateFunc(SharedLibrary& library) const {

@@ -25,7 +25,7 @@ class GLOVE_API_EXPORT UnixSharedLibrary : public SharedLibrary {
     const std::string fileName;
     void* libraryHandle;
 
-    logging::GloveLogger logger;
+    Logger logger;
 };
 
 } /* namespace glove */
