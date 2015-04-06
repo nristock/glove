@@ -19,7 +19,7 @@ void PrintShaderCompilerLog(GLuint shaderId) {
         GLchar* infoLog = new GLchar[logLength];
         glGetShaderInfoLog(shaderId, logLength, &charsWritten, infoLog);
 
-        LOG(logging::globalLogger, error, "Shader Compile Log: " << std::endl << infoLog);
+        LOG(Error, fmt::format("Shader Compile Log: \n{0}", infoLog));
         delete[] infoLog;
     }
 }
@@ -34,7 +34,7 @@ void PrintShaderProgramLinkLog(GLuint programId) {
         GLchar* linkLog = new GLchar[logLength];
         glGetProgramInfoLog(programId, logLength, &logLength, linkLog);
 
-        LOG(logging::globalLogger, error, "Shader Link Log: " << std::endl << linkLog);
+        LOG(Error, fmt::format("Shader Link Log:\n {0}", linkLog));
         delete[] linkLog;
     }
 }

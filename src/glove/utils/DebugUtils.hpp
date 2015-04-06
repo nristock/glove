@@ -16,12 +16,11 @@ inline bool _DebugAssert(const char* file, int line, const char* expression, boo
         return assertionResult;
     }
 
-    LOG(logging::globalLogger, debug,
-        (boost::format("Debug assertion failed in %1%:%2%: %3%") % file % line % expression).str());
+    L_DEBUG(fmt::format("Debug assertion failed in {0}:{1}: {2}", file, line, expression));
 
     if (GLOVE_DEBUG_BREAK) {
 #if defined(ON_UNIX)
-        LOG(logging::globalLogger, debug, "Sending SIGSTOP: Attach debugger now");
+        L_DEBUG("Sending SIGSTOP: Attach debugger now");
         raise(SIGSTOP);
 #else
         raise(SIGABRT);
@@ -39,8 +38,7 @@ inline bool _Check(const char* file, int line, const char* expression, bool asse
         return assertionResult;
     }
 
-    LOG(logging::globalLogger, debug,
-        (boost::format("Debug check failed in %1%:%2%: %3%") % file % line % expression).str());
+    L_DEBUG(fmt::format("Debug check failed in {0}:{1}: {2}", file, line, expression));
 #endif
 
     return assertionResult;

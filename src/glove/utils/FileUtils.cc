@@ -14,7 +14,7 @@ std::string ReadFileToString(std::string filePath)
         std::ifstream file(filePath.c_str());
         if(!file.is_open())
         {
-                LOG(logging::globalLogger, error, (boost::format("Unable to open file %1%") % filePath).str());
+                L_ERROR(fmt::format("Unable to open file {0}", filePath));
 				return "";
         }
 
