@@ -30,8 +30,8 @@ class GLOVE_API_EXPORT DefaultFormatterProcessor : public MessageProcessor {
 
   protected:
     virtual std::string FormatMessage(const Message& message) {
-        message.SetText(fmt::format("{0} [{1}] {2} : {3}", FormatTimestamp(message), message.GetLogLevel(),
-                                    message.GetThreadId(), message.GetMessage()));
+        return fmt::format("{0} [{1}] {2} : {3}", FormatTimestamp(message), message.GetLogLevel(),
+                                    message.GetThreadId(), message.GetMessage());
     }
 
     virtual std::string FormatTimestamp(const Message& message) {
