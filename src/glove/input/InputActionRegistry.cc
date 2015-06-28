@@ -1,4 +1,4 @@
-#include <glove/utils/DebugUtils.hpp>
+#include "glove/utils/DebugUtils.hpp"
 #include "glove/input/InputActionRegistry.hpp"
 
 namespace glove {

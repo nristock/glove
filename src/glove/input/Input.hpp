@@ -5,7 +5,7 @@
 namespace glove {
 
 class InputAction;
-using InputActionHandle = std::shared_ptr<InputAction>
+using InputActionHandle = std::shared_ptr<InputAction>;
 
 } /* namespace glove */
 
