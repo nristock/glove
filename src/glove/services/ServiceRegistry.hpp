@@ -23,7 +23,7 @@ class GLOVE_API_EXPORT ServiceRegistry {
     /// \brief Tries to find a registered and initialized service of type @p serviceType and throws an exception is no
     /// such service can be found.
     ///
-    /// This method works like FindService with but throws a ServiceNotFound if there is no service of @p serviceType
+    /// This method works like FindService but throws a ServiceNotFound exception if there is no service of @p serviceType
     /// registered. It can also throw a ServiceNotInitialized exception if the requested service type hasn't been
     /// initialized yet.
     virtual ServiceHandle GetService(const ServiceType& serviceType) = 0;
