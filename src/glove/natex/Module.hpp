@@ -2,11 +2,11 @@
 
 #include <string>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/Version.hpp"
 #include "glove/services/ServiceRegistry.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 class ModuleVersionInfo : public VersionInfo {
   public:
@@ -18,7 +18,7 @@ class ModuleVersionInfo : public VersionInfo {
 };
 
 /// \brief Module interface class.
-class GLOVE_API_EXPORT Module {
+class BD_API_EXPORT Module {
   public:
     virtual ~Module() = default;
 
@@ -29,4 +29,4 @@ class GLOVE_API_EXPORT Module {
     virtual const ModuleVersionInfo& GetVersion() const = 0;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

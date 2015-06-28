@@ -5,7 +5,7 @@
 
 #include "../internal/OpenGLWrapper.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 struct GLTextureBase {
   public:
@@ -21,4 +21,4 @@ class GLTexture2D : public Texture2D, public GLTextureBase {
     GLTexture2D(uint32 width, uint32 height, const PixelFormat& pixelFormat);
 };
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

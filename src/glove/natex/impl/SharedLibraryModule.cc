@@ -1,7 +1,7 @@
 #include "glove/utils/DebugUtils.hpp"
 #include "glove/natex/impl/SharedLibraryModule.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
     SharedLibraryModule::SharedLibraryModule(std::unique_ptr<Module> implementation, std::unique_ptr<SharedLibrary> dso) : implementation(std::move(implementation)), dso(std::move(dso)) {
         DebugAssert((bool)this->implementation);

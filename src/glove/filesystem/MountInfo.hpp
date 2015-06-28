@@ -1,12 +1,12 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/filesystem/Filesystem.hpp"
 #include "glove/filesystem/Path.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT MountInfo {
+class BD_API_EXPORT MountInfo {
   public:
     MountInfo(FilesystemHandle const& filesystem, Path const& mountLocation)
             : filesystem(filesystem), mountLocation(mountLocation) {}
@@ -25,4 +25,4 @@ class GLOVE_API_EXPORT MountInfo {
     const Path mountLocation;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

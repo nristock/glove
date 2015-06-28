@@ -9,7 +9,7 @@ struct TestEventData {
 
 }
 
-namespace glove {
+namespace BlueDwarf {
 TEST(EventDelegateTest, SubPubNoLocking) {
     SimpleEvent<TestEventData> event;
 

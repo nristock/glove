@@ -4,7 +4,7 @@
 #include <ctime>
 #include <chrono>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/log/MessageProcessor.hpp"
 
 namespace BlueDwarf {
@@ -19,7 +19,7 @@ struct Message;
 *                                            |- 5-character Log level
 *
 */
-class GLOVE_API_EXPORT DefaultFormatterProcessor : public MessageProcessor {
+class BD_API_EXPORT DefaultFormatterProcessor : public MessageProcessor {
   public:
     DefaultFormatterProcessor(MessageProcessor::Handle nextProcessor) : nextProcessor(std::move(nextProcessor)) {}
 

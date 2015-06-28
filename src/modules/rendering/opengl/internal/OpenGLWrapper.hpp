@@ -4,11 +4,11 @@
 #include <atomic>
 
 #include <GL/glew.h>
-#include <glove/GloveFwd.hpp>
+#include "glove/BlueDwarfFwd.hpp"
 
 #include "subsystem/OpenGLRendererModule.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 /// @ingroup Internal

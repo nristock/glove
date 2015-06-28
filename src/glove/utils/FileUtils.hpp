@@ -2,10 +2,10 @@
 
 #include <string>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-std::string GLOVE_API_EXPORT ReadFileToString(std::string filePath);
+std::string BD_API_EXPORT ReadFileToString(std::string filePath);
 
-} // namespace glove
+} // namespace BlueDwarf

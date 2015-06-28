@@ -15,7 +15,7 @@
 /// @defgroup Internal
 /// @ingroup OpenGLRenderer
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 /// @addtogroup OpenGLRenderer
@@ -70,4 +70,4 @@ typedef uint16_t ContextId;
 typedef OpenGLWrapper GL;
 /// @}
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

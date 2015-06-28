@@ -6,20 +6,20 @@
 #include "mock/MockFilesystemAccessor.hpp"
 
 namespace {
-const glove::FileInfo existingDirectory(glove::FileInfo::FileType::DIRECTORY, 0);
-const glove::FileInfo existingFile(glove::FileInfo::FileType::REGULAR, 0);
-const glove::FileInfo nonExistingFile(glove::FileInfo::FileType::NOT_FOUND, 0);
-const glove::FileInfo unknownFile(glove::FileInfo::FileType::UNKNOWN, 0);
+const BlueDwarf::FileInfo existingDirectory(BlueDwarf::FileInfo::FileType::DIRECTORY, 0);
+const BlueDwarf::FileInfo existingFile(BlueDwarf::FileInfo::FileType::REGULAR, 0);
+const BlueDwarf::FileInfo nonExistingFile(BlueDwarf::FileInfo::FileType::NOT_FOUND, 0);
+const BlueDwarf::FileInfo unknownFile(BlueDwarf::FileInfo::FileType::UNKNOWN, 0);
 
-const glove::Path directoryPath("existing/directory");
-const glove::Path filePath("existing/file");
-const glove::Path nonExistingPath("nonexisting");
-const glove::Path unknownFileTypePath("unknown");
+const BlueDwarf::Path directoryPath("existing/directory");
+const BlueDwarf::Path filePath("existing/file");
+const BlueDwarf::Path nonExistingPath("nonexisting");
+const BlueDwarf::Path unknownFileTypePath("unknown");
 }
 
 using ::testing::Return;
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(FileTest, CanConstructFromPath) {
     FilesystemHandle filesystem(new FilesystemAccessorMock());
@@ -57,4 +57,4 @@ TEST(FileTest, CanCheckExistance) {
     EXPECT_FALSE(File(::nonExistingPath, filesystem).Exists());
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

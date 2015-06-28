@@ -3,11 +3,11 @@
 #include <memory>
 #include <mutex>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/log/MessageProcessor.hpp"
 #include "glove/threading/ThreadPool.hpp"
 
-using namespace glove;
+using namespace BlueDwarf;
 
 namespace BlueDwarf {
 struct Message;
@@ -17,7 +17,7 @@ struct Message;
 *
 * This processor should be the first in a non-blocking log pipeline. (Non-blocking from the log source point of view.)
 */
-class GLOVE_API_EXPORT AsyncProcessor : public MessageProcessor {
+class BD_API_EXPORT AsyncProcessor : public MessageProcessor {
   public:
     AsyncProcessor(MessageProcessor::Handle nextProcessor) : processingPool(1), nextProcessor(nextProcessor) {}
 

@@ -1,5 +1,5 @@
 #include <glove/rendering/material/MaterialLoader.hpp>
-#include "glove/application/GloveApplication.hpp"
+#include "glove/application/DwarfApplication.hpp"
 
 #include "glove/log/LoggingFacet.hpp"
 #include "glove/rendering/RenderingCoreFacet.hpp"
@@ -17,9 +17,9 @@
 #include "facets/NatexFacetConfigurator.hpp"
 #include "facets/WindowFacet.hpp"
 
-using namespace glove;
+using namespace BlueDwarf;
 
-class SandboxApp : public GloveApplication {
+class SandboxApp : public DwarfApplication {
   public:
     SandboxApp() {
         loggingFacet = std::make_shared<LoggingFacet>();

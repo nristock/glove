@@ -4,7 +4,7 @@
 
 #include "internal/OpenGLWrapper.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 OpenGLWrapperPtr OpenGLWrapper::sharedWrapper = OpenGLWrapperPtr(new OpenGLWrapper());

@@ -1,14 +1,14 @@
-#define GLOVE_VERSION_MAJOR 1
-#define GLOVE_VERSION_MINOR 0
-#define GLOVE_VERSION_PATCH 0
+#define BD_VERSION_MAJOR 1
+#define BD_VERSION_MINOR 0
+#define BD_VERSION_PATCH 0
 
-#define GLOVE_VERSION_STRING "1.0.0"
+#define BD_VERSION_STRING "1.0.0"
 
-#define GLOVE_GIT_BRANCH "master"
-#define GLOVE_GIT_SHORT_HASH "b10902b"
-#define GLOVE_GIT "master (b10902b)"
+#define BD_GIT_BRANCH "master"
+#define BD_GIT_SHORT_HASH "b10902b"
+#define BD_GIT "master (b10902b)"
 
-#define GLOVE_POOL_WORKER_WAIT_TIMEOUT 500
+#define BD_POOL_WORKER_WAIT_TIMEOUT 500
 
 #if !defined(ON_WINDOWS)
 /* #undef ON_WINDOWS */
@@ -18,16 +18,16 @@
 #define ON_UNIX
 #endif
 
-#if !defined(GLOVE_DEBUG_BUILD)
-#define GLOVE_DEBUG_BUILD
+#if !defined(BD_DEBUG_BUILD)
+#define BD_DEBUG_BUILD
 #endif
 
-#define GLOVE_SERVICES_EXPECTED_SERVICE_COUNT 10
+#define BD_SERVICES_EXPECTED_SERVICE_COUNT 10
 
-#if !defined(GLOVE_DEBUG_BREAK)
-#define GLOVE_DEBUG_BREAK
+#if !defined(BD_DEBUG_BREAK)
+#define BD_DEBUG_BREAK
 #endif
 
-#if !defined(GLOVE_TREAT_CHECK_AS_ASSERTION)
-/* #undef GLOVE_TREAT_CHECK_AS_ASSERTION */
+#if !defined(BD_TREAT_CHECK_AS_ASSERTION)
+/* #undef BD_TREAT_CHECK_AS_ASSERTION */
 #endif

@@ -11,7 +11,7 @@
 
 struct GLFWwindow;
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 /// @ingroup OpenGLRenderer
@@ -58,4 +58,4 @@ class GLWindow : public GLViewportClient {
     void OnMouseButton(int button, int action, int mods);
 };
 }
-} // namespace glove
+} // namespace BlueDwarf

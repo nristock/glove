@@ -5,12 +5,12 @@
 #include <glove/filesystem/io/UnbufferedFileReader.hpp>
 
 namespace {
-const glove::Path directoryPath("testdata/a_directory");
-const glove::Path filePath("testdata/a_directory/a_file");
-const glove::Path nonExistingPath("testdata/a_non_existing_directory");
+const BlueDwarf::Path directoryPath("testdata/a_directory");
+const BlueDwarf::Path filePath("testdata/a_directory/a_file");
+const BlueDwarf::Path nonExistingPath("testdata/a_non_existing_directory");
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(UnbufferedFileReaderTest, CanConstructFromFile) {
     File file(::filePath);
@@ -27,4 +27,4 @@ TEST(FileTest, CanReadBytesFromFile) {
     EXPECT_EQ('G', character);
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

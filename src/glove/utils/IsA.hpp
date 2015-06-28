@@ -1,11 +1,11 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 template<typename T>
-struct GLOVE_API_EXPORT IsA {
+struct BD_API_EXPORT IsA {
     template<typename O>
     IsA(const O* objectToCheck) {
         T* ptr = dynamic_cast<T*>(objectToCheck);

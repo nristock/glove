@@ -5,8 +5,8 @@ int TestLibFunction(int param) {
     return param;
 }
 //
-//glove::ISystemExtensionPtr LoadExtension() {
-//    return glove::ISystemExtensionPtr();
+//BlueDwarf::ISystemExtensionPtr LoadExtension() {
+//    return BlueDwarf::ISystemExtensionPtr();
 //}
 
 void UnloadExtension() {

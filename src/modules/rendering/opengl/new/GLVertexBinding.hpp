@@ -4,7 +4,7 @@
 
 #include "../internal/OpenGLWrapper.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class VertexBuffer;
 using VertexBufferHandle = std::shared_ptr<VertexBuffer>;
 
@@ -12,7 +12,7 @@ namespace gl {
 /**
 * The OpenGL renderer implementation of a VertexBinding.
 */
-class GLOVE_API_EXPORT GLVertexBinding : public VertexBinding {
+class BD_API_EXPORT GLVertexBinding : public VertexBinding {
   public:
     GLVertexBinding(const std::unordered_map<uint8, VertexElement>& shaderAttributeBindings,
                     const std::vector<VertexBufferHandle>& vertexStreams);
@@ -26,4 +26,4 @@ class GLOVE_API_EXPORT GLVertexBinding : public VertexBinding {
     GLuint vaoId = 0;
 };
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

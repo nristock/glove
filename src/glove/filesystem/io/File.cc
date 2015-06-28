@@ -1,7 +1,7 @@
 #include "glove/filesystem/io/File.hpp"
 #include "glove/filesystem/IFilesystem.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 File::File(const Path& filePath)  : filePath(filePath), filesystem(new NativeFilesystemAccessor()) {}
 

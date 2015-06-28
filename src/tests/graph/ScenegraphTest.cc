@@ -6,7 +6,7 @@
 #include "tests/graph/mock/GameObjectMock.hpp"
 #include "tests/graph/mock/MockGameObjectFactory.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 class ScenegraphTest : public ::testing::Test {
   protected:

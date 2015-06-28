@@ -3,10 +3,10 @@
 #include <memory>
 
 #include "glove/CommonTypes.hpp"
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/utils/DebugUtils.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class RenderResourceFactory;
 
 class Texture2D;
@@ -15,7 +15,7 @@ using Texture2DHandle = std::shared_ptr<Texture2D>;
 /**
 * An off-screen render target which can be bound to either color or depth/stencil output.
 */
-struct GLOVE_API_EXPORT RenderTarget {
+struct BD_API_EXPORT RenderTarget {
   public:
     RenderTarget() = default;
 
@@ -30,4 +30,4 @@ struct GLOVE_API_EXPORT RenderTarget {
   private:
     Texture2DHandle targetTexture;
 };
-} /* namespace glove */
+} /* namespace BlueDwarf */

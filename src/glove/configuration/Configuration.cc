@@ -2,11 +2,11 @@
 
 #include <boost/format.hpp>
 
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 #include "glove/configuration/Configuration.hpp"
 #include "glove/configuration/ConfigurationConverters.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 Configuration Configuration::LoadFromFile(const std::string& filePath) {
     try {
@@ -16,10 +16,10 @@ Configuration Configuration::LoadFromFile(const std::string& filePath) {
 
         return deserializedConfig;
     } catch (YAML::Exception& ex) {
-        GLOVE_THROW(GloveException, ex.what());
+        DWARF_THROW(DwarfException, ex.what());
     } catch (std::runtime_error& ex) {
-        GLOVE_THROW(GloveException, ex.what());
-    } catch (GloveException& ex) {
+        DWARF_THROW(DwarfException, ex.what());
+    } catch (DwarfException& ex) {
         throw;
     }
 }

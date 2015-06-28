@@ -1,7 +1,7 @@
 #include "glove/world/scene/SceneProxy.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

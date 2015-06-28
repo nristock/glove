@@ -2,14 +2,14 @@
 
 #include <memory>
 
-namespace glove {
+namespace BlueDwarf {
 
 class InputAction;
 using InputActionHandle = std::shared_ptr<InputAction>;
 
-} /* namespace glove */
+} /* namespace BlueDwarf */
 
-#if !defined(GLOVE_INPUT_FWD_ONLY)
+#if !defined(BD_INPUT_FWD_ONLY)
 #include "glove/input/Keys.hpp"
 #include "glove/input/InputAction.hpp"
 #include "glove/input/InputActionRegistry.hpp"

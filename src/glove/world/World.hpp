@@ -4,13 +4,13 @@
 #include <vector>
 #include <list>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/log/Log.hpp"
 #include "glove/world/entity/Entity.hpp"
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 
 class WorldComponent;
 using WorldComponentHandle = std::shared_ptr<WorldComponent>;
@@ -38,7 +38,7 @@ struct WorldConstructionHints {
 * WorldComponents are held in continuous memory to allow CPU prefetching optimizations. See World::worldComponents.
 * Entities can be stored in either continuous memory or in a linked-list like structure. See World::AddEntity.
 */
-class GLOVE_API_EXPORT World : public std::enable_shared_from_this<World> {
+class BD_API_EXPORT World : public std::enable_shared_from_this<World> {
   public:
     using Handle = std::shared_ptr<World>;
 
@@ -145,4 +145,4 @@ class GLOVE_API_EXPORT World : public std::enable_shared_from_this<World> {
     Logger logger{"World"};
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

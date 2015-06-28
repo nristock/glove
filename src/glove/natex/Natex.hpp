@@ -4,7 +4,7 @@
 
 #include <boost/uuid/uuid.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 
 template <class T> using Handle = std::shared_ptr<T>;
 
@@ -18,9 +18,9 @@ class Module;
 using ModuleHandle = Handle<Module>;
 typedef std::unique_ptr<Module> (*ModuleCreateFunc)();
 
-} /* namespace glove */
+} /* namespace BlueDwarf */
 
-#if !defined(GLOVE_NATEX_FWD_ONLY)
+#if !defined(BD_NATEX_FWD_ONLY)
 #include "glove/natex/Module.hpp"
 #include "glove/natex/ModuleLoader.hpp"
 #include "glove/natex/SharedLibrary.hpp"

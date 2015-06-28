@@ -9,9 +9,9 @@
 #endif
 
 #include "glove/natex/DirectoryExtensionSearcher.hpp"
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 bool EndsWith(const std::string& fullString, const std::string& ending) {
     if (fullString.length() >= ending.length()) {
@@ -26,7 +26,7 @@ DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& search
     DIR* dir = opendir(searchDirectory.c_str());
 
     if (!dir) {
-        throw GLOVE_EXCEPTION((boost::format("Unable to open directory %1%") % searchDirectory).str());
+        throw DWARF_EXCEPTION((boost::format("Unable to open directory %1%") % searchDirectory).str());
     }
 
     dirent* entry = nullptr;
@@ -56,7 +56,7 @@ DirectoryExtensionSearcher::DirectoryExtensionSearcher(const std::string& search
             return;
         }
 
-        throw GLOVE_EXCEPTION((boost::format("Error finding first file in directory %1% (WinApi Error %2%)") %
+        throw DWARF_EXCEPTION((boost::format("Error finding first file in directory %1% (WinApi Error %2%)") %
                                searchDirectory % winApiError).str());
     }
 

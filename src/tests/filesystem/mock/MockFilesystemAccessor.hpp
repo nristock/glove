@@ -9,7 +9,7 @@
 #include <glove/filesystem/IFilesystem.hpp>
 #include <glove/filesystem/Path.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 
 class FilesystemAccessorMock : public IFilesystem {
 public:
@@ -18,4 +18,4 @@ public:
     MOCK_METHOD1(CreateFileWriteStream, std::ostream*(const Path& path));
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

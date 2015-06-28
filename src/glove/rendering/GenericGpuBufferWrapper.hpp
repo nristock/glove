@@ -2,15 +2,15 @@
 
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "GpuBuffer.hpp"
 #include "RenderResourceFactory.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 using VertexBufferHandle = std::shared_ptr<VertexBuffer>;
 using IndexBufferHandle = std::shared_ptr<IndexBuffer>;
 
-class GLOVE_API_EXPORT GenericVertexBufferWrapper {
+class BD_API_EXPORT GenericVertexBufferWrapper {
   public:
     GenericVertexBufferWrapper(const RenderResourceFactory& resourceFactory);
 
@@ -27,7 +27,7 @@ class GLOVE_API_EXPORT GenericVertexBufferWrapper {
     VertexBufferHandle vertexBuffer;
 };
 
-class GLOVE_API_EXPORT GenericIndexBufferWrapper {
+class BD_API_EXPORT GenericIndexBufferWrapper {
   public:
     GenericIndexBufferWrapper(const RenderResourceFactory& resourceFactory);
 
@@ -44,4 +44,4 @@ class GLOVE_API_EXPORT GenericIndexBufferWrapper {
     IndexBufferHandle indexBuffer;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

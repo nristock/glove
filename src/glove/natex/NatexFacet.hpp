@@ -2,14 +2,14 @@
 
 #include <list>
 
-#include "glove/GloveApi.hpp"
-#include "glove/application/GloveApplication.hpp"
+#include "glove/BlueDwarfApi.hpp"
+#include "glove/application/DwarfApplication.hpp"
 #include "glove/services/ServiceRegistry.hpp"
 #include "glove/natex/ExtensionSearcher.hpp"
 #include "glove/natex/ModuleLoader.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT NatexFacet : public ApplicationFacet {
+namespace BlueDwarf {
+class BD_API_EXPORT NatexFacet : public ApplicationFacet {
   public:
     NatexFacet(ServiceRegistryHandle serviceRegistry);
     NatexFacet(ServiceRegistryHandle serviceRegistry, std::shared_ptr<ModuleLoader> moduleLoader);

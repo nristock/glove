@@ -1,10 +1,10 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT SharedLibrary {
+class BD_API_EXPORT SharedLibrary {
   public:
     virtual ~SharedLibrary() = default;
 
@@ -16,4 +16,4 @@ class GLOVE_API_EXPORT SharedLibrary {
     virtual void* GetSymbol(const std::string& symbolName) = 0;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

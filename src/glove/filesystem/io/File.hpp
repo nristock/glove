@@ -1,12 +1,12 @@
 #pragma once
 
-#include "glove/GloveFwd.hpp"
+#include "glove/BlueDwarfFwd.hpp"
 #include "glove/filesystem/Filesystem.hpp"
 #include "glove/filesystem/Path.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT File {
+class BD_API_EXPORT File {
 public:
     File(const Path& filePath);
     File(const Path& filePath, const FilesystemHandle& filesystemAccessor);
@@ -23,4 +23,4 @@ private:
     const FilesystemHandle filesystem;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

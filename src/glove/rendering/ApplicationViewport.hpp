@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/math/IntPoint.hpp"
 #include "glove/log/Log.hpp"
 
@@ -12,7 +12,7 @@ namespace BlueDwarf {
 struct Transform;
 }
 
-namespace glove {
+namespace BlueDwarf {
 struct RenderTarget;
 class SceneRenderer;
 class RenderCommandList;
@@ -27,7 +27,7 @@ class PoolTask;
  * Viewport clients are attached to an ApplicationViewport which will call ViewportClient::Flush each time a frame has
  * finished rendering.
  */
-class GLOVE_API_EXPORT ViewportClient {
+class BD_API_EXPORT ViewportClient {
   public:
     virtual ~ViewportClient() = default;
 
@@ -53,7 +53,7 @@ class GLOVE_API_EXPORT ViewportClient {
 * @link ViewportClient ViewportClients @endlink of the same size and the final render target when a frame is done
 * rendering.
 */
-class GLOVE_API_EXPORT  ApplicationViewport : public std::enable_shared_from_this<ApplicationViewport> {
+class BD_API_EXPORT  ApplicationViewport : public std::enable_shared_from_this<ApplicationViewport> {
   public:
     ApplicationViewport(std::shared_ptr<RenderHardwareInterface> rhi);
     virtual ~ApplicationViewport();
@@ -105,4 +105,4 @@ class GLOVE_API_EXPORT  ApplicationViewport : public std::enable_shared_from_thi
 
     Logger logger;
 };
-} // namespace glove
+} // namespace BlueDwarf

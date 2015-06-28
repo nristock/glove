@@ -1,6 +1,6 @@
 #include "glove/resources/image/Image.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 Image::Image(unsigned int width, unsigned int height, ImageFormat format, unsigned char bitDepth)
     : width(width), height(height), format(format), bitDepth(bitDepth),
       imageData(width * height * static_cast<int>(format) * (bitDepth/8)) {

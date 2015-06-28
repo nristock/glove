@@ -3,7 +3,7 @@
 #include "glove/world/World.hpp"
 #include "glove/world/scene/Scene.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 Entity::Entity(std::weak_ptr<World> world) : world(world) {
 

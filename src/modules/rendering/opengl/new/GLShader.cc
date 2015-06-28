@@ -1,17 +1,17 @@
 #include "GLShader.hpp"
 
 #include <glove/utils/ShaderUtils.hpp>
-#include <glove/GloveException.hpp>
+#include "glove/DwarfException.hpp"
 #include <glove/log/Logger.hpp>
 #include <glove/log/format.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 
 GLShaderBase::GLShaderBase(const std::string& shaderSource, const GLenum shaderType) {
     if (shaderSource.empty()) {
-        throw GLOVE_EXCEPTION("Shader source is empty.");
+        throw DWARF_EXCEPTION("Shader source is empty.");
     }
 
     const char* cstrShaderSource = shaderSource.c_str();
@@ -28,7 +28,7 @@ GLShaderBase::GLShaderBase(const std::string& shaderSource, const GLenum shaderT
         PrintShaderCompilerLog(shaderId);
         GL::DeleteShader(shaderId);
         LOG(Error, "Failed to compile shader.");
-        throw GLOVE_EXCEPTION("Failed to compile shader.");
+        throw DWARF_EXCEPTION("Failed to compile shader.");
     }
 }
 
@@ -54,7 +54,7 @@ GLShaderProgram::GLShaderProgram(VertexShader::Handle vertexShader, FragmentShad
         PrintShaderProgramLinkLog(programId);
         GL::DeleteProgram(programId);
         LOG(Error, "Failed to link shader program");
-        throw GLOVE_EXCEPTION("Failed to link shader program");
+        throw DWARF_EXCEPTION("Failed to link shader program");
     }
 }
 

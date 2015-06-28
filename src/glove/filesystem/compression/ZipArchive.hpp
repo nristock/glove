@@ -7,8 +7,8 @@
 #include "glove/filesystem/Path.hpp"
 #include "glove/filesystem/compression/ZipEntry.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT ZipArchive {
+namespace BlueDwarf {
+class BD_API_EXPORT ZipArchive {
   public:
     ZipArchive(const Path& path);
     ZipArchive(const Path& path, bool checkConsistency);

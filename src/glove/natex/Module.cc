@@ -1,6 +1,6 @@
 #include "glove/natex/Module.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 ModuleVersionInfo::ModuleVersionInfo(ushort majorVersion, ushort minorVersion, ushort patchVersion) : VersionInfo(majorVersion, minorVersion, patchVersion){
 

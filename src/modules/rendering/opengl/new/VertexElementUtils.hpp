@@ -4,7 +4,7 @@
 
 #include "internal/OpenGLWrapper.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 /**
 * Transforms a VertexElementType into the corresponding OpenGL data type.
@@ -20,4 +20,4 @@ GLenum VertexElementTypeToGlType(const VertexElementType& elementType);
 */
 GLint VertexElementTypeToElementCount(const VertexElementType& elementType);
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

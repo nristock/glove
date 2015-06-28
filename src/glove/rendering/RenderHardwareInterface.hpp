@@ -5,10 +5,10 @@
 
 #include <glm/glm.hpp>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/MaterialProxy.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class RenderResourceFactory;
 struct RenderTarget;
 class VertexBinding;
@@ -21,7 +21,7 @@ class Texture2D;
 * The render hardware interface provides methods which allow to interact with the rendering hardware (API) in an
 * abstract way.
 */
-class GLOVE_API_EXPORT RenderHardwareInterface {
+class BD_API_EXPORT RenderHardwareInterface {
   public:
     virtual ~RenderHardwareInterface() = default;
 
@@ -48,4 +48,4 @@ class GLOVE_API_EXPORT RenderHardwareInterface {
     // [\GENERATE:COMMAND_METHODS]
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

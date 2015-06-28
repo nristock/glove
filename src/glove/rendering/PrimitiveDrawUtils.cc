@@ -6,7 +6,7 @@
 #include "glove/rendering/Shader.hpp"
 #include "glove/rendering/VertexBinding.hpp"
 
-using namespace glove;
+using namespace BlueDwarf;
 
 struct MeshVertex {
     float x, y, z;
@@ -58,7 +58,7 @@ static const char* FRAG_SHADER = "#version 140\n"
                                  " out_Color = texture(tex, TexCoord);\n"
                                  "}";
 
-namespace glove {
+namespace BlueDwarf {
 void PrimitiveDrawUtils::DrawFullscreenQuad(RenderCommandList& cmdList, Texture2D::Handle texture) {
     fullscreenQuad->Draw(cmdList, texture);
 }

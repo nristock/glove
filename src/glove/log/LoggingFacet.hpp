@@ -1,11 +1,11 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
-#include "glove/application/GloveApplication.hpp"
+#include "glove/BlueDwarfApi.hpp"
+#include "glove/application/DwarfApplication.hpp"
 #include "glove/log/MessageProcessors.hpp"
 
 namespace BlueDwarf {
-class GLOVE_API_EXPORT LoggingFacet : public ApplicationFacet {
+class BD_API_EXPORT LoggingFacet : public ApplicationFacet {
   public:
     LoggingFacet() : ApplicationFacet("LoggingFacet") {}
 

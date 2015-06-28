@@ -2,15 +2,15 @@
 
 #include <boost/format.hpp>
 
-#include "glove/GloveApi.hpp"
-#include "glove/GloveException.hpp"
+#include "glove/BlueDwarfApi.hpp"
+#include "glove/DwarfException.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT SharedLibraryLoadFailed : public GloveException {
+class BD_API_EXPORT SharedLibraryLoadFailed : public DwarfException {
   public:
     SharedLibraryLoadFailed(const std::string& fileName, const std::string& reason, char const* file, int line)
-            : GloveException((boost::format("Failed to load library file %1%: %2%") % fileName % reason).str(), file, line) {}
+            : DwarfException((boost::format("Failed to load library file %1%: %2%") % fileName % reason).str(), file, line) {}
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

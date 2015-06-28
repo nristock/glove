@@ -1,9 +1,9 @@
 #pragma once
 
-#include "glove/application/GloveApplication.hpp"
+#include "glove/application/DwarfApplication.hpp"
 #include "glove/natex/DirectoryExtensionSearcher.hpp"
 
-using namespace glove;
+using namespace BlueDwarf;
 
 class NatexFacetConfigurator : public ApplicationFacet {
   public:

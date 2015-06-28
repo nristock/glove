@@ -2,11 +2,11 @@
 
 #include <dlfcn.h>
 #include <glove/natex/impl/UnixSharedLibrary.hpp>
-#include <glove/GloveException.hpp>
+#include "glove/DwarfException.hpp"
 #include <glove/natex/exceptions/SharedLibraryLoadFailed.hpp>
 #include <glove/natex/exceptions/SymbolNotFound.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 
 class UnixSharedLibraryTest : public ::testing::Test {
   protected:

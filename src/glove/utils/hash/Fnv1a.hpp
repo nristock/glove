@@ -1,13 +1,13 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/CommonTypes.hpp"
 
-using namespace glove;
+using namespace BlueDwarf;
 
 namespace BlueDwarf {
 namespace Hash {
-struct GLOVE_API_EXPORT Fnv1a {
+struct BD_API_EXPORT Fnv1a {
     static const uint64 prime = 0x100000001B3;
     static const uint64 basisOffset = 0xcbf29ce484222325;
 

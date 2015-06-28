@@ -1,5 +1,5 @@
 #include "glove/rendering/RenderThread.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 std::unique_ptr<RenderDispatcher> RenderDispatcher::instance;
 }

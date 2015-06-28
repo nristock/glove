@@ -5,8 +5,8 @@
 #include "glove/filesystem/compression/Compression.hpp"
 #include "glove/filesystem/compression/ZipArchive.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT ZipFilesystem : public IFilesystem {
+namespace BlueDwarf {
+class BD_API_EXPORT ZipFilesystem : public IFilesystem {
 
   public:
     ZipFilesystem(const ZipArchiveHandle& zipArchive);

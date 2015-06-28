@@ -1,9 +1,9 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT InputAction {
+namespace BlueDwarf {
+class BD_API_EXPORT InputAction {
   public:
     virtual ~InputAction() = default;
 

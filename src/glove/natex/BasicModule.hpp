@@ -2,13 +2,13 @@
 
 #include <string>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/Version.hpp"
 #include "glove/natex/Module.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT BasicModule : public Module {
+class BD_API_EXPORT BasicModule : public Module {
   public:
     BasicModule(const std::string& name, ModuleVersionInfo moduleVersionInfo);
 
@@ -20,4 +20,4 @@ class GLOVE_API_EXPORT BasicModule : public Module {
     ModuleVersionInfo version;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

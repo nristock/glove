@@ -4,7 +4,7 @@
 
 #include <glove/world/entity/Entity.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 class EntityMock : public Entity {
   public:
     EntityMock(const std::weak_ptr<World>& world) : Entity(world) { };
@@ -12,4 +12,4 @@ class EntityMock : public Entity {
     MOCK_METHOD1(Tick, void(double time))
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

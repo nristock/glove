@@ -1,7 +1,7 @@
 #include "GenericGpuBufferWrapper.hpp"
 #include "RenderThread.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 GenericVertexBufferWrapper::GenericVertexBufferWrapper(const RenderResourceFactory& resourceFactory) {
     RenderDispatcher::EnsureRenderThread();

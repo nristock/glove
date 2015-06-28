@@ -3,14 +3,14 @@
 
 #include "glove/natex/BifrostLoader.hpp"
 #include "glove/log/Log.hpp"
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 
 #include "glove/natex/impl/GloveSharedLibraryLoader.hpp"
 #include "glove/natex/impl/SharedLibraryModule.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-BifrostLoader::BifrostLoader() : BifrostLoader(std::make_unique<GloveSharedLibraryLoader>()) {
+BifrostLoader::BifrostLoader() : BifrostLoader(std::make_unique<DwarfSharedLibraryLoader>()) {
 #if defined(ON_UNIX)
     logger.Info("Initializing Bifrost loader with default SoLoaderFactory (UNIX, .so)");
 #elif defined(ON_WINDOWS)

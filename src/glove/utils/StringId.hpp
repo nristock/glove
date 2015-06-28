@@ -4,13 +4,13 @@
 #include <shared_mutex>
 #include <unordered_map>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/utils/hash/Fnv1a.hpp"
 
-using namespace glove;
+using namespace BlueDwarf;
 
 namespace BlueDwarf {
-struct GLOVE_API_EXPORT StringId {
+struct BD_API_EXPORT StringId {
   public:
     explicit StringId(const std::string& str);
     explicit StringId(uint64 hash);
@@ -35,7 +35,7 @@ struct GLOVE_API_EXPORT StringId {
 std::ostream& operator<<(std::ostream& stream, const StringId& stringId);
 
 template<class THasher>
-class GLOVE_API_EXPORT StringIdDatabase {
+class BD_API_EXPORT StringIdDatabase {
   public:
     StringId GetId(const std::string& str) {
         auto stringId = StringId{hasher.Hash((const uint8*) str.c_str(), str.length())};

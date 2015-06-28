@@ -2,10 +2,10 @@
 
 #include <cstdint>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT BitMask {
+namespace BlueDwarf {
+class BD_API_EXPORT BitMask {
 public:
     typedef std::uint8_t BitIndex;
     static const std::uint8_t MAX_INDEX;

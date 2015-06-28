@@ -5,9 +5,9 @@
 #include "glove/filesystem/io/IFileReader.hpp"
 #include "glove/filesystem/io/File.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT UnbufferedFileReader : public IFileReader {
+class BD_API_EXPORT UnbufferedFileReader : public IFileReader {
 public:
     UnbufferedFileReader(const File& file);
     virtual ~UnbufferedFileReader();
@@ -18,4 +18,4 @@ private:
     InputStreamHandle rawStream;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

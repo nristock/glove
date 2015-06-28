@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
 namespace BlueDwarf {
 struct Message;
@@ -14,7 +14,7 @@ struct Message;
 *   AsyncProcessor (forwards message to another processor on another thread)
 *   ConsoleOutProcessor (prints the message to stdout and consumes it)
 */
-class GLOVE_API_EXPORT MessageProcessor {
+class BD_API_EXPORT MessageProcessor {
   public:
     using Handle = std::shared_ptr<MessageProcessor>;
 

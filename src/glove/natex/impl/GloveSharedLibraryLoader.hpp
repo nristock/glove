@@ -1,13 +1,13 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/natex/SharedLibraryLoader.hpp"
 #include "glove/natex/impl/UnixSharedLibrary.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 template<class T>
-class GLOVE_API_EXPORT GenericSharedLibraryLoader : public SharedLibraryLoader {
+class BD_API_EXPORT GenericSharedLibraryLoader : public SharedLibraryLoader {
   public:
     virtual std::unique_ptr<SharedLibrary> LoadLibrary(const std::string& fileName) {
         return std::make_unique<T>(fileName);
@@ -16,10 +16,10 @@ class GLOVE_API_EXPORT GenericSharedLibraryLoader : public SharedLibraryLoader {
 
 #if defined(ON_UNIX)
 extern template class GenericSharedLibraryLoader<UnixSharedLibrary>;
-using GloveSharedLibraryLoader = GenericSharedLibraryLoader<UnixSharedLibrary>;
+using DwarfSharedLibraryLoader = GenericSharedLibraryLoader<UnixSharedLibrary>;
 #elif defined(ON_WINDOWS)
 extern template class GenericSharedLibraryLoader<WindowsSharedLibrary>;
-using GloveSharedLibraryLoader = GenericSharedLibraryLoader<WindowsSharedLibrary>;
+using DwarfSharedLibraryLoader = GenericSharedLibraryLoader<WindowsSharedLibrary>;
 #endif
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

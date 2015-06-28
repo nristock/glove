@@ -4,7 +4,7 @@ namespace {
 const std::string g_directorySeparator("/");
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 ZipEntry::ZipEntry(const struct zip_stat& stat)
     : name(stat.name), index(stat.index), uncompressedSize(stat.size), compressedSize(stat.comp_size),

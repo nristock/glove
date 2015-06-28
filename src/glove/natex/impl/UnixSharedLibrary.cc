@@ -5,7 +5,7 @@
 #include "glove/natex/exceptions/SymbolNotFound.hpp"
 #include "glove/natex/impl/UnixSharedLibrary.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 UnixSharedLibrary::UnixSharedLibrary(const std::string& fileName) : fileName(fileName), libraryHandle(nullptr) {
     LoadDso();
@@ -19,7 +19,7 @@ void* UnixSharedLibrary::GetSymbol(const std::string& symbolName) {
     void* symbolAddress = dlsym(libraryHandle, symbolName.c_str());
 
     if (symbolAddress == nullptr) {
-        GLOVE_THROW(SymbolNotFound, symbolName, fileName);
+        DWARF_THROW(SymbolNotFound, symbolName, fileName);
     }
 
     return symbolAddress;
@@ -31,7 +31,7 @@ void UnixSharedLibrary::LoadDso() {
     libraryHandle = dlopen(fileName.c_str(), RTLD_NOW | RTLD_GLOBAL);
 
     if (libraryHandle == nullptr) {
-        GLOVE_THROW(SharedLibraryLoadFailed, fileName, dlerror());
+        DWARF_THROW(SharedLibraryLoadFailed, fileName, dlerror());
     }
 }
 

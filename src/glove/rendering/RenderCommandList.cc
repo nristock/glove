@@ -1,7 +1,7 @@
 #include "glove/rendering/RenderCommandList.hpp"
 #include "glove/rendering/RenderTarget.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 void RenderCommandList::SetRenderTargets(const std::vector<RenderTarget>& colorTargets,
                                          const RenderTarget& depthStencilTarget) {

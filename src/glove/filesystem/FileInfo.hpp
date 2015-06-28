@@ -2,11 +2,11 @@
 
 #include <string>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT FileInfo {
+class BD_API_EXPORT FileInfo {
 public:
     enum class FileType {
         UNKNOWN, NOT_FOUND, REGULAR, DIRECTORY
@@ -30,4 +30,4 @@ private:
     const FileType type;
     const std::size_t size;
 };
-} /* namespace glove */
+} /* namespace BlueDwarf */

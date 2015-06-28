@@ -1,11 +1,11 @@
 #pragma once
 
-#include "glove/application/GloveApplication.hpp"
+#include "glove/application/DwarfApplication.hpp"
 #include "glove/services/ServiceRegistry.hpp"
 #include "glove/rendering/WindowFactoryService.hpp"
 #include "glove/rendering/ApplicationViewport.hpp"
 
-using namespace glove;
+using namespace BlueDwarf;
 
 class WindowFacet : public ApplicationFacet {
   public:

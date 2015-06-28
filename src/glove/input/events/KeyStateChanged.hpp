@@ -1,8 +1,8 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class KeyStateChanged {
   public:
     KeyStateChanged(float keyValue) : keyValue(keyValue) {

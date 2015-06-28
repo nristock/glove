@@ -1,10 +1,10 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/math/IntPoint.hpp"
 
-namespace glove {
-struct GLOVE_API_EXPORT IntRect {
+namespace BlueDwarf {
+struct BD_API_EXPORT IntRect {
     IntRect() = default;
 
     IntRect(int32 minX, int32 minY, int32 maxX, int32 maxY) : min(minX, minY), max(maxX, maxY) {}
@@ -22,4 +22,4 @@ struct GLOVE_API_EXPORT IntRect {
     IntPoint min;
     IntPoint max;
 };
-} // namespace glove
+} // namespace BlueDwarf

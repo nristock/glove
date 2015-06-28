@@ -4,7 +4,7 @@
 #include "glove/filesystem/compression/ZipEntryBuffer.hpp"
 #include "glove/filesystem/compression/ZipArchive.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 ZipEntryBuffer::ZipEntryBuffer(const ZipEntry& zipEntry, const ZipArchiveHandle& zipArchive) : ZipEntryBuffer(zipEntry, zipArchive, 1024) {
 }

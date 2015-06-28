@@ -2,13 +2,13 @@
 
 #include <string>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/events/EventDelegate.hpp"
 #include "glove/input/events/KeyStateChanged.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 /// \brief Immutable class representing a key's state.
-class GLOVE_API_EXPORT KeyState {
+class BD_API_EXPORT KeyState {
   public:
     KeyState(float keyValue) : keyValue(keyValue) {
     }
@@ -32,7 +32,7 @@ class GLOVE_API_EXPORT KeyState {
     float keyValue;
 };
 
-class GLOVE_API_EXPORT Key {
+class BD_API_EXPORT Key {
   public:
     enum class Type {
         BUTTON, FLOAT_AXIS

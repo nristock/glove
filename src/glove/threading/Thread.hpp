@@ -4,13 +4,13 @@
 #include <atomic>
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/utils/DebugUtils.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class Thread;
 
-struct GLOVE_API_EXPORT Runnable {
+struct BD_API_EXPORT Runnable {
   public:
     using Handle = std::shared_ptr<Runnable>;
 
@@ -27,7 +27,7 @@ struct GLOVE_API_EXPORT Runnable {
 * Thread objects should not be created on the stack, hence the constructor is protected and a factory method is
 * provided.
 */
-class GLOVE_API_EXPORT Thread {
+class BD_API_EXPORT Thread {
   public:
     using Handle = std::shared_ptr<Thread>;
 
@@ -80,4 +80,4 @@ class GLOVE_API_EXPORT Thread {
     Runnable::Handle runnable;
 };
 
-} // namespace glove
+} // namespace BlueDwarf

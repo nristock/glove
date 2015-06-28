@@ -3,7 +3,7 @@
 #include "glove/rendering/material/MaterialLoader.hpp"
 #include "glove/rendering/RenderResourceFactory.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 static const char* VERTEX_SHADER = "#version 140\n"
         "\n"

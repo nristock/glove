@@ -4,7 +4,7 @@
 #include "glove/filesystem/exceptions/MountError.hpp"
 #include "glove/filesystem/inmemory/InMemoryFilesystem.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 const FileInfo InMemoryFilesystem::GetFileInfo(const Path& path) {
     try {
@@ -20,7 +20,7 @@ std::istream* InMemoryFilesystem::CreateFileReadStream(const Path& path) {
         MountInfo targetMount = ResolveToMount(path);
         return targetMount.GetFilesystem()->CreateFileReadStream(CalculateMountRelativePath(targetMount, path));
     }  catch(const MountError& ex) {
-        GLOVE_THROW(FileNotFoundException, File(path, shared_from_this()));
+        DWARF_THROW(FileNotFoundException, File(path, shared_from_this()));
     }
 }
 
@@ -29,7 +29,7 @@ std::ostream* InMemoryFilesystem::CreateFileWriteStream(const Path& path) {
         MountInfo targetMount = ResolveToMount(path);
         return targetMount.GetFilesystem()->CreateFileWriteStream(CalculateMountRelativePath(targetMount, path));
     }  catch(const MountError& ex) {
-        GLOVE_THROW(FileNotFoundException, File(path, shared_from_this()));
+        DWARF_THROW(FileNotFoundException, File(path, shared_from_this()));
     }
 }
 }

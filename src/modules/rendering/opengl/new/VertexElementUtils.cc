@@ -1,6 +1,6 @@
 #include "VertexElementUtils.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 GLenum VertexElementTypeToGlType(const VertexElementType& elementType) {
@@ -30,4 +30,4 @@ GLint VertexElementTypeToElementCount(const VertexElementType& elementType) {
 }
 
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

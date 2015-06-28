@@ -1,7 +1,7 @@
 #include "glove/threading/Async.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace async {
-ThreadPool g_gloveGlobalAsyncPool{2};
+ThreadPool g_dwarfGlobalAsyncPool{2};
 }
 };

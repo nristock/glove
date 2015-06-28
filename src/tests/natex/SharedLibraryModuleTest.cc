@@ -11,7 +11,7 @@ using ::testing::Return;
 using ::testing::Ref;
 using ::testing::ReturnRef;
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(SharedLibraryModuleTest, ForwardsLoadMethodInvokation) {
     std::unique_ptr<SharedLibraryMock> dso = std::make_unique<SharedLibraryMock>();

@@ -2,11 +2,11 @@
 
 #include <vector>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT ExtensionSearcher {
+class BD_API_EXPORT ExtensionSearcher {
   public:
     typedef std::vector<std::string> ExtensionFileList;
 
@@ -18,4 +18,4 @@ class GLOVE_API_EXPORT ExtensionSearcher {
     virtual const ExtensionFileList& GetExtensions() const = 0;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

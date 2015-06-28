@@ -3,7 +3,7 @@
 #include <cinttypes>
 #include <memory>
 
-namespace glove {
+namespace BlueDwarf {
 using uchar = unsigned char;
 using ushort = unsigned short;
 using uint = unsigned int;

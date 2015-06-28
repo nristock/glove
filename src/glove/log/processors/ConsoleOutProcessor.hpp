@@ -4,7 +4,7 @@
 #include <mutex>
 #include <iostream>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/log/Message.hpp"
 #include "glove/log/MessageProcessor.hpp"
 
@@ -13,7 +13,7 @@ struct Message;
 /**
 * Threadsafe stdout writer.
 */
-class GLOVE_API_EXPORT ConsoleOutProcessor : public MessageProcessor {
+class BD_API_EXPORT ConsoleOutProcessor : public MessageProcessor {
   public:
     virtual void Process(const Message& message) {
         std::unique_lock<std::mutex> writeLock(writeMutex);

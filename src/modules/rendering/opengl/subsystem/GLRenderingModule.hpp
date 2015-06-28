@@ -2,7 +2,7 @@
 
 #include <glove/natex/Natex.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 class GLRenderingModule : public Module {
   public:

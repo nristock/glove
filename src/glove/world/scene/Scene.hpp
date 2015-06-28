@@ -7,15 +7,15 @@
 #include <glove/rendering/RenderResourceFactory.hpp>
 #include <glove/world/scene/SceneProxy.hpp>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class SceneProxy;
 using SceneProxyHandle = std::shared_ptr<SceneProxy>;
 
 class PoolTask;
 
-class GLOVE_API_EXPORT Scene : public std::enable_shared_from_this<Scene> {
+class BD_API_EXPORT Scene : public std::enable_shared_from_this<Scene> {
   public:
     using Handle = std::shared_ptr<Scene>;
 
@@ -38,4 +38,4 @@ class GLOVE_API_EXPORT Scene : public std::enable_shared_from_this<Scene> {
     std::vector<SceneProxyHandle> sceneProxies;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

@@ -1,6 +1,6 @@
 #include "glove/natex/impl/GloveSharedLibraryLoader.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 #if defined(ON_UNIX)
 template class GenericSharedLibraryLoader<UnixSharedLibrary>;
 #elif defined(ON_WINDOWS)

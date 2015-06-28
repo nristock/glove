@@ -1,6 +1,6 @@
 #include "glove/input/Keys.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace Keys {
 // Begin of generated section. DO NOT MODIFY MANUALLY!
 // [GENERATE:KEYS]

@@ -7,7 +7,7 @@
 #include "glove/world/scene/SceneProxy.hpp"
 #include "glove/rendering/PrimitiveDrawInterface.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 void ForwardSceneRenderer::RenderComposition(SceneViewComposition& composition, RenderCommandList& renderCommandList, RenderTarget& renderTarget) {
     if (RenderTargetReallocationRequired(composition)) {
         previousViewCompositionHeight = composition.GetCompositionHeight();
@@ -48,4 +48,4 @@ void ForwardSceneRenderer::RenderView(const SceneView& view, RenderCommandList& 
 void ForwardSceneRenderer::CreateResources() {
     primitiveUtils = std::make_unique<PrimitiveDrawUtils>(*resourceFactory);
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

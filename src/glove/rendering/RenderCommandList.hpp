@@ -5,7 +5,7 @@
 
 #include <glm/glm.hpp>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/RenderHardwareCommands.hpp"
 #include "glove/rendering/Texture.hpp"
 #include "glove/rendering/MaterialProxy.hpp"
@@ -13,7 +13,7 @@
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 struct RenderTarget;
 
 class VertexBinding;
@@ -25,7 +25,7 @@ using IndexBufferHandle = std::shared_ptr<IndexBuffer>;
 class ViewportClient;
 using ViewportClientHandle = std::shared_ptr<ViewportClient>;
 
-class GLOVE_API_EXPORT RenderCommandList {
+class BD_API_EXPORT RenderCommandList {
   public:
     void SetRenderTargets(const std::vector<RenderTarget>& colorTargets, const RenderTarget& depthStencilTarget);
     void SetViewport(uint32 x, uint32 y, uint32 width, uint32 height);

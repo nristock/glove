@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/RenderCommandList.hpp"
 #include "glove/rendering/RenderResourceFactory.hpp"
 #include "glove/rendering/VertexBindingFactory.hpp"
@@ -9,7 +9,7 @@
 
 class MeshMaterialProxy;
 
-namespace glove {
+namespace BlueDwarf {
 
 class FullscreenQuad {
   public:
@@ -28,7 +28,7 @@ class FullscreenQuad {
     std::unique_ptr<GenericVertexBufferWrapper> meshVertexBuffer;
 };
 
-class GLOVE_API_EXPORT PrimitiveDrawUtils {
+class BD_API_EXPORT PrimitiveDrawUtils {
   public:
     PrimitiveDrawUtils(RenderResourceFactory& resourceFactory);
 
@@ -38,4 +38,4 @@ class GLOVE_API_EXPORT PrimitiveDrawUtils {
     std::shared_ptr<FullscreenQuad> fullscreenQuad;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

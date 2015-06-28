@@ -2,10 +2,10 @@
 #include "glove/threading/ThreadPool.hpp"
 
 namespace {
-using Milliseconds = std::chrono::duration<glove::uint32, std::milli>;
+using Milliseconds = std::chrono::duration<BlueDwarf::uint32, std::milli>;
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 void TaskQueue::Push(TaskHandle task) {
     int taskId = GetNextTaskId();

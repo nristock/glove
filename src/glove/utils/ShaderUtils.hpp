@@ -3,9 +3,9 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
-void GLOVE_API_EXPORT PrintShaderCompilerLog(GLuint shaderId);
-void GLOVE_API_EXPORT PrintShaderProgramLinkLog(GLuint programId);
-} // namespace glove
+namespace BlueDwarf {
+void BD_API_EXPORT PrintShaderCompilerLog(GLuint shaderId);
+void BD_API_EXPORT PrintShaderProgramLinkLog(GLuint programId);
+} // namespace BlueDwarf

@@ -3,11 +3,11 @@
 #include <memory>
 #include <vector>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
 #include "glove/rendering/VertexLayout.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class VertexBinding;
 class ShaderParameterMap;
 class RenderResourceFactory;
@@ -15,7 +15,7 @@ class RenderResourceFactory;
 class VertexBuffer;
 using VertexBufferHandle = std::shared_ptr<VertexBuffer>;
 
-class GLOVE_API_EXPORT VertexBindingFactory {
+class BD_API_EXPORT VertexBindingFactory {
   public:
     virtual ~VertexBindingFactory() = default;
 
@@ -46,4 +46,4 @@ class GLOVE_API_EXPORT VertexBindingFactory {
     std::vector<VertexBufferHandle> vertexStreams;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

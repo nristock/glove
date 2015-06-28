@@ -1,15 +1,15 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 /**
 * A WorldComponent can only be attached to a World directly and doesn't have a transform.
 *
 * These components can be used to update any whole-world logic (e.g. weather, time).
 */
-class GLOVE_API_EXPORT WorldComponent {
+class BD_API_EXPORT WorldComponent {
   public:
     virtual ~WorldComponent() = default;
 
@@ -17,4 +17,4 @@ class GLOVE_API_EXPORT WorldComponent {
     virtual void Tick(double time) = 0;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

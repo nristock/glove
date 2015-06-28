@@ -1,7 +1,7 @@
 #include "glove/rendering/ShaderParameter.hpp"
 #include "glove/rendering/exceptions/NoSuchShaderParameter.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 std::ostream& operator<<(std::ostream& stream, const ShaderParameterSemantic& shaderParameterSemantic) {
     stream << static_cast<ushort>(shaderParameterSemantic);
@@ -17,7 +17,7 @@ uint8 ShaderParameterMap::GetAttributeIndexFor(ShaderParameterSemantic semantic)
         return shaderParameter->attributeIndex;
     }
 
-    GLOVE_THROW(NoSuchShaderParameter, semantic);
+    DWARF_THROW(NoSuchShaderParameter, semantic);
 }
 
 uint8 ShaderParameterMap::GetAttributeIndexFor(const std::string& name) const {
@@ -28,7 +28,7 @@ uint8 ShaderParameterMap::GetAttributeIndexFor(const std::string& name) const {
         return shaderParameter->attributeIndex;
     }
 
-    GLOVE_THROW(NoSuchShaderParameter, name);
+    DWARF_THROW(NoSuchShaderParameter, name);
 }
 
 void ShaderParameterMap::AddParameter(ShaderParameter&& shaderParameter) {

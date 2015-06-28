@@ -9,7 +9,7 @@
 
 #include "tests/filesystem/mock/MockFilesystemAccessor.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 class MountAwareFilesystemTest : public ::testing::Test, public MountAwareFilesystem {
   public:
@@ -95,4 +95,4 @@ TEST_F(MountAwareFilesystemTest, CanCalculateMountRelativePath) {
     MountInfo mountInfo(FilesystemHandle(), Path("/data/"));
     EXPECT_EQ(Path("/some/more/stuff"), CalculateMountRelativePath(mountInfo, Path("/data/some/more/stuff")));
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

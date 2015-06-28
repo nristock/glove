@@ -14,7 +14,7 @@
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 /// @ingroup Internal
@@ -55,4 +55,4 @@ class GlfwWrapper {
     static void GlfwMouseButtonEvent(GLFWwindow* window, int button, int action, int mods);
 };
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

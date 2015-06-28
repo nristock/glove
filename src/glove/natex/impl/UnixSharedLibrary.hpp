@@ -2,15 +2,15 @@
 
 #include <string>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/log/Log.hpp"
 #include "glove/natex/SharedLibrary.hpp"
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT UnixSharedLibrary : public SharedLibrary {
+class BD_API_EXPORT UnixSharedLibrary : public SharedLibrary {
   public:
     UnixSharedLibrary(const std::string& fileName);
     UnixSharedLibrary(const UnixSharedLibrary& other) = delete;
@@ -30,4 +30,4 @@ class GLOVE_API_EXPORT UnixSharedLibrary : public SharedLibrary {
     Logger logger;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

@@ -2,15 +2,15 @@
 
 #include <boost/format.hpp>
 
-#include "glove/GloveApi.hpp"
-#include "glove/GloveException.hpp"
+#include "glove/BlueDwarfApi.hpp"
+#include "glove/DwarfException.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT SymbolNotFound : public GloveException {
+class BD_API_EXPORT SymbolNotFound : public DwarfException {
   public:
     SymbolNotFound(const std::string& libName, const std::string& symbolName, char const* file, int line)
-            : GloveException((boost::format("Couldn't find symbol '%1%' in '%2%'") % symbolName % libName).str(), file, line) {}
+            : DwarfException((boost::format("Couldn't find symbol '%1%' in '%2%'") % symbolName % libName).str(), file, line) {}
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

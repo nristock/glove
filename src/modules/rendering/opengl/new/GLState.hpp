@@ -8,7 +8,7 @@
 #include "GLTexture.hpp"
 #include "../internal/OpenGLWrapper.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 struct OpenGLContextState {

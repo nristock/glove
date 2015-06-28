@@ -1,11 +1,11 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/CommonTypes.hpp"
 
 #include "glove/rendering/RenderHardwareResource.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 /// Access modes which can be used by the rendering implementation to optimize buffer client memory mapping.
 enum class BufferMappingMode : uint8 { ReadOnly, WriteOnly, ReadWrite };
@@ -16,7 +16,7 @@ enum class BufferMappingMode : uint8 { ReadOnly, WriteOnly, ReadWrite };
 *
 * Instances of this class should only be created through the renderer interface.
 */
-class GLOVE_API_EXPORT VertexBuffer : public RenderHardwareResource {
+class BD_API_EXPORT VertexBuffer : public RenderHardwareResource {
   public:
     virtual ~VertexBuffer() = default;
 
@@ -40,7 +40,7 @@ class GLOVE_API_EXPORT VertexBuffer : public RenderHardwareResource {
 *
 * Instances of this class should only be created through the renderer interface.
 */
-class GLOVE_API_EXPORT IndexBuffer : public RenderHardwareResource {
+class BD_API_EXPORT IndexBuffer : public RenderHardwareResource {
   public:
     virtual ~IndexBuffer() = default;
 
@@ -58,4 +58,4 @@ class GLOVE_API_EXPORT IndexBuffer : public RenderHardwareResource {
     IndexBuffer() = default;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

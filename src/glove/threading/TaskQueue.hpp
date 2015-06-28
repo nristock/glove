@@ -8,9 +8,9 @@
 #include <condition_variable>
 
 #include "glove/CommonTypes.hpp"
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 /**
 * A Task represents a single unit of work which can be completed in a finite amount of time.
@@ -19,7 +19,7 @@ namespace glove {
 * thread.
 *
 */
-class GLOVE_API_EXPORT Task {
+class BD_API_EXPORT Task {
   public:
     virtual ~Task() = default;
 
@@ -33,7 +33,7 @@ using TaskHandle = std::shared_ptr<Task>;
 *
 * This class allows us to use value semantics when working with tasks internally.
 */
-struct GLOVE_API_EXPORT WrappedTask {
+struct BD_API_EXPORT WrappedTask {
     WrappedTask() : WrappedTask(0, nullptr) {}
     WrappedTask(int taskId, TaskHandle innerTask) : taskId(taskId), innerTask(innerTask) {}
 
@@ -48,7 +48,7 @@ struct GLOVE_API_EXPORT WrappedTask {
 /**
 * Generic concurrent queue interface.
 */
-template <class TItem> class GLOVE_API_EXPORT Queue {
+template <class TItem> class BD_API_EXPORT Queue {
   public:
     virtual ~Queue() = default;
 
@@ -87,7 +87,7 @@ template <class TItem> class GLOVE_API_EXPORT Queue {
 * This class will not dispatch any threads nor execute the queued tasks on its own. ThreadPools use this class as their
 * backing queue.
 */
-class GLOVE_API_EXPORT TaskQueue : public Queue<Task> {
+class BD_API_EXPORT TaskQueue : public Queue<Task> {
   public:
     TaskQueue() { taskIdCounter.store(1); }
     virtual ~TaskQueue() = default;
@@ -113,4 +113,4 @@ class GLOVE_API_EXPORT TaskQueue : public Queue<Task> {
     WrappedTask GetFrontChecked() const;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

@@ -1,6 +1,6 @@
 #include "glove/utils/ScreenDimensions.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 ScreenDimensions::ScreenDimensions(float width, float height) : width(width), height(height) {
 }
 

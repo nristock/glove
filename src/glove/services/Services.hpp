@@ -5,7 +5,7 @@ template <class T> using Handle = std::shared_ptr<T>;
 
 #include <boost/uuid/uuid.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 
 class Service;
 using ServiceHandle = Handle<Service>;
@@ -16,7 +16,7 @@ using ServiceRegistryHandle = Handle<ServiceRegistry>;
 using ServiceType = boost::uuids::uuid;
 }
 
-#if !defined(GLOVE_SERVICES_FWD_ONLY)
+#if !defined(BD_SERVICES_FWD_ONLY)
 #include "glove/services/Service.hpp"
 #include "glove/services/ServiceRegistry.hpp"
 #include "glove/services/BasicService.hpp"

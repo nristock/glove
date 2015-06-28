@@ -2,11 +2,11 @@
 
 #include <regex>
 
-#include "glove/GloveFwd.hpp"
+#include "glove/BlueDwarfFwd.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT Path {
+class BD_API_EXPORT Path {
   private:
     static std::string StringJoin(const Path& prefix, const Path& suffix);
     static std::string StringJoin(const Path& prefix, const std::string& suffix);
@@ -44,12 +44,12 @@ class GLOVE_API_EXPORT Path {
     Path GetParentPath() const;
     Path GetCommonPrefix(const Path& other) const;
 
-    friend bool operator==(const std::string& lhs, const glove::Path& rhs);
-    friend bool operator!=(const std::string& lhs, const glove::Path& rhs);
-    friend bool operator==(const char* lhs, const glove::Path& rhs);
-    friend bool operator!=(const char* lhs, const glove::Path& rhs);
+    friend bool operator==(const std::string& lhs, const Path& rhs);
+    friend bool operator!=(const std::string& lhs, const Path& rhs);
+    friend bool operator==(const char* lhs, const Path& rhs);
+    friend bool operator!=(const char* lhs, const Path& rhs);
 
-    friend std::ostream& operator<<(std::ostream& stream, const glove::Path& rhs);
+    friend std::ostream& operator<<(std::ostream& stream, const Path& rhs);
 
     template <typename T> bool operator==(const T& other) const { return other == path; }
     template <typename T> bool operator!=(const T& other) const { return !operator==(other); }
@@ -69,4 +69,4 @@ class GLOVE_API_EXPORT Path {
 template <> bool Path::operator==<Path>(const Path& other) const;
 template <>  bool Path::operator!=<Path>(const Path& other) const;
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

@@ -4,7 +4,7 @@
 
 #include "glove/CommonTypes.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 class VersionInfo {
   public:

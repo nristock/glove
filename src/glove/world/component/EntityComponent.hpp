@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 class Entity;
 
@@ -16,7 +16,7 @@ using SceneProxyHandle = std::shared_ptr<SceneProxy>;
 *
 * Use these components to define Entity related behaviour.
 */
-class GLOVE_API_EXPORT EntityComponent {
+class BD_API_EXPORT EntityComponent {
   public:
     virtual ~EntityComponent() = default;
 
@@ -39,4 +39,4 @@ class GLOVE_API_EXPORT EntityComponent {
     std::weak_ptr<Entity> owner;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

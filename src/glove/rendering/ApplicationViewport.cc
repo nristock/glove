@@ -8,7 +8,7 @@
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 
 ApplicationViewport::~ApplicationViewport() = default;
 

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT StreamErrorException : public GloveException {
+class BD_API_EXPORT StreamErrorException : public DwarfException {
 
 public:
     StreamErrorException(std::string message, char const* file, int line);
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

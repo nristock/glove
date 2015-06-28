@@ -3,8 +3,8 @@
 #include <glm/glm.hpp>
 
 #include "glove/CommonTypes.hpp"
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 using IntPoint = glm::ivec2;
-} // namespace glove
+} // namespace BlueDwarf

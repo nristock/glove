@@ -6,15 +6,15 @@
 #include <glove/threading/TaskQueue.hpp>
 #include <glove/threading/ThreadPool.hpp>
 #include <glove/utils/StringId.hpp>
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 
 class RenderResourceFactory;
 
-struct GLOVE_API_EXPORT MaterialLoadTask : public Task {
+struct BD_API_EXPORT MaterialLoadTask : public Task {
   public:
     MaterialLoadTask(StringId materialName, Handle<RenderResourceFactory> resourceFactory) : materialName(materialName), resourceFactory(resourceFactory) {}
     virtual void Execute();
@@ -27,7 +27,7 @@ struct GLOVE_API_EXPORT MaterialLoadTask : public Task {
     Material::Handle material;
 };
 
-struct GLOVE_API_EXPORT MaterialFuture {
+struct BD_API_EXPORT MaterialFuture {
   public:
     MaterialFuture(Handle<MaterialLoadTask> loadTask, Handle<PoolTask> poolTask) : loaderTask(loadTask), poolTask(poolTask) {}
     Material::Handle GetMaterial() {
@@ -41,7 +41,7 @@ struct GLOVE_API_EXPORT MaterialFuture {
 };
 
 // TODO: This class is currently just a mock which creates a simple position/uv material + shaders
-class GLOVE_API_EXPORT MaterialLoader {
+class BD_API_EXPORT MaterialLoader {
   public:
     virtual ~MaterialLoader() = default;
 
@@ -51,4 +51,4 @@ class GLOVE_API_EXPORT MaterialLoader {
     Logger logger{"MaterialLoader"};
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

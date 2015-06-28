@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
 namespace BlueDwarf {
 
@@ -13,7 +13,7 @@ namespace BlueDwarf {
 * Position and scale are represented as glm::vec3. Rotation is represented as glm::quat.
 * The Transform caches a copy of it's matrix representation to speed up subsequent Transform::ToMatrix calls.
 */
-struct GLOVE_API_EXPORT Transform {
+struct BD_API_EXPORT Transform {
     Transform() : Transform(glm::vec3(0), glm::quat(), glm::vec3(1)) {}
     Transform(glm::vec3 position) : Transform(position, glm::quat(), glm::vec3(1)) {}
     Transform(glm::vec3 position, glm::quat rotation) : Transform(position, rotation, glm::vec3(1)) {}
@@ -91,4 +91,4 @@ struct GLOVE_API_EXPORT Transform {
     void InvalidateCache() const { isCacheDirty = true; }
 };
 
-} // namespace glove
+} // namespace BlueDwarf

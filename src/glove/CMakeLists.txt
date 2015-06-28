@@ -16,8 +16,8 @@ add_subdirectory(rendering)
 add_subdirectory(geometry)
 
 set(core_src
-    GloveCore.cc
-    GloveException.cc
+    DwarfCore.cc
+    DwarfException.cc
 
     exceptions/OperationNotSupported.cc
 )

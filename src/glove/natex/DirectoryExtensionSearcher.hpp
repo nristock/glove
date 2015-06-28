@@ -4,9 +4,9 @@
 
 #include "glove/natex/ExtensionSearcher.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT DirectoryExtensionSearcher : public ExtensionSearcher {
+class BD_API_EXPORT DirectoryExtensionSearcher : public ExtensionSearcher {
   public:
     DirectoryExtensionSearcher(const std::string& searchDirectory);
     virtual ~DirectoryExtensionSearcher();
@@ -17,4 +17,4 @@ class GLOVE_API_EXPORT DirectoryExtensionSearcher : public ExtensionSearcher {
     ExtensionFileList extensionFileList;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

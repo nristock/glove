@@ -3,7 +3,7 @@
 #include <glove/threading/ThreadPool.hpp>
 #include <glove/threading/TaskQueue.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 class ThreadPoolTest : public ::testing::Test {
 
   protected:

@@ -4,14 +4,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glove/rendering/SceneView.hpp>
 #include <glove/world/Transform.hpp>
-#include <glove/GloveException.hpp>
+#include "glove/DwarfException.hpp"
 
 #include "GLWindow.hpp"
 #include "internal/GlfwWrapper.hpp"
 
 GLEWContext* glewGetContext();
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 GLWindow::GLWindow(const IntPoint& position, const IntPoint& size, const std::string& title) {
@@ -23,7 +23,7 @@ GLWindow::GLWindow(const IntPoint& position, const IntPoint& size, const std::st
     glewExperimental = GL_TRUE;
     GLenum glewInitRes = glewInit();
     if (glewInitRes != GLEW_OK) {
-        throw GLOVE_EXCEPTION(std::string((char*)glewGetErrorString(glewInitRes)));
+        throw DWARF_EXCEPTION(std::string((char*)glewGetErrorString(glewInitRes)));
     }
 }
 
@@ -40,10 +40,10 @@ void GLWindow::SwapBuffers() {
 }
 
 void GLWindow::OnKeyEvent(int key, int scancode, int action, int mods) {
-    const Key& gloveKey = GlfwWrapper::ConvertKeyCode(key);
+    const Key& engineKey = GlfwWrapper::ConvertKeyCode(key);
     KeyState newState(action == GLFW_PRESS);
 
-    gloveKey.UpdateState(newState);
+    engineKey.UpdateState(newState);
 }
 
 void GLWindow::OnMouseMove(double x, double y) {
@@ -65,10 +65,10 @@ void GLWindow::OnMouseMove(double x, double y) {
 }
 
 void GLWindow::OnMouseButton(int button, int action, int mods) {
-    const Key& gloveKey = GlfwWrapper::ConvertKeyCode(button);
+    const Key& engineKey = GlfwWrapper::ConvertKeyCode(button);
     KeyState newState(action == GLFW_PRESS);
 
-    gloveKey.UpdateState(newState);
+    engineKey.UpdateState(newState);
 }
 
 std::string GLWindow::GetContextVersion() const {
@@ -111,8 +111,8 @@ void GLWindow::GLFlush(const RenderTarget& renderTarget, GLRenderHardwareInterfa
     SwapBuffers();
 }
 }
-} // namespace glove
+} // namespace BlueDwarf
 
 GLEWContext* glewGetContext() {
-    return glove::gl::GlfwWrapper::GetCurrentGLWindow()->GetGlewContext();
+    return BlueDwarf::gl::GlfwWrapper::GetCurrentGLWindow()->GetGlewContext();
 }

@@ -3,13 +3,13 @@
 #include <functional>
 #include <typeinfo>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 typedef std::reference_wrapper<const std::type_info> TypeInfoRef;
 
-struct GLOVE_API_EXPORT TypeInfoComparator {
+struct BD_API_EXPORT TypeInfoComparator {
 bool operator()(TypeInfoRef lhs, TypeInfoRef rhs) {
     return lhs.get().hash_code() < rhs.get().hash_code();
 }

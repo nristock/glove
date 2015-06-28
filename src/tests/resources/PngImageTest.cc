@@ -10,23 +10,23 @@
 #include "tests/filesystem/mock/MockFilesystemAccessor.hpp"
 
 namespace {
-const glove::Path rgbaPath("testdata/png_rgba.png");
-const glove::Path solidWhitePath("testdata/png_solid_white.png");
+const BlueDwarf::Path rgbaPath("testdata/png_rgba.png");
+const BlueDwarf::Path solidWhitePath("testdata/png_solid_white.png");
 
 const unsigned char rgbaExpectedData[] = {255, 0, 0, 255, 0, 255, 0, 255, 0, 0, 255, 255, 0, 0, 0, 0};
 const unsigned int rgbaExpectedWidth = 2;
 const unsigned int rgbaExpectedHeight = 2;
 const unsigned char rgbaExpectedBitDepth = 8;
-const glove::Image::ImageFormat rgbaExpectedImageFormat = glove::Image::ImageFormat::RGBA;
+const BlueDwarf::Image::ImageFormat rgbaExpectedImageFormat = BlueDwarf::Image::ImageFormat::RGBA;
 
 const unsigned char solidWhiteExpectedData[] = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255};
 const unsigned int solidWhiteExpectedWidth = 2;
 const unsigned int solidWhiteExpectedHeight = 2;
 const unsigned char solidWhiteExpectedBitDepth = 8;
-const glove::Image::ImageFormat solidWhiteExpectedImageFormat = glove::Image::ImageFormat::RGB;
+const BlueDwarf::Image::ImageFormat solidWhiteExpectedImageFormat = BlueDwarf::Image::ImageFormat::RGB;
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(PngImageTest, CanLoadRgba) {
     File file(::rgbaPath);
@@ -66,4 +66,4 @@ TEST(PngImageTest, CanLoadSolidWhiteWithoutAlpha) {
     }
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

@@ -6,11 +6,11 @@
 #include <glm/glm.hpp>
 
 #include "glove/CommonTypes.hpp"
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/utils/DebugUtils.hpp"
 #include "glove/rendering/VertexBindingFactory.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class VertexBinding;
 using VertexBindingHandle = std::shared_ptr<VertexBinding>;
 
@@ -25,7 +25,7 @@ using MaterialProxyHandle = std::shared_ptr<MaterialProxy>;
 *
 * A MeshBatchElement holds information about the indices to use for rendering it.
 */
-struct GLOVE_API_EXPORT MeshBatchElement {
+struct BD_API_EXPORT MeshBatchElement {
   public:
     MeshBatchElement(IndexBufferHandle indexBuffer, uint32 numPrimitives, uint32 firstVertexIndex,
                      uint32 lastVertexIndex, glm::mat4 localToWorld)
@@ -56,7 +56,7 @@ struct GLOVE_API_EXPORT MeshBatchElement {
 /**
 * A MeshBatch is a batch of elements which share the same material and vertex stream but can have different indices.
 */
-struct GLOVE_API_EXPORT MeshBatch {
+struct BD_API_EXPORT MeshBatch {
   public:
     MeshBatch(VertexBindingHandle vertexBinding, MaterialProxyHandle materialProxy)
         : vertexBinding(std::move(vertexBinding)), materialProxy(std::move(materialProxy)) {}
@@ -74,4 +74,4 @@ struct GLOVE_API_EXPORT MeshBatch {
     VertexBindingHandle vertexBinding;
     MaterialProxyHandle materialProxy;
 };
-} // namespace glove
+} // namespace BlueDwarf

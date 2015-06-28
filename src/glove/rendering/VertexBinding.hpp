@@ -4,11 +4,11 @@
 #include <unordered_map>
 #include <vector>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/CommonTypes.hpp"
 #include "glove/rendering/VertexLayout.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 struct VertexElement;
 struct ShaderParameter;
 
@@ -24,7 +24,7 @@ class RenderCommandList;
 * renderer implementation. Thus, either a RenderResourceFactory or the Builder should be used to create instances of
 * this class.
 */
-class GLOVE_API_EXPORT VertexBinding {
+class BD_API_EXPORT VertexBinding {
   public:
     struct Builder {
         Builder& AddBinding(const VertexElement& vertexElement, uint8 shaderAttributeIndex) {
@@ -61,4 +61,4 @@ class GLOVE_API_EXPORT VertexBinding {
     const std::vector<VertexBufferHandle> vertexStreams;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

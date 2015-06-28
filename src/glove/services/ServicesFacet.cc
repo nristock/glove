@@ -1,9 +1,9 @@
 #include "glove/services/ServicesFacet.hpp"
-#include "glove/services/impl/GloveServiceRegistry.hpp"
+#include "glove/services/impl/DwarfServiceRegistry.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-ServicesFacet::ServicesFacet() : ApplicationFacet("ServicesFacet"), serviceRegistry(new GloveServiceRegistry{}) {
+ServicesFacet::ServicesFacet() : ApplicationFacet("ServicesFacet"), serviceRegistry(new DwarfServiceRegistry{}) {
 }
 
 ServicesFacet::ServicesFacet(ServiceRegistryHandle serviceRegistry) : serviceRegistry(std::move(serviceRegistry)) {

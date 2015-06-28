@@ -2,7 +2,7 @@
 #include "glove/natex/BifrostLoader.hpp"
 #include "glove/log/Log.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 NatexFacet::NatexFacet(ServiceRegistryHandle serviceRegistry)
     : NatexFacet(std::move(serviceRegistry), std::make_shared<BifrostLoader>()) {
@@ -41,11 +41,11 @@ void NatexFacet::LoadNativeModules(ExtensionSearcher& searcher) {
                 module->RegisterServices(*serviceRegistry);
 
                 modules.push_back(std::move(module));
-            } catch (GloveException& ex) {
+            } catch (DwarfException& ex) {
                 L_ERROR(ex);
             }
         }
-    } catch (GloveException& ex) {
+    } catch (DwarfException& ex) {
         L_ERROR(fmt::format("Failed to load native extensions: {0}", ex.what()));
     }
 }

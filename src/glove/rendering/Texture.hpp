@@ -1,10 +1,10 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/RenderHardwareResource.hpp"
 #include "glove/CommonTypes.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 enum class PixelFormat {
     Unknown = 0,
     R8G8B8A8,
@@ -19,7 +19,7 @@ enum class PixelFormat {
 *
 * Implementation details are up to the renderer implementation.
 */
-class GLOVE_API_EXPORT Texture : public RenderHardwareResource {
+class BD_API_EXPORT Texture : public RenderHardwareResource {
   public:
     virtual ~Texture() = default;
 
@@ -35,7 +35,7 @@ class GLOVE_API_EXPORT Texture : public RenderHardwareResource {
 * Texture2D is the base interface for all two dimensional textures. Since implementation details are up to the renderer
 * implementation you should use the RenderResourceFactory to create instances of this class.
 */
-class GLOVE_API_EXPORT Texture2D : public Texture {
+class BD_API_EXPORT Texture2D : public Texture {
   public:
     using Handle = std::shared_ptr<Texture2D>;
     virtual ~Texture2D() = default;
@@ -50,4 +50,4 @@ class GLOVE_API_EXPORT Texture2D : public Texture {
     const uint32 height;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

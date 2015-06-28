@@ -7,7 +7,7 @@
 #include "glove/utils/FileUtils.hpp"
 #include "glove/log/Log.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 // TODO: wchar_t support
 std::string ReadFileToString(std::string filePath)
 {
@@ -23,7 +23,7 @@ std::string ReadFileToString(std::string filePath)
         file.close();
 
         return fileData.str();
-} // namespace glove
+} // namespace BlueDwarf
 }
 
 

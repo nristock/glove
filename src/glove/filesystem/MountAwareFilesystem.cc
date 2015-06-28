@@ -1,22 +1,22 @@
 #include <boost/format.hpp>
 
 #include "glove/filesystem/exceptions/FileNotFoundException.hpp"
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 #include "glove/filesystem/io/File.hpp"
 #include "glove/filesystem/exceptions/MountLocationAlreadyOccupied.hpp"
 #include "glove/filesystem/MountAwareFilesystem.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 void MountAwareFilesystem::Mount(const Path& path, const FilesystemHandle& filesystem) {
     if(path.IsRelative()) {
-        GLOVE_THROW(MountError, (boost::format("Cannot mount at %1% because it is a relative path.") % path).str());
+        DWARF_THROW(MountError, (boost::format("Cannot mount at %1% because it is a relative path.") % path).str());
     }
 
     Path mountPath = path.GetFilename() == "." ? path : (path + "");
 
     if(mountMap.count(mountPath) > 0) {
-        GLOVE_THROW(MountLocationAlreadyOccupied, mountPath);
+        DWARF_THROW(MountLocationAlreadyOccupied, mountPath);
     }
 
     mountMap.emplace(mountPath, filesystem);
@@ -24,12 +24,12 @@ void MountAwareFilesystem::Mount(const Path& path, const FilesystemHandle& files
 
 void MountAwareFilesystem::Unmount(const Path& path) {
     if(path.IsRelative()) {
-        GLOVE_THROW(MountError, (boost::format("Cannot unmount %1% because it is a relative path.") % path).str());
+        DWARF_THROW(MountError, (boost::format("Cannot unmount %1% because it is a relative path.") % path).str());
     }
 
     Path mountPath = path.GetFilename() == "." ? path : (path + "");
     if(mountMap.count(mountPath) == 0) {
-        GLOVE_THROW(MountError, (boost::format("Cannot unmount %1% because it is not a mount location.") % mountPath).str());
+        DWARF_THROW(MountError, (boost::format("Cannot unmount %1% because it is not a mount location.") % mountPath).str());
     }
 
     mountMap.erase(mountPath);
@@ -41,7 +41,7 @@ std::size_t MountAwareFilesystem::GetMountCount() {
 
 MountInfo MountAwareFilesystem::ResolveToMount(const Path& path) {
     if(path.IsRelative()) {
-        GLOVE_THROW(MountError, (boost::format("Cannot resolve %1% because it is a relative path.") % path).str());
+        DWARF_THROW(MountError, (boost::format("Cannot resolve %1% because it is a relative path.") % path).str());
     }
 
     for(const std::pair<Path, FilesystemHandle>& mount : mountMap) {
@@ -55,7 +55,7 @@ MountInfo MountAwareFilesystem::ResolveToMount(const Path& path) {
         }
     }
 
-    GLOVE_THROW(MountError, (boost::format("%1% doesn't match any mount.") % path).str());
+    DWARF_THROW(MountError, (boost::format("%1% doesn't match any mount.") % path).str());
 }
 
 Path MountAwareFilesystem::CalculateMountRelativePath(const MountInfo& mountInfo, const Path& other) {

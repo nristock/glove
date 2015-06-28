@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace glove {
+namespace BlueDwarf {
 
 class IFilesystem;
 typedef std::shared_ptr<IFilesystem> FilesystemHandle;
@@ -22,7 +22,7 @@ class UnixNativeFilesystem;
 typedef UnixNativeFilesystem NativeFilesystemAccessor;
 #endif
 
-} /* namespace glove */
+} /* namespace BlueDwarf */
 
 #if defined(ON_WINDOWS)
 #include "glove/filesystem/internal/WindowsNativeFilesystem.hpp"

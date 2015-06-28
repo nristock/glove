@@ -4,9 +4,9 @@
 #include <functional>
 #include <shared_mutex>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 namespace events {
 /// \brief Locking policy using shared_timed_mutex.
@@ -63,7 +63,7 @@ class NoLockPolicy {
 /// Every time the internal list of subscribers is accessed for reading, the policies LockShared and UnlockShared
 /// methods are called. Write access to the subscriber list is secured by calls to LockExclusive and UnlockExclusive.
 template<class T, class LockingPolicy>
-class GLOVE_API_EXPORT EventDelegate {
+class BD_API_EXPORT EventDelegate {
   public:
     using EventType = T;
     using HandlerType = std::function<void(const T& eventData)>;

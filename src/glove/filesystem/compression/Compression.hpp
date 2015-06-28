@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace glove {
+namespace BlueDwarf {
 class ZipArchive;
 typedef std::shared_ptr<ZipArchive> ZipArchiveHandle;
 }

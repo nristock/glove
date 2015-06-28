@@ -3,13 +3,13 @@
 #include <vector>
 
 #include "glove/CommonTypes.hpp"
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/RenderHardwareInterface.hpp"
 #include "glove/rendering/RenderTarget.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-struct GLOVE_API_EXPORT RenderHardwareCommand {
+struct BD_API_EXPORT RenderHardwareCommand {
   public:
     virtual ~RenderHardwareCommand() = default;
 

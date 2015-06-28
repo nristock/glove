@@ -11,7 +11,7 @@
 #include "glove/rendering/VertexBinding.hpp"
 #include "glove/rendering/RenderResourceFactory.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 
 //class MeshMaterial : public Material {

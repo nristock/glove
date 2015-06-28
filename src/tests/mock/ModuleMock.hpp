@@ -3,7 +3,7 @@
 #include <glove/natex/Module.hpp>
 #include <glove/services/ServiceRegistry.hpp>
 
-namespace glove {
+namespace BlueDwarf {
     class ModuleMock : public Module {
       public:
         MOCK_METHOD0(Load, void());

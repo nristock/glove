@@ -12,10 +12,10 @@ using ::testing::_;
 
 namespace {
 auto uuidGenerator = boost::uuids::random_generator();
-const glove::ServiceType serviceType = uuidGenerator();
+const BlueDwarf::ServiceType serviceType = uuidGenerator();
 }
 
-namespace glove {
+namespace BlueDwarf {
 TEST(BasicServiceTest, CanStoreServiceType) {
     BasicService service(::serviceType);
 

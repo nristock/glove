@@ -4,7 +4,7 @@
 
 #include "tests/mock/BasicModuleMock.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 TEST(ModuleVersionInfoTest, StoresMinorMajorPatchVersions) {
     ModuleVersionInfo version(3, 4, 5);
 

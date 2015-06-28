@@ -2,15 +2,15 @@
 
 #include <cstddef>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT IFileReader {
+class BD_API_EXPORT IFileReader {
 public:
     virtual ~IFileReader() = default;
 
     virtual void Read(void* destination, std::size_t size) = 0;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

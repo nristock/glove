@@ -1,6 +1,6 @@
 #include "glove/services/BasicService.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 BasicService::BasicService(ServiceType const &serviceType) : serviceType(serviceType) {
 }
 

@@ -2,12 +2,12 @@
 
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class Scene;
 
-class GLOVE_API_EXPORT RenderingThread {
+class BD_API_EXPORT RenderingThread {
     std::unique_ptr<Scene> renderingScene;
 };
-} // namespace glove
+} // namespace BlueDwarf

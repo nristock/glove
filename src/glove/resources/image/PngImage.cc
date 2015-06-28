@@ -2,7 +2,7 @@
 #include "glove/filesystem/io/UnbufferedFileReader.hpp"
 
 namespace {
-using glove::IFileReader;
+using BlueDwarf::IFileReader;
 
 void ReadPngData(png_structp png, png_bytep data, png_size_t length) {
     IFileReader* reader = (IFileReader*)png_get_io_ptr(png);
@@ -10,10 +10,10 @@ void ReadPngData(png_structp png, png_bytep data, png_size_t length) {
 }
 
 bool IsPngFile(IFileReader& reader) {
-    std::vector<unsigned char> pngFileHeader(GLOVE_PNG_SIG_LOOKAHEAD);
-    reader.Read(pngFileHeader.data(), GLOVE_PNG_SIG_LOOKAHEAD);
+    std::vector<unsigned char> pngFileHeader(BD_PNG_SIG_LOOKAHEAD);
+    reader.Read(pngFileHeader.data(), BD_PNG_SIG_LOOKAHEAD);
 
-    return png_sig_cmp(const_cast<const unsigned char*>(pngFileHeader.data()), 0, GLOVE_PNG_SIG_LOOKAHEAD) == 0;
+    return png_sig_cmp(const_cast<const unsigned char*>(pngFileHeader.data()), 0, BD_PNG_SIG_LOOKAHEAD) == 0;
 
 }
 
@@ -30,7 +30,7 @@ void SetupTransformations(png_structp pngStruct, png_infop pngInfo) {
 }
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 PngImage::PngImage(unsigned int width, unsigned int height, const Image::ImageFormat& format, unsigned char bitDepth,
                    png_structp pngStruct, png_infop pngInfo)
@@ -68,7 +68,7 @@ ImageHandle PngImage::Load(IFileReader& reader) {
     }
 
     png_set_read_fn(pngStruct, &reader, ReadPngData);
-    png_set_sig_bytes(pngStruct, GLOVE_PNG_SIG_LOOKAHEAD);
+    png_set_sig_bytes(pngStruct, BD_PNG_SIG_LOOKAHEAD);
 
     png_read_info(pngStruct, pngInfo);
 

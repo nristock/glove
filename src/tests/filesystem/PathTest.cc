@@ -4,7 +4,7 @@
 
 #include "mock/MockFilesystemAccessor.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(PathTest, CanConstructFromString) {
     Path path("testdata");
@@ -182,4 +182,4 @@ TEST(PathTest, CanJoinArbitraryNumberOfPathsWithTrailingSlashes) {
     EXPECT_EQ("testdata/middle/end", Path::Join(prefix, infix, suffix));
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

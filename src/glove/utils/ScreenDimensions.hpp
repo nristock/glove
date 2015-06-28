@@ -2,11 +2,11 @@
 
 #include <glm/glm.hpp>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT ScreenDimensions {
+class BD_API_EXPORT ScreenDimensions {
 public:
     ScreenDimensions(float width, float height);
     explicit ScreenDimensions(const glm::vec2& other);

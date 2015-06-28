@@ -1,6 +1,6 @@
 #pragma once
 
-namespace glove {
+namespace BlueDwarf {
 
 /*!
  * Demangles type names returned by typeid(...).name()
@@ -9,4 +9,4 @@ namespace glove {
  */
 const char* Demangle(const char* mangledString);
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

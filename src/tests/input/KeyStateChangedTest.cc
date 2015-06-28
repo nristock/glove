@@ -2,7 +2,7 @@
 
 #include <glove/input/events/KeyStateChanged.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 TEST(KeyStateChangedTest, StoresAxisValue) {
     auto testValue = 15.3f;
     KeyStateChanged eventData(testValue);

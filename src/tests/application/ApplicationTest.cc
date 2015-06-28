@@ -1,9 +1,9 @@
 #include <gmock/gmock.hpp>
 
-#include <glove/application/GloveApplication.hpp>
+#include "glove/application/DwarfApplication.hpp"
 
 namespace {
-class ApplicationFacetMock : public glove::ApplicationFacet {
+class ApplicationFacetMock : public BlueDwarf::ApplicationFacet {
   public:
     MOCK_METHOD0(Configure, void());
     MOCK_METHOD0(Bootstrap, void());
@@ -12,7 +12,7 @@ class ApplicationFacetMock : public glove::ApplicationFacet {
 };
 }
 
-namespace glove {
+namespace BlueDwarf {
 TEST(ApplicationTest, ManagesFacetLifecycle) {
     auto facetMock = std::make_shared<ApplicationFacetMock>();
     EXPECT_CALL(*facetMock, Configure()).Times(1);
@@ -20,7 +20,7 @@ TEST(ApplicationTest, ManagesFacetLifecycle) {
     EXPECT_CALL(*facetMock, Initialize()).Times(1);
     EXPECT_CALL(*facetMock, Finalize()).Times(1);
 
-    GloveApplication app;
+    DwarfApplication app;
     app.AddFacet(facetMock);
 
     app.Run();

@@ -3,7 +3,7 @@
 #include "glove/world/entity/Entity.hpp"
 #include "glove/world/component/WorldComponent.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 World::World(WorldConstructionHints constructionHints, std::shared_ptr<RendererService> rendererService) {
     worldComponents.reserve(constructionHints.expectedWorldComponentCount);
@@ -21,7 +21,7 @@ EntityHandle World::AddEntity(std::unique_ptr<Entity> entity, EntityLifeExpectan
         break;
 
     case EntityLifeExpectancy::LONG:
-#if defined(GLOVE_ENABLE_PROFILING)
+#if defined(BD_ENABLE_PROFILING)
         if (staticEntities.size() + 1 > staticEntities.capacity()) {
             logger.Warning(
                 fmt::format("World's staticEntities container is over capacity - reallocating! Current capacity: {0}",
@@ -39,7 +39,7 @@ EntityHandle World::AddEntity(std::unique_ptr<Entity> entity, EntityLifeExpectan
 WorldComponentHandle World::AddWorldComponent(std::unique_ptr<WorldComponent> component) {
     WorldComponentHandle componentHandle{std::move(component)};
 
-#if defined(GLOVE_ENABLE_PROFILING)
+#if defined(BD_ENABLE_PROFILING)
     if (worldComponents.size() + 1 > worldComponents.capacity()) {
         logger.Warning(
             fmt::format("World's worldComponents container is over capacity - reallocating! Current capacity: {0}",

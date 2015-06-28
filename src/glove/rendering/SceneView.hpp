@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/CommonTypes.hpp"
 #include "glove/world/Transform.hpp"
 #include "glove/rendering/RenderTarget.hpp"
@@ -13,7 +13,7 @@
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 class SceneProxy;
 
 /**
@@ -69,7 +69,7 @@ struct OrthogonalProjectionPolicy {
 *
 * The rendering thread own state and data of this class once the view's ViewComposition has been submitted.
 */
-struct GLOVE_API_EXPORT SceneView {
+struct BD_API_EXPORT SceneView {
   public:
     template <class TProjectionPolicy, class... TArgs>
     SceneView(const ViewRect& viewRect, const Transform& viewTransform, TArgs&&... args)
@@ -206,7 +206,7 @@ struct SceneViewBuilder {
 * It basically composes different views into a single render target, holds common view states and can override
 * view-specific rendering settings.
 */
-class GLOVE_API_EXPORT SceneViewComposition {
+class BD_API_EXPORT SceneViewComposition {
   public:
     SceneViewComposition(const std::vector<SceneView>& views, const RenderTarget& renderTarget)
         : views(views), renderTarget(renderTarget) {
@@ -249,4 +249,4 @@ class GLOVE_API_EXPORT SceneViewComposition {
     uint32 compositionHeight = 0;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

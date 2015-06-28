@@ -13,7 +13,7 @@
 #include "GLTexture.hpp"
 #include "GLShader.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 class GLRenderHardwareInterface : public RenderHardwareInterface {
   public:
@@ -72,4 +72,4 @@ class GLRenderHardwareInterface : public RenderHardwareInterface {
     OpenGLContextState pendingState;
 };
 }
-} // namespace glove
+} // namespace BlueDwarf

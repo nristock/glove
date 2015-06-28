@@ -3,7 +3,7 @@
 #include "glove/rendering/SceneView.hpp"
 #include "glove/rendering/MeshBatch.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 void MaterialProxy::SetMesh(RenderCommandList& cmdList, const SceneView& view, const MeshBatchElement& mesh) {
     cmdList.EnableShaderProgram(GetShaderProgram());
 

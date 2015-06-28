@@ -2,14 +2,14 @@
 
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/threading/Thread.hpp"
 #include "glove/threading/ThreadPool.hpp"
 #include "glove/world/scene/Scene.hpp"
 #include "glove/rendering/ApplicationViewport.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT RenderDispatcher {
+namespace BlueDwarf {
+class BD_API_EXPORT RenderDispatcher {
   public:
     static void Initialize() {
         instance = std::unique_ptr<RenderDispatcher>(new RenderDispatcher{});

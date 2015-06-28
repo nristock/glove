@@ -5,9 +5,9 @@
 #include <string>
 
 #include "glove/CommonTypes.hpp"
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 enum class ShaderParameterSemantic { Position, UV0 };
 std::ostream& operator<<(std::ostream& stream, const ShaderParameterSemantic& shaderParameterSemantic);
 
@@ -17,7 +17,7 @@ std::ostream& operator<<(std::ostream& stream, const ShaderParameterSemantic& sh
 * @link VertexBindingFactory VertexBindingFactories @endlink use this information to create @link VertexBinding
 * VertexBindings @endlink from a ShaderParameterMap.
 */
-struct GLOVE_API_EXPORT ShaderParameter {
+struct BD_API_EXPORT ShaderParameter {
     ShaderParameter(uint8 attributeIndex, ShaderParameterSemantic semantic, std::string name)
         : attributeIndex(attributeIndex), semantic(semantic), name(name) {}
 
@@ -30,7 +30,7 @@ struct GLOVE_API_EXPORT ShaderParameter {
 * A ShaderParameterMap is a collection of @link ShaderParameter ShaderParameters @endlink and allows to query
 * attribute indices using either attribute semantics or an attribute name.
 */
-struct GLOVE_API_EXPORT ShaderParameterMap {
+struct BD_API_EXPORT ShaderParameterMap {
   public:
     /// Default constructor reserves two slots in the parameters vector.
     ShaderParameterMap() { parameters.reserve(2); }
@@ -57,4 +57,4 @@ struct GLOVE_API_EXPORT ShaderParameterMap {
     std::vector<ShaderParameter> parameters;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

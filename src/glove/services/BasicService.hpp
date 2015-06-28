@@ -1,10 +1,10 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/services/Service.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT BasicService : public Service {
+namespace BlueDwarf {
+class BD_API_EXPORT BasicService : public Service {
   public:
     BasicService(const ServiceType& serviceType);
 

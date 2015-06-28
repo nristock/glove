@@ -7,7 +7,7 @@
 
 #include "glove/utils/RuntimePathInfo.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 void GetExecutionPathInfo(std::string& executablePath, std::string& executableName) {
 #if defined(_WIN32) || defined(WIN32)

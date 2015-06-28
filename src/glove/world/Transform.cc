@@ -18,4 +18,4 @@ void Transform::UpdateCache() const {
     isCacheDirty = false;
 }
 
-} // namespace glove
+} // namespace BlueDwarf

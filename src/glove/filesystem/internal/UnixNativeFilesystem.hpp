@@ -4,12 +4,12 @@
 #include <sys/stat.h>
 #include <string>
 
-#include "glove/GloveFwd.hpp"
+#include "glove/BlueDwarfFwd.hpp"
 #include "glove/filesystem/FileInfo.hpp"
 #include "glove/filesystem/IFilesystem.hpp"
 #include "glove/filesystem/Path.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 /// A UNIX/POSIX native filsystem abstraction layer with the ability to be rooted to a specific directory.
 /// The root directory path will be prepended to all filesystem queries.
@@ -35,5 +35,5 @@ private:
     std::string nativeRoot;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */
 #endif

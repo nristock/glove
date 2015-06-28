@@ -1,6 +1,6 @@
 #include "MockGameObjectFactory.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 MockGameObjectFactory::MockGameObjectFactory(GameObjectHandle& gameObject) : gameObject(gameObject) {}
 
 GameObjectHandle MockGameObjectFactory::Create() {

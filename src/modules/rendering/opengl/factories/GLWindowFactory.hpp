@@ -2,7 +2,7 @@
 
 #include <glove/rendering/WindowFactoryService.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 class GLWindowFactory : public WindowFactoryService {
   public:
@@ -10,4 +10,4 @@ class GLWindowFactory : public WindowFactoryService {
                                                         const std::string& title) const;
 };
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

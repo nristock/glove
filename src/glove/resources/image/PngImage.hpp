@@ -2,19 +2,19 @@
 
 #include <png.h>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/resources/Resources.hpp"
 #include "glove/resources/image/Image.hpp"
 #include "glove/filesystem/io/File.hpp"
 #include "glove/filesystem/io/IFileReader.hpp"
 
-#if !defined(GLOVE_PNG_SIG_LOOKAHEAD)
-#define GLOVE_PNG_SIG_LOOKAHEAD 8
+#if !defined(BD_PNG_SIG_LOOKAHEAD)
+#define BD_PNG_SIG_LOOKAHEAD 8
 #endif
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT PngImage : public Image {
+class BD_API_EXPORT PngImage : public Image {
   public:
     static ImageHandle Load(IFileReader& reader);
 
@@ -22,4 +22,4 @@ class GLOVE_API_EXPORT PngImage : public Image {
     PngImage(unsigned int width, unsigned int height, const ImageFormat& format, unsigned char bitDepth, png_structp pngStruct, png_infop pngInfo);
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

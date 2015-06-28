@@ -1,17 +1,17 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/services/BasicService.hpp"
 #include "glove/math/IntRect.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class ViewportClient;
 
 
 /**
 * This factory service is responsible for building windows to which a World can be rendered.
 */
-class GLOVE_API_EXPORT WindowFactoryService : public BasicService {
+class BD_API_EXPORT WindowFactoryService : public BasicService {
   public:
     static ServiceType Type;
 
@@ -21,7 +21,7 @@ class GLOVE_API_EXPORT WindowFactoryService : public BasicService {
                                                         const std::string& title) const = 0;
 };
 
-struct GLOVE_API_EXPORT WindowBuilder {
+struct BD_API_EXPORT WindowBuilder {
   public:
     WindowBuilder& SetPosition(IntPoint position) {
         this->position = position;
@@ -47,4 +47,4 @@ struct GLOVE_API_EXPORT WindowBuilder {
     IntPoint size;
     std::string title;
 };
-} // namespace glove
+} // namespace BlueDwarf

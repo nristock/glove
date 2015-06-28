@@ -4,7 +4,7 @@
 
 #include <glove/threading/Thread.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 struct TestRunnable : public Runnable {
   public:
     TestRunnable(int valueToStore) : valueToStore(valueToStore) { flag.store(valueToStore - 1); }

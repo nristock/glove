@@ -3,7 +3,7 @@
 #include "GLVertexBinding.hpp"
 #include "VertexElementUtils.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 GLVertexBinding::GLVertexBinding(const std::unordered_map<uint8, VertexElement>& shaderAttributeBindings,
                                  const std::vector<VertexBufferHandle>& vertexStreams) : VertexBinding(shaderAttributeBindings, vertexStreams) {
@@ -33,4 +33,4 @@ void GLVertexBinding::InitVao() {
 }
 
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

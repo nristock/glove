@@ -1,7 +1,7 @@
 #include "glove/rendering/SceneView.hpp"
 #include "glove/world/scene/SceneProxy.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 void SceneViewComposition::CalculateFamilySize() {
     compositionWidth = 0;
@@ -16,4 +16,4 @@ void SceneViewComposition::CalculateFamilySize() {
         compositionWidth = (rectRight > compositionWidth) ? rectRight : compositionWidth;
     }
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

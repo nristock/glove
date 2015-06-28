@@ -1,11 +1,11 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/services/ServiceRegistry.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT Service {
+class BD_API_EXPORT Service {
   public:
     virtual ~Service() = default;
 
@@ -14,4 +14,4 @@ class GLOVE_API_EXPORT Service {
     virtual ServiceType GetType() = 0;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

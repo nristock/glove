@@ -2,7 +2,7 @@
 
 #include <glove/log/Message.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 TEST(MessageTest, CanCreateFromLogLevelAndString) {
     const LogLevel expectedLogLevel = LogLevel::Info;
     const std::string expectedMessage = "My awesome message";

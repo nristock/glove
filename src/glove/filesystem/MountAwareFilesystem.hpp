@@ -2,15 +2,15 @@
 
 #include <map>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/filesystem/Filesystem.hpp"
 #include "glove/filesystem/Path.hpp"
 #include "glove/filesystem/IFilesystem.hpp"
 #include "glove/filesystem/MountInfo.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT MountAwareFilesystem : public IFilesystem {
+class BD_API_EXPORT MountAwareFilesystem : public IFilesystem {
   public:
     void Mount(const Path& path, const FilesystemHandle& filesystem);
     void Unmount(const Path& path);
@@ -26,4 +26,4 @@ class GLOVE_API_EXPORT MountAwareFilesystem : public IFilesystem {
     MountMap mountMap;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

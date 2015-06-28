@@ -1,13 +1,13 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/services/BasicService.hpp"
 #include "glove/math/IntRect.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class RenderHardwareInterface;
 
-class GLOVE_API_EXPORT RendererService : public BasicService {
+class BD_API_EXPORT RendererService : public BasicService {
   public:
     static ServiceType Type;
 
@@ -15,4 +15,4 @@ class GLOVE_API_EXPORT RendererService : public BasicService {
 
     virtual std::shared_ptr<RenderHardwareInterface> GetRenderHardwareInterface() const = 0;
 };
-} // namespace glove
+} // namespace BlueDwarf

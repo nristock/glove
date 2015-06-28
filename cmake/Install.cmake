@@ -1,7 +1,7 @@
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
   "${CMAKE_CURRENT_BINARY_DIR}/glove/GloveVersion.cmake"
-  VERSION ${GLOVE_VERSION}
+  VERSION ${BD_VERSION}
   COMPATIBILITY SameMajorVersion
 )
 

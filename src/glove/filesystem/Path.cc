@@ -1,6 +1,6 @@
 #include "glove/filesystem/Path.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 Path::Path() : path() {
 }
@@ -172,7 +172,7 @@ bool operator!=(const char* lhs, const Path& path) {
     return !operator==(lhs, path);
 }
 
-std::ostream& operator<<(std::ostream& stream, const glove::Path& rhs) {
+std::ostream& operator<<(std::ostream& stream, const BlueDwarf::Path& rhs) {
     stream << static_cast<std::string>(rhs);
     return stream;
 }

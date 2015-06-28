@@ -1,6 +1,6 @@
 #include "GLGpuBuffer.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 GLenum GLBufferUtils::BufferMapModeToGlAccessMode(BufferMappingMode mappingMode) {
     switch (mappingMode) {
@@ -15,4 +15,4 @@ GLenum GLBufferUtils::BufferMapModeToGlAccessMode(BufferMappingMode mappingMode)
     }
 }
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

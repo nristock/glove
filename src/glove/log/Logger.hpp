@@ -2,20 +2,20 @@
 
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/log/Message.hpp"
 #include "MessageProcessor.hpp"
 
 #if defined(_MSC_VER)
-#define __GLOVE_PRETTY_FUNC_ __FUNCSIG__
+#define __BD_PRETTY_FUNC_ __FUNCSIG__
 #elif defined(__GNUC__) || defined(__clang__) || defined(__PRETTY_FUNCTION__)
-#define __GLOVE_PRETTY_FUNC_ __PRETTY_FUNCTION__
+#define __BD_PRETTY_FUNC_ __PRETTY_FUNCTION__
 #else
-#define __GLOVE_PRETTY_FUNC_ __func__
+#define __BD_PRETTY_FUNC_ __func__
 #endif
 
 namespace BlueDwarf {
-#define M_TAG __FILE__, __GLOVE_PRETTY_FUNC_, __LINE__
+#define M_TAG __FILE__, __BD_PRETTY_FUNC_, __LINE__
 #define LOG(_level, _args)                                                                                             \
     {                                                                                                                  \
         BlueDwarf::Logger _anonymousLogger;                                                                                \
@@ -42,7 +42,7 @@ class MessageProcessor;
 * If file, function and line information was procided when creating a log message, a tagged message will be created. The
 * tagged message has the three custom properties __FUNCTION__, __FILE__ and __LINE__ which can be used by a formatter.
 */
-class GLOVE_API_EXPORT Logger {
+class BD_API_EXPORT Logger {
   public:
     Logger() : Logger("") {}
     Logger(const std::string& name);

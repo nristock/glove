@@ -3,11 +3,11 @@
 #include <boost/format.hpp>
 
 #include "glove/filesystem/internal/UnixNativeFilesystem.hpp"
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 #include "glove/utils/RuntimePathInfo.hpp"
 #include "glove/filesystem/exceptions/FileInfoQueryException.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 UnixNativeFilesystem::UnixNativeFilesystem() {
     std::string executableName;
 
@@ -25,28 +25,28 @@ const FileInfo UnixNativeFilesystem::GetFileInfo(const Path& path) {
     if(stat(MakePathNativeAbsolute(path).ToString().c_str(), &unixFileInfo) == -1) {
         switch (errno) {
             case EFAULT:
-                GLOVE_THROW(FileInfoQueryException, path, "EFAULT - `path` pointed to illegal address");
+                DWARF_THROW(FileInfoQueryException, path, "EFAULT - `path` pointed to illegal address");
 
             case ELOOP:
-                GLOVE_THROW(FileInfoQueryException, path, "ELOOP - A loop exists in symbolic links encountered during path resolution");
+                DWARF_THROW(FileInfoQueryException, path, "ELOOP - A loop exists in symbolic links encountered during path resolution");
 
             case ENAMETOOLONG:
-                GLOVE_THROW(FileInfoQueryException, path, "ENAMETOOLONG - The path's length exceeds PATH_MAX");
+                DWARF_THROW(FileInfoQueryException, path, "ENAMETOOLONG - The path's length exceeds PATH_MAX");
 
             case ENOENT:
                 return FileInfo(FileInfo::FileType::NOT_FOUND, 0);
 
             case ENOMEM:
-                GLOVE_THROW(FileInfoQueryException, path, "ENOMEM - Out of kernel memory");
+                DWARF_THROW(FileInfoQueryException, path, "ENOMEM - Out of kernel memory");
 
             case ENOTDIR:
                 return FileInfo(FileInfo::FileType::NOT_FOUND, 0);
 
             case EOVERFLOW:
-                GLOVE_THROW(FileInfoQueryException, path, "EOVERFLOW - The file's size is too big to represent");
+                DWARF_THROW(FileInfoQueryException, path, "EOVERFLOW - The file's size is too big to represent");
 
             default:
-                GLOVE_THROW(FileInfoQueryException, path, (boost::format("Unknown error - %1%") % strerror(errno)).str());
+                DWARF_THROW(FileInfoQueryException, path, (boost::format("Unknown error - %1%") % strerror(errno)).str());
         }
     }
 

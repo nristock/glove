@@ -4,10 +4,10 @@
 #include <unordered_map>
 #include <vector>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/VertexLayout.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class VertexBinding;
 class VertexBuffer;
 using VertexBufferHandle = std::shared_ptr<VertexBuffer>;
@@ -27,7 +27,7 @@ enum class PixelFormat;
 * The RenderResourceFactory provides methods to create hardware resources. Implementation details are up to the
 * implementing renderer.
 */
-class GLOVE_API_EXPORT RenderResourceFactory {
+class BD_API_EXPORT RenderResourceFactory {
   public:
     virtual ~RenderResourceFactory() = default;
 
@@ -36,8 +36,7 @@ class GLOVE_API_EXPORT RenderResourceFactory {
                         const std::vector<VertexBufferHandle>& vertexStreams) const = 0;
     virtual std::unique_ptr<VertexBuffer> CreateVertexBuffer() const = 0;
     virtual std::unique_ptr<IndexBuffer> CreateIndexBuffer() const = 0;
-    virtual std::unique_ptr<Texture2D> CreateTexture2D(uint32 width, uint32 height,
-                                                       glove::PixelFormat format) const = 0;
+    virtual std::unique_ptr<Texture2D> CreateTexture2D(uint32 width, uint32 height, PixelFormat format) const = 0;
 
     virtual std::unique_ptr<VertexShader> CreateVertexShader(const char* source, const ShaderParameterMap& shaderParameterMap) const = 0;
     virtual std::unique_ptr<FragmentShader> CreateFragmentShader(const char* source) const = 0;
@@ -47,4 +46,4 @@ class GLOVE_API_EXPORT RenderResourceFactory {
     RenderResourceFactory() = default;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

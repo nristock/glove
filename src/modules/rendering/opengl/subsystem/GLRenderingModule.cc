@@ -7,10 +7,10 @@
 namespace {
 const auto moduleName = std::string("mod_glrenderer");
 
-const auto moduleVersion = glove::ModuleVersionInfo(1, 0, 0);
+const auto moduleVersion = BlueDwarf::ModuleVersionInfo(1, 0, 0);
 }
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 void GLRenderingModule::Load() {

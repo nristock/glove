@@ -1,12 +1,12 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/ShaderParameter.hpp"
 #include "glove/rendering/MaterialProxy.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT VertexShader : public RenderHardwareResource {
+class BD_API_EXPORT VertexShader : public RenderHardwareResource {
   public:
     using Handle = std::shared_ptr<VertexShader>;
 
@@ -20,14 +20,14 @@ class GLOVE_API_EXPORT VertexShader : public RenderHardwareResource {
     ShaderParameterMap shaderParameters;
 };
 
-class GLOVE_API_EXPORT FragmentShader : public RenderHardwareResource {
+class BD_API_EXPORT FragmentShader : public RenderHardwareResource {
   public:
     using Handle = std::shared_ptr<FragmentShader>;
 
     virtual ~FragmentShader() = default;
 };
 
-class GLOVE_API_EXPORT ShaderProgram {
+class BD_API_EXPORT ShaderProgram {
   public:
     using Handle = std::shared_ptr<ShaderProgram>;
 

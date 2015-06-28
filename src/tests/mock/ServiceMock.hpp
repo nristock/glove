@@ -2,7 +2,7 @@
 
 #include <glove/services/Services.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 class ServiceMock : public Service {
   public:
     MOCK_METHOD0(NeedsInitialization, bool());

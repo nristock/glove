@@ -1,5 +1,5 @@
 #include "glove/filesystem/compression/ZipFilesystem.hpp"
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 #include "glove/exceptions/OperationNotSupported.hpp"
 #include "glove/filesystem/compression/ZipArchive.hpp"
 #include "glove/filesystem/compression/ZipEntryBuffer.hpp"
@@ -13,7 +13,7 @@ void StreamDeleter(std::istream::event event, std::ios_base& ios, int index) {
 }
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 ZipFilesystem::ZipFilesystem(const ZipArchiveHandle& zipArchive) : archive(zipArchive) {
 }
@@ -31,7 +31,7 @@ const FileInfo ZipFilesystem::GetFileInfo(const Path& path) {
     try {
         ZipEntry entry = archive->GetEntry(stringPath);
         return FileInfo(entry.IsDirectory() ? FileInfo::FileType::DIRECTORY : FileInfo::FileType::REGULAR, entry.GetUncompressedSize());
-    } catch (const GloveException& ex) {
+    } catch (const DwarfException& ex) {
         return FileInfo(FileInfo::FileType::NOT_FOUND, 0);
     }
 }
@@ -52,6 +52,6 @@ std::istream* ZipFilesystem::CreateFileReadStream(const Path& path) {
 }
 
 std::ostream* ZipFilesystem::CreateFileWriteStream(const Path& path) {
-    GLOVE_THROW(OperationNotSupportedException, "IFilesystem::CreateFileWriterStream", "ZipFilesystem");
+    DWARF_THROW(OperationNotSupportedException, "IFilesystem::CreateFileWriterStream", "ZipFilesystem");
 }
 }

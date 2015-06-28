@@ -3,13 +3,13 @@
 #include <istream>
 #include <ostream>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/filesystem/FileInfo.hpp"
 #include "glove/filesystem/Path.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT IFilesystem {
+class BD_API_EXPORT IFilesystem {
 public:
     virtual ~IFilesystem() = default;
 

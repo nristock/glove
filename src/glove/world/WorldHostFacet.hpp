@@ -1,13 +1,13 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/log/Log.hpp"
 #include "glove/world/World.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class RendererService;
 
-class GLOVE_API_EXPORT WorldHostFacet : public ApplicationFacet {
+class BD_API_EXPORT WorldHostFacet : public ApplicationFacet {
   public:
     WorldHostFacet(ServiceRegistryHandle serviceRegistry)  : ApplicationFacet("WorldHostFacet"), serviceRegistry(serviceRegistry) {}
 

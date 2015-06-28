@@ -4,7 +4,7 @@
 
 #include <glove/utils/BitMask.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 TEST(BitMaskTest, NewBitMaskIsAllZero) {
     BitMask mask;
 

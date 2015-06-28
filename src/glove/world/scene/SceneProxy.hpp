@@ -1,13 +1,13 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/CommonTypes.hpp"
 #include "glove/world/Transform.hpp"
 #include "glove/threading/TaskQueue.hpp"
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 
 struct SceneView;
 class PrimitiveDrawInterface;
@@ -22,7 +22,7 @@ class RenderResourceFactory;
 * since the default proxy implementations do not use any kind of locking. It is technically possible to implement a
 * custom proxy which uses locks. Doing so, however, can impact rendering and game thread performance.
 */
-class GLOVE_API_EXPORT SceneProxy {
+class BD_API_EXPORT SceneProxy {
   public:
     using Handle = std::shared_ptr<SceneProxy>;
 
@@ -61,7 +61,7 @@ class GLOVE_API_EXPORT SceneProxy {
 *
 * Create and enqueue this task from the game thread using RenderDispatcher::DispatchTask.
 */
-class GLOVE_API_EXPORT UpdateProxyTransformJob : public Task {
+class BD_API_EXPORT UpdateProxyTransformJob : public Task {
   public:
     UpdateProxyTransformJob(const SceneProxy::Handle& targetProxy, const Transform& newTransform)
             : targetProxy(targetProxy), newTransform(newTransform) {}
@@ -75,4 +75,4 @@ class GLOVE_API_EXPORT UpdateProxyTransformJob : public Task {
     Transform newTransform;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

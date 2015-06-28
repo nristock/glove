@@ -4,7 +4,7 @@
 
 #include <glove/rendering/texture/Texture.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 class GLTexture : public Texture {
@@ -18,4 +18,4 @@ class GLTexture : public Texture {
     GLuint textureId;
 };
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

@@ -3,10 +3,10 @@
 #include <vector>
 #include <glove/CommonTypes.hpp>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/ShaderParameter.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 /**
 * The type of a VertexElement which is used to compute element sizes.
@@ -18,7 +18,7 @@ enum class VertexElementType : uint8 { None, Float1, Float2, Float3, PackedNorma
 *
 * This class corresponds to the location of a vertex component in a vertex stream (e.g. in a VertexBuffer).
 */
-struct GLOVE_API_EXPORT VertexElement {
+struct BD_API_EXPORT VertexElement {
     VertexElement(uint8 offset, uint8 streamIndex, uint16 stride, VertexElementType const& type, ShaderParameterSemantic const& semantic)
             : offset(offset), streamIndex(streamIndex), stride(stride), type(type), semantic(semantic) {}
 
@@ -32,7 +32,7 @@ struct GLOVE_API_EXPORT VertexElement {
 /**
 * A VertexLayout describes how a Mesh's vertices are mapped to GPU buffers.
 */
-class GLOVE_API_EXPORT VertexLayout {
+class BD_API_EXPORT VertexLayout {
   public:
     /// The default constructor initializes the elements vector with a capacity of 2.
     VertexLayout() { elements.reserve(2); }
@@ -55,4 +55,4 @@ class GLOVE_API_EXPORT VertexLayout {
     std::vector<VertexElement> elements;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 #include "glove/filesystem/io/File.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT FileNotFoundException : public GloveException {
+class BD_API_EXPORT FileNotFoundException : public DwarfException {
 public:
     FileNotFoundException(const File& file, char const* source, int line);
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

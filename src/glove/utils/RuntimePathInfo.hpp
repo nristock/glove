@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
-void GLOVE_API_EXPORT GetExecutionPathInfo(std::string& executablePath, std::string& executableName);
+namespace BlueDwarf {
+void BD_API_EXPORT GetExecutionPathInfo(std::string& executablePath, std::string& executableName);
 }

@@ -1,6 +1,6 @@
 #include "glove/utils/BitMask.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 const std::uint8_t BitMask::MAX_INDEX = 31;
 
 BitMask::BitMask() : mask(0) {

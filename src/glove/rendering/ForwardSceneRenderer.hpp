@@ -1,14 +1,14 @@
 #pragma once
 
 #include "glove/CommonTypes.hpp"
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/SceneRenderer.hpp"
 #include "glove/rendering/RenderHardwareInterface.hpp"
 #include "glove/rendering/SceneView.hpp"
 #include "glove/rendering/RenderResourceFactory.hpp"
 #include "PrimitiveDrawUtils.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 struct RenderTarget;
 class RenderCommandList;
 
@@ -21,7 +21,7 @@ class RenderHardwareInterface;
 * The first pass renders scene geometry to a scene render target. The second pass renders a fullscreen quad using post
 * processing shaders and writes the color output to the ViewComposition's render target.
 */
-class GLOVE_API_EXPORT ForwardSceneRenderer : public SceneRenderer {
+class BD_API_EXPORT ForwardSceneRenderer : public SceneRenderer {
   public:
     ForwardSceneRenderer(const SceneHandle& scene, const RenderHardwareInterfaceHandle& renderer) : SceneRenderer(scene, renderer) {
         resourceFactory = renderer->CreateResourceFactory();
@@ -51,4 +51,4 @@ class GLOVE_API_EXPORT ForwardSceneRenderer : public SceneRenderer {
     void AllocateRenderTarget(uint32 width, uint32 height);
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

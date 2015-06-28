@@ -1,12 +1,12 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
-#include "glove/application/GloveApplication.hpp"
+#include "glove/BlueDwarfApi.hpp"
+#include "glove/application/DwarfApplication.hpp"
 #include "glove/services/ServiceRegistry.hpp"
 
 
-namespace glove {
-class GLOVE_API_EXPORT ServicesFacet : public ApplicationFacet {
+namespace BlueDwarf {
+class BD_API_EXPORT ServicesFacet : public ApplicationFacet {
   public:
     ServicesFacet();
     ServicesFacet(ServiceRegistryHandle serviceRegistry);

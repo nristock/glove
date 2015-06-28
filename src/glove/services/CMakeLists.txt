@@ -12,7 +12,7 @@ set(gc_services_src
     BasicService.cc
     ServicesFacet.cc
 
-    impl/GloveServiceRegistry.cc
+    impl/DwarfServiceRegistry.cc
 )
 
 add_definitions(-DGLOVE_SERVICES_FWD_ONLY)

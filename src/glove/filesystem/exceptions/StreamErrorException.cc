@@ -1,8 +1,8 @@
 #include "glove/filesystem/exceptions/StreamErrorException.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 StreamErrorException::StreamErrorException(std::string message, char const* file, int line)
-    : GloveException(message, file, line) {
+    : DwarfException(message, file, line) {
 }
 }

@@ -1,9 +1,9 @@
 #include <gtest/gtest.hpp>
 
 #include <glove/natex/DirectoryExtensionSearcher.hpp>
-#include <glove/GloveException.hpp>
+#include "glove/DwarfException.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 class DirectoryExtensionSearcherTests : public ::testing::Test {
   protected:
@@ -45,6 +45,6 @@ TEST_F(DirectoryExtensionSearcherTests, SearcherReturnsAllLibraryFilesInDirector
 }
 
 TEST_F(DirectoryExtensionSearcherTests, ThrowsWhenCreatedWithInvalidDirectory) {
-    ASSERT_THROW(DirectoryExtensionSearcher searcher("extremely_weird_directory_path"), GloveException);
+    ASSERT_THROW(DirectoryExtensionSearcher searcher("extremely_weird_directory_path"), DwarfException);
 }
 }

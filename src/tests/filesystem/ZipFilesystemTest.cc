@@ -2,16 +2,16 @@
 
 #include <glove/filesystem/Path.hpp>
 #include <glove/filesystem/compression/ZipArchive.hpp>
-#include <glove/GloveException.hpp>
+#include "glove/DwarfException.hpp"
 #include <glove/filesystem/compression/ZipFilesystem.hpp>
 #include <glove/filesystem/Filesystem.hpp>
 #include <glove/exceptions/OperationNotSupported.hpp>
 
 namespace {
-const glove::Path zipFile("testdata/testzip.zip");
+const BlueDwarf::Path zipFile("testdata/testzip.zip");
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(ZipFilesystemTest, CanConstructFromZipArchive) {
     ZipArchiveHandle archive(new ZipArchive(zipFile));
@@ -54,4 +54,4 @@ TEST(ZipFilesystemTest, CannotCreateWriteStreams) {
     EXPECT_THROW(zipFs.CreateFileWriteStream(Path()), OperationNotSupportedException);
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

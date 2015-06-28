@@ -1,6 +1,6 @@
 #include "glove/threading/Thread.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 Thread::Thread(Runnable::Handle runnable) : runnable(std::move(runnable)) {
     interruptFlag.store(false, std::memory_order_release);

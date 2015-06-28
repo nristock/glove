@@ -1,2 +1,2 @@
-add_executable(tests_services GloveServiceRegistryTest.cc BasicServiceTest.cc)
+add_executable(tests_services DwarfServiceRegistryTest.cc BasicServiceTest.cc)
 target_link_libraries(tests_services vendor_gmock vendor_gtest_main glove)

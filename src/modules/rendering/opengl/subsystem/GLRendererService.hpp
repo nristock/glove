@@ -5,7 +5,7 @@
 #include <glove/rendering/RendererService.hpp>
 #include "new/GLRenderHardwareInterface.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 class GLRendererService : public RendererService {

@@ -3,7 +3,7 @@
 #include <gmock/gmock.hpp>
 #include <glove/graph/gameobject/GameObject.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 
 class GameObjectMock : public GameObject {
 public:
@@ -12,4 +12,4 @@ public:
     MOCK_METHOD0(Init, void());
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

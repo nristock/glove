@@ -1,14 +1,14 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/filesystem/Filesystem.hpp"
 #include "glove/resources/Resources.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT ResourceLoader {
+class BD_API_EXPORT ResourceLoader {
   public:
     static ImageHandle LoadPngImage(const Path& filePath);
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

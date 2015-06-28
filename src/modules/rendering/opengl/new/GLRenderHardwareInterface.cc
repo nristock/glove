@@ -9,7 +9,7 @@
 #include <glove/log/Log.hpp>
 
 namespace {
-using glove::gl::GL;
+using BlueDwarf::gl::GL;
 
 struct GLErrorScope {
   public:
@@ -54,7 +54,7 @@ struct GLErrorScope {
 
 #define VERIFY_GL() GLErrorScope glErrorScope(__FUNCTION__, __FILE__, __LINE__)
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 void GLRenderHardwareInterface::SetViewport(int32 x, int32 y, int32 width, int32 height) {
     pendingState.viewport.min.x = x;

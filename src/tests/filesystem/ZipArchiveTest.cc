@@ -2,13 +2,13 @@
 
 #include <glove/filesystem/Path.hpp>
 #include <glove/filesystem/compression/ZipArchive.hpp>
-#include <glove/GloveException.hpp>
+#include "glove/DwarfException.hpp"
 
 namespace {
-const glove::Path zipFile("testdata/testzip.zip");
+const BlueDwarf::Path zipFile("testdata/testzip.zip");
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(ZipArchiveTest, CanConstructFromPath) {
     ZipArchive archive(zipFile);
@@ -79,7 +79,7 @@ TEST(ZipArchiveTest, ThrowsIfQueriedForNonExistingEntry) {
     ZipArchive archive(zipFile);
 
     ASSERT_FALSE(archive.HasEntry("blob"));
-    EXPECT_THROW(archive.GetEntry("blob"), GloveException);
+    EXPECT_THROW(archive.GetEntry("blob"), DwarfException);
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

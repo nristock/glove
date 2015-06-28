@@ -2,7 +2,7 @@
 #include "glove/rendering/RenderResourceFactory.hpp"
 #include "glove/rendering/RenderCommandList.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 std::unique_ptr<VertexBinding> VertexBinding::Builder::Finalize(const RenderResourceFactory& resourceFactory) {
     if (vertexStreams.empty()) {
         // todo throw
@@ -11,4 +11,4 @@ std::unique_ptr<VertexBinding> VertexBinding::Builder::Finalize(const RenderReso
     return std::move(resourceFactory.CreateVertexBinding(shaderAttributeBindings, vertexStreams));
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

@@ -5,11 +5,11 @@
 #include "internal/OpenGLWrapper.hpp"
 
 namespace {
-inline GLenum TranslateImageFormateToGL(glove::Image::ImageFormat engineFormat) {
+inline GLenum TranslateImageFormateToGL(BlueDwarf::Image::ImageFormat engineFormat) {
     switch (engineFormat) {
-    case glove::Image::ImageFormat::RGB:
+    case BlueDwarf::Image::ImageFormat::RGB:
         return GL_RGB;
-    case glove::Image::ImageFormat::RGBA:
+    case BlueDwarf::Image::ImageFormat::RGBA:
         return GL_RGBA;
     }
 }
@@ -25,7 +25,7 @@ inline GLenum TranslateImageBitDepthToGLType(unsigned char bitDepth) {
 }
 }
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 GLTexture::GLTexture(const ImageHandle& image) : Texture(image) {
     GL::GenTextures(1, &textureId);

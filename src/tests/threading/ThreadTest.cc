@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-namespace glove {
+namespace BlueDwarf {
 class ThreadTest : public ::testing::Test {
 
   protected:

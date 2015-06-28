@@ -2,14 +2,14 @@
 
 #include <glove/filesystem/Path.hpp>
 #include <glove/filesystem/compression/ZipArchive.hpp>
-#include <glove/GloveException.hpp>
+#include "glove/DwarfException.hpp"
 #include <glove/filesystem/compression/ZipEntryBuffer.hpp>
 
 namespace {
-const glove::Path zipFile("testdata/testzip.zip");
+const BlueDwarf::Path zipFile("testdata/testzip.zip");
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(ZipEntryBufferTest, CanReadZipEntryUsingIstream) {
     ZipArchiveHandle archive(new ZipArchive(zipFile));
@@ -27,4 +27,4 @@ TEST(ZipEntryBufferTest, CanReadZipEntryUsingIstream) {
     EXPECT_STREQ("Hello", destination);
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

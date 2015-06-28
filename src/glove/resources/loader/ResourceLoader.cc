@@ -6,7 +6,7 @@
 namespace {
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 ImageHandle ResourceLoader::LoadPngImage(const Path& filePath) {
     File file(filePath);

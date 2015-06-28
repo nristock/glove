@@ -1,13 +1,13 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 /**
 * Base class for all render hardware resources. This class is non-copyable to ensure that resource aren't cleaned up
 * twice or too soon by accidental copies.
 */
-class GLOVE_API_EXPORT RenderHardwareResource {
+class BD_API_EXPORT RenderHardwareResource {
   public:
     RenderHardwareResource(RenderHardwareResource&&) = default;
     RenderHardwareResource(const RenderHardwareResource&) = delete;
@@ -20,4 +20,4 @@ class GLOVE_API_EXPORT RenderHardwareResource {
     RenderHardwareResource() = default;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

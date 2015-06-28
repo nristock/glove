@@ -3,7 +3,7 @@
 #include <glove/natex/BasicModule.hpp>
 #include <glove/services/ServiceRegistry.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 class BasicModuleMock : public BasicModule {
   public:
     BasicModuleMock(const std::string& name, const ModuleVersionInfo& moduleVersionInfo) : BasicModule(name, moduleVersionInfo) {}

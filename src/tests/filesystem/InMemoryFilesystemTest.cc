@@ -8,16 +8,16 @@
 #include "tests/filesystem/mock/MockFilesystemAccessor.hpp"
 
 namespace {
-const glove::Path directoryPath("testdata/a_directory");
-const glove::Path filePath("testdata/a_directory/a_file");
-const glove::Path nonExistingPath("testdata/a_not_existing_directory");
+const BlueDwarf::Path directoryPath("testdata/a_directory");
+const BlueDwarf::Path filePath("testdata/a_directory/a_file");
+const BlueDwarf::Path nonExistingPath("testdata/a_not_existing_directory");
 }
 
 using ::testing::_;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(InMemoryFilesystemTest, CanConstruct) {
     EXPECT_NO_THROW(InMemoryFilesystem filesystem);
@@ -35,4 +35,4 @@ TEST(InMemoryFilesystemTest, GetFileInfoRedirectsToCorrectFilesystem) {
     EXPECT_EQ(mockInfo, filesystem.GetFileInfo(Path("/data/mydir/more/file.ext")));
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

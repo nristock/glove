@@ -5,7 +5,7 @@
 #include <glove/threading/TaskQueue.hpp>
 
 namespace {
-struct TestTask : public glove::Task {
+struct TestTask : public BlueDwarf::Task {
     TestTask() {
         hasExecutedFlag.store(false);
     }
@@ -23,7 +23,7 @@ struct TestTask : public glove::Task {
 };
 }
 
-namespace glove {
+namespace BlueDwarf {
 TEST(TaskQueueTest, CanPushElements) {
     TaskQueue taskQueue;
 

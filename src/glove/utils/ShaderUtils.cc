@@ -7,7 +7,7 @@
 
 GLEWContext* glewGetContext();
 
-namespace glove {
+namespace BlueDwarf {
 
 void PrintShaderCompilerLog(GLuint shaderId) {
     GLint logLength = 0;
@@ -39,5 +39,5 @@ void PrintShaderProgramLinkLog(GLuint programId) {
     }
 }
 
-} // namespcae glove
+} // namespcae BlueDwarf
 

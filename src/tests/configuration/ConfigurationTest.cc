@@ -7,14 +7,14 @@
 #include <glove/configuration/Configuration.hpp>
 #include <glove/configuration/ConfigurationConverters.hpp>
 
-using ::glove::configuration::WindowConfig;
-using ::glove::configuration::OpenGLVersion;
-using ::glove::configuration::OpenGLConfig;
-using ::glove::configuration::RenderingConfig;
-using ::glove::configuration::EngineConfig;
-using ::glove::Configuration;
+using ::BlueDwarf::configuration::WindowConfig;
+using ::BlueDwarf::configuration::OpenGLVersion;
+using ::BlueDwarf::configuration::OpenGLConfig;
+using ::BlueDwarf::configuration::RenderingConfig;
+using ::BlueDwarf::configuration::EngineConfig;
+using ::BlueDwarf::Configuration;
 
-namespace glove {
+namespace BlueDwarf {
 
 class ConfigurationTest : public ::testing::Test {
 protected:

@@ -4,7 +4,7 @@
 
 #include "internal/OpenGLWrapper.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 /**
@@ -94,4 +94,4 @@ class GLIndexBuffer : public IndexBuffer, public GLGpuBufferBase {
     virtual void Store(std::size_t sizeInBytes, void* data) {GLStore(sizeInBytes, data);}
 };
 }
-} /* namespace glove */
+} /* namespace BlueDwarf */

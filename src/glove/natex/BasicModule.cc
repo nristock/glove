@@ -1,6 +1,6 @@
 #include "glove/natex/BasicModule.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 BasicModule::BasicModule(const std::string& name, ModuleVersionInfo moduleVersionInfo) : name(name), version(moduleVersionInfo) {
 
 }

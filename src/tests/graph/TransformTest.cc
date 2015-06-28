@@ -2,7 +2,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glove/graph/Transform.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 
 class TransformTest : public ::testing::Test {
 protected:

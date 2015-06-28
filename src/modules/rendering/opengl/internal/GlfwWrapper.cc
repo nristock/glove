@@ -1,10 +1,10 @@
-#include <glove/GloveException.hpp>
+#include "glove/DwarfException.hpp"
 #include <glove/CommonTypes.hpp>
 
 #include "internal/GlfwWrapper.hpp"
 #include "GLWindow.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 /// @brief The shared wrapper is initialized in subsystem/OpenGLRendererModule.cc LoadExtension making it possible to
@@ -15,7 +15,7 @@ void GlfwWrapper::InitWrapper() {
     glfwSetErrorCallback(&GlfwWrapper::GlfwErrorSink);
 
     if (!glfwInit()) {
-        throw GLOVE_EXCEPTION("GLFW Initialization failed.");
+        throw DWARF_EXCEPTION("GLFW Initialization failed.");
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -59,28 +59,28 @@ GLWindow* GlfwWrapper::GetGLWindow(GLFWwindow* glfwWindow) {
 }
 
 void GlfwWrapper::GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height) {
-    GLWindow* gloveWindow = GetGLWindow(window);
-//    gloveWindow->SetFramebufferSize(width, height); todo
+    GLWindow* engineWindow = GetGLWindow(window);
+//    engineWindow->SetFramebufferSize(width, height); todo
 }
 
 void GlfwWrapper::GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    GLWindow* gloveWindow = GetGLWindow(window);
-    gloveWindow->OnKeyEvent(key, scancode, action, mods);
+    GLWindow* engineWindow = GetGLWindow(window);
+    engineWindow->OnKeyEvent(key, scancode, action, mods);
 }
 
 void GlfwWrapper::GlfwCloseEvent(GLFWwindow* window) {
-    // GLWindow* gloveWindow = GetGLWindow(window);
+    // GLWindow* engineWindow = GetGLWindow(window);
     // TODO: implement
 }
 
 void GlfwWrapper::GlfwCursorPositionChanged(GLFWwindow* window, double x, double y) {
-    GLWindow* gloveWindow = GetGLWindow(window);
-    gloveWindow->OnMouseMove(x, y);
+    GLWindow* engineWindow = GetGLWindow(window);
+    engineWindow->OnMouseMove(x, y);
 }
 
 void GlfwWrapper::GlfwMouseButtonEvent(GLFWwindow* window, int button, int action, int mods) {
-    GLWindow* gloveWindow = GetGLWindow(window);
-    gloveWindow->OnMouseButton(button, action, mods);
+    GLWindow* engineWindow = GetGLWindow(window);
+    engineWindow->OnMouseButton(button, action, mods);
 }
 
 GLWindow* GlfwWrapper::GetCurrentGLWindow() {

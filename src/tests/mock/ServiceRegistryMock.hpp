@@ -3,7 +3,7 @@
 #include <glove/services/ServiceRegistry.hpp>
 #include <glove/services/Services.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 class ServiceRegistryMock : public ServiceRegistry {
   public:
     MOCK_METHOD1(RegisterService, void(const ServiceHandle& service));

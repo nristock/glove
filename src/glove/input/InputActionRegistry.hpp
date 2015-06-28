@@ -3,12 +3,12 @@
 #include <vector>
 #include <unordered_map>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/services/Services.hpp"
 #include "glove/input/Input.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT InputActionRegistry : public BasicService {
+namespace BlueDwarf {
+class BD_API_EXPORT InputActionRegistry : public BasicService {
   public:
     static const ServiceType serviceType;
 

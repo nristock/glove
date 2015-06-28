@@ -3,7 +3,7 @@
 #include "glove/rendering/SceneView.hpp"
 #include "glove/rendering/MaterialProxy.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
 void BatchCollector::DrawMesh(const MeshBatch& meshBatch) {
     meshBatches.emplace_back(meshBatch);

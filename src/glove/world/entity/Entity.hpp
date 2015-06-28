@@ -3,13 +3,13 @@
 #include <memory>
 #include <list>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
 #include "glove/world/Transform.hpp"
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 
 class EntityComponent;
 using EntityComponentHandle = std::shared_ptr<EntityComponent>;
@@ -19,7 +19,7 @@ class World;
 /**
 * An Entity is anything that can be placed in a world. It has a transform and EntityComponents can be attached to it.
 */
-class GLOVE_API_EXPORT Entity {
+class BD_API_EXPORT Entity {
   public:
     Entity(std::weak_ptr<World> world);
     virtual ~Entity() = default;
@@ -45,4 +45,4 @@ class GLOVE_API_EXPORT Entity {
     std::list<EntityComponentHandle> components;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

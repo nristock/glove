@@ -1,9 +1,9 @@
 #pragma once
 
 #include <memory>
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 class RenderHardwareInterface;
 using RenderHardwareInterfaceHandle = std::shared_ptr<RenderHardwareInterface>;
 
@@ -17,7 +17,7 @@ class RenderCommandList;
 
 class RenderTarget;
 
-class GLOVE_API_EXPORT SceneRenderer {
+class BD_API_EXPORT SceneRenderer {
   public:
     SceneRenderer(SceneHandle scene, RenderHardwareInterfaceHandle renderer) : scene(scene), renderer(renderer) {}
     virtual ~SceneRenderer() = default;
@@ -32,4 +32,4 @@ class GLOVE_API_EXPORT SceneRenderer {
     RenderHardwareInterfaceHandle renderer;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

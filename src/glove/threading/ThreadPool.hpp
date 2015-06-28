@@ -6,19 +6,19 @@
 #include <functional>
 #include <list>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/CommonTypes.hpp"
 #include "glove/threading/Thread.hpp"
 #include "glove/threading/TaskQueue.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 using TaskHandle = std::shared_ptr<Task>;
 using ThreadHandle = std::shared_ptr<Thread>;
 
 /**
 * A PoolTask wraps a generic Task and allows to wait for its completion.
 */
-class GLOVE_API_EXPORT PoolTask : public Task {
+class BD_API_EXPORT PoolTask : public Task {
   public:
     PoolTask(TaskHandle innerTask) : innerTask(std::move(innerTask)) {}
     void Execute() override;
@@ -45,7 +45,7 @@ class GLOVE_API_EXPORT PoolTask : public Task {
 /**
 * A ThreadPool executes submitted work using a fixed number of pooled worker threads.
 */
-class GLOVE_API_EXPORT ThreadPool {
+class BD_API_EXPORT ThreadPool {
   public:
     ThreadPool(uint32 workerCount);
 
@@ -73,4 +73,4 @@ class GLOVE_API_EXPORT ThreadPool {
 
     std::mutex poolMutex;
 };
-} // namespace glove
+} // namespace BlueDwarf

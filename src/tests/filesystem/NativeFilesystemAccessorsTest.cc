@@ -5,12 +5,12 @@
 #include <glove/filesystem/io/File.hpp>
 
 namespace {
-const glove::Path directoryPath("testdata/a_directory");
-const glove::Path filePath("testdata/a_directory/a_file");
-const glove::Path nonExistingPath("testdata/a_not_existing_directory");
+const BlueDwarf::Path directoryPath("testdata/a_directory");
+const BlueDwarf::Path filePath("testdata/a_directory/a_file");
+const BlueDwarf::Path nonExistingPath("testdata/a_not_existing_directory");
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 TEST(NativeFilesystemAccessorsTest, CanDistinguishBetweenFilesAndDirectories) {
     FilesystemHandle filesystem(new NativeFilesystemAccessor());
@@ -32,4 +32,4 @@ TEST(NativeFilesystemAccessorsTest, CanCheckExistance) {
     EXPECT_FALSE(File(::nonExistingPath, filesystem).Exists());
 }
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

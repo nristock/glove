@@ -1,14 +1,14 @@
 #pragma once
 
 #include <glove/rendering/PrimitiveDrawInterface.hpp>
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/world/scene/SceneProxy.hpp"
 
 #include "glove/world/component/EntityComponent.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT MeshSceneProxy : public SceneProxy {
+class BD_API_EXPORT MeshSceneProxy : public SceneProxy {
   public:
     struct MeshVertex {
         float x, y, z;
@@ -67,7 +67,7 @@ class GLOVE_API_EXPORT MeshSceneProxy : public SceneProxy {
     std::unique_ptr<MeshVertexBuffer> meshVertexBuffer;
 };
 
-class GLOVE_API_EXPORT MeshComponent : public EntityComponent {
+class BD_API_EXPORT MeshComponent : public EntityComponent {
   public:
     virtual ~MeshComponent() = default;
 

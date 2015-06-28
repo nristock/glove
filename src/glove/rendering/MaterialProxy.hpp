@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 #include "glove/rendering/RenderTarget.hpp"
 #include "glove/rendering/Texture.hpp"
 #include "glove/rendering/SceneView.hpp"
@@ -11,14 +11,14 @@
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 class ShaderProgram;
 class RenderCommandList;
 
 /**
  * A uniform parameter of a ShaderProgram.
  */
-class GLOVE_API_EXPORT UniformParameter {
+class BD_API_EXPORT UniformParameter {
   public:
     using Handle = std::shared_ptr<UniformParameter>;
 
@@ -46,7 +46,7 @@ class GLOVE_API_EXPORT UniformParameter {
 /**
  * A UniformParameter representing a texture unit and sampler.
  */
-class GLOVE_API_EXPORT TextureUniformParameter : public UniformParameter {
+class BD_API_EXPORT TextureUniformParameter : public UniformParameter {
   public:
     using Handle = std::shared_ptr<TextureUniformParameter>;
 
@@ -71,7 +71,7 @@ class GLOVE_API_EXPORT TextureUniformParameter : public UniformParameter {
  * A MaterialProxy combines a ShaderProgram with @link UniformParameter UniformParameters @endlink. The parameter which
  * represents the shaders MVP uniform is helt separately.
  */
-class GLOVE_API_EXPORT MaterialProxy {
+class BD_API_EXPORT MaterialProxy {
   public:
     void SetMesh(RenderCommandList& cmdList, const SceneView& view, const MeshBatchElement& mesh);
 

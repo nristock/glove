@@ -7,7 +7,7 @@
 
 namespace {
 
-using namespace glove;
+using namespace BlueDwarf;
 
 /**
 * A NullTask doesn't do any actual work. Its merely used to trigger queue pop condition wakeups.
@@ -30,7 +30,7 @@ class PoolWorker : public Runnable {
             TaskHandle task;
 
             do {
-                task = taskQueue->PopBlocking(std::chrono::milliseconds(GLOVE_POOL_WORKER_WAIT_TIMEOUT));
+                task = taskQueue->PopBlocking(std::chrono::milliseconds(BD_POOL_WORKER_WAIT_TIMEOUT));
 
                 if (thread.InterruptRequested()) {
                     return;
@@ -51,7 +51,7 @@ class PoolWorker : public Runnable {
 };
 }
 
-namespace glove {
+namespace BlueDwarf {
 
 ThreadPool::ThreadPool(uint32 workerCount) : workerCount(workerCount) {
     taskQueue = std::make_shared<TaskQueue>();

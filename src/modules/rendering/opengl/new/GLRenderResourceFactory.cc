@@ -4,7 +4,7 @@
 #include "GLTexture.hpp"
 #include "GLShader.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 std::unique_ptr<VertexBinding> GLRenderResourceFactory::CreateVertexBinding(const std::unordered_map<uint8, VertexElement>& shaderAttributeBindings, const std::vector<VertexBufferHandle>& vertexStreams) const {

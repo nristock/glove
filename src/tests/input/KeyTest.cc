@@ -2,7 +2,7 @@
 
 #include <glove/input/Keys.hpp>
 
-namespace glove {
+namespace BlueDwarf {
 TEST(KeyTest, CanCompareKeys) {
     Key myKey("MyKey", Key::Type::FLOAT_AXIS);
     Key equalKey("MyKey", Key::Type::FLOAT_AXIS);

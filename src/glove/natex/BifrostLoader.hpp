@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 
-#include "glove/GloveFwd.hpp"
+#include "glove/BlueDwarfFwd.hpp"
 #include "glove/natex/Natex.hpp"
 #include "glove/natex/SharedLibraryLoader.hpp"
 #include "glove/natex/ModuleLoader.hpp"
@@ -12,10 +12,10 @@
 
 using namespace BlueDwarf;
 
-namespace glove {
+namespace BlueDwarf {
 
 /// @brief The default native extension module loader.
-class GLOVE_API_EXPORT BifrostLoader : public ModuleLoader {
+class BD_API_EXPORT BifrostLoader : public ModuleLoader {
   public:
     BifrostLoader();
 
@@ -32,4 +32,4 @@ class GLOVE_API_EXPORT BifrostLoader : public ModuleLoader {
     Logger logger;
     std::unique_ptr<SharedLibraryLoader> libraryLoader;
 };
-} /* namespace glove */
+} /* namespace BlueDwarf */

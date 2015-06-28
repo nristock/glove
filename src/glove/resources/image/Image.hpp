@@ -2,11 +2,11 @@
 
 #include <vector>
 
-#include "glove/GloveApi.hpp"
+#include "glove/BlueDwarfApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT Image {
+class BD_API_EXPORT Image {
   public:
     enum class ImageFormat : int {RGB = 3, RGBA = 4};
     Image(unsigned int width, unsigned int height, ImageFormat format, unsigned char bitDepth);
@@ -27,4 +27,4 @@ class GLOVE_API_EXPORT Image {
     std::vector<unsigned char> imageData;
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

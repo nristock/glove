@@ -1,22 +1,22 @@
 #pragma once
 
-#include "glove/GloveApi.hpp"
-#include "glove/GloveException.hpp"
+#include "glove/BlueDwarfApi.hpp"
+#include "glove/DwarfException.hpp"
 #include "glove/rendering/ShaderParameter.hpp"
 #include "glove/log/format.hpp"
 
-namespace glove {
-class GLOVE_API_EXPORT NoSuchShaderParameter : public GloveException {
+namespace BlueDwarf {
+class BD_API_EXPORT NoSuchShaderParameter : public DwarfException {
   public:
     NoSuchShaderParameter(ShaderParameterSemantic semantic)
-        : GloveException(fmt::format("No shader parameter mapping for semantic {0}", semantic)) {}
+        : DwarfException(fmt::format("No shader parameter mapping for semantic {0}", semantic)) {}
     NoSuchShaderParameter(ShaderParameterSemantic semantic, const char* file, int line)
-        : GloveException(fmt::format("No shader parameter mapping for semantic {0}", semantic), file, line) {}
+        : DwarfException(fmt::format("No shader parameter mapping for semantic {0}", semantic), file, line) {}
 
     NoSuchShaderParameter(const std::string& name)
-            : GloveException(fmt::format("No shader parameter mapping for {0}", name)) {}
+            : DwarfException(fmt::format("No shader parameter mapping for {0}", name)) {}
     NoSuchShaderParameter(const std::string& name, const char* file, int line)
-            : GloveException(fmt::format("No shader parameter mapping for {0}", name), file, line) {}
+            : DwarfException(fmt::format("No shader parameter mapping for {0}", name), file, line) {}
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */

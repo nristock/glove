@@ -5,7 +5,7 @@
 
 #include "internal/OpenGLWrapper.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 namespace gl {
 
 class GLUniformIndex : public UniformParameter::UniformIndex {

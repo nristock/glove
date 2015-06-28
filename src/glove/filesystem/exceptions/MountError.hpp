@@ -1,14 +1,14 @@
 #pragma once
 
-#include "glove/GloveException.hpp"
+#include "glove/DwarfException.hpp"
 #include "glove/filesystem/Path.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 
-class GLOVE_API_EXPORT MountError : public GloveException {
+class BD_API_EXPORT MountError : public DwarfException {
 
 public:
     MountError(const std::string& message, char const* file, int line);
 };
 
-} /* namespace glove */
+} /* namespace BlueDwarf */
