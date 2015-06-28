@@ -1,2 +1,2 @@
-add_executable(tests_utils BitMaskTest.cc)
+add_executable(tests_utils BitMaskTest.cc Fnv1aTest.cc StringIdDatabaseTest.cc)
 target_link_libraries(tests_utils vendor_gmock vendor_gtest_main glove)
