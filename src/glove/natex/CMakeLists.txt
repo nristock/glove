@@ -15,6 +15,7 @@ set(gc_natex_src
    DirectoryExtensionSearcher.cc
    Module.cc
    BasicModule.cc
+   NatexFacet.cc
 
    impl/UnixSharedLibrary.cc
    impl/GloveSharedLibraryLoader.cc

@@ -2,28 +2,29 @@
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <boost/format.hpp>
-
-#include <glove/rendering/WindowConstructionHints.hpp>
+#include <glove/rendering/SceneView.hpp>
+#include <glove/world/Transform.hpp>
+#include <glove/GloveException.hpp>
 
 #include "GLWindow.hpp"
 #include "internal/GlfwWrapper.hpp"
 
+GLEWContext* glewGetContext();
+
 namespace glove {
 namespace gl {
 
-GLWindow::GLWindow(const WindowConstructionHints& creationHints)
-    : viewportWidth(0), viewportHeight(0), aspectRatio(0), orthoSize(10) {
-    glfwWindow = GlfwWrapper::CreateGlfwWindow(creationHints, this);
+GLWindow::GLWindow(const IntPoint& position, const IntPoint& size, const std::string& title) {
+    glfwWindow = GlfwWrapper::CreateGlfwWindow(position, size, title, this);
     glewContext = new GLEWContext();
 
-    SetupViewport();
-}
+    MakeCurrent();
 
-void GLWindow::SetupViewport() {
-    int width, height;
-    glfwGetFramebufferSize(glfwWindow, &width, &height);
-    SetFramebufferSize(width, height);
+    glewExperimental = GL_TRUE;
+    GLenum glewInitRes = glewInit();
+    if (glewInitRes != GLEW_OK) {
+        throw GLOVE_EXCEPTION(std::string((char*)glewGetErrorString(glewInitRes)));
+    }
 }
 
 GLWindow::~GLWindow() {
@@ -32,29 +33,6 @@ GLWindow::~GLWindow() {
 
 void GLWindow::MakeCurrent() {
     glfwMakeContextCurrent(glfwWindow);
-}
-
-bool GLWindow::CloseRequested() const {
-    return glfwWindowShouldClose(glfwWindow) != 0;
-}
-
-void GLWindow::SetFramebufferSize(int width, int height) {
-    viewportWidth = width;
-    viewportHeight = height;
-
-    GLFWwindow* currentContext = glfwGetCurrentContext();
-    if (currentContext != glfwWindow) {
-        MakeCurrent();
-    }
-
-    glViewport(0, 0, width, height);
-
-    if (currentContext != glfwWindow) {
-        glfwMakeContextCurrent(currentContext);
-    }
-
-    aspectRatio = width / height;
-    projectionMat = glm::ortho(-orthoSize, orthoSize, -orthoSize / aspectRatio, orthoSize / aspectRatio);
 }
 
 void GLWindow::SwapBuffers() {
@@ -103,38 +81,38 @@ GLFWwindow* GLWindow::GetGlfwWindow() const {
     return glfwWindow;
 }
 
-glm::mat4 GLWindow::GetProjectionMatrix() const {
-    return projectionMat;
-}
-
 GLEWContext* GLWindow::GetGlewContext() const {
     return glewContext;
 }
 
-ScreenPoint GLWindow::GetPosition() const {
-    ScreenPoint position;
-    glfwGetWindowPos(glfwWindow, &position.x, &position.y);
-
-    return position;
-}
-
-ScreenDimensions GLWindow::GetDimensions() const {
-    int x, y;
-    glfwGetWindowSize(glfwWindow, &x, &y);
-
-    return ScreenDimensions(x, y);
-}
-
-void GLWindow::SetPosition(const ScreenPoint& newPosition) {
-    glfwSetWindowPos(glfwWindow, newPosition.x, newPosition.y);
-}
-
-void GLWindow::SetDimensions(const ScreenDimensions& newDimensions) {
-    glfwSetWindowSize(glfwWindow, static_cast<int>(newDimensions.GetWidth()), static_cast<int>(newDimensions.GetHeight()));
-}
 
 void GLWindow::PollSystemEvents() {
     glfwPollEvents();
 }
+
+bool GLWindow::ShouldClose() {
+    return glfwWindowShouldClose(glfwWindow) != 0;
+}
+
+IntPoint GLWindow::GetClientArea() const {
+    int width, height;
+    glfwGetFramebufferSize(glfwWindow, &width, &height);
+
+    return {width, height};
+}
+
+void GLWindow::Flush(const RenderTarget& renderTarget) {
+
+}
+
+void GLWindow::GLFlush(const RenderTarget& renderTarget, GLRenderHardwareInterface& renderHardwareInterface) {
+    auto clientArea = GetClientArea();
+    renderHardwareInterface.BlitToDefaultFramebuffer(renderTarget, clientArea.x, clientArea.y);
+    SwapBuffers();
+}
 }
 } // namespace glove
+
+GLEWContext* glewGetContext() {
+    return glove::gl::GlfwWrapper::GetCurrentGLWindow()->GetGlewContext();
+}

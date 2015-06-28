@@ -36,9 +36,6 @@ include_directories(${PNG_INCLUDE_DIRS})
 find_package(LibZip 0.11.2 REQUIRED)
 include_directories(${LIBZIP_INCLUDE_DIRS})
 
-find_package(PythonLibs 3.4 REQUIRED)
-include_directories(${PYTHON_INCLUDE_DIRS})
-
 find_package(TCLAP 1.2.1 REQUIRED)
 include_directories(${TCLAP_INCLUDE_DIRS})
 

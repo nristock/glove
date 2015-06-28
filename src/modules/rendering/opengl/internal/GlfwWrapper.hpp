@@ -7,10 +7,12 @@
 #include <GLFW/glfw3.h>
 
 #include <glove/log/Log.hpp>
-#include <glove/rendering/Rendering.hpp>
 #include <glove/input/Keys.hpp>
+#include <glove/math/IntPoint.hpp>
 
 #include "subsystem/OpenGLRendererModule.hpp"
+
+using namespace BlueDwarf;
 
 namespace glove {
 namespace gl {
@@ -27,7 +29,8 @@ class GlfwWrapper {
     static void SetSharedWrapper(const GlfwWrapperPtr& wrapperPtr);
 
     static const std::string GetGlfwVersion();
-    static GLFWwindow* CreateGlfwWindow(const WindowConstructionHints& creationHints, GLWindow* glWindow);
+    static GLFWwindow* CreateGlfwWindow(const IntPoint& position, const IntPoint& size,
+                                        const std::string& title, GLWindow* glWindow);
     static GLWindow* GetCurrentGLWindow();
 
     static const Key& ConvertKeyCode(int glfwKeyCode);
@@ -35,7 +38,7 @@ class GlfwWrapper {
     static void InitWrapper();
 
   private:
-    logging::GloveLogger logger;
+    Logger logger;
 
     static GlfwWrapperPtr sharedWrapper;
 

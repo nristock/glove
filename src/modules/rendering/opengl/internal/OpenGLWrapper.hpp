@@ -65,6 +65,33 @@ class OpenGLWrapper {
     static void Viewport(GLint x, GLint y, GLsizei width, GLsizei height);
     static void ActiveTexture(GLenum texture);
     static void Uniform1i(GLint location, GLint value);
+    static void* MapBuffer(GLenum target, GLenum access);
+    static void* MapNamedBuffer(GLuint buffer, GLenum access);
+    static void UnmapBuffer(GLenum target);
+    static void DeleteFramebuffers(GLsizei n, GLuint* framebuffers) {
+        sharedWrapper->_glDeleteFramebuffers(n, framebuffers);
+    }
+    static void RenderbufferStorage(GLenum target, GLenum internalFormat, GLsizei width, GLsizei height) {
+        sharedWrapper->_glRenderbufferStorage(target, internalFormat, width, height);
+    }
+    static GLenum GetError() {
+        return sharedWrapper->_glGetError();
+    }
+    static void Scissor(GLint x, GLint y, GLsizei width, GLsizei height) {
+        sharedWrapper->_glScissor(x, y, width, height);
+    }
+    static void Enable(GLenum cap) {
+        sharedWrapper->_glEnable(cap);
+    }
+    static void Disable(GLenum cap) {
+        sharedWrapper->_glDisable(cap);
+    }
+    static GLenum CheckFramebufferStatus(GLenum target) {
+        return sharedWrapper->_glCheckFramebufferStatus(target);
+    }
+    static void ReadPixels(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid* data) {
+        sharedWrapper->_glReadPixels(x, y, width, height, format, type, data);
+    }
 
   protected:
     virtual void _glDeleteVertexArrays(GLsizei n, const GLuint* arrays);
@@ -115,9 +142,39 @@ class OpenGLWrapper {
     virtual void _glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
     virtual void _glActiveTexture(GLenum texture);
     virtual void _glUniform1i(GLint location, GLint value);
+    virtual void* _glMapBuffer(GLenum target, GLenum access);
+    virtual void* _glMapNamedBuffer(GLuint buffer, GLenum access);
+    virtual void _glUnmapBuffer(GLenum target);
+    virtual void _glDeleteFramebuffers(GLsizei n, GLuint* framebuffers) {
+        glDeleteFramebuffers(n, framebuffers);
+    }
+    virtual void _glRenderbufferStorage(GLenum target, GLenum internalFormat, GLsizei width, GLsizei height) {
+        glRenderbufferStorage(target, internalFormat, width, height);
+    }
+    virtual GLenum _glGetError() {
+        return glGetError();
+    }
+    virtual void _glScissor(GLint x, GLint y, GLsizei width, GLsizei height) {
+        glScissor(x, y, width, height);
+    }
+    virtual void _glEnable(GLenum cap) {
+        glEnable(cap);
+    }
+    virtual void _glDisable(GLenum cap) {
+        glDisable(cap);
+    }
+    virtual GLenum _glCheckFramebufferStatus(GLenum target) {
+        return glCheckFramebufferStatus(target);
+    }
+
+    virtual void _glReadPixels(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid* data) {
+        glReadPixels(x, y, width, height, format, type, data);
+    }
 
   private:
     static OpenGLWrapperPtr sharedWrapper;
 };
+
+using GL = OpenGLWrapper;
 }
 }

@@ -7,8 +7,10 @@ set(gc_log_src
 set(gc_log_headers
     Log.hpp
 
-    MessageProcessor.hpp
     MessageProcessors.hpp
+    MessageProcessor.hpp
+
+    LoggingFacet.hpp
 
     processors/AsyncProcessor.hpp
     processors/ConsoleOutProcessor.hpp

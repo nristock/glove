@@ -1,0 +1,10 @@
+add_library(test_mocks
+    Dummy.cc
+    BasicModuleMock.hpp
+    EntityComponentMock.hpp
+    EntityMock.hpp
+    ModuleMock.hpp
+    ServiceMock.hpp
+    ServiceRegistryMock.hpp
+    SharedLibraryMock.hpp
+)

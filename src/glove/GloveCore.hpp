@@ -25,7 +25,7 @@ class GLOVE_API_EXPORT GloveCore : public std::enable_shared_from_this<GloveCore
     ServiceRegistryHandle serviceRegistry;
     std::vector<std::shared_ptr<Module>> loadedModules;
 
-    logging::GloveLogger logger;
+    Logger logger;
 
     friend class CoreBuilder;
 };

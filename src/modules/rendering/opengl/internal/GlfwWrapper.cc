@@ -1,5 +1,4 @@
 #include <glove/GloveException.hpp>
-#include <glove/rendering/WindowConstructionHints.hpp>
 #include <glove/CommonTypes.hpp>
 
 #include "internal/GlfwWrapper.hpp"
@@ -33,16 +32,17 @@ GlfwWrapper::~GlfwWrapper() {
 }
 
 void GlfwWrapper::GlfwErrorSink(int error, const char* description) {
-    LOG(sharedWrapper->logger, error, "GLFW Error (" << error << "): " << description);
+    L_ERROR(fmt::format("GLFW Error ({0}): {1}", error, description));
 }
 
 const std::string GlfwWrapper::GetGlfwVersion() {
     return glfwGetVersionString();
 }
 
-GLFWwindow* GlfwWrapper::CreateGlfwWindow(const WindowConstructionHints& creationHints, GLWindow* glWindow) {
-    GLFWwindow* glfwWindow = glfwCreateWindow(creationHints.GetWidth(), creationHints.GetHeight(),
-                                              creationHints.GetTitle().c_str(), nullptr, glfwGetCurrentContext());
+GLFWwindow* GlfwWrapper::CreateGlfwWindow(const IntPoint& position, const IntPoint& size,
+                                          const std::string& title, GLWindow* glWindow) {
+    GLFWwindow* glfwWindow = glfwCreateWindow(size.x, size.y,
+                                              title.c_str(), nullptr, glfwGetCurrentContext());
 
     glfwSetWindowUserPointer(glfwWindow, glWindow);
     glfwSetFramebufferSizeCallback(glfwWindow, &GlfwWrapper::GlfwFramebufferSizeChanged);
@@ -60,7 +60,7 @@ GLWindow* GlfwWrapper::GetGLWindow(GLFWwindow* glfwWindow) {
 
 void GlfwWrapper::GlfwFramebufferSizeChanged(GLFWwindow* window, int width, int height) {
     GLWindow* gloveWindow = GetGLWindow(window);
-    gloveWindow->SetFramebufferSize(width, height);
+//    gloveWindow->SetFramebufferSize(width, height); todo
 }
 
 void GlfwWrapper::GlfwKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods) {

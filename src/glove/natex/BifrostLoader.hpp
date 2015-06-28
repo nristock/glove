@@ -10,6 +10,8 @@
 #include "glove/natex/Module.hpp"
 #include "glove/log/Log.hpp"
 
+using namespace BlueDwarf;
+
 namespace glove {
 
 /// @brief The default native extension module loader.

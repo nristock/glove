@@ -1,36 +1,23 @@
 set(opengl_renderer_src
-    GLRenderer.cc
     GLWindow.cc
-    GLGpuBuffer.cc
-    GLMesh.cc
-    GLRenderOperation.cc
 
     internal/GlfwWrapper.cc
     internal/OpenGLWrapper.cc
 
-    texture/GLTexture.cc
-
-    target/GLRenderTarget.cc
-    target/GLDefaultRenderTarget.cc
-
-    shader/GLMaterialAttribute.cc
-    shader/GLMaterial.cc
-    shader/GLShader.cc
-    shader/GLShaderProgram.cc
-    shader/GLVertexAttributeMapping.cc
-    shader/GLMaterialTextureAttribute.cc
-
-    factories/GLRendererFactory.cc
-    factories/GLGpuBufferFactory.cc
-    factories/GLMeshFactory.cc
-    factories/GLShaderFactory.cc
-    factories/GLShaderProgramFactory.cc
-    factories/GLMaterialFactory.cc
-    factories/GLRenderOperationFactory.cc
-    factories/GLTextureFactory.cc
+    factories/GLWindowFactory.cc
 
     subsystem/OpenGLRendererModule.cc
     subsystem/GLRenderingModule.cc
+
+    new/GLRenderResourceFactory.cc
+    new/GLVertexBinding.cc
+    new/VertexElementUtils.cc
+    new/GLGpuBuffer.cc
+    new/GLRenderHardwareInterface.cc
+    new/GLState.hpp
+    new/GLTexture.hpp
+    new/GLShader.cc
+    new/GLTexture.cc
 )
 
 include_directories(.)

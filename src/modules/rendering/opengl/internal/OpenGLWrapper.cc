@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include <unistd.h>
 
 #include "internal/OpenGLWrapper.hpp"
 
@@ -358,6 +359,30 @@ void OpenGLWrapper::Uniform1i(GLint location, GLint value) {
 
 void OpenGLWrapper::_glUniform1i(GLint location, GLint value) {
     glUniform1i(location, value);
+}
+
+void* OpenGLWrapper::MapBuffer(GLenum target, GLenum access) {
+    return sharedWrapper->_glMapBuffer(target, access);
+}
+
+void* OpenGLWrapper::MapNamedBuffer(GLuint buffer, GLenum access) {
+    return sharedWrapper->_glMapNamedBuffer(buffer, access);
+}
+
+void* OpenGLWrapper::_glMapBuffer(GLenum target, GLenum access) {
+    return glMapBuffer(target, access);
+}
+
+void* OpenGLWrapper::_glMapNamedBuffer(GLuint buffer, GLenum access) {
+    throw 0; // todo
+}
+
+void OpenGLWrapper::UnmapBuffer(GLenum target) {
+    sharedWrapper->_glUnmapBuffer(target);
+}
+
+void OpenGLWrapper::_glUnmapBuffer(GLenum target) {
+    glUnmapBuffer(target);
 }
 }
 }

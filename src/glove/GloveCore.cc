@@ -12,11 +12,10 @@ namespace glove {
 GloveCore::GloveCore(const Configuration& engineConfig, const ServiceRegistryHandle& serviceRegistry,
                      const std::vector<ModuleHandle>& loadedModules)
     : engineConfiguration(engineConfig), serviceRegistry(serviceRegistry), loadedModules(loadedModules) {
-    LOG(logger, info, (boost::format("Creating GloveCore version %1%") % GLOVE_VERSION_STRING).str());
+    logger.Info(fmt::format("Creating GloveCore version {0}", GLOVE_VERSION_STRING));
 
-    LOG(logger, info, "Using ZLIB " << ZLIB_VERSION);
-    LOG(logger, info, "Using libPng " << PNG_LIBPNG_VER_STRING);
-    LOG(logger, info, "Using Boost " << (BOOST_VERSION / 100000) << "." << ((BOOST_VERSION / 100) % 1000) << "."
-                                     << (BOOST_VERSION % 100));
+    logger.Info(fmt::format("Using ZLIB {0}", ZLIB_VERSION));
+    logger.Info(fmt::format("Using libPng {0}", PNG_LIBPNG_VER_STRING));
+    logger.Info(fmt::format("Using Boost {0}.{1}.{2}", (BOOST_VERSION / 100000), ((BOOST_VERSION / 100) % 1000), (BOOST_VERSION % 100)));
 }
 } /* namespace glove */

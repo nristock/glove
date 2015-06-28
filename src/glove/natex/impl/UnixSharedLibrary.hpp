@@ -6,6 +6,8 @@
 #include "glove/log/Log.hpp"
 #include "glove/natex/SharedLibrary.hpp"
 
+using namespace BlueDwarf;
+
 namespace glove {
 
 class GLOVE_API_EXPORT UnixSharedLibrary : public SharedLibrary {

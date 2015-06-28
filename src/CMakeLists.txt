@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(glove)
+project(BlueDwarf CXX C)
 enable_testing()
 
 set(PROJECT_ROOT "${CMAKE_SOURCE_DIR}/.." CACHE PATH "Root path of the project, i.e. the directory containing the src dir")
@@ -65,6 +65,8 @@ endif()
 add_subdirectory(vendor)
 add_subdirectory(glove)
 add_subdirectory(utils)
+
+add_subdirectory(examples/sandbox)
 
 if(GLOVE_BUILD_MODULES)
     add_subdirectory(modules)

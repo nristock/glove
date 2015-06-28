@@ -4,9 +4,10 @@
 #include <GL/gl.h>
 #include <glm/glm.hpp>
 
-#include <glove/GloveFwd.hpp>
-#include <glove/rendering/Rendering.hpp>
-#include <glove/rendering/IWindow.hpp>
+#include <glove/math/IntPoint.hpp>
+#include <glove/rendering/ApplicationViewport.hpp>
+#include <glove/rendering/SceneView.hpp>
+#include <new/GLRenderHardwareInterface.hpp>
 
 struct GLFWwindow;
 
@@ -14,29 +15,36 @@ namespace glove {
 namespace gl {
 
 /// @ingroup OpenGLRenderer
-class GLWindow : public IWindow {
+class GLViewportClient : public ViewportClient {
+  public:
+    virtual void GLFlush(const RenderTarget& renderTarget, GLRenderHardwareInterface& renderHardwareInterface) = 0;
+};
+
+class GLWindow : public GLViewportClient {
     friend class GlfwWrapper;
 
   public:
-    GLWindow(const WindowConstructionHints& creationHints);
+    GLWindow(const IntPoint& position, const IntPoint& size, const std::string& title);
 
     virtual ~GLWindow();
 
-    virtual void MakeCurrent();
+    void MakeCurrent();
 
-    virtual void SetFramebufferSize(int newWidth, int newHeight);
+    void SwapBuffers();
 
-    virtual void SwapBuffers();
-    virtual bool CloseRequested() const;
-    virtual std::string GetContextVersion() const;
-    virtual glm::mat4 GetProjectionMatrix() const;
+    virtual bool ShouldClose();
 
-    virtual ScreenPoint GetPosition() const;
-    virtual ScreenDimensions GetDimensions() const;
+    std::string GetContextVersion() const;
 
-    virtual void SetPosition(const ScreenPoint& newPosition);
-    virtual void SetDimensions(const ScreenDimensions& newDimensions);
     virtual void PollSystemEvents();
+
+
+    virtual IntPoint GetClientArea() const ;
+
+    virtual void Flush(const RenderTarget& renderTarget);
+
+
+    virtual void GLFlush(const RenderTarget& renderTarget, GLRenderHardwareInterface& renderHardwareInterface);
 
     GLFWwindow* GetGlfwWindow() const;
     GLEWContext* GetGlewContext() const;
@@ -45,16 +53,9 @@ class GLWindow : public IWindow {
     GLFWwindow* glfwWindow;
     GLEWContext* glewContext;
 
-    int viewportWidth, viewportHeight;
-    float aspectRatio;
-    float orthoSize;
-    glm::mat4 projectionMat;
-
     void OnKeyEvent(int key, int scancode, int action, int mods);
     void OnMouseMove(double x, double y);
     void OnMouseButton(int button, int action, int mods);
-
-    void SetupViewport();
 };
 }
 } // namespace glove

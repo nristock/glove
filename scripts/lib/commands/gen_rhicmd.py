@@ -1,10 +1,10 @@
 from os import path
 import re
+
 from lib.pybars import Compiler
 from lib.utils.DevTreeUtils import DevTree
 from lib.utils.Logger import Log
 from lib.utils.ProcessUtils import ExecutableRunner
-
 
 UINT32 = "uint32"
 
@@ -49,6 +49,10 @@ struct {{name}}Command : public RenderHardwareCommand {
             );
     }{{>br}}{{>br}}
 
+    virtual void Visualize(std::ostream& ostream) const {
+        {{{visualizer}}}
+    }{{>br}}{{>br}}
+
     {{#each attributes}}
         const {{{type}}} {{name}};
     {{/each}}
@@ -69,12 +73,13 @@ COMMAND_METHOD_TEMPLATE = """
 
 
 class RHICommand:
-    def __init__(self, command_name, attributes=list()):
+    def __init__(self, command_name, attributes=list(), visualizer=None):
         self.name = command_name
         self.attributes = attributes
+        self.visualizer = visualizer if visualizer else 'ostream << "{0}";'.format(command_name)
 
     def to_dict(self):
-        return {"name": self.name, "attributes": [attrib.to_dict() for attrib in self.attributes]}
+        return {"name": self.name, "attributes": [attrib.to_dict() for attrib in self.attributes], 'visualizer': self.visualizer}
 
 
 class RHICmdAttribute:
@@ -93,7 +98,14 @@ rhi_commands = [
         RHICmdAttribute("y", "int32", False),
         RHICmdAttribute("width", "int32", False),
         RHICmdAttribute("height", "int32", False)
-    ]),
+    ], """
+    ostream << "SetViewport {";
+    ostream << "x: " << x;
+    ostream << " y: " << y;
+    ostream << " width: " << width;
+    ostream << " height: " << height;
+    ostream << "}";
+    """),
 
     RHICommand("SetScissorRect", [
         RHICmdAttribute("x", "int32", False),
@@ -102,27 +114,60 @@ rhi_commands = [
         RHICmdAttribute("height", "int32", False)
     ]),
 
-    # RHICommand("SetColorTargets", [
-    #     RHICmdAttribute("colorTargets", "std::vector<RenderTarget>")
-    # ]),
-    #
-    # RHICommand("SetDepthStencilTarget", [
-    #     RHICmdAttribute("depthTarget", "RenderTarget")
-    # ]),
-
     RHICommand("SetRenderTargets", [
         RHICmdAttribute("colorTargets", "std::vector<RenderTarget>"),
         RHICmdAttribute("depthStencilTarget", "RenderTarget")
     ]),
 
-    RHICommand("BeginFrame"),
-    RHICommand("EndFrame"),
+    RHICommand("EnableVertexBinding", [
+        RHICmdAttribute("vertexBinding", "std::shared_ptr<VertexBinding>")
+    ]),
+
+    RHICommand("EnableShaderProgram", [
+        RHICmdAttribute("shaderProgram", "std::shared_ptr<ShaderProgram>")
+    ]),
+
+    RHICommand("BindTexture2D", [
+        RHICmdAttribute("texture", "std::shared_ptr<Texture2D>"),
+        RHICmdAttribute("textureSlot", "uint32")
+    ]),
+
+    RHICommand("SetUniformParameter", [
+        RHICmdAttribute("uniformParameter", "std::shared_ptr<UniformParameter::UniformIndex>"),
+        RHICmdAttribute("value", "glm::mat4"),
+    ]),
+
+    RHICommand("SetIntUniformParameter", [
+        RHICmdAttribute("uniformParameter", "std::shared_ptr<UniformParameter::UniformIndex>"),
+        RHICmdAttribute("value", "uint32"),
+    ]),
+
+    RHICommand("DrawIndexedPrimitive", [
+        RHICmdAttribute("indexBuffer", "std::shared_ptr<IndexBuffer>"),
+        RHICmdAttribute("firstIndex", "uint32"),
+        RHICmdAttribute("lastIndex", "uint32"),
+
+    ]),
+
+    RHICommand("ClearFramebuffer", [
+       RHICmdAttribute("clearColor", "bool"),
+       RHICmdAttribute("clearDepth", "bool"),
+       RHICmdAttribute("clearStencil", "bool")
+    ]),
+
+    RHICommand("BeginFrame", [
+        RHICmdAttribute("viewportClient", "std::shared_ptr<ViewportClient>")
+    ]),
+    RHICommand("EndFrame", [
+        RHICmdAttribute("viewportClient", "std::shared_ptr<ViewportClient>"),
+        RHICmdAttribute("presentSource", "RenderTarget")
+    ]),
 ]
 
 
 def generate_command_structs():
     working_dir = DevTree.source_dir
-    header_file = path.join(working_dir, "glove", "world", "rendering", "RenderHardwareCommands.hpp")
+    header_file = path.join(working_dir, "glove", "rendering", "RenderHardwareCommands.hpp")
 
     compiler = Compiler()
 
@@ -152,7 +197,7 @@ def generate_command_structs():
 
 def generate_command_methods():
     working_dir = DevTree.source_dir
-    header_file = path.join(working_dir, "glove", "world", "rendering", "RenderHardwareInterface.hpp")
+    header_file = path.join(working_dir, "glove", "rendering", "RenderHardwareInterface.hpp")
 
     compiler = Compiler()
 
