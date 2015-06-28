@@ -14,11 +14,11 @@
 #define __GLOVE_PRETTY_FUNC_ __func__
 #endif
 
-namespace glove {
+namespace BlueDwarf {
 #define M_TAG __FILE__, __GLOVE_PRETTY_FUNC_, __LINE__
 #define LOG(_level, _args)                                                                                             \
     {                                                                                                                  \
-        glove::Logger _anonymousLogger;                                                                                \
+        BlueDwarf::Logger _anonymousLogger;                                                                                \
         _anonymousLogger._level(_args, M_TAG);                                                                         \
     }
 

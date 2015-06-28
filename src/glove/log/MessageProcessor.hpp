@@ -4,7 +4,7 @@
 
 #include "glove/GloveApi.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 struct Message;
 
 /**

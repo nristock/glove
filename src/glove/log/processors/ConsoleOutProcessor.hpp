@@ -8,7 +8,7 @@
 #include "glove/log/Message.hpp"
 #include "glove/log/MessageProcessor.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 struct Message;
 /**
 * Threadsafe stdout writer.

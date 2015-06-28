@@ -4,7 +4,7 @@
 #include "glove/log/format.hpp"
 
 namespace {
-using namespace glove;
+using namespace BlueDwarf;
 
 MessageProcessor::Handle g_defaultLogPipeline;
 
@@ -23,7 +23,7 @@ class FallbackMessageProcessor : public MessageProcessor {
 };
 }
 
-namespace glove {
+namespace BlueDwarf {
 Logger::Logger(const std::string& name) : name(name) {
     messageProcessor = g_defaultLogPipeline;
 }

@@ -7,7 +7,7 @@
 #include "glove/GloveApi.hpp"
 #include "glove/CommonTypes.hpp"
 
-namespace glove {
+namespace BlueDwarf {
 enum class LogLevel:int { Error = 0, Warning = 1, Info = 2, Debug = 3, Trace = 4};
 std::ostream& operator<<(std::ostream& stream, const LogLevel& logLevel);
 

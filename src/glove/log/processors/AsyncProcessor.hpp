@@ -7,7 +7,9 @@
 #include "glove/log/MessageProcessor.hpp"
 #include "glove/threading/ThreadPool.hpp"
 
-namespace glove {
+using namespace glove;
+
+namespace BlueDwarf {
 struct Message;
 
 /**
