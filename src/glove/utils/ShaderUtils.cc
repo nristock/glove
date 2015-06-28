@@ -32,7 +32,7 @@ void PrintShaderProgramLinkLog(GLuint programId) {
 
     if (logLength > 0) {
         GLchar* linkLog = new GLchar[logLength];
-        glGetProgramInfoLog(programId, logLength, &logLength, linkLog);
+        glGetProgramInfoLog(programId, logLength, &charsWritten, linkLog);
 
         LOG(Error, fmt::format("Shader Link Log:\n {0}", linkLog));
         delete[] linkLog;
