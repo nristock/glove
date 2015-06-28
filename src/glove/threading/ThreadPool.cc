@@ -38,7 +38,11 @@ class PoolWorker : public Runnable {
             } while (!task);
 
             // At this point we have a valid task object.
-            task->Execute();
+            try {
+                task->Execute();
+            } catch (std::exception& ex) {
+                LOG(Error, fmt::format("Error executing pool task {0}", ex.what()));
+            }
         }
     }
 
