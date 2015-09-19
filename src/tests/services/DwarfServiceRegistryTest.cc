@@ -3,7 +3,7 @@
 #include <boost/uuid/uuid_generators.hpp>
 
 #include <glove/services/Services.hpp>
-#include "DwarfServiceRegistry.hpp"
+#include <glove/services/impl/DwarfServiceRegistry.hpp>
 #include <glove/services/exceptions/ServiceNotFound.hpp>
 #include <glove/services/exceptions/ServiceNotInitialized.hpp>
 

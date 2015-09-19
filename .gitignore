@@ -79,6 +79,7 @@ python
 
 # CLion
 .idea
+.iml
 
 docs/doxygen/
 docs/site

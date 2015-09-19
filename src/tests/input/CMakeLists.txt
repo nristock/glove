@@ -3,3 +3,5 @@ add_executable(tests_input
     KeyStateChangedTest.cc
 )
 target_link_libraries(tests_input vendor_gmock vendor_gtest_main glove)
+
+add_dwarf_test(tests_input)

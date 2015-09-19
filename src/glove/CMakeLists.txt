@@ -16,7 +16,6 @@ add_subdirectory(rendering)
 add_subdirectory(geometry)
 
 set(core_src
-    DwarfCore.cc
     DwarfException.cc
 
     exceptions/OperationNotSupported.cc

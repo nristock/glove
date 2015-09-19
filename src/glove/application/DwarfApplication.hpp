@@ -15,9 +15,12 @@ using ApplicationViewportHandle = std::shared_ptr<ApplicationViewport>;
 *
 * They can be used to initialize engine subsystems or configure other facets.
 *
-* Every facets has 4 lifecycle phases.
+* Every facet has 4 lifecycle phases.
 * <ul>
 *     <li>Configure</li>
+*     <li>Bootstrap</li>
+*     <li>Initialize</li>
+*     <li>Finalize</li>
 * </ul>
 */
 class BD_API_EXPORT ApplicationFacet {

@@ -1,2 +1,4 @@
 add_executable(tests_threading TaskQueueTest.cc ThreadTest.cc ThreadPoolTest.cc)
 target_link_libraries(tests_threading vendor_gmock vendor_gtest_main glove)
+
+add_dwarf_test(tests_threading)

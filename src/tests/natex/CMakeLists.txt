@@ -13,3 +13,5 @@ add_custom_command(TARGET tests_natex POST_BUILD
 
 add_subdirectory(testlib)
 add_dependencies(tests_natex tests_natex_testlib)
+
+add_dwarf_test(tests_natex)

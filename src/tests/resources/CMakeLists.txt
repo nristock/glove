@@ -5,3 +5,5 @@ add_custom_command(TARGET tests_resources POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${PROJECT_SOURCE_DIR}/tests/resources/testdata"
         $<TARGET_FILE_DIR:tests_resources>/testdata)
+
+add_dwarf_test(tests_resources)

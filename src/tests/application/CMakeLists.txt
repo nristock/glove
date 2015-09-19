@@ -1,2 +1,4 @@
 add_executable(tests_application ApplicationTest.cc)
 target_link_libraries(tests_application vendor_gmock vendor_gtest_main glove)
+
+add_dwarf_test(tests_application)
